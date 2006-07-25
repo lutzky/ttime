@@ -549,13 +549,12 @@ namespace UDonkey.DB
 		{
 			switch(theDay)
 			{
-				case "sun": {return DayOfWeek.Sunday;}
-				case "mon": {return DayOfWeek.Monday;}
-				case "tue": {return DayOfWeek.Tuesday;}
-				case "wed": {return DayOfWeek.Wednesday;}
-				case "thr": {return DayOfWeek.Thursday;}
-				case "fri": {return DayOfWeek.Friday;}
-				case "fri": {return DayOfWeek.Saturday;}
+				case "א": {return DayOfWeek.ראשון;}
+				case "ב": return DayOfWeek.שני;
+				case "ג": return DayOfWeek.שלישי;
+				case "ד": return DayOfWeek.רביעי;
+				case "ה": return DayOfWeek.חמישי;
+				case "ו": return DayOfWeek.שישי;
 				default: throw new ArgumentOutOfRangeException("theDay");
 			}
 			
@@ -620,9 +619,9 @@ namespace UDonkey.DB
 				{
 					switch (currentEventType)
 					{
-						case "": { theCourse.Lectures.Add(currentRegGroup, tempCourseEvent); break; }
-						case "": { theCourse.Labs.Add(currentRegGroup, tempCourseEvent); break; }
-						case "": { theCourse.Projects.Add(currentRegGroup, tempCourseEvent); break; }
+						case "הרצאה": { theCourse.Lectures.Add(currentRegGroup, tempCourseEvent); break; }
+						case "מעבדה": { theCourse.Labs.Add(currentRegGroup, tempCourseEvent); break; }
+						case "קבוצה": { theCourse.Projects.Add(currentRegGroup, tempCourseEvent); break; }
 						default: { theCourse.Tutorials.Add(currentRegGroup, tempCourseEvent); break; }
 					}
 				}

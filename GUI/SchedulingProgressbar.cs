@@ -30,7 +30,7 @@ namespace UDonkey.GUI
             //
             InitializeComponent();
             this.label1.Text = string.Format("{0}",
-                "ëòú îúáöòú éöéøú äîòøëåú");
+                "×›×¢×ª ××ª×‘×¦×¢×ª ×™×¦×™×¨×ª ×”××¢×¨×›×•×ª");
         }
 
         /// <summary>
@@ -83,7 +83,7 @@ namespace UDonkey.GUI
 			this.countTextLabel.Name = "countTextLabel";
 			this.countTextLabel.Size = new System.Drawing.Size(80, 20);
 			this.countTextLabel.TabIndex = 2;
-			this.countTextLabel.Text = "áåã÷ îòøëú îñ\'";
+			this.countTextLabel.Text = "×‘×•×“×§ ××¢×¨×›×ª ××¡\'";
 			// 
 			// countLabel
 			// 
@@ -98,7 +98,7 @@ namespace UDonkey.GUI
 			this.countTextlabel2.Name = "countTextlabel2";
 			this.countTextlabel2.Size = new System.Drawing.Size(30, 20);
 			this.countTextlabel2.TabIndex = 4;
-			this.countTextlabel2.Text = "îúåê";
+			this.countTextlabel2.Text = "××ª×•×š";
 			// 
 			// countMaxlabel
 			// 
@@ -128,7 +128,7 @@ namespace UDonkey.GUI
 			this.Name = "SchedulingProgressbar";
 			this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
 			this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
-			this.Text = "éöéøú îòøëåú";
+			this.Text = "×™×¦×™×¨×ª ××¢×¨×›×•×ª";
 			this.ResumeLayout(false);
 
 		}

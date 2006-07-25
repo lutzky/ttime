@@ -241,7 +241,7 @@ namespace UDonkey.Logic
 			DataRow row;
 
 			//Creating the hours column
-			/*column = new DataColumn( "ùòåú", typeof(string) );
+			/*column = new DataColumn( "×©×¢×•×ª", typeof(string) );
 			returnDataTable.Columns.Add(column);*/
 
 			foreach ( string day in Enum.GetNames( typeof(DayOfWeek) ) )
@@ -258,7 +258,7 @@ namespace UDonkey.Logic
 				{
 					row[ day.ToString() ] = new ScheduleEntryBucket( this );
 				}
-				row[ "ùòåú" ] =  new HourColumnScheduleEntry( i );
+				row[ "×©×¢×•×ª" ] =  new HourColumnScheduleEntry( i );
 				returnDataTable.Rows.Add( row );
 			}
 			return returnDataTable;

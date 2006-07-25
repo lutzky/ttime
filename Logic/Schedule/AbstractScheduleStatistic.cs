@@ -47,8 +47,8 @@ namespace UDonkey.Logic
             {
                 ScheduleDayData dayData = (ScheduleDayData) entry.Value;
                
-                if( dayData.Day == DayOfWeek.Saturday)
-                	continue;
+                if( dayData.Day == DayOfWeek.שעות )
+                    continue;
 
                 ++mnNumberOfDays;
                 

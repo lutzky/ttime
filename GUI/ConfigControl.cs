@@ -268,7 +268,7 @@ namespace UDonkey.GUI
 			this.lblMainTitle.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
 			this.lblMainTitle.Size = new System.Drawing.Size(904, 32);
 			this.lblMainTitle.TabIndex = 0;
-			this.lblMainTitle.Text = "δβγψεϊ ξςψλϊ";
+			this.lblMainTitle.Text = "Χ”Χ’Χ“Χ¨Χ•Χª ΧΧΆΧ¨Χ›Χª";
 			this.lblMainTitle.TextAlign = System.Drawing.ContentAlignment.TopCenter;
 			// 
 			// chbCollisions
@@ -277,7 +277,7 @@ namespace UDonkey.GUI
 			this.chbCollisions.Name = "chbCollisions";
 			this.chbCollisions.Size = new System.Drawing.Size(184, 24);
 			this.chbCollisions.TabIndex = 1;
-			this.chbCollisions.Text = "ΰτωψ δϊπβωειεϊ αξςψλϊ";
+			this.chbCollisions.Text = "ΧΧ¤Χ©Χ¨ Χ”ΧªΧ Χ’Χ©Χ•Χ™Χ•Χª Χ‘ΧΧΆΧ¨Χ›Χª";
 			this.chbCollisions.CheckedChanged += new System.EventHandler(this.chbCollisions_CheckedChanged);
 			// 
 			// tbMaxCollisions
@@ -297,7 +297,7 @@ namespace UDonkey.GUI
 			this.lblMaxCollisions.Name = "lblMaxCollisions";
 			this.lblMaxCollisions.Size = new System.Drawing.Size(64, 32);
 			this.lblMaxCollisions.TabIndex = 3;
-			this.lblMaxCollisions.Text = "ξχριξεν δϊπβωειεϊ:";
+			this.lblMaxCollisions.Text = "ΧΧ§Χ΅Χ™ΧΧ•Χ Χ”ΧªΧ Χ’Χ©Χ•Χ™Χ•Χª:";
 			// 
 			// chbRegGroups
 			// 
@@ -307,7 +307,7 @@ namespace UDonkey.GUI
 			this.chbRegGroups.Name = "chbRegGroups";
 			this.chbRegGroups.Size = new System.Drawing.Size(240, 24);
 			this.chbRegGroups.TabIndex = 4;
-			this.chbRegGroups.Text = "ΰτωψ ωιαευ ΰψεςιν ξχαεφεϊ ψιωεν ωεπεϊ";
+			this.chbRegGroups.Text = "ΧΧ¤Χ©Χ¨ Χ©Χ™Χ‘Χ•Χ¥ ΧΧ¨Χ•ΧΆΧ™Χ ΧΧ§Χ‘Χ•Χ¦Χ•Χª Χ¨Χ™Χ©Χ•Χ Χ©Χ•Χ Χ•Χª";
 			// 
 			// chbTestAlert
 			// 
@@ -317,7 +317,7 @@ namespace UDonkey.GUI
 			this.chbTestAlert.Name = "chbTestAlert";
 			this.chbTestAlert.Size = new System.Drawing.Size(216, 16);
 			this.chbTestAlert.TabIndex = 5;
-			this.chbTestAlert.Text = "δϊψς ΰν ξεςγι ΰ\' αψεεη ωμ τηεϊ ξ";
+			this.chbTestAlert.Text = "Χ”ΧªΧ¨ΧΆ ΧΧ ΧΧ•ΧΆΧ“Χ™ Χ\' Χ‘Χ¨Χ•Χ•Χ— Χ©Χ Χ¤Χ—Χ•Χª Χ";
 			this.chbTestAlert.CheckedChanged += new System.EventHandler(this.chbTestAlert_CheckedChanged);
 			// 
 			// tbMinTestDays
@@ -335,7 +335,7 @@ namespace UDonkey.GUI
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(32, 16);
 			this.label2.TabIndex = 7;
-			this.label2.Text = "ιξιν";
+			this.label2.Text = "Χ™ΧΧ™Χ";
 			// 
 			// chbSunday
 			// 
@@ -345,7 +345,7 @@ namespace UDonkey.GUI
 			this.chbSunday.Name = "chbSunday";
 			this.chbSunday.Size = new System.Drawing.Size(40, 24);
 			this.chbSunday.TabIndex = 8;
-			this.chbSunday.Text = "ΰ\'";
+			this.chbSunday.Text = "Χ\'";
 			// 
 			// chbMonday
 			// 
@@ -355,7 +355,7 @@ namespace UDonkey.GUI
 			this.chbMonday.Name = "chbMonday";
 			this.chbMonday.Size = new System.Drawing.Size(40, 24);
 			this.chbMonday.TabIndex = 9;
-			this.chbMonday.Text = "α\'";
+			this.chbMonday.Text = "Χ‘\'";
 			// 
 			// chbWednesday
 			// 
@@ -365,7 +365,7 @@ namespace UDonkey.GUI
 			this.chbWednesday.Name = "chbWednesday";
 			this.chbWednesday.Size = new System.Drawing.Size(40, 24);
 			this.chbWednesday.TabIndex = 11;
-			this.chbWednesday.Text = "γ\'";
+			this.chbWednesday.Text = "Χ“\'";
 			// 
 			// chbTuesday
 			// 
@@ -375,7 +375,7 @@ namespace UDonkey.GUI
 			this.chbTuesday.Name = "chbTuesday";
 			this.chbTuesday.Size = new System.Drawing.Size(40, 24);
 			this.chbTuesday.TabIndex = 10;
-			this.chbTuesday.Text = "β\'";
+			this.chbTuesday.Text = "Χ’\'";
 			// 
 			// chbSaturday
 			// 
@@ -383,7 +383,7 @@ namespace UDonkey.GUI
 			this.chbSaturday.Name = "chbSaturday";
 			this.chbSaturday.Size = new System.Drawing.Size(48, 24);
 			this.chbSaturday.TabIndex = 14;
-			this.chbSaturday.Text = "ωαϊ";
+			this.chbSaturday.Text = "Χ©Χ‘Χª";
 			// 
 			// chbFriday
 			// 
@@ -391,7 +391,7 @@ namespace UDonkey.GUI
 			this.chbFriday.Name = "chbFriday";
 			this.chbFriday.Size = new System.Drawing.Size(40, 24);
 			this.chbFriday.TabIndex = 13;
-			this.chbFriday.Text = "ε\'";
+			this.chbFriday.Text = "Χ•\'";
 			// 
 			// chbThursday
 			// 
@@ -401,7 +401,7 @@ namespace UDonkey.GUI
 			this.chbThursday.Name = "chbThursday";
 			this.chbThursday.Size = new System.Drawing.Size(40, 24);
 			this.chbThursday.TabIndex = 12;
-			this.chbThursday.Text = "δ\'";
+			this.chbThursday.Text = "Χ”\'";
 			// 
 			// label3
 			// 
@@ -409,7 +409,7 @@ namespace UDonkey.GUI
 			this.label3.Name = "label3";
 			this.label3.Size = new System.Drawing.Size(128, 16);
 			this.label3.TabIndex = 15;
-			this.label3.Text = "ιξιν μδλμμδ αξςψλϊ:";
+			this.label3.Text = "Χ™ΧΧ™Χ ΧΧ”Χ›ΧΧΧ” Χ‘ΧΧΆΧ¨Χ›Χª:";
 			// 
 			// label4
 			// 
@@ -417,7 +417,7 @@ namespace UDonkey.GUI
 			this.label4.Name = "label4";
 			this.label4.Size = new System.Drawing.Size(72, 16);
 			this.label4.TabIndex = 17;
-			this.label4.Text = "ωςϊ δϊημδ";
+			this.label4.Text = "Χ©ΧΆΧª Χ”ΧªΧ—ΧΧ”";
 			// 
 			// cbStartHour
 			// 
@@ -493,7 +493,7 @@ namespace UDonkey.GUI
 			this.label5.Name = "label5";
 			this.label5.Size = new System.Drawing.Size(72, 16);
 			this.label5.TabIndex = 19;
-			this.label5.Text = "ωςϊ ριεν";
+			this.label5.Text = "Χ©ΧΆΧª Χ΅Χ™Χ•Χ";
 			// 
 			// tbHoles
 			// 
@@ -553,7 +553,7 @@ namespace UDonkey.GUI
 			this.label6.Name = "label6";
 			this.label6.Size = new System.Drawing.Size(48, 32);
 			this.label6.TabIndex = 25;
-			this.label6.Text = "ξιπιξεν ηεψιν";
+			this.label6.Text = "ΧΧ™Χ Χ™ΧΧ•Χ Χ—Χ•Χ¨Χ™Χ";
 			this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
 			// label7
@@ -562,7 +562,7 @@ namespace UDonkey.GUI
 			this.label7.Name = "label7";
 			this.label7.Size = new System.Drawing.Size(56, 32);
 			this.label7.TabIndex = 26;
-			this.label7.Text = "ξχριξεν ηεψιν";
+			this.label7.Text = "ΧΧ§Χ΅Χ™ΧΧ•Χ Χ—Χ•Χ¨Χ™Χ";
 			this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
 			// label8
@@ -572,7 +572,7 @@ namespace UDonkey.GUI
 			this.label8.Name = "label8";
 			this.label8.Size = new System.Drawing.Size(48, 16);
 			this.label8.TabIndex = 27;
-			this.label8.Text = "μΰ ηωεα";
+			this.label8.Text = "ΧΧ Χ—Χ©Χ•Χ‘";
 			// 
 			// label9
 			// 
@@ -581,7 +581,7 @@ namespace UDonkey.GUI
 			this.label9.Name = "label9";
 			this.label9.Size = new System.Drawing.Size(32, 24);
 			this.label9.TabIndex = 28;
-			this.label9.Text = "ηωεα ξΰεγ";
+			this.label9.Text = "Χ—Χ©Χ•Χ‘ ΧΧΧ•Χ“";
 			this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
 			// label10
@@ -591,7 +591,7 @@ namespace UDonkey.GUI
 			this.label10.Name = "label10";
 			this.label10.Size = new System.Drawing.Size(32, 24);
 			this.label10.TabIndex = 29;
-			this.label10.Text = "ηωεα ξΰεγ";
+			this.label10.Text = "Χ—Χ©Χ•Χ‘ ΧΧΧ•Χ“";
 			this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
 			// label11
@@ -600,7 +600,7 @@ namespace UDonkey.GUI
 			this.label11.Name = "label11";
 			this.label11.Size = new System.Drawing.Size(48, 40);
 			this.label11.TabIndex = 30;
-			this.label11.Text = "ξιπιξεν ιξιν ηετωιιν";
+			this.label11.Text = "ΧΧ™Χ Χ™ΧΧ•Χ Χ™ΧΧ™Χ Χ—Χ•Χ¤Χ©Χ™Χ™Χ";
 			this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
 			// label12
@@ -609,7 +609,7 @@ namespace UDonkey.GUI
 			this.label12.Name = "label12";
 			this.label12.Size = new System.Drawing.Size(56, 40);
 			this.label12.TabIndex = 31;
-			this.label12.Text = "ξχριξεν ιξιν ηετωιιν";
+			this.label12.Text = "ΧΧ§Χ΅Χ™ΧΧ•Χ Χ™ΧΧ™Χ Χ—Χ•Χ¤Χ©Χ™Χ™Χ";
 			this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
 			// label13
@@ -619,7 +619,7 @@ namespace UDonkey.GUI
 			this.label13.Name = "label13";
 			this.label13.Size = new System.Drawing.Size(56, 24);
 			this.label13.TabIndex = 33;
-			this.label13.Text = "ριεν ξΰεηψ";
+			this.label13.Text = "Χ΅Χ™Χ•Χ ΧΧΧ•Χ—Χ¨";
 			this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
 			// label14
@@ -629,7 +629,7 @@ namespace UDonkey.GUI
 			this.label14.Name = "label14";
 			this.label14.Size = new System.Drawing.Size(48, 32);
 			this.label14.TabIndex = 32;
-			this.label14.Text = "ριεν ξεχγν";
+			this.label14.Text = "Χ΅Χ™Χ•Χ ΧΧ•Χ§Χ“Χ";
 			this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
 			// label15
@@ -638,7 +638,7 @@ namespace UDonkey.GUI
 			this.label15.Name = "label15";
 			this.label15.Size = new System.Drawing.Size(48, 40);
 			this.label15.TabIndex = 35;
-			this.label15.Text = "ωςϊ δϊημδ ξΰεηψϊ";
+			this.label15.Text = "Χ©ΧΆΧª Χ”ΧªΧ—ΧΧ” ΧΧΧ•Χ—Χ¨Χª";
 			this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
 			// label16
@@ -647,7 +647,7 @@ namespace UDonkey.GUI
 			this.label16.Name = "label16";
 			this.label16.Size = new System.Drawing.Size(48, 32);
 			this.label16.TabIndex = 34;
-			this.label16.Text = "δϊημδ ξεχγξϊ";
+			this.label16.Text = "Χ”ΧªΧ—ΧΧ” ΧΧ•Χ§Χ“ΧΧª";
 			this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
 			// grpPref
@@ -663,7 +663,7 @@ namespace UDonkey.GUI
 			this.grpPref.Size = new System.Drawing.Size(304, 312);
 			this.grpPref.TabIndex = 36;
 			this.grpPref.TabStop = false;
-			this.grpPref.Text = "δςγτεϊ ριγεψ ξςψλϊ";
+			this.grpPref.Text = "Χ”ΧΆΧ“Χ¤Χ•Χª Χ΅Χ™Χ“Χ•Χ¨ ΧΧΆΧ¨Χ›Χª";
 			// 
 			// btAnt
 			// 
@@ -672,7 +672,7 @@ namespace UDonkey.GUI
 			this.btAnt.Location = new System.Drawing.Point(208, 280);
 			this.btAnt.Name = "btAnt";
 			this.btAnt.TabIndex = 0;
-			this.btAnt.Text = "ξφα πξμδ";
+			this.btAnt.Text = "ΧΧ¦Χ‘ Χ ΧΧΧ”";
 			this.btAnt.Click += new System.EventHandler(this.btAnt_Click);
 			// 
 			// btPadlaa
@@ -682,7 +682,7 @@ namespace UDonkey.GUI
 			this.btPadlaa.Location = new System.Drawing.Point(16, 280);
 			this.btPadlaa.Name = "btPadlaa";
 			this.btPadlaa.TabIndex = 39;
-			this.btPadlaa.Text = "ξφα τγμΰδ";
+			this.btPadlaa.Text = "ΧΧ¦Χ‘ Χ¤Χ“ΧΧΧ”";
 			this.btPadlaa.Click += new System.EventHandler(this.btPadlaa_Click);
 			// 
 			// btDontCare
@@ -692,7 +692,7 @@ namespace UDonkey.GUI
 			this.btDontCare.Location = new System.Drawing.Point(112, 280);
 			this.btDontCare.Name = "btDontCare";
 			this.btDontCare.TabIndex = 40;
-			this.btDontCare.Text = "ξφα ΰγιω";
+			this.btDontCare.Text = "ΧΧ¦Χ‘ ΧΧ“Χ™Χ©";
 			this.btDontCare.Click += new System.EventHandler(this.btDontCare_Click);
 			// 
 			// label17
@@ -702,7 +702,7 @@ namespace UDonkey.GUI
 			this.label17.Name = "label17";
 			this.label17.Size = new System.Drawing.Size(32, 24);
 			this.label17.TabIndex = 29;
-			this.label17.Text = "ηωεα ξΰεγ";
+			this.label17.Text = "Χ—Χ©Χ•Χ‘ ΧΧΧ•Χ“";
 			this.label17.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
 			// trackBar5
@@ -722,7 +722,7 @@ namespace UDonkey.GUI
 			this.label18.Name = "label18";
 			this.label18.Size = new System.Drawing.Size(48, 32);
 			this.label18.TabIndex = 34;
-			this.label18.Text = "δϊημδ ξεχγν";
+			this.label18.Text = "Χ”ΧªΧ—ΧΧ” ΧΧ•Χ§Χ“Χ";
 			this.label18.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
 			// trackBar6
@@ -753,7 +753,7 @@ namespace UDonkey.GUI
 			this.label19.Name = "label19";
 			this.label19.Size = new System.Drawing.Size(56, 40);
 			this.label19.TabIndex = 31;
-			this.label19.Text = "ξχριξεν ιξιν ηετωιιν";
+			this.label19.Text = "ΧΧ§Χ΅Χ™ΧΧ•Χ Χ™ΧΧ™Χ Χ—Χ•Χ¤Χ©Χ™Χ™Χ";
 			this.label19.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
 			// trackBar8
@@ -773,7 +773,7 @@ namespace UDonkey.GUI
 			this.label20.Name = "label20";
 			this.label20.Size = new System.Drawing.Size(48, 32);
 			this.label20.TabIndex = 32;
-			this.label20.Text = "ριεν ξεχγν";
+			this.label20.Text = "Χ΅Χ™Χ•Χ ΧΧ•Χ§Χ“Χ";
 			this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
 			// label21
@@ -783,7 +783,7 @@ namespace UDonkey.GUI
 			this.label21.Name = "label21";
 			this.label21.Size = new System.Drawing.Size(48, 16);
 			this.label21.TabIndex = 27;
-			this.label21.Text = "μΰ ξωπδ";
+			this.label21.Text = "ΧΧ ΧΧ©Χ Χ”";
 			// 
 			// label22
 			// 
@@ -791,7 +791,7 @@ namespace UDonkey.GUI
 			this.label22.Name = "label22";
 			this.label22.Size = new System.Drawing.Size(56, 32);
 			this.label22.TabIndex = 35;
-			this.label22.Text = "δϊημδ ξΰεηψ";
+			this.label22.Text = "Χ”ΧªΧ—ΧΧ” ΧΧΧ•Χ—Χ¨";
 			this.label22.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
 			// label23
@@ -800,7 +800,7 @@ namespace UDonkey.GUI
 			this.label23.Name = "label23";
 			this.label23.Size = new System.Drawing.Size(56, 32);
 			this.label23.TabIndex = 26;
-			this.label23.Text = "ξχριξεν ηεψιν";
+			this.label23.Text = "ΧΧ§Χ΅Χ™ΧΧ•Χ Χ—Χ•Χ¨Χ™Χ";
 			this.label23.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
 			// label24
@@ -809,7 +809,7 @@ namespace UDonkey.GUI
 			this.label24.Name = "label24";
 			this.label24.Size = new System.Drawing.Size(48, 40);
 			this.label24.TabIndex = 30;
-			this.label24.Text = "ξιπιξεν ιξιν ηετωιιν";
+			this.label24.Text = "ΧΧ™Χ Χ™ΧΧ•Χ Χ™ΧΧ™Χ Χ—Χ•Χ¤Χ©Χ™Χ™Χ";
 			this.label24.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
 			// label25
@@ -818,7 +818,7 @@ namespace UDonkey.GUI
 			this.label25.Name = "label25";
 			this.label25.Size = new System.Drawing.Size(56, 32);
 			this.label25.TabIndex = 33;
-			this.label25.Text = "ριεν ξΰεηψ";
+			this.label25.Text = "Χ΅Χ™Χ•Χ ΧΧΧ•Χ—Χ¨";
 			this.label25.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
 			// label26
@@ -828,7 +828,7 @@ namespace UDonkey.GUI
 			this.label26.Name = "label26";
 			this.label26.Size = new System.Drawing.Size(32, 24);
 			this.label26.TabIndex = 28;
-			this.label26.Text = "ηωεα ξΰεγ";
+			this.label26.Text = "Χ—Χ©Χ•Χ‘ ΧΧΧ•Χ“";
 			this.label26.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
 			// grpDisplayOptions
@@ -839,7 +839,7 @@ namespace UDonkey.GUI
 			this.grpDisplayOptions.Size = new System.Drawing.Size(296, 104);
 			this.grpDisplayOptions.TabIndex = 37;
 			this.grpDisplayOptions.TabStop = false;
-			this.grpDisplayOptions.Text = "ΰτωψειεϊ ϊφεβδ";
+			this.grpDisplayOptions.Text = "ΧΧ¤Χ©Χ¨Χ•Χ™Χ•Χª ΧªΧ¦Χ•Χ’Χ”";
 			// 
 			// grpGeneral
 			// 
@@ -849,7 +849,7 @@ namespace UDonkey.GUI
 			this.grpGeneral.Size = new System.Drawing.Size(296, 88);
 			this.grpGeneral.TabIndex = 38;
 			this.grpGeneral.TabStop = false;
-			this.grpGeneral.Text = "ΰτωψειεϊ λμμιεϊ";
+			this.grpGeneral.Text = "ΧΧ¤Χ©Χ¨Χ•Χ™Χ•Χª Χ›ΧΧΧ™Χ•Χª";
 			// 
 			// btSaveChanges
 			// 
@@ -861,7 +861,7 @@ namespace UDonkey.GUI
 			this.btSaveChanges.Name = "btSaveChanges";
 			this.btSaveChanges.Size = new System.Drawing.Size(96, 23);
 			this.btSaveChanges.TabIndex = 39;
-			this.btSaveChanges.Text = "ωξεψ ωιπειιν";
+			this.btSaveChanges.Text = "Χ©ΧΧ•Χ¨ Χ©Χ™Χ Χ•Χ™Χ™Χ";
 			// 
 			// label28
 			// 
@@ -870,7 +870,7 @@ namespace UDonkey.GUI
 			this.label28.Name = "label28";
 			this.label28.Size = new System.Drawing.Size(176, 16);
 			this.label28.TabIndex = 47;
-			this.label28.Text = "ωγεϊ μδλμμδ αξςψλϊ δξεγτρϊ:";
+			this.label28.Text = "Χ©Χ“Χ•Χª ΧΧ”Χ›ΧΧΧ” Χ‘ΧΧΆΧ¨Χ›Χª Χ”ΧΧ•Χ“Χ¤Χ΅Χª:";
 			// 
 			// chbExportTeacher
 			// 
@@ -879,7 +879,7 @@ namespace UDonkey.GUI
 			this.chbExportTeacher.Name = "chbExportTeacher";
 			this.chbExportTeacher.Size = new System.Drawing.Size(168, 24);
 			this.chbExportTeacher.TabIndex = 45;
-			this.chbExportTeacher.Text = "ων δξψφδ/ξϊψβμ";
+			this.chbExportTeacher.Text = "Χ©Χ Χ”ΧΧ¨Χ¦Χ”/ΧΧªΧ¨Χ’Χ";
 			// 
 			// chbExportLocation
 			// 
@@ -890,7 +890,7 @@ namespace UDonkey.GUI
 			this.chbExportLocation.Name = "chbExportLocation";
 			this.chbExportLocation.Size = new System.Drawing.Size(160, 24);
 			this.chbExportLocation.TabIndex = 44;
-			this.chbExportLocation.Text = "ξιχεν (απιο εηγψ)";
+			this.chbExportLocation.Text = "ΧΧ™Χ§Χ•Χ (Χ‘Χ Χ™Χ Χ•Χ—Χ“Χ¨)";
 			// 
 			// chbExportRegNum
 			// 
@@ -901,7 +901,7 @@ namespace UDonkey.GUI
 			this.chbExportRegNum.Name = "chbExportRegNum";
 			this.chbExportRegNum.Size = new System.Drawing.Size(88, 24);
 			this.chbExportRegNum.TabIndex = 43;
-			this.chbExportRegNum.Text = "ξρτψ χαεφδ";
+			this.chbExportRegNum.Text = "ΧΧ΅Χ¤Χ¨ Χ§Χ‘Χ•Χ¦Χ”";
 			// 
 			// chbExportType
 			// 
@@ -912,7 +912,7 @@ namespace UDonkey.GUI
 			this.chbExportType.Name = "chbExportType";
 			this.chbExportType.Size = new System.Drawing.Size(176, 24);
 			this.chbExportType.TabIndex = 42;
-			this.chbExportType.Text = "ρεβ δΰψες (δψφΰδ, ϊψβεμ...)";
+			this.chbExportType.Text = "Χ΅Χ•Χ’ Χ”ΧΧ¨Χ•ΧΆ (Χ”Χ¨Χ¦ΧΧ”, ΧªΧ¨Χ’Χ•Χ...)";
 			// 
 			// chbExportNumber
 			// 
@@ -922,7 +922,7 @@ namespace UDonkey.GUI
 			this.chbExportNumber.Name = "chbExportNumber";
 			this.chbExportNumber.Size = new System.Drawing.Size(112, 24);
 			this.chbExportNumber.TabIndex = 41;
-			this.chbExportNumber.Text = "ξρτψ δχεψρ";
+			this.chbExportNumber.Text = "ΧΧ΅Χ¤Χ¨ Χ”Χ§Χ•Χ¨Χ΅";
 			// 
 			// chbExportName
 			// 
@@ -932,7 +932,7 @@ namespace UDonkey.GUI
 			this.chbExportName.Name = "chbExportName";
 			this.chbExportName.Size = new System.Drawing.Size(112, 24);
 			this.chbExportName.TabIndex = 40;
-			this.chbExportName.Text = "ων δχεψρ";
+			this.chbExportName.Text = "Χ©Χ Χ”Χ§Χ•Χ¨Χ΅";
 			// 
 			// groupBox1
 			// 
@@ -946,7 +946,7 @@ namespace UDonkey.GUI
 			this.groupBox1.Size = new System.Drawing.Size(296, 152);
 			this.groupBox1.TabIndex = 52;
 			this.groupBox1.TabStop = false;
-			this.groupBox1.Text = "ΰτωψειεϊ ιφεΰ";
+			this.groupBox1.Text = "ΧΧ¤Χ©Χ¨Χ•Χ™Χ•Χª Χ™Χ¦Χ•Χ";
 			// 
 			// grpConstraints
 			// 
@@ -987,7 +987,7 @@ namespace UDonkey.GUI
 			this.grpConstraints.Size = new System.Drawing.Size(288, 352);
 			this.grpConstraints.TabIndex = 53;
 			this.grpConstraints.TabStop = false;
-			this.grpConstraints.Text = "ΰιμεφιν ααπιϊ ξςψλεϊ";
+			this.grpConstraints.Text = "ΧΧ™ΧΧ•Χ¦Χ™Χ Χ‘Χ‘Χ Χ™Χª ΧΧΆΧ¨Χ›Χ•Χª";
 			// 
 			// label39
 			// 
@@ -996,7 +996,7 @@ namespace UDonkey.GUI
 			this.label39.Name = "label39";
 			this.label39.Size = new System.Drawing.Size(208, 16);
 			this.label39.TabIndex = 49;
-			this.label39.Text = "ξχριξεν ωςεϊ μιξεγ αιεν ωΰιπε ηετωι:";
+			this.label39.Text = "ΧΧ§Χ΅Χ™ΧΧ•Χ Χ©ΧΆΧ•Χª ΧΧ™ΧΧ•Χ“ Χ‘Χ™Χ•Χ Χ©ΧΧ™Χ Χ• Χ—Χ•Χ¤Χ©Χ™:";
 			// 
 			// tbMaxDailyHours
 			// 
@@ -1015,7 +1015,7 @@ namespace UDonkey.GUI
 			this.label38.Name = "label38";
 			this.label38.Size = new System.Drawing.Size(208, 16);
 			this.label38.TabIndex = 47;
-			this.label38.Text = "ξιπιξεν ωςεϊ μιξεγ αιεν ωΰιπε ηετωι:";
+			this.label38.Text = "ΧΧ™Χ Χ™ΧΧ•Χ Χ©ΧΆΧ•Χª ΧΧ™ΧΧ•Χ“ Χ‘Χ™Χ•Χ Χ©ΧΧ™Χ Χ• Χ—Χ•Χ¤Χ©Χ™:";
 			// 
 			// tbMinDailyHours
 			// 
@@ -1033,7 +1033,7 @@ namespace UDonkey.GUI
 			this.chbFreeThursday.Location = new System.Drawing.Point(176, 304);
 			this.chbFreeThursday.Name = "chbFreeThursday";
 			this.chbFreeThursday.TabIndex = 45;
-			this.chbFreeThursday.Text = "ιεν δ\' ηετωι";
+			this.chbFreeThursday.Text = "Χ™Χ•Χ Χ”\' Χ—Χ•Χ¤Χ©Χ™";
 			this.chbFreeThursday.CheckedChanged += new System.EventHandler(this.chbFreeThursday_CheckedChanged);
 			// 
 			// cbThursdayEnd
@@ -1078,7 +1078,7 @@ namespace UDonkey.GUI
 			this.lblThursdayEnd.Name = "lblThursdayEnd";
 			this.lblThursdayEnd.Size = new System.Drawing.Size(72, 16);
 			this.lblThursdayEnd.TabIndex = 43;
-			this.lblThursdayEnd.Text = "ωςϊ ριεν";
+			this.lblThursdayEnd.Text = "Χ©ΧΆΧª Χ΅Χ™Χ•Χ";
 			// 
 			// cbThursdayStart
 			// 
@@ -1122,7 +1122,7 @@ namespace UDonkey.GUI
 			this.lblThursdayStart.Name = "lblThursdayStart";
 			this.lblThursdayStart.Size = new System.Drawing.Size(72, 16);
 			this.lblThursdayStart.TabIndex = 41;
-			this.lblThursdayStart.Text = "ωςϊ δϊημδ";
+			this.lblThursdayStart.Text = "Χ©ΧΆΧª Χ”ΧªΧ—ΧΧ”";
 			// 
 			// chbFreeWednesday
 			// 
@@ -1130,7 +1130,7 @@ namespace UDonkey.GUI
 			this.chbFreeWednesday.Location = new System.Drawing.Point(176, 256);
 			this.chbFreeWednesday.Name = "chbFreeWednesday";
 			this.chbFreeWednesday.TabIndex = 40;
-			this.chbFreeWednesday.Text = "ιεν γ\' ηετωι";
+			this.chbFreeWednesday.Text = "Χ™Χ•Χ Χ“\' Χ—Χ•Χ¤Χ©Χ™";
 			this.chbFreeWednesday.CheckedChanged += new System.EventHandler(this.chbFreeWednesday_CheckedChanged);
 			// 
 			// cbWednesdayEnd
@@ -1175,7 +1175,7 @@ namespace UDonkey.GUI
 			this.lblWednesdayEnd.Name = "lblWednesdayEnd";
 			this.lblWednesdayEnd.Size = new System.Drawing.Size(72, 16);
 			this.lblWednesdayEnd.TabIndex = 38;
-			this.lblWednesdayEnd.Text = "ωςϊ ριεν";
+			this.lblWednesdayEnd.Text = "Χ©ΧΆΧª Χ΅Χ™Χ•Χ";
 			// 
 			// cbWednesdayStart
 			// 
@@ -1219,7 +1219,7 @@ namespace UDonkey.GUI
 			this.lblWednesdayStart.Name = "lblWednesdayStart";
 			this.lblWednesdayStart.Size = new System.Drawing.Size(72, 16);
 			this.lblWednesdayStart.TabIndex = 36;
-			this.lblWednesdayStart.Text = "ωςϊ δϊημδ";
+			this.lblWednesdayStart.Text = "Χ©ΧΆΧª Χ”ΧªΧ—ΧΧ”";
 			// 
 			// chbFreeTuesday
 			// 
@@ -1227,7 +1227,7 @@ namespace UDonkey.GUI
 			this.chbFreeTuesday.Location = new System.Drawing.Point(176, 208);
 			this.chbFreeTuesday.Name = "chbFreeTuesday";
 			this.chbFreeTuesday.TabIndex = 35;
-			this.chbFreeTuesday.Text = "ιεν β\' ηετωι";
+			this.chbFreeTuesday.Text = "Χ™Χ•Χ Χ’\' Χ—Χ•Χ¤Χ©Χ™";
 			this.chbFreeTuesday.CheckedChanged += new System.EventHandler(this.chbFreeTuesday_CheckedChanged);
 			// 
 			// cbTuesdayEnd
@@ -1272,7 +1272,7 @@ namespace UDonkey.GUI
 			this.lblTuesdayEnd.Name = "lblTuesdayEnd";
 			this.lblTuesdayEnd.Size = new System.Drawing.Size(72, 16);
 			this.lblTuesdayEnd.TabIndex = 33;
-			this.lblTuesdayEnd.Text = "ωςϊ ριεν";
+			this.lblTuesdayEnd.Text = "Χ©ΧΆΧª Χ΅Χ™Χ•Χ";
 			// 
 			// cbTuesdayStart
 			// 
@@ -1316,7 +1316,7 @@ namespace UDonkey.GUI
 			this.lblTuesdayStart.Name = "lblTuesdayStart";
 			this.lblTuesdayStart.Size = new System.Drawing.Size(72, 16);
 			this.lblTuesdayStart.TabIndex = 31;
-			this.lblTuesdayStart.Text = "ωςϊ δϊημδ";
+			this.lblTuesdayStart.Text = "Χ©ΧΆΧª Χ”ΧªΧ—ΧΧ”";
 			// 
 			// chbFreeMonday
 			// 
@@ -1324,7 +1324,7 @@ namespace UDonkey.GUI
 			this.chbFreeMonday.Location = new System.Drawing.Point(176, 160);
 			this.chbFreeMonday.Name = "chbFreeMonday";
 			this.chbFreeMonday.TabIndex = 30;
-			this.chbFreeMonday.Text = "ιεν α\' ηετωι";
+			this.chbFreeMonday.Text = "Χ™Χ•Χ Χ‘\' Χ—Χ•Χ¤Χ©Χ™";
 			this.chbFreeMonday.CheckedChanged += new System.EventHandler(this.chbFreeMonday_CheckedChanged);
 			// 
 			// cbMondayEnd
@@ -1369,7 +1369,7 @@ namespace UDonkey.GUI
 			this.lblMondayEnd.Name = "lblMondayEnd";
 			this.lblMondayEnd.Size = new System.Drawing.Size(72, 16);
 			this.lblMondayEnd.TabIndex = 28;
-			this.lblMondayEnd.Text = "ωςϊ ριεν";
+			this.lblMondayEnd.Text = "Χ©ΧΆΧª Χ΅Χ™Χ•Χ";
 			// 
 			// cbMondayStart
 			// 
@@ -1413,7 +1413,7 @@ namespace UDonkey.GUI
 			this.lblMondayStart.Name = "lblMondayStart";
 			this.lblMondayStart.Size = new System.Drawing.Size(72, 16);
 			this.lblMondayStart.TabIndex = 26;
-			this.lblMondayStart.Text = "ωςϊ δϊημδ";
+			this.lblMondayStart.Text = "Χ©ΧΆΧª Χ”ΧªΧ—ΧΧ”";
 			// 
 			// chbFreeSunday
 			// 
@@ -1421,7 +1421,7 @@ namespace UDonkey.GUI
 			this.chbFreeSunday.Location = new System.Drawing.Point(176, 112);
 			this.chbFreeSunday.Name = "chbFreeSunday";
 			this.chbFreeSunday.TabIndex = 25;
-			this.chbFreeSunday.Text = "ιεν ΰ\' ηετωι";
+			this.chbFreeSunday.Text = "Χ™Χ•Χ Χ\' Χ—Χ•Χ¤Χ©Χ™";
 			this.chbFreeSunday.CheckedChanged += new System.EventHandler(this.chbFreeSunday_CheckedChanged);
 			// 
 			// cbSundayEnd
@@ -1466,7 +1466,7 @@ namespace UDonkey.GUI
 			this.lblSundayEnd.Name = "lblSundayEnd";
 			this.lblSundayEnd.Size = new System.Drawing.Size(72, 16);
 			this.lblSundayEnd.TabIndex = 23;
-			this.lblSundayEnd.Text = "ωςϊ ριεν";
+			this.lblSundayEnd.Text = "Χ©ΧΆΧª Χ΅Χ™Χ•Χ";
 			// 
 			// cbSundayStart
 			// 
@@ -1510,7 +1510,7 @@ namespace UDonkey.GUI
 			this.lblSundayStart.Name = "lblSundayStart";
 			this.lblSundayStart.Size = new System.Drawing.Size(72, 16);
 			this.lblSundayStart.TabIndex = 21;
-			this.lblSundayStart.Text = "ωςϊ δϊημδ";
+			this.lblSundayStart.Text = "Χ©ΧΆΧª Χ”ΧªΧ—ΧΧ”";
 			// 
 			// label1
 			// 
@@ -1519,7 +1519,7 @@ namespace UDonkey.GUI
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(168, 16);
 			this.label1.TabIndex = 9;
-			this.label1.Text = "ξιπιξεν ιξιν ηετωιιν αξςψλϊ:";
+			this.label1.Text = "ΧΧ™Χ Χ™ΧΧ•Χ Χ™ΧΧ™Χ Χ—Χ•Χ¤Χ©Χ™Χ™Χ Χ‘ΧΧΆΧ¨Χ›Χª:";
 			// 
 			// tbMinFreeDays
 			// 
@@ -1539,7 +1539,7 @@ namespace UDonkey.GUI
 			this.lblSaveResult.Name = "lblSaveResult";
 			this.lblSaveResult.Size = new System.Drawing.Size(184, 16);
 			this.lblSaveResult.TabIndex = 54;
-			this.lblSaveResult.Text = "δωιπειιν πωξψε αδφμηδ";
+			this.lblSaveResult.Text = "Χ”Χ©Χ™Χ Χ•Χ™Χ™Χ Χ Χ©ΧΧ¨Χ• Χ‘Χ”Χ¦ΧΧ—Χ”";
 			this.lblSaveResult.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			this.lblSaveResult.Visible = false;
 			// 
@@ -1553,7 +1553,7 @@ namespace UDonkey.GUI
 			this.btDefaults.Name = "btDefaults";
 			this.btDefaults.Size = new System.Drawing.Size(112, 23);
 			this.btDefaults.TabIndex = 55;
-			this.btDefaults.Text = "ΰτρ μαψιψεϊ ξηγμ";
+			this.btDefaults.Text = "ΧΧ¤Χ΅ ΧΧ‘Χ¨Χ™Χ¨Χ•Χª ΧΧ—Χ“Χ";
 			this.btDefaults.Click += new System.EventHandler(this.btDefaults_Click);
 			// 
 			// ConfigControl

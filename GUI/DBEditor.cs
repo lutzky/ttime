@@ -65,7 +65,7 @@ namespace UDonkey.GUI
 			// 
 			this.dg1.AlternatingBackColor = System.Drawing.SystemColors.Window;
 			this.dg1.BackgroundColor = System.Drawing.Color.Lavender;
-			this.dg1.CaptionText = "тешк дчешсйн";
+			this.dg1.CaptionText = "ЧўЧ•ЧЁЧљ Ч”Ч§Ч•ЧЁЧЎЧ™Чќ";
 			this.dg1.DataMember = "";
 			this.dg1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.dg1.GridLineColor = System.Drawing.SystemColors.Control;

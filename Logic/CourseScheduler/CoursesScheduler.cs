@@ -21,8 +21,8 @@ namespace UDonkey.Logic
         private System.Collections.IComparer        mComparer;
 		private System.EventHandler                 mFixOccurrence;
 		private System.EventHandler                 mUnFixOccurrence;
-		private const string                        FIX   = "χας ΰϊ";
-		private const string                        UNFIX = "αθμ χιαες ωμ";
+		private const string                        FIX   = "Χ§Χ‘ΧΆ ΧΧª";
+		private const string                        UNFIX = "Χ‘ΧΧ Χ§Χ™Χ‘Χ•ΧΆ Χ©Χ";
         private Hashtable                           mSchedulerErrors;
 		private bool                                mbScheduling;
 		#endregion Private Variables
@@ -172,7 +172,7 @@ namespace UDonkey.Logic
 			}
 			UsersEventScheduleObject obj = new UsersEventScheduleObject(
 				eventName, day, hour, duration );
-			obj.Events[string.Format( "δρψ {0}", eventName)] = 
+			obj.Events[string.Format( "Χ”Χ΅Χ¨ {0}", eventName)] = 
 				new EventHandler( RemoveUserEvent );	
 			this.Schedule.AddScheduleObject( obj );
 			this.AddConstraint( new UsersEventConstraint( obj ) );

@@ -129,18 +129,18 @@ namespace UDonkey.GUI
 			this.HelpMenuItem.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
 																						 this.UDonkeyMenuItem,
 																						 this.AboutMenuItem});
-			this.HelpMenuItem.Text = "òæøä";
+			this.HelpMenuItem.Text = "×¢×–×¨×”";
 			// 
 			// UDonkeyMenuItem
 			// 
 			this.UDonkeyMenuItem.Index = 0;
-			this.UDonkeyMenuItem.Text = "çîåøå ùì àåìîï";
+			this.UDonkeyMenuItem.Text = "×—××•×¨×• ×©×œ ××•×œ××Ÿ";
 			this.UDonkeyMenuItem.Click += new System.EventHandler(this.UDonkeyMenuItem_Click);
 			// 
 			// AboutMenuItem
 			// 
 			this.AboutMenuItem.Index = 1;
-			this.AboutMenuItem.Text = "àåãåú";
+			this.AboutMenuItem.Text = "××•×“×•×ª";
 			this.AboutMenuItem.Click += new System.EventHandler(this.AboutMenuItem_Click);
 			// 
 			// menuItem2
@@ -148,12 +148,12 @@ namespace UDonkey.GUI
 			this.menuItem2.Index = 0;
 			this.menuItem2.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
 																					  this.AutoUpdatemenuItem});
-			this.menuItem2.Text = "ëìéí";
+			this.menuItem2.Text = "×›×œ×™×";
 			// 
 			// AutoUpdatemenuItem
 			// 
 			this.AutoUpdatemenuItem.Index = 0;
-			this.AutoUpdatemenuItem.Text = "òãëåï àåèåîèé";
+			this.AutoUpdatemenuItem.Text = "×¢×“×›×•×Ÿ ××•×˜×•××˜×™";
 			// 
 			// MainFormStatusBar
 			// 
@@ -193,8 +193,8 @@ namespace UDonkey.GUI
 			// 
 			this.scheduleBarButton.ImageIndex = 0;
 			this.scheduleBarButton.Tag = "Scedule";
-			this.scheduleBarButton.Text = "ñãø îòøëåú";
-			this.scheduleBarButton.ToolTipText = "ñãø îòøëåú";
+			this.scheduleBarButton.Text = "×¡×“×¨ ××¢×¨×›×•×ª";
+			this.scheduleBarButton.ToolTipText = "×¡×“×¨ ××¢×¨×›×•×ª";
 			// 
 			// toolBarSeparator1
 			// 
@@ -205,32 +205,32 @@ namespace UDonkey.GUI
 			this.prev10StatesButton.Enabled = false;
 			this.prev10StatesButton.ImageIndex = 4;
 			this.prev10StatesButton.Tag = "Prev10StatesButton";
-			this.prev10StatesButton.Text = "10 àçåøä";
-			this.prev10StatesButton.ToolTipText = "÷ôåõ 10 îòøëåú àçåøä";
+			this.prev10StatesButton.Text = "10 ××—×•×¨×”";
+			this.prev10StatesButton.ToolTipText = "×§×¤×•×¥ 10 ××¢×¨×›×•×ª ××—×•×¨×”";
 			// 
 			// prevStateButton
 			// 
 			this.prevStateButton.Enabled = false;
 			this.prevStateButton.ImageIndex = 2;
 			this.prevStateButton.Tag = "PrevStateButton";
-			this.prevStateButton.Text = "äîòøëú ä÷åãîú";
-			this.prevStateButton.ToolTipText = "äîòøëú ä÷åãîú";
+			this.prevStateButton.Text = "×”××¢×¨×›×ª ×”×§×•×“××ª";
+			this.prevStateButton.ToolTipText = "×”××¢×¨×›×ª ×”×§×•×“××ª";
 			// 
 			// nextStateButton
 			// 
 			this.nextStateButton.Enabled = false;
 			this.nextStateButton.ImageIndex = 1;
 			this.nextStateButton.Tag = "NextStateButton";
-			this.nextStateButton.Text = "äîòøëú äáàä";
-			this.nextStateButton.ToolTipText = "äîòøëú äáàä";
+			this.nextStateButton.Text = "×”××¢×¨×›×ª ×”×‘××”";
+			this.nextStateButton.ToolTipText = "×”××¢×¨×›×ª ×”×‘××”";
 			// 
 			// next10StatesButton
 			// 
 			this.next10StatesButton.Enabled = false;
 			this.next10StatesButton.ImageIndex = 3;
 			this.next10StatesButton.Tag = "Next10StatesButton";
-			this.next10StatesButton.Text = "÷ãéîä 10";
-			this.next10StatesButton.ToolTipText = "÷ôåõ 10 îòøëåú ÷ãéîä";
+			this.next10StatesButton.Text = "×§×“×™××” 10";
+			this.next10StatesButton.ToolTipText = "×§×¤×•×¥ 10 ××¢×¨×›×•×ª ×§×“×™××”";
 			// 
 			// toolBarSeparator2
 			// 
@@ -240,15 +240,15 @@ namespace UDonkey.GUI
 			// 
 			this.saveViewButton.ImageIndex = 7;
 			this.saveViewButton.Tag = "SaveView";
-			this.saveViewButton.Text = "ùîåø îòøëú";
-			this.saveViewButton.ToolTipText = "ùîåø îòøëú ìöôééä";
+			this.saveViewButton.Text = "×©××•×¨ ××¢×¨×›×ª";
+			this.saveViewButton.ToolTipText = "×©××•×¨ ××¢×¨×›×ª ×œ×¦×¤×™×™×”";
 			// 
 			// loadViewButton
 			// 
 			this.loadViewButton.ImageIndex = 8;
 			this.loadViewButton.Tag = "LoadView";
-			this.loadViewButton.Text = "èòï îòøëú";
-			this.loadViewButton.ToolTipText = "èòï îòøëú ìöôéä";
+			this.loadViewButton.Text = "×˜×¢×Ÿ ××¢×¨×›×ª";
+			this.loadViewButton.ToolTipText = "×˜×¢×Ÿ ××¢×¨×›×ª ×œ×¦×¤×™×”";
 			// 
 			// toolBarSeparator3
 			// 
@@ -258,21 +258,21 @@ namespace UDonkey.GUI
 			// 
 			this.printButton.ImageIndex = 9;
 			this.printButton.Tag = "Print";
-			this.printButton.Text = "âøñú äãôñä";
-			this.printButton.ToolTipText = "äôğä ìäãôñä";
+			this.printButton.Text = "×’×¨×¡×ª ×”×“×¤×¡×”";
+			this.printButton.ToolTipText = "×”×¤× ×” ×œ×”×“×¤×¡×”";
 			// 
 			// courseListButton
 			// 
 			this.courseListButton.ImageIndex = 10;
 			this.courseListButton.Tag = "CourseList";
-			this.courseListButton.Text = "øéëåæ ÷åøñéí";
-			this.courseListButton.ToolTipText = "äöâ øéëåæ ÷åøñéí";
+			this.courseListButton.Text = "×¨×™×›×•×– ×§×•×¨×¡×™×";
+			this.courseListButton.ToolTipText = "×”×¦×’ ×¨×™×›×•×– ×§×•×¨×¡×™×";
 			// 
 			// somethingButton
 			// 
 			this.somethingButton.Tag = "Something";
-			this.somethingButton.Text = "îùäå";
-			this.somethingButton.ToolTipText = "ùîùäå éòùä ôä îùäå";
+			this.somethingButton.Text = "××©×”×•";
+			this.somethingButton.ToolTipText = "×©××©×”×• ×™×¢×©×” ×¤×” ××©×”×•";
 			this.somethingButton.Visible = false;
 			// 
 			// imageList
@@ -290,7 +290,7 @@ namespace UDonkey.GUI
 			this.ScheduleTabPage.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
 			this.ScheduleTabPage.Size = new System.Drawing.Size(912, 485);
 			this.ScheduleTabPage.TabIndex = 0;
-			this.ScheduleTabPage.Text = "îòøëú";
+			this.ScheduleTabPage.Text = "××¢×¨×›×ª";
 			// 
 			// scheduleDataGrid
 			// 
@@ -319,7 +319,7 @@ namespace UDonkey.GUI
 			this.SearchPage.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
 			this.SearchPage.Size = new System.Drawing.Size(912, 485);
 			this.SearchPage.TabIndex = 1;
-			this.SearchPage.Text = "çéôåù";
+			this.SearchPage.Text = "×—×™×¤×•×©";
 			// 
 			// DBbrowser
 			// 
@@ -345,7 +345,7 @@ namespace UDonkey.GUI
 			this.prefencesPage.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
 			this.prefencesPage.Size = new System.Drawing.Size(912, 485);
 			this.prefencesPage.TabIndex = 2;
-			this.prefencesPage.Text = "äâãøåú";
+			this.prefencesPage.Text = "×”×’×“×¨×•×ª";
 			// 
 			// configControl
 			// 

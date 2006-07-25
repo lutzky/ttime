@@ -178,7 +178,7 @@ namespace UDonkey.Logic
         {   
 			if( mScheduler.Courses.Count == 0 )
         {   
-				System.Windows.Forms.MessageBox.Show("ра мбзеш чешс азг мфзеъ тм оръ мсгш отшлеъ");
+				System.Windows.Forms.MessageBox.Show("Ч Чђ ЧњЧ‘Ч—Ч•ЧЁ Ч§Ч•ЧЁЧЎ ЧђЧ—Ч“ ЧњЧ¤Ч—Ч•ЧЄ ЧўЧњ ЧћЧ ЧЄ ЧњЧЎЧ“ЧЁ ЧћЧўЧЁЧ›Ч•ЧЄ");
 				return;
 			}
             mProgressBar = new SchedulingProgressbar();
@@ -224,12 +224,12 @@ namespace UDonkey.Logic
                 }
                 if( mScheduler.Courses.Count != 0 )
                 {
-                    MessageBox.Show( null, "ма оца отшлеъ тбешк UDonkey", Resources.String( RESOURCES_GROUP, "ConstraintFailMessage4" ), MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign);
-                    this.SetStatusBarLine("ма оца отшлеъ тбешк UDonkey");
+                    MessageBox.Show( null, "ЧњЧђ ЧћЧ¦Чђ ЧћЧўЧЁЧ›Ч•ЧЄ ЧўЧ‘Ч•ЧЁЧљ UDonkey", Resources.String( RESOURCES_GROUP, "ConstraintFailMessage4" ), MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign);
+                    this.SetStatusBarLine("ЧњЧђ ЧћЧ¦Чђ ЧћЧўЧЁЧ›Ч•ЧЄ ЧўЧ‘Ч•ЧЁЧљ UDonkey");
                 }
                 else
                 {
-                    this.SetStatusBarLine("ра мбзеш чешс азг мфзеъ тм оръ мсгш отшлеъ");
+                    this.SetStatusBarLine("Ч Чђ ЧњЧ‘Ч—Ч•ЧЁ Ч§Ч•ЧЁЧЎ ЧђЧ—Ч“ ЧњЧ¤Ч—Ч•ЧЄ ЧўЧњ ЧћЧ ЧЄ ЧњЧЎЧ“ЧЁ ЧћЧўЧЁЧ›Ч•ЧЄ");
                 }
             }
         }
@@ -344,7 +344,7 @@ namespace UDonkey.Logic
 			mDonkey.CourseDB.Load("mainDB.xml");
 			mDonkey.Reset();
 			mDonkey.DBLogic.Load();
-			System.Windows.Forms.MessageBox.Show("осг дръерйн теглп бдцмзд");
+			System.Windows.Forms.MessageBox.Show("ЧћЧЎЧ“ Ч”Ч ЧЄЧ•Ч Ч™Чќ ЧўЧ•Ч“Ч›Чџ Ч‘Ч”Ч¦ЧњЧ—Ч”");
 		}
         private void Something()
         {

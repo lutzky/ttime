@@ -47,9 +47,9 @@ namespace UDonkey.Logic
 			CourseEventsList col;
 			switch (typeToFind)
 			{
-				case "äøöàä": { col = this.Lectures; break; }
-				case "îòáãä": { col = this.Labs; break; }
-				case "÷áåöä": { col = this.Projects; break; }
+				case "×”×¨×¦××”": { col = this.Lectures; break; }
+				case "××¢×‘×“×”": { col = this.Labs; break; }
+				case "×§×‘×•×¦×”": { col = this.Projects; break; }
 				default: { col = this.Tutorials; break; }
 			}
 			

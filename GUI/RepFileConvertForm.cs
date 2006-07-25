@@ -26,8 +26,8 @@ namespace UDonkey.GUI
 			//
 			InitializeComponent();
 			this.label1.Text = string.Format("{0}\n{1}",
-				"λςϊ ξϊαφςϊ δξψϊ δχεαυ",
-				"δϊδμικ μεχη λγχδ εηφι εξϊψηω ψχ τςν ΰηϊ");
+				"Χ›ΧΆΧª ΧΧªΧ‘Χ¦ΧΆΧª Χ”ΧΧ¨Χª Χ”Χ§Χ•Χ‘Χ¥",
+				"Χ”ΧªΧ”ΧΧ™Χ ΧΧ•Χ§Χ— Χ›Χ“Χ§Χ” Χ•Χ—Χ¦Χ™ Χ•ΧΧªΧ¨Χ—Χ© Χ¨Χ§ Χ¤ΧΆΧ ΧΧ—Χª");
 			RepFile.RepToXML.StartConvertion += new EventHandler(RepToXML_StartConvertion);
 			RepFile.RepToXML.Progress += new UDonkey.RepFile.RepToXML.ConvertProgress(RepToXML_Progress);
 			
@@ -87,7 +87,7 @@ namespace UDonkey.GUI
 			this.MinimizeBox = false;
 			this.Name = "RepFileConvertForm";
 			this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-			this.Text = "δξψϊ χεαυ Rep";
+			this.Text = "Χ”ΧΧ¨Χª Χ§Χ•Χ‘Χ¥ Rep";
 			this.ResumeLayout(false);
 
 		}

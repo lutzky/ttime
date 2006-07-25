@@ -6,7 +6,6 @@ using UDonkey.Logic;
 using System.Collections;
 using System.Data;
 using System.Web.UI;
-using System.ComponentModel;
 
 namespace UDonkey.IO
 {
@@ -86,7 +85,7 @@ namespace UDonkey.IO
 
 				foreach (DataColumn myCol in newDataTable.Columns) // For each column
 				{
-					if ( myCol.ColumnName == day .ToString() ) // Skip the "hours" column
+					if ( myCol.ColumnName == DayOfWeek.שעות.ToString() ) // Skip the "hours" column
 					{
 						continue;
 					}
@@ -156,7 +155,7 @@ namespace UDonkey.IO
 					if (visibleDays[i]==true)
 					{
 						scheduleWriter.WriteBeginTag("TH");
-						if (myCol.ColumnName == "")
+						if (myCol.ColumnName == "שעות")
 						{
 							scheduleWriter.WriteAttribute( HtmlTextWriterAttribute.Height.ToString(), "60");
 						}
@@ -207,7 +206,7 @@ namespace UDonkey.IO
 							val = val.Replace( "\r\n", "<br>");
 							if (val!="skip")
 							{
-								if (myCol.ColumnName=="") // The Hours column gets special treatment
+								if (myCol.ColumnName=="שעות") // The Hours column gets special treatment
 								{
 									scheduleWriter.WriteBeginTag("TH");
 									scheduleWriter.WriteAttribute(HtmlTextWriterAttribute.Width.ToString(), "60");
@@ -290,7 +289,7 @@ namespace UDonkey.IO
 			scheduleWriter.WriteBeginTag("h1");		
 			scheduleWriter.WriteAttribute( HtmlTextWriterAttribute.Align.ToString(), "center" );
 			scheduleWriter.WriteFullBeginTag("strong");
-			scheduleWriter.Write(" ");
+			scheduleWriter.Write("מערכת שעות");
 			scheduleWriter.WriteEndTag("strong");
 			scheduleWriter.WriteEndTag("h1");
 			scheduleWriter.Write("\r\n");
@@ -616,7 +615,7 @@ namespace UDonkey.IO
 			scheduleWriter.WriteBeginTag("h1");		
 			scheduleWriter.WriteAttribute( HtmlTextWriterAttribute.Align.ToString(), "center" );
 			scheduleWriter.WriteFullBeginTag("strong");
-			scheduleWriter.Write(" ");
+			scheduleWriter.Write("ריכוז קורסים");
 			scheduleWriter.WriteEndTag("strong");
 			scheduleWriter.WriteEndTag("h1");
 			scheduleWriter.Write("\r\n");
@@ -631,15 +630,15 @@ namespace UDonkey.IO
 			scheduleWriter.WriteFullBeginTag("TR");
 			scheduleWriter.Write("\r\n");
 			scheduleWriter.WriteFullBeginTag("TH");
-			scheduleWriter.Write("");
+			scheduleWriter.Write("קורס");
 			scheduleWriter.WriteEndTag("TH");
 			scheduleWriter.Write("\r\n");
 			scheduleWriter.WriteFullBeginTag("TH");
-			scheduleWriter.Write("");
+			scheduleWriter.Write("פרטים");
 			scheduleWriter.WriteEndTag("TH");
 			scheduleWriter.Write("\r\n");
 			scheduleWriter.WriteFullBeginTag("TH");
-			scheduleWriter.Write("");
+			scheduleWriter.Write("ארועים");
 			scheduleWriter.WriteEndTag("TH");
 			scheduleWriter.Write("\r\n");
 			scheduleWriter.WriteEndTag("TR");
@@ -652,11 +651,11 @@ namespace UDonkey.IO
 				if (aCourse.MoadA != DateTime.MinValue)
 					testA = aCourse.MoadA.ToShortDateString();
 				else
-					testA = " ";
+					testA = "לא ידוע";
 				if (aCourse.MoadB != DateTime.MinValue)
 					testB = aCourse.MoadB.ToShortDateString();
 				else
-					testB = " ";
+					testB = "לא ידוע";
 				
 				scheduleWriter.WriteBeginTag("TR");
 				scheduleWriter.WriteAttribute( HtmlTextWriterAttribute.Bordercolor.ToString(), "#000000");
@@ -666,11 +665,11 @@ namespace UDonkey.IO
 				scheduleWriter.Write(toWrite);
 				scheduleWriter.WriteEndTag("TD");
 				scheduleWriter.WriteFullBeginTag("TD");
-				toWrite = " : " +
+				toWrite = "נקודות אקדמאיות: " +
 					aCourse.AcademicPoints.ToString() +
-					"<br> : " + testA + 
-					"<br> : " + testB + 
-					"<br>"  + " : " + aCourse.Lecturer;
+					"<br>מועד א: " + testA + 
+					"<br>מועד ב: " + testB + 
+					"<br>"  + "מרצה אחראי: " + aCourse.Lecturer;
 				scheduleWriter.Write(toWrite);
 				scheduleWriter.WriteEndTag("TD");
 				scheduleWriter.WriteFullBeginTag("TD");
@@ -681,7 +680,7 @@ namespace UDonkey.IO
 					{
 						int toHour = (ceo.Hour+ceo.Duration);
 						string toHourString = toHour.ToString() + ":30";
-						toWrite= ce.Type + " " + ce.EventNum.ToString() + ":  " + ceo.Day + " " + ceo.Hour + ":30-" + toHourString + " " + ceo.Location + "<br>";
+						toWrite= ce.Type + " " + ce.EventNum.ToString() + ": יום " + ceo.Day + " " + ceo.Hour + ":30-" + toHourString + " " + ceo.Location + "<br>";
 						scheduleWriter.Write(toWrite);
 					}
 				}
@@ -822,10 +821,10 @@ namespace UDonkey.IO
 
 				foreach (XmlNode aCourseEvent in singleEventList)
 				{
-					if (listNode.Name == "Lectures") currentEventType="";
-					else if (listNode.Name == "Tutorials") currentEventType="";
-					else if (listNode.Name == "Labs") currentEventType="";
-					else if (listNode.Name == "Projects") currentEventType="";
+					if (listNode.Name == "Lectures") currentEventType="הרצאה";
+					else if (listNode.Name == "Tutorials") currentEventType="תרגול";
+					else if (listNode.Name == "Labs") currentEventType="מעבדה";
+					else if (listNode.Name == "Projects") currentEventType="קבוצה";
 					else throw new ApplicationException("This should never happened");
 
 					// Get event's reg group info from XML

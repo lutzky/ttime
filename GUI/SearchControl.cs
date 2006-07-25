@@ -115,7 +115,7 @@ namespace UDonkey.GUI
 			this.groupBox1.Size = new System.Drawing.Size(272, 128);
 			this.groupBox1.TabIndex = 0;
 			this.groupBox1.TabStop = false;
-			this.groupBox1.Text = "ôøèé ÷åøñ";
+			this.groupBox1.Text = "×¤×¨×˜×™ ×§×•×¨×¡";
 			// 
 			// cfaculty
 			// 
@@ -159,7 +159,7 @@ namespace UDonkey.GUI
 			this.label4.Name = "label4";
 			this.label4.Size = new System.Drawing.Size(72, 23);
 			this.label4.TabIndex = 6;
-			this.label4.Text = "ô÷åìèä";
+			this.label4.Text = "×¤×§×•×œ×˜×”";
 			this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
 			// label3
@@ -169,7 +169,7 @@ namespace UDonkey.GUI
 			this.label3.Name = "label3";
 			this.label3.Size = new System.Drawing.Size(72, 23);
 			this.label3.TabIndex = 4;
-			this.label3.Text = "îñôø ğ÷åãåú";
+			this.label3.Text = "××¡×¤×¨ × ×§×•×“×•×ª";
 			this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
 			// label2
@@ -180,7 +180,7 @@ namespace UDonkey.GUI
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(72, 23);
 			this.label2.TabIndex = 2;
-			this.label2.Text = "îñôø ä÷åøñ";
+			this.label2.Text = "××¡×¤×¨ ×”×§×•×¨×¡";
 			this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
 			// courseName
@@ -201,7 +201,7 @@ namespace UDonkey.GUI
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(72, 23);
 			this.label1.TabIndex = 0;
-			this.label1.Text = "ùí ä÷åøñ";
+			this.label1.Text = "×©× ×”×§×•×¨×¡";
 			this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
 			// courseNumber
@@ -231,7 +231,7 @@ namespace UDonkey.GUI
 			this.monday.Name = "monday";
 			this.monday.Size = new System.Drawing.Size(32, 16);
 			this.monday.TabIndex = 4;
-			this.monday.Text = "á";
+			this.monday.Text = "×‘";
 			this.monday.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.KeyPressEvent);
 			// 
 			// wednesday
@@ -240,7 +240,7 @@ namespace UDonkey.GUI
 			this.wednesday.Name = "wednesday";
 			this.wednesday.Size = new System.Drawing.Size(32, 16);
 			this.wednesday.TabIndex = 5;
-			this.wednesday.Text = "ã";
+			this.wednesday.Text = "×“";
 			this.wednesday.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.KeyPressEvent);
 			// 
 			// friday
@@ -249,7 +249,7 @@ namespace UDonkey.GUI
 			this.friday.Name = "friday";
 			this.friday.Size = new System.Drawing.Size(32, 16);
 			this.friday.TabIndex = 7;
-			this.friday.Text = "å";
+			this.friday.Text = "×•";
 			this.friday.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.KeyPressEvent);
 			// 
 			// sunday
@@ -258,7 +258,7 @@ namespace UDonkey.GUI
 			this.sunday.Name = "sunday";
 			this.sunday.Size = new System.Drawing.Size(32, 16);
 			this.sunday.TabIndex = 6;
-			this.sunday.Text = "à";
+			this.sunday.Text = "×";
 			this.sunday.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.KeyPressEvent);
 			// 
 			// thursday
@@ -267,7 +267,7 @@ namespace UDonkey.GUI
 			this.thursday.Name = "thursday";
 			this.thursday.Size = new System.Drawing.Size(32, 16);
 			this.thursday.TabIndex = 9;
-			this.thursday.Text = "ä";
+			this.thursday.Text = "×”";
 			this.thursday.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.KeyPressEvent);
 			// 
 			// tuesday
@@ -276,7 +276,7 @@ namespace UDonkey.GUI
 			this.tuesday.Name = "tuesday";
 			this.tuesday.Size = new System.Drawing.Size(32, 16);
 			this.tuesday.TabIndex = 8;
-			this.tuesday.Text = "â";
+			this.tuesday.Text = "×’";
 			this.tuesday.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.KeyPressEvent);
 			// 
 			// groupBox2
@@ -292,7 +292,7 @@ namespace UDonkey.GUI
 			this.groupBox2.Size = new System.Drawing.Size(272, 40);
 			this.groupBox2.TabIndex = 10;
 			this.groupBox2.TabStop = false;
-			this.groupBox2.Text = "éîéí";
+			this.groupBox2.Text = "×™××™×";
 			// 
 			// groupBox3
 			// 
@@ -303,7 +303,7 @@ namespace UDonkey.GUI
 			this.groupBox3.Size = new System.Drawing.Size(272, 48);
 			this.groupBox3.TabIndex = 11;
 			this.groupBox3.TabStop = false;
-			this.groupBox3.Text = "îøöä";
+			this.groupBox3.Text = "××¨×¦×”";
 			// 
 			// lecturer
 			// 
@@ -322,7 +322,7 @@ namespace UDonkey.GUI
 			this.label6.Name = "label6";
 			this.label6.Size = new System.Drawing.Size(72, 23);
 			this.label6.TabIndex = 2;
-			this.label6.Text = "ùí äîøöä";
+			this.label6.Text = "×©× ×”××¨×¦×”";
 			this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
 			// search
@@ -330,7 +330,7 @@ namespace UDonkey.GUI
 			this.search.Location = new System.Drawing.Point(192, 224);
 			this.search.Name = "search";
 			this.search.TabIndex = 12;
-			this.search.Text = "áöò çéôåù";
+			this.search.Text = "×‘×¦×¢ ×—×™×¤×•×©";
 			this.search.Click += new System.EventHandler(this.Search_Click);
 			// 
 			// SearchControl
@@ -374,22 +374,22 @@ namespace UDonkey.GUI
 				args.Lecturer = lecturer.Text;
 
 			if( sunday.Checked )
-				args.Days[0]="à";
+				args.Days[0]="×";
 			
 			if( monday.Checked )
-				args.Days[1]="á";
+				args.Days[1]="×‘";
 			
 			if( tuesday.Checked )
-				args.Days[2]="â";
+				args.Days[2]="×’";
 			
 			if( wednesday.Checked )
-				args.Days[3]="ã";
+				args.Days[3]="×“";
 			
 			if( thursday.Checked )
-				args.Days[4]="ä";
+				args.Days[4]="×”";
 			
 			if( friday.Checked )
-				args.Days[5]="å";
+				args.Days[5]="×•";
 
 			this.mSearch( this, args );
 		}

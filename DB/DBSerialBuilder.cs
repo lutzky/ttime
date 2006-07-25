@@ -48,8 +48,8 @@ namespace UDonkey.DB
 		/// <param name="semester">The semester for which it is updated</param>
 		public static void startFaculty(string facultyName, string semester)
 		{
-			if (facultyName == "øôåàéú") // This is a quick hack to overcome a bug in the REP parser
-				facultyName = "äğãñä áéå-øôåàéú";
+			if (facultyName == "×¨×¤×•××™×ª") // This is a quick hack to overcome a bug in the REP parser
+				facultyName = "×”× ×“×¡×” ×‘×™×•-×¨×¤×•××™×ª";
 			try
 			{
 				DBWriter.WriteStartElement("", "Faculty", "");
@@ -149,9 +149,9 @@ namespace UDonkey.DB
 				DBWriter.WriteStartElement("", "CourseEvent", "");
 				if (eventType.Length==0)
 				{
-					eventType="äøöàä";
+					eventType="×”×¨×¦××”";
 				}
-				if (eventType.Equals("äøöàä")) // Event is a lecture.  Need to feed reg num manually
+				if (eventType.Equals("×”×¨×¦××”")) // Event is a lecture.  Need to feed reg num manually
 				{
 					regNumber=mLectureNum.ToString();
 					mLastRegNum=mLectureNum;

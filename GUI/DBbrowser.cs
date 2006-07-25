@@ -184,7 +184,7 @@ namespace UDonkey.GUI
 			this.LabelCourseName.Name = "LabelCourseName";
 			this.LabelCourseName.Size = new System.Drawing.Size(112, 16);
 			this.LabelCourseName.TabIndex = 1;
-			this.LabelCourseName.Text = "ψωιξϊ δχεψριν";
+			this.LabelCourseName.Text = "Χ¨Χ©Χ™ΧΧª Χ”Χ§Χ•Χ¨Χ΅Χ™Χ";
 			this.LabelCourseName.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// labelCourseNum
@@ -193,7 +193,7 @@ namespace UDonkey.GUI
 			this.labelCourseNum.Name = "labelCourseNum";
 			this.labelCourseNum.Size = new System.Drawing.Size(64, 23);
 			this.labelCourseNum.TabIndex = 2;
-			this.labelCourseNum.Text = "ξρτψ δχεψρ";
+			this.labelCourseNum.Text = "ΧΧ΅Χ¤Χ¨ Χ”Χ§Χ•Χ¨Χ΅";
 			// 
 			// tbCourseNum
 			// 
@@ -212,7 +212,7 @@ namespace UDonkey.GUI
 			this.labelFaculty.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
 			this.labelFaculty.Size = new System.Drawing.Size(176, 16);
 			this.labelFaculty.TabIndex = 5;
-			this.labelFaculty.Text = "πεεθ ςμ τι:";
+			this.labelFaculty.Text = "Χ Χ•Χ•Χ ΧΆΧ Χ¤Χ™:";
 			this.labelFaculty.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
 			// tbAcademicPoints
@@ -241,7 +241,7 @@ namespace UDonkey.GUI
 			this.labelAcademicPoints.Name = "labelAcademicPoints";
 			this.labelAcademicPoints.Size = new System.Drawing.Size(80, 23);
 			this.labelAcademicPoints.TabIndex = 8;
-			this.labelAcademicPoints.Text = "πχεγεϊ ΰχγξιεϊ";
+			this.labelAcademicPoints.Text = "Χ Χ§Χ•Χ“Χ•Χª ΧΧ§Χ“ΧΧ™Χ•Χª";
 			// 
 			// labelLecturer
 			// 
@@ -249,7 +249,7 @@ namespace UDonkey.GUI
 			this.labelLecturer.Name = "labelLecturer";
 			this.labelLecturer.Size = new System.Drawing.Size(64, 23);
 			this.labelLecturer.TabIndex = 9;
-			this.labelLecturer.Text = "ξψφδ ΰηψΰι";
+			this.labelLecturer.Text = "ΧΧ¨Χ¦Χ” ΧΧ—Χ¨ΧΧ™";
 			// 
 			// tbMoedA
 			// 
@@ -267,7 +267,7 @@ namespace UDonkey.GUI
 			this.labelMoedA.Name = "labelMoedA";
 			this.labelMoedA.Size = new System.Drawing.Size(40, 23);
 			this.labelMoedA.TabIndex = 11;
-			this.labelMoedA.Text = "ξεςγ ΰ\'";
+			this.labelMoedA.Text = "ΧΧ•ΧΆΧ“ Χ\'";
 			// 
 			// labelMoedB
 			// 
@@ -275,7 +275,7 @@ namespace UDonkey.GUI
 			this.labelMoedB.Name = "labelMoedB";
 			this.labelMoedB.Size = new System.Drawing.Size(40, 23);
 			this.labelMoedB.TabIndex = 13;
-			this.labelMoedB.Text = "ξεςγ α\'";
+			this.labelMoedB.Text = "ΧΧ•ΧΆΧ“ Χ‘\'";
 			// 
 			// tbMoedB
 			// 
@@ -293,7 +293,7 @@ namespace UDonkey.GUI
 			this.labelLectureHours.Name = "labelLectureHours";
 			this.labelLectureHours.Size = new System.Drawing.Size(24, 16);
 			this.labelLectureHours.TabIndex = 14;
-			this.labelLectureHours.Text = "δψ";
+			this.labelLectureHours.Text = "Χ”Χ¨";
 			// 
 			// tbLectureHours
 			// 
@@ -321,7 +321,7 @@ namespace UDonkey.GUI
 			this.labelTutorialHours.Name = "labelTutorialHours";
 			this.labelTutorialHours.Size = new System.Drawing.Size(24, 16);
 			this.labelTutorialHours.TabIndex = 16;
-			this.labelTutorialHours.Text = "ϊψ";
+			this.labelTutorialHours.Text = "ΧªΧ¨";
 			// 
 			// tbLabHours
 			// 
@@ -339,7 +339,7 @@ namespace UDonkey.GUI
 			this.labelLabHours.Name = "labelLabHours";
 			this.labelLabHours.Size = new System.Drawing.Size(24, 16);
 			this.labelLabHours.TabIndex = 18;
-			this.labelLabHours.Text = "ξς";
+			this.labelLabHours.Text = "ΧΧΆ";
 			// 
 			// tbProjectHours
 			// 
@@ -357,7 +357,7 @@ namespace UDonkey.GUI
 			this.labelProjectHours.Name = "labelProjectHours";
 			this.labelProjectHours.Size = new System.Drawing.Size(24, 16);
 			this.labelProjectHours.TabIndex = 20;
-			this.labelProjectHours.Text = "τψ";
+			this.labelProjectHours.Text = "Χ¤Χ¨";
 			// 
 			// labelHours
 			// 
@@ -365,7 +365,7 @@ namespace UDonkey.GUI
 			this.labelHours.Name = "labelHours";
 			this.labelHours.Size = new System.Drawing.Size(48, 32);
 			this.labelHours.TabIndex = 22;
-			this.labelHours.Text = "ωςεϊ ωαεςιεϊ";
+			this.labelHours.Text = "Χ©ΧΆΧ•Χª Χ©Χ‘Χ•ΧΆΧ™Χ•Χª";
 			// 
 			// lbCourses
 			// 
@@ -385,12 +385,12 @@ namespace UDonkey.GUI
 			// 
 			// numberColumn
 			// 
-			this.numberColumn.Text = "ξρ χεψρ";
+			this.numberColumn.Text = "ΧΧ΅ Χ§Χ•Χ¨Χ΅";
 			this.numberColumn.Width = 57;
 			// 
 			// nameColumn
 			// 
-			this.nameColumn.Text = "ων δχεψρ";
+			this.nameColumn.Text = "Χ©Χ Χ”Χ§Χ•Χ¨Χ΅";
 			this.nameColumn.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			this.nameColumn.Width = 338;
 			// 
@@ -412,7 +412,7 @@ namespace UDonkey.GUI
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(168, 16);
 			this.label1.TabIndex = 28;
-			this.label1.Text = "ΰψεςιν";
+			this.label1.Text = "ΧΧ¨Χ•ΧΆΧ™Χ";
 			this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
 			// 
 			// label2
@@ -422,7 +422,7 @@ namespace UDonkey.GUI
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(400, 16);
 			this.label2.TabIndex = 29;
-			this.label2.Text = "ζξπιν εξιχεξιν";
+			this.label2.Text = "Χ–ΧΧ Χ™Χ Χ•ΧΧ™Χ§Χ•ΧΧ™Χ";
 			this.label2.TextAlign = System.Drawing.ContentAlignment.TopCenter;
 			// 
 			// btAddCourse
@@ -433,7 +433,7 @@ namespace UDonkey.GUI
 			this.btAddCourse.Name = "btAddCourse";
 			this.btAddCourse.Size = new System.Drawing.Size(232, 38);
 			this.btAddCourse.TabIndex = 30;
-			this.btAddCourse.Text = "δερσ χεψρ μρμ";
+			this.btAddCourse.Text = "Χ”Χ•Χ΅Χ£ Χ§Χ•Χ¨Χ΅ ΧΧ΅Χ";
 			// 
 			// lblAdvancedSearch
 			// 
@@ -444,7 +444,7 @@ namespace UDonkey.GUI
 			this.lblAdvancedSearch.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
 			this.lblAdvancedSearch.Size = new System.Drawing.Size(272, 16);
 			this.lblAdvancedSearch.TabIndex = 33;
-			this.lblAdvancedSearch.Text = "ηιτεω ξϊχγν";
+			this.lblAdvancedSearch.Text = "Χ—Χ™Χ¤Χ•Χ© ΧΧªΧ§Χ“Χ";
 			this.lblAdvancedSearch.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
 			// groupBox1
@@ -486,7 +486,7 @@ namespace UDonkey.GUI
 			this.lblCourseBasket.Name = "lblCourseBasket";
 			this.lblCourseBasket.Size = new System.Drawing.Size(160, 16);
 			this.lblCourseBasket.TabIndex = 36;
-			this.lblCourseBasket.Text = "ρμ δχεψριν ωπαηψε    (";
+			this.lblCourseBasket.Text = "Χ΅Χ Χ”Χ§Χ•Χ¨Χ΅Χ™Χ Χ©Χ Χ‘Χ—Χ¨Χ•    (";
 			this.lblCourseBasket.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
 			// btRemoveCourse
@@ -497,7 +497,7 @@ namespace UDonkey.GUI
 			this.btRemoveCourse.Name = "btRemoveCourse";
 			this.btRemoveCourse.Size = new System.Drawing.Size(176, 40);
 			this.btRemoveCourse.TabIndex = 37;
-			this.btRemoveCourse.Text = "δρψ χεψρ ξδρμ";
+			this.btRemoveCourse.Text = "Χ”Χ΅Χ¨ Χ§Χ•Χ¨Χ΅ ΧΧ”Χ΅Χ";
 			// 
 			// groupBox2
 			// 
@@ -506,7 +506,7 @@ namespace UDonkey.GUI
 			this.groupBox2.Size = new System.Drawing.Size(184, 160);
 			this.groupBox2.TabIndex = 38;
 			this.groupBox2.TabStop = false;
-			this.groupBox2.Text = "τψθι χεψρ";
+			this.groupBox2.Text = "Χ¤Χ¨ΧΧ™ Χ§Χ•Χ¨Χ΅";
 			// 
 			// groupBox3
 			// 
@@ -518,7 +518,7 @@ namespace UDonkey.GUI
 			this.groupBox3.Size = new System.Drawing.Size(600, 195);
 			this.groupBox3.TabIndex = 39;
 			this.groupBox3.TabStop = false;
-			this.groupBox3.Text = "αξιγδ εημχ ξδχαεφεϊ ΰιπν ψμεεπθιν ςαεψκ, αθμ ΰϊ αηιψϊν τδ";
+			this.groupBox3.Text = "Χ‘ΧΧ™Χ“Χ” Χ•Χ—ΧΧ§ ΧΧ”Χ§Χ‘Χ•Χ¦Χ•Χª ΧΧ™Χ Χ Χ¨ΧΧ•Χ•Χ ΧΧ™Χ ΧΆΧ‘Χ•Χ¨Χ, Χ‘ΧΧ ΧΧª Χ‘Χ—Χ™Χ¨ΧªΧ Χ¤Χ”";
 			// 
 			// btReverseChecked
 			// 
@@ -526,7 +526,7 @@ namespace UDonkey.GUI
 			this.btReverseChecked.Name = "btReverseChecked";
 			this.btReverseChecked.Size = new System.Drawing.Size(80, 24);
 			this.btReverseChecked.TabIndex = 41;
-			this.btReverseChecked.Text = "δτεκ αηιψδ";
+			this.btReverseChecked.Text = "Χ”Χ¤Χ•Χ Χ‘Χ—Χ™Χ¨Χ”";
 			this.btReverseChecked.Click += new System.EventHandler(this.btReverseChecked_Click);
 			// 
 			// lvCourseEvents
@@ -549,12 +549,12 @@ namespace UDonkey.GUI
 			// 
 			// chRegNum
 			// 
-			this.chRegNum.Text = "χαεφδ";
+			this.chRegNum.Text = "Χ§Χ‘Χ•Χ¦Χ”";
 			this.chRegNum.Width = 65;
 			// 
 			// chEvent
 			// 
-			this.chEvent.Text = "χαεφδ";
+			this.chEvent.Text = "Χ§Χ‘Χ•Χ¦Χ”";
 			this.chEvent.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			this.chEvent.Width = 166;
 			// 
@@ -583,24 +583,24 @@ namespace UDonkey.GUI
 			// 
 			// chLocation
 			// 
-			this.chLocation.Text = "ξιχεν";
+			this.chLocation.Text = "ΧΧ™Χ§Χ•Χ";
 			this.chLocation.Width = 140;
 			// 
 			// chUntil
 			// 
-			this.chUntil.Text = "ςγ ωςδ";
+			this.chUntil.Text = "ΧΆΧ“ Χ©ΧΆΧ”";
 			this.chUntil.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			this.chUntil.Width = 66;
 			// 
 			// chFrom
 			// 
-			this.chFrom.Text = "ξωςδ";
+			this.chFrom.Text = "ΧΧ©ΧΆΧ”";
 			this.chFrom.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			this.chFrom.Width = 67;
 			// 
 			// chDay
 			// 
-			this.chDay.Text = "ιεν";
+			this.chDay.Text = "Χ™Χ•Χ";
 			this.chDay.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 			this.chDay.Width = 48;
 			// 
@@ -610,7 +610,7 @@ namespace UDonkey.GUI
 			this.btChooseAll.Name = "btChooseAll";
 			this.btChooseAll.Size = new System.Drawing.Size(80, 24);
 			this.btChooseAll.TabIndex = 40;
-			this.btChooseAll.Text = "αηψ δλμ";
+			this.btChooseAll.Text = "Χ‘Χ—Χ¨ Χ”Χ›Χ";
 			this.btChooseAll.Click += new System.EventHandler(this.btChooseAll_Click);
 			// 
 			// btChooseNone
@@ -619,7 +619,7 @@ namespace UDonkey.GUI
 			this.btChooseNone.Name = "btChooseNone";
 			this.btChooseNone.Size = new System.Drawing.Size(96, 24);
 			this.btChooseNone.TabIndex = 41;
-			this.btChooseNone.Text = "δρψ αηιψδ ξδλμ";
+			this.btChooseNone.Text = "Χ”Χ΅Χ¨ Χ‘Χ—Χ™Χ¨Χ” ΧΧ”Χ›Χ";
 			this.btChooseNone.Click += new System.EventHandler(this.btChooseNone_Click);
 			// 
 			// tbNickName
@@ -638,7 +638,7 @@ namespace UDonkey.GUI
 			this.lblNickName.Name = "lblNickName";
 			this.lblNickName.Size = new System.Drawing.Size(32, 16);
 			this.lblNickName.TabIndex = 43;
-			this.lblNickName.Text = "λιπει";
+			this.lblNickName.Text = "Χ›Χ™Χ Χ•Χ™";
 			// 
 			// btRemoveAll
 			// 
@@ -648,7 +648,7 @@ namespace UDonkey.GUI
 			this.btRemoveAll.Name = "btRemoveAll";
 			this.btRemoveAll.Size = new System.Drawing.Size(80, 40);
 			this.btRemoveAll.TabIndex = 44;
-			this.btRemoveAll.Text = "δρψ δλμ ξδρμ";
+			this.btRemoveAll.Text = "Χ”Χ΅Χ¨ Χ”Χ›Χ ΧΧ”Χ΅Χ";
 			// 
 			// btDone
 			// 
@@ -660,7 +660,7 @@ namespace UDonkey.GUI
 			this.btDone.Name = "btDone";
 			this.btDone.Size = new System.Drawing.Size(176, 38);
 			this.btDone.TabIndex = 45;
-			this.btDone.Text = "απδ ξςψλεϊ!";
+			this.btDone.Text = "Χ‘Χ Χ” ΧΧΆΧ¨Χ›Χ•Χª!";
 			// 
 			// lblSelectedPoints
 			// 
@@ -681,7 +681,7 @@ namespace UDonkey.GUI
 			this.label3.Name = "label3";
 			this.label3.Size = new System.Drawing.Size(72, 16);
 			this.label3.TabIndex = 47;
-			this.label3.Text = " πχεγεϊ   )";
+			this.label3.Text = " Χ Χ§Χ•Χ“Χ•Χª   )";
 			this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
 			// lblSemester
@@ -691,7 +691,7 @@ namespace UDonkey.GUI
 			this.lblSemester.Name = "lblSemester";
 			this.lblSemester.Size = new System.Drawing.Size(296, 16);
 			this.lblSemester.TabIndex = 49;
-			this.lblSemester.Text = "πλεο μρξρθψ";
+			this.lblSemester.Text = "Χ Χ›Χ•Χ ΧΧ΅ΧΧ΅ΧΧ¨";
 			// 
 			// btUGLink
 			// 
@@ -779,9 +779,9 @@ namespace UDonkey.GUI
 				ListViewItem lvItem; 
 				switch (aCourseEvent.Type)
 				{
-					case "δψφΰδ": { lvItem = new ListViewItem(lv,0); break; }
-					case "ξςαγδ": { lvItem = new ListViewItem(lv,2); break; }
-					case "χαεφδ": { lvItem = new ListViewItem(lv,3); break; }
+					case "Χ”Χ¨Χ¦ΧΧ”": { lvItem = new ListViewItem(lv,0); break; }
+					case "ΧΧΆΧ‘Χ“Χ”": { lvItem = new ListViewItem(lv,2); break; }
+					case "Χ§Χ‘Χ•Χ¦Χ”": { lvItem = new ListViewItem(lv,3); break; }
 					default: { lvItem = new ListViewItem(lv,1); break; }
 				}	 
 				lvItem.Tag = aCourseEvent;

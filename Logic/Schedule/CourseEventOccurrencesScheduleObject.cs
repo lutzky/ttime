@@ -83,7 +83,7 @@ namespace UDonkey.Logic
 						this.mOccurrence.CourseEvent.Course.Number,
 						this.mOccurrence.CourseEvent.Course.NickName,
 						this.mOccurrence.CourseEvent.Type,
-						(this.mOccurrence.CourseEvent.Giver.Length != 0)?":òì éãé ":string.Empty,
+						(this.mOccurrence.CourseEvent.Giver.Length != 0)?":×¢×œ ×™×“×™ ":string.Empty,
 						this.mOccurrence.CourseEvent.Giver,
 						this.mOccurrence.Day,
 						this.mOccurrence.Hour + ":30",
@@ -96,7 +96,7 @@ namespace UDonkey.Logic
 						this.mOccurrence.CourseEvent.Course.Number,
 						this.mOccurrence.CourseEvent.Course.NickName,
 						this.mOccurrence.CourseEvent.Type,
-						(this.mOccurrence.CourseEvent.Giver.Length != 0)?":òì éãé ":string.Empty,
+						(this.mOccurrence.CourseEvent.Giver.Length != 0)?":×¢×œ ×™×“×™ ":string.Empty,
 						this.mOccurrence.CourseEvent.Giver,
 						this.mOccurrence.Location );
 				}
@@ -133,7 +133,7 @@ namespace UDonkey.Logic
 			tmp = false;
 			if( (flag & VerbosityFlag.EventGiver) == VerbosityFlag.EventGiver )
 			{
-				ret += (this.mOccurrence.CourseEvent.Giver.Length != 0)?":òì éãé ":string.Empty;
+				ret += (this.mOccurrence.CourseEvent.Giver.Length != 0)?":×¢×œ ×™×“×™ ":string.Empty;
 				if (this.mOccurrence.CourseEvent.Giver.Length != 0) tmp = true;
 				ret += this.mOccurrence.CourseEvent.Giver;
 			}

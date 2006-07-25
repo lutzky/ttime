@@ -178,11 +178,11 @@ namespace UDonkey.Logic
 				{
 					if( (bool)newVal )
 					{
-						this.mMainForm.Grid.ShowColumn ( DayOfWeek.Sunday.ToString() );
+						this.mMainForm.Grid.ShowColumn ( DayOfWeek.ראשון.ToString() );
 					}
 					else
 					{
-						this.mMainForm.Grid.HideColumn( DayOfWeek.Sunday.ToString() );
+						this.mMainForm.Grid.HideColumn( DayOfWeek.ראשון.ToString() );
 					}
 					break;
 				}
@@ -190,11 +190,11 @@ namespace UDonkey.Logic
 				{
 					if( (bool)newVal )
 					{
-						this.mMainForm.Grid.ShowColumn ( DayOfWeek.Monday.ToString() );
+						this.mMainForm.Grid.ShowColumn ( DayOfWeek.שני.ToString() );
 					}
 					else
 					{
-						this.mMainForm.Grid.HideColumn( DayOfWeek.Monday.ToString() );
+						this.mMainForm.Grid.HideColumn( DayOfWeek.שני.ToString() );
 					}
 					break;
 				}
@@ -202,11 +202,11 @@ namespace UDonkey.Logic
 				{
 					if( (bool)newVal )
 					{
-						this.mMainForm.Grid.ShowColumn ( DayOfWeek.Tuesday.ToString() );
+						this.mMainForm.Grid.ShowColumn ( DayOfWeek.שלישי.ToString() );
 					}
 					else
 					{
-						this.mMainForm.Grid.HideColumn( DayOfWeek.Tuesday.ToString() );
+						this.mMainForm.Grid.HideColumn( DayOfWeek.שלישי.ToString() );
 					}
 					break;
 				}
@@ -214,11 +214,11 @@ namespace UDonkey.Logic
 				{
 					if( (bool)newVal )
 					{
-						this.mMainForm.Grid.ShowColumn ( DayOfWeek.Wednesday.ToString() );
+						this.mMainForm.Grid.ShowColumn ( DayOfWeek.רביעי.ToString() );
 					}
 					else
 					{
-						this.mMainForm.Grid.HideColumn( DayOfWeek.Wednesday.ToString() );
+						this.mMainForm.Grid.HideColumn( DayOfWeek.רביעי.ToString() );
 					}
 					break;
 				}
@@ -226,11 +226,11 @@ namespace UDonkey.Logic
 				{
 					if( (bool)newVal )
 					{
-						this.mMainForm.Grid.ShowColumn ( DayOfWeek.Thursday.ToString() );
+						this.mMainForm.Grid.ShowColumn ( DayOfWeek.חמישי.ToString() );
 					}
 					else
 					{
-						this.mMainForm.Grid.HideColumn( DayOfWeek.Thursday.ToString() );
+						this.mMainForm.Grid.HideColumn( DayOfWeek.חמישי.ToString() );
 					}
 					break;
 				}
@@ -238,11 +238,11 @@ namespace UDonkey.Logic
 				{
 					if( (bool)newVal )
 					{
-						this.mMainForm.Grid.ShowColumn ( DayOfWeek.Friday.ToString() );
+						this.mMainForm.Grid.ShowColumn ( DayOfWeek.שישי.ToString() );
 					}
 					else
 					{
-						this.mMainForm.Grid.HideColumn( DayOfWeek.Friday.ToString() );
+						this.mMainForm.Grid.HideColumn( DayOfWeek.שישי.ToString() );
 					}
 					break;
 				}
@@ -250,11 +250,11 @@ namespace UDonkey.Logic
 				{
 					if( (bool)newVal )
 					{
-						this.mMainForm.Grid.ShowColumn ( DayOfWeek.Saturday.ToString() );
+						this.mMainForm.Grid.ShowColumn ( DayOfWeek.שבת.ToString() );
 					}
 					else
 					{
-						this.mMainForm.Grid.HideColumn( DayOfWeek.Saturday.ToString() );
+						this.mMainForm.Grid.HideColumn( DayOfWeek.שבת.ToString() );
 					}
 					break;
 				}

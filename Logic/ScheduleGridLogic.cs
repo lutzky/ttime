@@ -35,7 +35,7 @@ namespace UDonkey.GUI
 			mGrid.DataSource     = Scheduler.Schedule;
             mGrid.MouseDown     += new MouseEventHandler( this.OnScheduleGridMouseDown );
 			mGrid.MouseMove     += new MouseEventHandler(OnScheduleGridMouseMove); 
-            mEmptyCellMenuItem   = new ScheduleMenuItem( null, "  ", new EventHandler( NewUsersEvent ) );
+            mEmptyCellMenuItem   = new ScheduleMenuItem( null, "צור אירוע משתמש", new EventHandler( NewUsersEvent ) );
             mFreeDayConstraint   = new EventHandler( FreeDayConstraint );
             mStartHourConstraint = new EventHandler( StartHourConstraint );
             mEndHourConstraint   = new EventHandler( EndHourConstraint );
@@ -86,13 +86,13 @@ namespace UDonkey.GUI
 						}
 					}
 				}
-				if( mHitTestInfo.Day != DayOfWeek.Saturday) // FIXME arbitrary date
+				if( mHitTestInfo.Day != DayOfWeek.שעות )
 				{
 					if( mHitTestInfo.Hour < mDayData.EndHourConstraint )
 					{
 						menuItem = new ScheduleMenuItem( 
 							null, 
-							string.Format("  {0}  ", mHitTestInfo.Hour +":30" ),
+							string.Format("הגדר את {0} כשעת התחלה", mHitTestInfo.Hour +":30" ),
 							mStartHourConstraint);
 						mGrid.ContextMenu.MenuItems.Add( menuItem );                                
 					}
@@ -100,7 +100,7 @@ namespace UDonkey.GUI
 					{
 						menuItem = new ScheduleMenuItem( 
 							null, 
-							string.Format("  {0}  ", mHitTestInfo.Hour +":30" ),
+							string.Format("הגדר את {0} כשעת סיום", mHitTestInfo.Hour +":30" ),
 							mEndHourConstraint);
 						mGrid.ContextMenu.MenuItems.Add( menuItem ); 
 					}
@@ -109,12 +109,12 @@ namespace UDonkey.GUI
 			if ( mHitTestInfo.Type == DataGrid.HitTestType.Cell ||
 				mHitTestInfo.Type == DataGrid.HitTestType.ColumnHeader )
 			{
-				if ( mHitTestInfo.Day != DayOfWeek.Saturday) // FIXME arbitrary
+				if ( mHitTestInfo.Day != DayOfWeek.שעות )
 				{
 					menuItem = new ScheduleMenuItem( 
 						null, 
-						string.Format("{0}  {1}  ",
-						mDayData.FreeDayConstraint?"":"",
+						string.Format("{0} יום {1} כיום חופשי",
+						mDayData.FreeDayConstraint?"הסר":"הגדר",
 						mHitTestInfo.Day),
 						mFreeDayConstraint);
 					mGrid.ContextMenu.MenuItems.Add( menuItem ); 
@@ -126,7 +126,7 @@ namespace UDonkey.GUI
 
 				menuItem = new ScheduleMenuItem( 
 					null, 
-					string.Format("   {0}",
+					string.Format("הסתר את יום {0}",
 					mHitTestInfo.Day),
 					mHideDay);
 				mGrid.ContextMenu.MenuItems.Add( menuItem ); 

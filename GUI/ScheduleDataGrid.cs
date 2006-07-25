@@ -56,11 +56,12 @@ namespace UDonkey.GUI
 			out int hour, out int duration, bool setByPoint )
 		{
 			eventName = string.Empty;
-			day       = DayOfWeek.Sunday;// boaz: FIXME no idea wtf;
+			day       = DayOfWeek.ראשון;
 			hour      = 0;
 			duration  = 1;
 
 			UsersEventForm form = new UsersEventForm();
+
 			if ( setByPoint )
 			{
 				form.Location  = mPoint;
@@ -187,8 +188,8 @@ namespace UDonkey.GUI
           
             DataGridColumnStyle DGCStyle;
                 /*= (DataGridColumnStyle)new DataGridTextBoxColumn();
-            DGCStyle.MappingName = "";
-            DGCStyle.HeaderText  = "";
+            DGCStyle.MappingName = "שעות";
+            DGCStyle.HeaderText  = "שעות";
             DGStyle.GridColumnStyles.Add(DGCStyle);*/
 
 			foreach ( DayOfWeek day in Enum.GetValues( typeof(DayOfWeek) ) )

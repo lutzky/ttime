@@ -85,7 +85,7 @@ namespace UDonkey.GUI
 			this.EventNameLabel.Name = "EventNameLabel";
 			this.EventNameLabel.Size = new System.Drawing.Size(90, 15);
 			this.EventNameLabel.TabIndex = 0;
-			this.EventNameLabel.Text = " :";
+			this.EventNameLabel.Text = "שם האירוע:";
 			// 
 			// EventDurationLabel
 			// 
@@ -94,7 +94,7 @@ namespace UDonkey.GUI
 			this.EventDurationLabel.Name = "EventDurationLabel";
 			this.EventDurationLabel.Size = new System.Drawing.Size(90, 15);
 			this.EventDurationLabel.TabIndex = 1;
-			this.EventDurationLabel.Text = " :";
+			this.EventDurationLabel.Text = "משך האירוע:";
 			// 
 			// EventNameTextBox
 			// 
@@ -104,7 +104,7 @@ namespace UDonkey.GUI
 			this.EventNameTextBox.Name = "EventNameTextBox";
 			this.EventNameTextBox.Size = new System.Drawing.Size(200, 23);
 			this.EventNameTextBox.TabIndex = 2;
-			this.EventNameTextBox.Text = " ";
+			this.EventNameTextBox.Text = "שם האירוע";
 			// 
 			// OKButton
 			// 
@@ -115,7 +115,7 @@ namespace UDonkey.GUI
 			this.OKButton.Name = "OKButton";
 			this.OKButton.Size = new System.Drawing.Size(70, 24);
 			this.OKButton.TabIndex = 4;
-			this.OKButton.Text = "";
+			this.OKButton.Text = "אישור";
 			this.OKButton.Click += new System.EventHandler(this.OKButton_Click);
 			// 
 			// CancelButton
@@ -127,7 +127,7 @@ namespace UDonkey.GUI
 			this.CancelButton.Name = "CancelButton";
 			this.CancelButton.Size = new System.Drawing.Size(70, 24);
 			this.CancelButton.TabIndex = 5;
-			this.CancelButton.Text = "";
+			this.CancelButton.Text = "ביטול";
 			this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
 			// 
 			// EventDurationNumericUpDown
@@ -156,18 +156,18 @@ namespace UDonkey.GUI
 			// EventDayDomainUpDown
 			// 
 			this.EventDayDomainUpDown.Font = new System.Drawing.Font("David", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((System.Byte)(177)));
-			this.EventDayDomainUpDown.Items.Add(DayOfWeek.Saturday);
-			this.EventDayDomainUpDown.Items.Add(DayOfWeek.Monday);
-			this.EventDayDomainUpDown.Items.Add(DayOfWeek.Tuesday);
-			this.EventDayDomainUpDown.Items.Add(DayOfWeek.Wednesday);
-			this.EventDayDomainUpDown.Items.Add(DayOfWeek.Thursday);
-			this.EventDayDomainUpDown.Items.Add(DayOfWeek.Friday);
-			this.EventDayDomainUpDown.Items.Add(DayOfWeek.Saturday);
+			this.EventDayDomainUpDown.Items.Add(UDonkey.DayOfWeek.ראשון);
+			this.EventDayDomainUpDown.Items.Add(UDonkey.DayOfWeek.שני);
+			this.EventDayDomainUpDown.Items.Add(UDonkey.DayOfWeek.שלישי);
+			this.EventDayDomainUpDown.Items.Add(UDonkey.DayOfWeek.רביעי);
+			this.EventDayDomainUpDown.Items.Add(UDonkey.DayOfWeek.חמישי);
+			this.EventDayDomainUpDown.Items.Add(UDonkey.DayOfWeek.שישי);
+			this.EventDayDomainUpDown.Items.Add(UDonkey.DayOfWeek.שבת);
 			this.EventDayDomainUpDown.Location = new System.Drawing.Point(152, 40);
 			this.EventDayDomainUpDown.Name = "EventDayDomainUpDown";
 			this.EventDayDomainUpDown.Size = new System.Drawing.Size(80, 23);
 			this.EventDayDomainUpDown.TabIndex = 8;
-			this.EventDayDomainUpDown.Text = "";
+			this.EventDayDomainUpDown.Text = "ראשון";
 			// 
 			// EventDayLabel
 			// 
@@ -176,7 +176,7 @@ namespace UDonkey.GUI
 			this.EventDayLabel.Name = "EventDayLabel";
 			this.EventDayLabel.Size = new System.Drawing.Size(90, 15);
 			this.EventDayLabel.TabIndex = 7;
-			this.EventDayLabel.Text = " :";
+			this.EventDayLabel.Text = "יום האירוע:";
 			// 
 			// EventHourNumericUpDown
 			// 
@@ -204,7 +204,7 @@ namespace UDonkey.GUI
 			this.EventHourLabel.Name = "EventHourLabel";
 			this.EventHourLabel.Size = new System.Drawing.Size(90, 15);
 			this.EventHourLabel.TabIndex = 9;
-			this.EventHourLabel.Text = " :";
+			this.EventHourLabel.Text = "שעת האירוע:";
 			// 
 			// StatusBar
 			// 
@@ -214,7 +214,7 @@ namespace UDonkey.GUI
 			this.StatusBar.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
 			this.StatusBar.Size = new System.Drawing.Size(338, 22);
 			this.StatusBar.TabIndex = 11;
-			this.StatusBar.Text = "          ";
+			this.StatusBar.Text = "באפשרותך לפתוח תפריט זה על ידי לחיצה ימנית על תא בטבלה";
 			// 
 			// UsersEventForm
 			// 
@@ -239,7 +239,7 @@ namespace UDonkey.GUI
 			this.Name = "UsersEventForm";
 			this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
 			this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
-			this.Text = " ";
+			this.Text = "אירוע משתמש";
 			((System.ComponentModel.ISupportInitialize)(this.EventDurationNumericUpDown)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.EventHourNumericUpDown)).EndInit();
 			this.ResumeLayout(false);

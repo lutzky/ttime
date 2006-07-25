@@ -72,7 +72,7 @@ namespace UDonkey.GUI
 			this.label1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
 			this.label1.Size = new System.Drawing.Size(208, 16);
 			this.label1.TabIndex = 0;
-			this.label1.Text = " χεαυ αριρ πϊεπιν  μΰ πξφΰ. αηψ ΰτωψεϊ:";
+			this.label1.Text = " Χ§Χ•Χ‘Χ¥ Χ‘Χ΅Χ™Χ΅ Χ ΧªΧ•Χ Χ™Χ  ΧΧ Χ ΧΧ¦Χ. Χ‘Χ—Χ¨ ΧΧ¤Χ©Χ¨Χ•Χª:";
 			// 
 			// radioButton2
 			// 
@@ -81,7 +81,7 @@ namespace UDonkey.GUI
 			this.radioButton2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
 			this.radioButton2.Size = new System.Drawing.Size(168, 24);
 			this.radioButton2.TabIndex = 2;
-			this.radioButton2.Text = "αηψ χεαυ αριρ πϊεπιν ";
+			this.radioButton2.Text = "Χ‘Χ—Χ¨ Χ§Χ•Χ‘Χ¥ Χ‘Χ΅Χ™Χ΅ Χ ΧªΧ•Χ Χ™Χ ";
 			// 
 			// radioButton4
 			// 
@@ -92,7 +92,7 @@ namespace UDonkey.GUI
 			this.radioButton4.Size = new System.Drawing.Size(208, 24);
 			this.radioButton4.TabIndex = 4;
 			this.radioButton4.TabStop = true;
-			this.radioButton4.Text = "δεψγ ξδψωϊ (ξφψικ ηιαεψ ΰιπθψπθ)";
+			this.radioButton4.Text = "Χ”Χ•Χ¨Χ“ ΧΧ”Χ¨Χ©Χª (ΧΧ¦Χ¨Χ™Χ Χ—Χ™Χ‘Χ•Χ¨ ΧΧ™Χ ΧΧ¨Χ Χ)";
 			// 
 			// button1
 			// 
@@ -100,7 +100,7 @@ namespace UDonkey.GUI
 			this.button1.Name = "button1";
 			this.button1.Size = new System.Drawing.Size(40, 23);
 			this.button1.TabIndex = 5;
-			this.button1.Text = "αφς";
+			this.button1.Text = "Χ‘Χ¦ΧΆ";
 			this.button1.Click += new System.EventHandler(this.button1_Click);
 			// 
 			// radioButton5
@@ -110,7 +110,7 @@ namespace UDonkey.GUI
 			this.radioButton5.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
 			this.radioButton5.Size = new System.Drawing.Size(144, 24);
 			this.radioButton5.TabIndex = 6;
-			this.radioButton5.Text = "ρβεψ ΰϊ δϊελπδ";
+			this.radioButton5.Text = "Χ΅Χ’Χ•Χ¨ ΧΧª Χ”ΧªΧ•Χ›Χ Χ”";
 			// 
 			// LoadDBForm
 			// 
@@ -127,7 +127,7 @@ namespace UDonkey.GUI
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
 			this.Name = "LoadDBForm";
 			this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-			this.Text = "θςιπϊ αριρ πϊεπιν";
+			this.Text = "ΧΧΆΧ™Χ Χª Χ‘Χ΅Χ™Χ΅ Χ ΧªΧ•Χ Χ™Χ";
 			this.ResumeLayout(false);
 
 		}

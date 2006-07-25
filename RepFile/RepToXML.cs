@@ -43,14 +43,14 @@ namespace UDonkey.RepFile
 		/// <summary>
 		/// Regex for:
 		/// | FacultyName - XXX |
-		/// | Semster сосиш  |
+		/// | Semster ЧЎЧћЧЎЧЧЁ  |
 		/// or
-		/// | Semster сосиш  - FacultyName |
+		/// | Semster ЧЎЧћЧЎЧЧЁ  - FacultyName |
 		/// </summary>
 		private const string FACULTY_HEADER_REGEX =
-			@"\|\s+(?<FacultyName>[^-]+)-.*\|.*\|\s+(?<Semster>.*)шисос\s+\|" + 
+			@"\|\s+(?<FacultyName>[^-]+)-.*\|.*\|\s+(?<Semster>.*)ЧЁЧЧЎЧћЧЎ\s+\|" + 
 			"|" +
-			@"\|\s+(?<Semster>.*)шисос - (?<FacultyName>[^|]+)\|"; 
+			@"\|\s+(?<Semster>.*)ЧЁЧЧЎЧћЧЎ - (?<FacultyName>[^|]+)\|"; 
    
 		private const string FACULTY_SEPERATOR = "\r\n\r\n";
 		#endregion Faculty
@@ -67,33 +67,33 @@ namespace UDonkey.RepFile
 		/// <summary>
 		/// Regex for:
 		/// | CourseNumber CourseID                   |
-		/// | CourseAcademicPoint:рч CourseHours:XXX  |
+		/// | CourseAcademicPoint:Ч Ч§ CourseHours:XXX  |
 		/// </summary>
 		private const string COURSE_HEADER = 
 			"\\|\\s*(?<CourseName>.*)\\s+(?<CourseNumber>\\d+?)\\s+\\|\r\n" +
-			"\\|(?<CourseAcademicPoints>[^:]+):чр(?<CourseHours>[^:]+).*\\|";
+			"\\|(?<CourseAcademicPoints>[^:]+):Ч§Ч (?<CourseHours>[^:]+).*\\|";
 		/// <summary>
 		/// Regex for:
-		/// | LacturerInCharge : оешд азшай |
+		/// | LacturerInCharge : ЧћЧ•ЧЁЧ” ЧђЧ—ЧЁЧђЧ™ |
 		/// | -+                            |
-		/// | FirstTestDate    : оетг шащеп |
+		/// | FirstTestDate    : ЧћЧ•ЧўЧ“ ЧЁЧђЧ©Ч•Чџ |
 		/// | -+                            |
-		/// | SecondTestDate     : оетг щрй |
+		/// | SecondTestDate     : ЧћЧ•ЧўЧ“ Ч©Ч Ч™ |
 		/// | -+                            |
 		/// </summary>
 		private const string COURSE_BODY   = 
 			"\r\n" +
-			"(\\|(?<LacturerInCharge>.*): йашза  дшео \\|\r\n"+
+			"(\\|(?<LacturerInCharge>.*): Ч™ЧђЧЁЧ—Чђ  Ч”ЧЁЧ•Чћ \\|\r\n"+
 			"\\|\\s*-+\\s*\\|\r\n)?" +
-			"(\\|(?<FirstTestDate>.*)\\s+ней: пещаш гтео \\|\r\n" +
+			"(\\|(?<FirstTestDate>.*)\\s+ЧќЧ•Ч™: ЧџЧ•Ч©ЧђЧЁ Ч“ЧўЧ•Чћ \\|\r\n" +
 			"\\|\\s*-+\\s*\\|\r\n)?" +
-			"(\\|(?<SecondTestDate>.*)ней:   йрщ гтео \\|\r\n" +
+			"(\\|(?<SecondTestDate>.*)ЧќЧ•Ч™:   Ч™Ч Ч© Ч“ЧўЧ•Чћ \\|\r\n" +
 			"\\|\\s*-+\\s*\\|\r\n)?";
         
 		/// <summary>
 		/// Regex for:
-		///(|               ++++++                  .ос|
-		/// |                                     шйщен| Or
+		///(|               ++++++                  .ЧћЧЎ|
+		/// |                                     ЧЁЧ™Ч©Ч•Чќ| Or
 		/// |                                          |)
 		/// |(Building) (Room)   Hours'Day (:)Type (No)|
 		///(|(Building) (Room)   Hours'Day             |)
@@ -102,8 +102,8 @@ namespace UDonkey.RepFile
 		/// </summary>
 		private const string COURSE_GROUPS =
 			"((?<PlaceTime>\\|\\s*([^|]+)?(\\s+\\d+)?\\s+(\\d{1,2}.\\d{2}-\\s?\\d{1,2}.\\d{2}'\\w{1})\\s*\\|\r\n)?" +
-			"(?<Header>\\|\\s+\\++\\s+.со\\|\r\n" +
-			"\\|\\s+нещйш\\|\r\n)" +
+			"(?<Header>\\|\\s+\\++\\s+.ЧЎЧћ\\|\r\n" +
+			"\\|\\s+ЧќЧ•Ч©Ч™ЧЁ\\|\r\n)" +
 			"|" +
 			"\\|\\s+\\|\r\n)?" +
 			"\\|(\\s*(?<Place>[^|]+)?\\s+(?<DayTime>\\d{1,2}.\\d{2}-\\s?\\d{1,2}.\\d{2}'\\w{1})|\\s*-\\s*)\\s+:?\\s*(?<GroupType>.*?)\\s+(?<Number>\\d{2})?\\s+\\|\r\n" +
@@ -320,22 +320,22 @@ namespace UDonkey.RepFile
 				string[] hourSplit = hour.Split('-');
 				switch ( hourSplit[0] )
 				{
-					case "д":
+					case "Ч”":
 					{
 						retHours[0] = hourSplit[1];
 						break;
 					}
-					case "ъ":
+					case "ЧЄ":
 					{
 						retHours[1] = hourSplit[1];
 						break;
 					}
-					case "о":
+					case "Чћ":
 					{
 						retHours[2] = hourSplit[1];
 						break;
 					}
-					case "ф":
+					case "Ч¤":
 					{
 						retHours[3] = hourSplit[1];
 						break;

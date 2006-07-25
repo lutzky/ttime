@@ -200,42 +200,42 @@ namespace UDonkey.Logic
 			string name = string.Empty;
 			switch( meDay )
 			{
-				case System.DayOfWeek.Sunday: 
+				case DayOfWeek.ראשון: 
 				{
 					name = System.DayOfWeek.Sunday.ToString();
 					break;
 				}
-				case DayOfWeek.Monday: 
+				case DayOfWeek.שני  : 
 				{
 					name = System.DayOfWeek.Monday.ToString();
 					break;
 				}
-				case DayOfWeek.Tuesday: 
+				case DayOfWeek.שלישי: 
 				{
 					name = System.DayOfWeek.Tuesday.ToString();
 					break;
 				}
-				case DayOfWeek.Wednesday: 
+				case DayOfWeek.רביעי: 
 				{
 					name = System.DayOfWeek.Wednesday.ToString();
 					break;
 				}
-				case DayOfWeek.Thursday:
+				case DayOfWeek.חמישי:
 				{
 					name = System.DayOfWeek.Thursday.ToString();
 					break;
 				}
-				case DayOfWeek.Friday:
+				case DayOfWeek.שישי:
 				{
 					name = System.DayOfWeek.Friday.ToString();
 					break;
 				}
-				case DayOfWeek.Saturday:
+				case DayOfWeek.שבת:
 				{
 					name = System.DayOfWeek.Saturday.ToString();
 					break;
 				}
-				default:
+				case DayOfWeek.שעות:
 				{
 					name = "Hours";
 					break;

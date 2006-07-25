@@ -1,6 +1,6 @@
 using System;
 using System.Collections;
-// using System.Windows.Forms; no winforms!!!
+using System.Windows.Forms;
 using UDonkey.Logic;
 using UDonkey.DB;
 using UDonkey.GUI;
@@ -144,7 +144,7 @@ namespace UDonkey.Logic
 			{
 				this.mDBBrowser.AddCourseToCourseBasket( aCourse );
 			}
-			this.mDBBrowser.Semester = "  " + this.mCourseDB.GetSemesterInfo();
+			this.mDBBrowser.Semester = "נכון לסמסטר " + this.mCourseDB.GetSemesterInfo();
 		}
 
 		private void AddCourse_Click(object sender, System.EventArgs e)
@@ -178,9 +178,9 @@ namespace UDonkey.Logic
 				{
 					switch (courseEvent.Type)
 					{
-						case "": { temp.Lectures.Add(courseEvent.EventNum, courseEvent); break; }
-						case "": { temp.Labs.Add(courseEvent.EventNum, courseEvent); break; }
-						case "": { temp.Projects.Add(courseEvent.EventNum, courseEvent); break; }
+						case "הרצאה": { temp.Lectures.Add(courseEvent.EventNum, courseEvent); break; }
+						case "מעבדה": { temp.Labs.Add(courseEvent.EventNum, courseEvent); break; }
+						case "קבוצה": { temp.Projects.Add(courseEvent.EventNum, courseEvent); break; }
 						default: { temp.Tutorials.Add(courseEvent.EventNum, courseEvent); break; }
 					}	 
 				}
@@ -282,9 +282,8 @@ namespace UDonkey.Logic
 			CourseID theCourseID = (CourseID)(lvItem.Tag);
             mDBBrowser.Course    = mCourseDB.GetCourseByNumber(theCourseID.CourseNumber);
 		}
-	
-
-		private void lbCourses_ColumnClick(object sender, SystemDependent.ColumnEventWrapper e)
+		
+		private void lbCourses_ColumnClick(object sender, System.Windows.Forms.ColumnClickEventArgs e)
 		{
 			ListView courses = (ListView) sender;
 			
@@ -332,7 +331,7 @@ namespace UDonkey.Logic
 			if (mDBBrowser.CourseBasket.Items.Count>0)
 				mMainFormLogic.ScheduleSchedules();
 			else
-				SystemDependant.MessageBox.Show("        ");
+				System.Windows.Forms.MessageBox.Show("נא לבחור קורס אחד לפחות על מנת לסדר מערכות");
 		}
 		private void mDBBrowser_VisibleChanged(object sender, EventArgs e)
 		{

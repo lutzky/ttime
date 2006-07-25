@@ -10,26 +10,24 @@ namespace UDonkey
         Busy
     }
     
-   public enum DayOfWeek
+    public enum DayOfWeek
     {
-       Hour=0,
-       Sunday= 1,
-       Monday,
-       Tuesday ,
-       Wednsday ,
-       Thursday ,
-       Friday ,
-       Saturday 
-        
+        שעות   = 0,
+        ראשון = 1,
+        שני,
+        שלישי,
+        רביעי,
+        חמישי,
+        שישי,
+        שבת
     };
 
-    public enum CourseEventType //boazg: hebrew FUBAR'd, guessing
+    public enum CourseEventType
     {
-        Lecture,
-        Tutorial,
-        SomeThingElse,
-        NoIdea
-        
+        הרצאה,
+        תרגול,
+        פרויקט,
+        מעבדה
     }
 
 	public enum VerbosityFlag: long
