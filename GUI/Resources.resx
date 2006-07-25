@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<root>
+	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+		<xsd:element name="root" msdata:IsDataSet="true">
+			<xsd:complexType>
+				<xsd:choice maxOccurs="unbounded">
+					<xsd:element name="data">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" />
+							<xsd:attribute name="type" type="xsd:string" />
+							<xsd:attribute name="mimetype" type="xsd:string" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="resheader">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" />
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:choice>
+			</xsd:complexType>
+		</xsd:element>
+	</xsd:schema>
+	<resheader name="ResMimeType">
+		<value>text/microsoft-resx</value>
+	</resheader>
+	<resheader name="Version">
+		<value>1.0.0.0</value>
+	</resheader>
+	<resheader name="Reader">
+		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<resheader name="Writer">
+		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<data name="General_OK" type="System.String">
+		<value>אישור</value>
+	</data>
+	<data name="AboutForm_Title" type="System.String">
+		<value>UDonkey אודות</value>
+	</data>
+	<data name="AboutForm_Text" type="System.String">
+		<value>UDonkey
+
+גירסא 1.01
+=============================================
+בוצע עבור המעבדה למערכות תוכנה, הפקולטה להנדסת חשמל
+
+מנהלת הפרויקט:      דר. אילנה דויד
+מנחה הפרויקט:         ניסים נתנוב
+צוות הפיתוח:
+                                אלון יעקבי
+                                יהודה ארקין
+                                יניב גרדי
+                                יניב רזיאל</value>
+	</data>
+	<data name="UDonkeyForm_Title" type="System.String">
+		<value>חמורו של אולמן</value>
+	</data>
+	<data name="UDonkeyForm_Text" type="System.String">
+		<value>אולמן הגיע רכוב על חמורו לחנוך את הבניין אשר הקימו בכספיו.
+את החמור קשר לכניסת הבניין אך לאחר טקס החניכה עלה על הלימוזינה שהוזמנה לכבודו והחמור נשכח מליבו.
+נער החמור בקול רם במשך סמסטר שלם אך קולו לא נשמע בגלל קולות בכי הסטודנטים הנכנסים ויוצאים מהבניין תכופות.
+התייאש החמור, שקט, הרכין ראש והטה אוזניו לנעשה בתוך הבניין אליו הוא קשור.
+אינטגרל ומטריצה, פאי ולמדה, ומילים מוזרות אחרות הגיעו לאוזניו. האזין החמור בקשב רב, סיכם ולמד ולאחר 4 שנים קיבל תואר בהצטיינות.</value>
+	</data>
+	<data name="Configuration_Title" type="System.String">
+		<value>תצורת המערכת</value>
+	</data>
+	<data name="ToolBar_ScheduleOrder" type="System.String">
+		<value>סדר מערכות</value>
+	</data>
+	<data name="ToolBar_ScheduleOrderExtended" type="System.String">
+		<value>סדר מערכות</value>
+	</data>
+	<data name="ToolBar_Back10" type="System.String">
+		<value>10 אחורה</value>
+	</data>
+	<data name="ToolBar_Back10Extended" type="System.String">
+		<value>קפוץ 10 מערכות אחורה</value>
+	</data>
+	<data name="ToolBar_PreviousSchedule" type="System.String">
+		<value>המערכת הקודמת</value>
+	</data>
+	<data name="ToolBar_PreviousScheduleExtended" type="System.String">
+		<value>המערכת הקודמת</value>
+	</data>
+	<data name="ToolBar_nextSchedule" type="System.String">
+		<value>המערכת הבאה</value>
+	</data>
+	<data name="ToolBar_nextScheduleExtended" type="System.String">
+		<value>המערכת הבאה</value>
+	</data>
+	<data name="ToolBar_Forward10" type="System.String">
+		<value>קדימה 10</value>
+	</data>
+	<data name="ToolBar_Forward10Extended" type="System.String">
+		<value>קפוץ 10 מערכות קדימה</value>
+	</data>
+	<data name="ToolBar_SaveSchedule" type="System.String">
+		<value>שמור מערכת</value>
+	</data>
+	<data name="ToolBar_SaveScheduleExtended" type="System.String">
+		<value>שמור מערכת לצפייה</value>
+	</data>
+	<data name="ToolBar_LoadSchedule" type="System.String">
+		<value>טען מערכת</value>
+	</data>
+	<data name="ToolBar_LoadScheduleExtended" type="System.String">
+		<value>טען מערכת לצפיה</value>
+	</data>
+	<data name="Tabs_Schedule" type="System.String">
+		<value>מערכת</value>
+	</data>
+	<data name="Tabs_Search" type="System.String">
+		<value>חיפוש</value>
+	</data>
+	<data name="Tabs_Settings" type="System.String">
+		<value>הגדרות</value>
+	</data>
+	<data name="ToolBar_Print" type="System.String">
+		<value>תצוגה מקדמת</value>
+	</data>
+	<data name="ToolBar_PrintExtended" type="System.String">
+		<value>הפנה להדפסה</value>
+	</data>
+	<data name="Menus_HelpMenuHeader" type="System.String">
+		<value>עזרה</value>
+	</data>
+	<data name="Menus_HelpMenuDonkey" type="System.String">
+		<value>חמורו של אולמן</value>
+	</data>
+	<data name="Menus_HelpMenuAbout" type="System.String">
+		<value>אודות</value>
+	</data>
+	<data name="SearchTab_CourseList" type="System.String">
+		<value>רשימת הקורסים</value>
+	</data>
+	<data name="SearchTab_CourseNumber" type="System.String">
+		<value>מספר הקורס</value>
+	</data>
+	<data name="SearchTab_Navigate" type="System.String">
+		<value>נווט על פי:</value>
+	</data>
+	<data name="SearchTab_Points" type="System.String">
+		<value>נקודות אקדמיות</value>
+	</data>
+	<data name="SearchTab_Lecturer" type="System.String">
+		<value>מרצה אחראי</value>
+	</data>
+	<data name="SearchTab_FirstDate" type="System.String">
+		<value>מועד א'</value>
+	</data>
+	<data name="SearchTab_SecondDate" type="System.String">
+		<value>מועד ב'</value>
+	</data>
+	<data name="SearchTab_Lecture" type="System.String">
+		<value>הר</value>
+	</data>
+	<data name="SearchTab_Tutorial" type="System.String">
+		<value>תר</value>
+	</data>
+	<data name="SearchTab_Lab" type="System.String">
+		<value>מע</value>
+	</data>
+	<data name="SearchTab_Project" type="System.String">
+		<value>פר</value>
+	</data>
+	<data name="SearchTab_WeeklyHours" type="System.String">
+		<value>שעות שבועיות</value>
+	</data>
+	<data name="SearchTab_CourseNum" type="System.String">
+		<value>מס קורס</value>
+	</data>
+	<data name="SearchTab_CourseName" type="System.String">
+		<value>שם הקורס</value>
+	</data>
+	<data name="SearchTab_ChooseFaculty" type="System.String">
+		<value>בחר פקולטה</value>
+	</data>
+	<data name="SearchTab_Events" type="System.String">
+		<value>ארועים</value>
+	</data>
+	<data name="SearchTab_TimePlace" type="System.String">
+		<value>זמנים ומיקומים</value>
+	</data>
+	<data name="SearchTab_AddToBucket" type="System.String">
+		<value>הוסף קורס לסל</value>
+	</data>
+	<data name="SearchTab_AdvancedSearch" type="System.String">
+		<value>חיפוש מתקדם</value>
+	</data>
+	<data name="SearchTab_CourseBucket" type="System.String">
+		<value>סל הקורסים שנבחרו</value>
+	</data>
+	<data name="SearchTab_RemoveCourse" type="System.String">
+		<value>הסר קורס מהסל</value>
+	</data>
+	<data name="SearchTab_CourseDetails" type="System.String">
+		<value>פרטי קורס</value>
+	</data>
+	<data name="SearchTab_Message1" type="System.String">
+		<value>במידה וחלק מהקבוצות אינם רלוונטים עבורך, בטל את בחירתם פה</value>
+	</data>
+	<data name="SearchTab_ReverseSelection" type="System.String">
+		<value>הפוך בחירה</value>
+	</data>
+	<data name="SearchTab_Group" type="System.String">
+		<value>קבוצה</value>
+	</data>
+	<data name="SearchTab_EventDetails" type="System.String">
+		<value>פרטי הארוע</value>
+	</data>
+	<data name="SearchTab_Location" type="System.String">
+		<value>מיקום</value>
+	</data>
+	<data name="SearchTab_UntilHour" type="System.String">
+		<value>עד שעה</value>
+	</data>
+	<data name="SearchTab_FromHour" type="System.String">
+		<value>משעה</value>
+	</data>
+	<data name="SearchTab_Day" type="System.String">
+		<value>יום</value>
+	</data>
+	<data name="SearchTab_SelectAll" type="System.String">
+		<value>בחר הכל</value>
+	</data>
+	<data name="SearchTab_UnSelectAll" type="System.String">
+		<value>הסר בחירה מהכל</value>
+	</data>
+	<data name="SearchTab_NickName" type="System.String">
+		<value>כינוי</value>
+	</data>
+	<data name="MainForm_ScheduleText" type="System.String">
+		<value> מערכת {0} מתוך {1} בציון {2}</value>
+	</data>
+	<data name="MainForm_LoadError" type="System.String">
+		<value>הטעינה לא הצליחה</value>
+	</data>
+	<data name="MainForm_ConstraintFailMessage1" type="System.String">
+		<value>.UDonkey לא מצא מערכות עבורך
+		</value>
+	</data>
+	<data name="MainForm_ConstraintFailMessage2" type="System.String">
+		<value>:האילוצים הבאים הסירו מערכות
+		
+		</value>
+	</data>
+	<data name="MainForm_EndHourConstraint" type="System.String">
+		<value>אילוצי שעת סיום</value>
+	</data>
+	<data name="MainForm_FreeDayConstraint" type="System.String">
+		<value>אילוצי יום חופשי</value>
+	</data>
+	<data name="MainForm_NoOverlapConstraint" type="System.String">
+		<value>אילוצי איסור חפיפה</value>
+	</data>
+	<data name="MainForm_StartHourConstraint" type="System.String">
+		<value>אילוצי שעת התחלה</value>
+	</data>
+	<data name="MainForm_UserEventConstraint" type="System.String">
+		<value>אילוצי אירועי משתמש</value>
+	</data>
+	<data name="MainForm_ConstraintFailMessage3" type="System.String">
+		<value>{0} ביטל {1} מערכות
+		</value>
+	</data>
+	<data name="SearchTab_ExamOverlapMessage1" type="System.String">
+		<value>:המבחן במקצוע {0} מתנגש עם המבחנים הבאים
+		
+		</value>
+	</data>
+	<data name="SearchTab_ExamOverlapMessage2" type="System.String">
+		<value>{0} במרחק {1} ימים
+		</value>
+	</data>
+	<data name="SearchTab_ExamOverlapMessage3" type="System.String">
+		<value>
+		?האם רצונך להמשיך בהוספת {0}</value>
+	</data>
+	<data name="SearchTab_ExamOverlapMessage4" type="System.String">
+		<value>התנגשות בין מבחנים</value>
+	</data>
+	<data name="SearchTab_CourseRemoveMessage" type="System.String">
+		<value> הוסר מסל הקורסים</value>
+	</data>
+	<data name="SearchTab_CourseFoundMessage1" type="System.String">
+		<value>נמצאו </value>
+	</data>
+	<data name="SearchTab_CourseFoundMessage2" type="System.String">
+		<value> קורסים העונים על החיפוש</value>
+	</data>
+	<data name="MainForm_ConstraintFailMessage4" type="System.String">
+		<value>לא נמצאו מערכות</value>
+	</data>
+	<data name="CourseDB_xsdFailedMessage1" type="System.String">
+		<value>.לא נמצא, התקן מחדש את התוכנה udonkey.xsd
+		.סוגר את התוכנה</value>
+	</data>
+	<data name="CourseDB_xsdFailedMessage2" type="System.String">
+		<value>שגיאה</value>
+	</data>
+	<data name="CourseDB_InternetFailedMessage1" type="System.String">
+		<value>חיבור לאינטרנט לא הצליח</value>
+	</data>
+	<data name="CourseDB_InternetFailedMessage2" type="System.String">
+		<value>שגיאה</value>
+	</data>
+	<data name="SearchTab_AllRemovedMessage" type="System.String">
+		<value>כל הקורסים הוסרו מהסל</value>
+	</data>
+</root>
