@@ -1,10 +1,8 @@
 using System;
-using System.Windows.Forms;
-using UDonkey.GUI;
-using UDonkey.RepFile;
+using System.Windows.Forms;using UDonkey.RepFile;
 using System.Threading;
 
-namespace UDonkey.Logic
+namespace UDonkey.GUI
 {
 	/// <summary>
 	/// MainFormLogic controls the MainForm events.

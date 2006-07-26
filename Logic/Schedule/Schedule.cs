@@ -2,7 +2,7 @@ using System;
 using System.Data;
 using System.Windows.Forms;
 using System.Xml;
-using UDonkey.GUI;
+//using UDonkey.GUI;
 
 namespace UDonkey.Logic
 {

@@ -1,12 +1,10 @@
 using System;
 using System.Xml;
-using System.IO;
-using UDonkey.GUI;
-using UDonkey.Logic;
+using System.IO;using UDonkey.Logic;
 using System.Collections;
 using System.Collections.Specialized;
 
-namespace UDonkey.Logic
+namespace UDonkey.GUI
 {
 	public delegate void ConfigurationChangedHandler( ConfigurationController sender, StringCollection changes );
 	/// <summary>

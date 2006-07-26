@@ -2,10 +2,9 @@ using System;
 using System.Collections;
 using System.Windows.Forms;
 using UDonkey.Logic;
-using UDonkey.DB;
-using UDonkey.GUI;
+using UDonkey.DB;
 
-namespace UDonkey.Logic
+namespace UDonkey.GUI
 {
 	/// <summary>
 	/// Summary description for DBBrowserLogic.
