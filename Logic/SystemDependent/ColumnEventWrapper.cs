@@ -2,12 +2,13 @@
 
 namespace UDonkey.Logic.SystemDependent
 {
-  int Column;
+  
   class CoulumnEventWrapper 
   {
+    public int Column;
     CoulumnEventWrapper( System.Windows.Forms.ColumnClickEventArgs e){
-      Column = e.Column;
+        Column = e.Column;
 
-    } 
+     } 
   }
 }

@@ -1,7 +1,7 @@
 
 using System;
 
-namespace UDonkey
+namespace UDonkey.Logic.SystemDependent
 {
 	
 	public class MessageBox
