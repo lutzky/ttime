@@ -1,0 +1,26 @@
+<?xml version="1.0" standalone="no"?> <!--*- mode: xml -*-->
+<!DOCTYPE glade-interface SYSTEM "http://glade.gnome.org/glade-2.0.dtd">
+
+<glade-interface>
+<requires lib="gnome"/>
+
+<widget class="GtkAboutDialog" id="AboutForm">
+  <property name="visible">True</property>
+  <property name="destroy_with_parent">False</property>
+  <property name="name" translatable="yes">UDonkey</property>
+  <property name="comments" translatable="yes">UDonkey
+בוצע עבור המעבדה למערכות תוכנה, הפקולטה להנדסת חשמל
+
+מנהלת הפרויקט:      דר. אילנה דויד
+מנחה הפרויקט:         ניסים נתנוב
+צוות הפיתוח:
+	אלון יעקבי
+	יהודה ארקין
+	יניב גרדי
+	יניב רזיאל</property>
+  <property name="wrap_license">False</property>
+  <property name="translator_credits" translatable="yes" comments="TRANSLATORS: Replace this string with your names, one name per line.">translator-credits</property>
+  <property name="logo">UDonkey.gif</property>
+</widget>
+
+</glade-interface>
