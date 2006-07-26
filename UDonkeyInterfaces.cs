@@ -1,5 +1,5 @@
 using System;
-using System.Drawing;
+//using System.Drawing;
 using UDonkey.Logic;
 
 
@@ -8,8 +8,11 @@ namespace UDonkey
 	public interface IScheduleObjectBase
 	{
 		System.Collections.IDictionary Events    { get; }
-		System.Drawing.Color           ForeColor { get; }
-		System.Drawing.Color           BackColor { get; }
+		// FIXME: color shouldn't be associated with an event this way,
+		// since it breaks seperation of GUI and logic.
+		// perhaps we need some kind of polymorphic colorizer.
+		//System.Drawing.Color           ForeColor { get; }
+		//System.Drawing.Color           BackColor { get; }
 		bool						   UserDefined { get; }
 		string                         ToString();
         string                         ToString( VerbosityFlag flag );
@@ -22,8 +25,8 @@ namespace UDonkey
 		int       StartHour   { get; set; }
 		int       Duration	  { get; set; }
 		new bool  UserDefined { get; set; }
-		new System.Drawing.Color ForeColor { get; set; }
-		new System.Drawing.Color BackColor { get; set; }
+		//new System.Drawing.Color ForeColor { get; set; }
+		//new System.Drawing.Color BackColor { get; set; }
 		VerbosityFlag Verbosity { get; set; }
 	}
 

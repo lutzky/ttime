@@ -49,7 +49,7 @@ namespace UDonkey.Logic
 			get{ return mOccurrence.Duration;  }
 			set{ mOccurrence.Duration = value; }
 		}
-		public override System.Drawing.Color ForeColor
+		/*public override System.Drawing.Color ForeColor
 		{
 			get
 			{   
@@ -70,7 +70,7 @@ namespace UDonkey.Logic
 				}
 				return base.BackColor; 
 			}
-		}
+		}*/
 		public override string ToString( VerbosityFlag flag )
 		{
 			string ret = string.Empty;

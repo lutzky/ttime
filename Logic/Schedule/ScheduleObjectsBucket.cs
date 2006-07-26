@@ -123,7 +123,7 @@ namespace UDonkey.Logic
 				return events; 
 			} 
 		}
-		public System.Drawing.Color           ForeColor
+		/*public System.Drawing.Color           ForeColor
 		{
 			get
 			{
@@ -154,7 +154,7 @@ namespace UDonkey.Logic
 					default: return System.Drawing.Color.Red;
 				}
 			}		
-		}
+		}*/
 
 
 		#endregion IScheduleObject

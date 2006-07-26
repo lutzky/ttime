@@ -1,10 +1,10 @@
 using System;
 using UDonkey.DB;
-using UDonkey.GUI;
 using UDonkey.RepFile;
 using UDonkey.IO;
+using UDonkey.Logic
 
-namespace UDonkey.Logic
+namespace UDonkey.GUI
 {
 	/// <summary>
 	/// Summary description for UDonkey.
@@ -44,7 +44,15 @@ namespace UDonkey.Logic
 		{
 			mScheduler = new CoursesScheduler();
             InitCoursesScheduler();
-			mCourseDB = new CourseDB();
+            try {
+				mCourseDB = new CourseDB();
+			}
+			catch(System.IO.FileNotFoundException)
+			{
+				MessageBox.Show( null, Resources.String( RESOURCES_GROUP, "xsdFailedMessage1" ), Resources.String( RESOURCES_GROUP, "xsdFailedMessage2" ), MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign);
+				return;
+			}
+			
 			if (this.CourseDB.isSchemaExists != true) return;
 			InitDataBase();
 			if (this.CourseDB.isInitialized != true) return;

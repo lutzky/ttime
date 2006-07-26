@@ -336,7 +336,14 @@ namespace UDonkey.Logic
         }
 		private void AutoUpdateMenuItem_Click(object sender, System.EventArgs e)
 		{
-			mDonkey.CourseDB.AutoUpdate();
+			try {
+				mDonkey.CourseDB.AutoUpdate();
+			}
+			catch(System.Net.WebException)
+			{
+				MessageBox.Show( null, Resources.String( RESOURCES_GROUP, "InternetFailedMessage1" ), Resources.String( RESOURCES_GROUP, "InternetFailedMessage1" ), MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign);
+				return;
+			}
 			mDonkey.CourseDB.Unload("MainDB.xml");
 			RepFileConvertForm form = new RepFileConvertForm();
 			// try defualt REPY

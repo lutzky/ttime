@@ -401,15 +401,15 @@ namespace UDonkey.Logic
 			{
 				obj.Events.Add( 
 					name, mFixOccurrence );
-				obj.ForeColor = System.Drawing.Color.Empty;
-				obj.BackColor = System.Drawing.Color.Empty;
+				//obj.ForeColor = System.Drawing.Color.Empty;
+				//obj.BackColor = System.Drawing.Color.Empty;
 			}
 			else
 			{
 				obj.Events.Add( 
 					name , mUnFixOccurrence );
-				obj.ForeColor = System.Drawing.Color.WhiteSmoke;
-				obj.BackColor = System.Drawing.Color.DarkSeaGreen;
+				//obj.ForeColor = System.Drawing.Color.WhiteSmoke;
+				//obj.BackColor = System.Drawing.Color.DarkSeaGreen;
 			}
 		}
 

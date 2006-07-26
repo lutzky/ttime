@@ -51,7 +51,7 @@ namespace UDonkey.Logic
 			get{ return false; }
 		}
 
-		public System.Drawing.Color BackColor
+		/*public System.Drawing.Color BackColor
 		{
 			get{ return System.Drawing.Color.Gray; }
 		}
@@ -59,7 +59,7 @@ namespace UDonkey.Logic
 		public System.Drawing.Color ForeColor
 		{
 			get{ return System.Drawing.Color.White; }
-		}
+		}*/
 
 		public System.Collections.IDictionary Events
 		{

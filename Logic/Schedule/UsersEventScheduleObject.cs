@@ -20,8 +20,8 @@ namespace UDonkey.Logic
             this.Duration		= duration;
             this.DayOfWeek		= day;
 
-            this.BackColor		= System.Drawing.Color.BlueViolet;
-            this.ForeColor		= System.Drawing.Color.White;
+            //this.BackColor		= System.Drawing.Color.BlueViolet;
+            //this.ForeColor		= System.Drawing.Color.White;
 			this.UserDefined	= true;
         }
    

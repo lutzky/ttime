@@ -99,7 +99,15 @@ namespace UDonkey.GUI
 
 		private void DBEditor_Load(object sender, System.EventArgs e)
 		{
-			cDB=new CourseDB();
+			try
+			{
+				cDB=new CourseDB();
+			}
+			catch(System.IO.FileNotFoundException)
+			{
+				MessageBox.Show( null, Resources.String( RESOURCES_GROUP, "xsdFailedMessage1" ), Resources.String( RESOURCES_GROUP, "xsdFailedMessage2" ), MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign);
+				return;
+			}
 			DataSet aDataSet = cDB.DataSet;
 			dg1.SetDataBinding(aDataSet, "Faculty");
 		}

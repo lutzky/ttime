@@ -464,15 +464,7 @@ namespace UDonkey.DB
 		{
 			System.Net.WebClient Client = new System.Net.WebClient ();
 			Stream strm;
-			try
-			{
-				strm = Client.OpenRead (m_zipFileURI);
-			}
-			catch(System.Net.WebException)
-			{
-				MessageBox.Show( null, Resources.String( RESOURCES_GROUP, "InternetFailedMessage1" ), Resources.String( RESOURCES_GROUP, "InternetFailedMessage1" ), MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign);
-				return;
-			}
+			strm = Client.OpenRead (m_zipFileURI);
 			OpenZipStream(strm);
 			return;
 		}

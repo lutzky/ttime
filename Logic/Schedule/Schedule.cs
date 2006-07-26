@@ -164,8 +164,8 @@ namespace UDonkey.Logic
 							ScheduleWriter.WriteAttributeString( COLUMN_ATTRIBUTE, myCol.ColumnName );
 							ScheduleWriter.WriteAttributeString( ROW_ATTRIBUTE   , row.ToString());
 							ScheduleWriter.WriteAttributeString( KEY_ATTRIBUTE, obj.Key);
-							ScheduleWriter.WriteAttributeString( BG_COLOR_ATTRIBUTE , obj.BackColor.ToArgb().ToString() );
-							ScheduleWriter.WriteAttributeString( FG_COLOR_ATTRIBUTE , obj.ForeColor.ToArgb().ToString() );
+							//ScheduleWriter.WriteAttributeString( BG_COLOR_ATTRIBUTE , obj.BackColor.ToArgb().ToString() );
+							//ScheduleWriter.WriteAttributeString( FG_COLOR_ATTRIBUTE , obj.ForeColor.ToArgb().ToString() );
 							foreach( VerbosityFlag flag in Enum.GetValues( typeof(VerbosityFlag) ) )
 							{
 								ScheduleWriter.WriteAttributeString (flag.ToString(), obj.ToString( flag ) );
@@ -205,10 +205,10 @@ namespace UDonkey.Logic
 						o.DayOfWeek = (DayOfWeek)Enum.Parse( typeof(DayOfWeek),
 							node.Attributes[ COLUMN_ATTRIBUTE ].Value, true );
 						o.StartHour = int.Parse( node.Attributes[ ROW_ATTRIBUTE ].Value );
-						o.BackColor = System.Drawing.Color.FromArgb(
-							int.Parse( node.Attributes[ BG_COLOR_ATTRIBUTE ].Value ) );
-						o.ForeColor = System.Drawing.Color.FromArgb(
-							int.Parse( node.Attributes[ FG_COLOR_ATTRIBUTE ].Value ) );
+						//o.BackColor = System.Drawing.Color.FromArgb(
+						//	int.Parse( node.Attributes[ BG_COLOR_ATTRIBUTE ].Value ) );
+						//o.ForeColor = System.Drawing.Color.FromArgb(
+						//	int.Parse( node.Attributes[ FG_COLOR_ATTRIBUTE ].Value ) );
 						foreach( VerbosityFlag flag in Enum.GetValues( typeof(VerbosityFlag) ) )
 						{
 							o.VerbosityStrings.Add( flag, node.Attributes[ flag.ToString() ].Value );

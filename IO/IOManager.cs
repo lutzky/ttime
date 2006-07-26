@@ -1,7 +1,7 @@
 using System;
 using System.Xml;
 using System.IO;
-using UDonkey.GUI;
+//using UDonkey.GUI;
 using UDonkey.Logic;
 using System.Collections;
 using System.Data;
@@ -69,11 +69,12 @@ namespace UDonkey.IO
 				{
 					IScheduleEntry entry = (IScheduleEntry)orig[ (oldDataTable.Columns[j]).ColumnName];
 					string val = entry.ToString( (VerbosityFlag)ConfigurationController.GetExportVerbosityFlag() );
-					string fColor = entry.ForeColor.ToKnownColor().ToString();
-					string bColor = entry.BackColor.ToKnownColor().ToString();
-					val = val.Replace( "\n", "<br>");
-					Cell newCell = new Cell(bColor, fColor, val, 1);
-					newRow[j]=newCell;
+					// FIXME: use a colorizer that isn't GUI dependant
+					//string fColor = entry.ForeColor.ToKnownColor().ToString();
+					//string bColor = entry.BackColor.ToKnownColor().ToString();
+					//val = val.Replace( "\n", "<br>");
+					//Cell newCell = new Cell(bColor, fColor, val, 1);
+					//newRow[j]=newCell;
 				}
 				newDataTable.Rows.Add(newRow);
 			}

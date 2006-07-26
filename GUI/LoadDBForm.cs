@@ -153,7 +153,14 @@ namespace UDonkey.GUI
 				try
 				{
 					this.Hide();
-					cDB.AutoUpdate();
+					try {
+						cDB.AutoUpdate();
+					}
+					catch(System.Net.WebException)
+					{
+						MessageBox.Show( null, Resources.String( RESOURCES_GROUP, "InternetFailedMessage1" ), Resources.String( RESOURCES_GROUP, "InternetFailedMessage1" ), MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign);
+						return;
+					}
 					RepToXML.Convert("REPY", msWorkingFolder + "\\" + CourseDB.DEFAULT_DB_FILE_NAME);
 					cDB.Load( "mainDB.xml" );
 					this.Close();
