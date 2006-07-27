@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+	<xs:element name="CourseDB">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element maxOccurs="unbounded" ref="Faculty" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Faculty">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element maxOccurs="unbounded" ref="Course" />
+			</xs:sequence>
+			<xs:attribute name="name" use="required" />
+			<xs:attribute name="semester" use="required" />
+		</xs:complexType>
+		<xs:key name="FacultyName">
+			<xs:selector xpath="." />
+			<xs:field xpath="@name" />
+		</xs:key>
+	</xs:element>
+	<xs:element name="Course">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element maxOccurs="unbounded" ref="CourseEvent" />
+			</xs:sequence>
+			<xs:attribute name="name" use="required" />
+			<xs:attribute name="number" use="required" type="xs:string" />
+			<xs:attribute name="courseAcademicPoints" use="required" type="xs:decimal" />
+			<xs:attribute name="lecturerInCharge" />
+			<xs:attribute name="moedADate" />
+			<xs:attribute name="moedBDate" />
+			<xs:attribute name="lectureHours" type="xs:integer" />
+			<xs:attribute name="tutorialHours" type="xs:integer" />
+			<xs:attribute name="labHours" type="xs:integer" />
+			<xs:attribute name="projectHours" type="xs:integer" />
+		</xs:complexType>
+		<xs:key name="CourseNumber">
+			<xs:selector xpath="." />
+			<xs:field xpath="@number" />
+		</xs:key>
+	</xs:element>
+	<xs:element name="CourseEvent">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element maxOccurs="unbounded" ref="PlaceTime" />
+			</xs:sequence>
+			<xs:attribute name="eventType" use="required" />
+			<xs:attribute name="regNumber" use="required" type="xs:integer" />
+			<xs:attribute name="teacher" use="required" />
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="PlaceTime">
+		<xs:complexType>
+			<xs:attribute name="EventDay" use="required" />
+			<xs:attribute name="EventTime" use="required" />
+			<xs:attribute name="EventDuration" use="required" />
+			<xs:attribute name="EventLocation" use="required" />
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
