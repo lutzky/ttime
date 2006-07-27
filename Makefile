@@ -1,5 +1,5 @@
 CSC=mcs
-CSCFLAGS=-codepage:utf8
+CSCFLAGS=-codepage:utf8 -debug
 
 UDONKEY_EXE=$(TARGET)/UDonkey.exe
 UDONKEY_PDB=$(TARGET)/UDonkey.exe
