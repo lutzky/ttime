@@ -67,8 +67,9 @@ namespace UDonkey.IO
 
 				for (j=0;j<oldDataTable.Columns.Count;j++)
 				{
-					IScheduleEntry entry = (IScheduleEntry)orig[ (oldDataTable.Columns[j]).ColumnName];
-					string val = entry.ToString( (VerbosityFlag)ConfigurationController.GetExportVerbosityFlag() );
+					// FIXME: configurationcontroller is part of GUI, and we need to move getexportverbosity to Configuration
+					//IScheduleEntry entry = (IScheduleEntry)orig[ (oldDataTable.Columns[j]).ColumnName];
+					//string val = entry.ToString( (VerbosityFlag)ConfigurationController.GetExportVerbosityFlag() );
 					// FIXME: use a colorizer that isn't GUI dependant
 					//string fColor = entry.ForeColor.ToKnownColor().ToString();
 					//string bColor = entry.BackColor.ToKnownColor().ToString();
@@ -888,53 +889,6 @@ namespace UDonkey.IO
 			
 		}
 
-		public static void ImportSystemState (string filename, UDonkeyClass theUDonkeyClass)
-		{
-			if (filename.Length==0)
-				return;
-			Stream strm;
-			XmlElement node;
-			try
-			{
-				strm = File.OpenRead(filename);
-			}
-			catch(System.IO.FileNotFoundException)
-			{
-				System.Windows.Forms.MessageBox.Show(filename + " does not exist");
-				return;
-			}
-			XmlDataDocument dataFile = new XmlDataDocument();
-			dataFile.Load(strm);
-			XmlElement root = dataFile.DocumentElement;
-			theUDonkeyClass.Reset();
-			try
-			{
-				node = root["Config"];
-				ImportConfigFromXml(node);
-
-				node = root["CourseList"];
-				CoursesList courses = ImportCourseListFromXmlNode(node);
-			
-				node = root["EVENT_LIST"];
-				ICollection events = ImportEventsFromXml(node);
-
-				CoursesScheduler scheduler = theUDonkeyClass.Scheduler;
-				foreach (Course c in courses.Values)
-				{
-					scheduler.AddCourse(c);
-				}
-				foreach (UsersEventScheduleObject u in events)
-				{
-					scheduler.AddUserEvent(u.Event, u.DayOfWeek, u.StartHour, u.Duration);
-				}
-			}
-			catch  // No course found by that number
-			{
-				System.Windows.Forms.MessageBox.Show("Error with Xpath");
-			}
-			
-
-		}
 		/// <summary>
 		/// Exports User Events to XML.  This is used in the full system export
 		/// </summary>
@@ -958,7 +912,7 @@ namespace UDonkey.IO
 			writer.WriteEndElement();
 		}
 
-		private static ICollection ImportEventsFromXml (XmlTextReader reader)
+		public static ICollection ImportEventsFromXml (XmlTextReader reader)
 		{
 			ArrayList col = new ArrayList();
 
@@ -985,7 +939,7 @@ namespace UDonkey.IO
 
 		}
 		
-		private static ICollection ImportEventsFromXml (XmlNode eventList)
+		public static ICollection ImportEventsFromXml (XmlNode eventList)
 		{
 			XmlNodeList eventlist = eventList.ChildNodes;
 

@@ -66,8 +66,11 @@ namespace UDonkey.GUI
 			}
 			else
 			{//IScheduleEntryBucket, Take its defenitions for Back/Fore color
-				backBrush = new SolidBrush( entry.BackColor );
-				foreBrush = new SolidBrush( entry.ForeColor );
+				// FIXME: need a way to color gui while having seperation
+				//backBrush = new SolidBrush( entry.BackColor );
+				//foreBrush = new SolidBrush( entry.ForeColor );
+				backBrush = new SolidBrush( Color.White );
+				foreBrush = new SolidBrush( Color.Black );
 				text      = entry.ToString();
 			} 
             

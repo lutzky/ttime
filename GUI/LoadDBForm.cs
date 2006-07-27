@@ -13,6 +13,8 @@ namespace UDonkey.GUI
 	/// </summary>
 	public class LoadDBForm : System.Windows.Forms.Form
 	{
+		private const string RESOURCES_GROUP = "CourseDB";
+
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.RadioButton radioButton2;
 		private System.Windows.Forms.RadioButton radioButton4;

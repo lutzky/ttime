@@ -15,6 +15,8 @@ namespace UDonkey.GUI
 	/// </summary>
 	public class DBEditor : System.Windows.Forms.UserControl
 	{
+		private const string RESOURCES_GROUP = "CourseDB";
+
 		private UDonkey.DB.CourseDB cDB;
 		private System.Windows.Forms.DataGrid dg1;
 		/// <summary>

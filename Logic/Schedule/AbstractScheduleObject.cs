@@ -33,8 +33,8 @@ namespace UDonkey.Logic
 			this.Duration  = from.Duration;
 			this.Verbosity = from.Verbosity;
 			mdEvents = from.Events;
-			mBackColor = from.BackColor;
-			mForeColor = from.ForeColor;
+			//mBackColor = from.BackColor;
+			//mForeColor = from.ForeColor;
 		}
 		#region IScheduleObject
 		public abstract string Key { get; }

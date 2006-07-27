@@ -1,7 +1,7 @@
 using System;
 using System.Xml;
 using System.Xml.XPath;
-using System.Windows.Forms;
+//using System.Windows.Forms;
 using UDonkey.Logic;
 using UDonkey.GUI;
 using System.Collections.Specialized;
@@ -21,7 +21,6 @@ namespace UDonkey.DB
 		private string m_strFileName; // The Database XML filename
 		public const string m_zipFileName = "REPFILE.zip";
 		public const string m_zipFileURI  = "http://ug.technion.ac.il/rep/REPFILE.zip";
-		private const string RESOURCES_GROUP = "CourseDB";
 		private XmlDataDocument mXMLDataFile;
 		private bool mbInitialized; // True if loaded with a database, false otherwise
 		private bool mbSchemaExists; 
@@ -35,16 +34,8 @@ namespace UDonkey.DB
 			mbInitialized = false;
 			mbSchemaExists = false;
 			mXMLDataFile=new XmlDataDocument();
-			try
-			{
-				mXMLDataFile.DataSet.ReadXmlSchema("UDonkey.xsd");
-				mbSchemaExists = true;
-			}
-			catch(System.IO.FileNotFoundException)
-			{
-				MessageBox.Show( null, Resources.String( RESOURCES_GROUP, "xsdFailedMessage1" ), Resources.String( RESOURCES_GROUP, "xsdFailedMessage2" ), MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign);
-				return;
-			}
+			mXMLDataFile.DataSet.ReadXmlSchema("UDonkey.xsd");
+			mbSchemaExists = true;
 		}
 #endregion
 		

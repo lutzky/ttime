@@ -1,8 +1,12 @@
 using System;
+using System.Collections;
+using System.Xml;
+using System.IO;
+using System.Windows.Forms;
 using UDonkey.DB;
 using UDonkey.RepFile;
 using UDonkey.IO;
-using UDonkey.Logic
+using UDonkey.Logic;
 
 namespace UDonkey.GUI
 {
@@ -49,6 +53,8 @@ namespace UDonkey.GUI
 			}
 			catch(System.IO.FileNotFoundException)
 			{
+				const string RESOURCES_GROUP = "CourseDB";
+
 				MessageBox.Show( null, Resources.String( RESOURCES_GROUP, "xsdFailedMessage1" ), Resources.String( RESOURCES_GROUP, "xsdFailedMessage2" ), MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign);
 				return;
 			}
@@ -61,7 +67,7 @@ namespace UDonkey.GUI
 			Configuration.RegisterConfigurationChangeHandler( Configuration.CONSTRAINTS , "", new ConfigurationChangeHandler( this.ConstraintsConfigurationChanged ) );
 			mMainFormLogic           = new MainFormLogic( this, mScheduler ); 
 			mMainForm                = mMainFormLogic.MainForm;
-			mMainForm.WindowState    = System.Windows.Forms.FormWindowState.Maximized;
+			mMainForm.WindowState    = FormWindowState.Maximized;
 			mMainForm.SelectedTab    = 1;
 			mDBLogic                 = new DBLogic( this.CourseDB , this.Scheduler, this.mMainFormLogic );
 			mScheduleGridLogic       = new ScheduleGridLogic( this.Scheduler, mMainForm.Grid );
@@ -90,7 +96,7 @@ namespace UDonkey.GUI
 				catch
 				{
 					//no defualt DB found
-					System.Windows.Forms.Application.Run( new LoadDBForm(mCourseDB,System.IO.Directory.GetCurrentDirectory()) );
+					Application.Run( new LoadDBForm(mCourseDB,System.IO.Directory.GetCurrentDirectory()) );
 				}	
 			}
 		}
@@ -350,9 +356,58 @@ namespace UDonkey.GUI
 			return;
 		}
 
-        public void RefreshSchedule()
-        {
-            this.mScheduleGridLogic.Refresh();
-        }
+		public void RefreshSchedule()
+		{
+		    this.mScheduleGridLogic.Refresh();
+		}
+
+		public void ImportSystemState (string filename)
+		{
+			if (filename.Length==0)
+				return;
+			Stream strm;
+			XmlElement node;
+			try
+			{
+				strm = File.OpenRead(filename);
+			}
+			catch(System.IO.FileNotFoundException)
+			{
+				MessageBox.Show(filename + " does not exist");
+				return;
+			}
+			XmlDataDocument dataFile = new XmlDataDocument();
+			dataFile.Load(strm);
+			XmlElement root = dataFile.DocumentElement;
+			Reset();
+			try
+			{
+				node = root["Config"];
+				IOManager.ImportConfigFromXml(node);
+
+				node = root["CourseList"];
+				CoursesList courses = IOManager.ImportCourseListFromXmlNode(node);
+			
+				node = root["EVENT_LIST"];
+				ICollection events = IOManager.ImportEventsFromXml(node);
+
+				CoursesScheduler scheduler = Scheduler;
+				foreach (Course c in courses.Values)
+				{
+					scheduler.AddCourse(c);
+				}
+				foreach (UsersEventScheduleObject u in events)
+				{
+					scheduler.AddUserEvent(u.Event, u.DayOfWeek, u.StartHour, u.Duration);
+				}
+			}
+			catch  // No course found by that number
+			{
+				MessageBox.Show("Error with Xpath");
+			}
+			
+
+		}
+
 	}
 }

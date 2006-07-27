@@ -1,5 +1,7 @@
 using System;
-using System.Windows.Forms;using UDonkey.RepFile;
+using System.Windows.Forms;
+using UDonkey.RepFile;
+using UDonkey.Logic;
 using System.Threading;
 
 namespace UDonkey.GUI
@@ -13,17 +15,17 @@ namespace UDonkey.GUI
 		private CoursesScheduler  mScheduler;
 		private UDonkeyClass	  mDonkey;
 		private const string RESOURCES_GROUP = "MainForm";  
-        private SchedulingProgressbar mProgressBar;
+	        private SchedulingProgressbar mProgressBar;
 		private int				  progressCounter;
 
 		public MainFormLogic( UDonkeyClass udonkey, CoursesScheduler sceduler )
 		{	
 			mDonkey    = udonkey;
 			mScheduler = sceduler;
-            mScheduler.StartScheduling += new SchedulingProgress( this.StartScheduling );
-            mScheduler.ContinueScheduling += new SchedulingProgress( this.ContinueScheduling );
-            mScheduler.EndScheduling   += new SchedulingProgress( this.EndScheduling );
-            mProgressBar = new SchedulingProgressbar();
+			mScheduler.StartScheduling += new SchedulingProgress( this.StartScheduling );
+			mScheduler.ContinueScheduling += new SchedulingProgress( this.ContinueScheduling );
+			mScheduler.EndScheduling   += new SchedulingProgress( this.EndScheduling );
+			mProgressBar = new SchedulingProgressbar();
 			InitComponents();
 			progressCounter=0;
 		}
@@ -44,12 +46,12 @@ namespace UDonkey.GUI
 					mDonkey.Reset();
 					break;
 				}
-                case "Scedule":
-                {
-                    mMainForm.ConfigControl.Save.PerformClick();
-					this.ScheduleSchedules();
-                    break;
-                }
+				case "Scedule":
+				{
+				    mMainForm.ConfigControl.Save.PerformClick();
+							this.ScheduleSchedules();
+				    break;
+				}
 				case "Prev10StatesButton":
 				{
 					this.SetScedulerState( this.mScheduler.Index - 10 );
@@ -80,7 +82,7 @@ namespace UDonkey.GUI
                 case "LoadView":
                 {
 					string file = GetFileName( true );
-					UDonkey.IO.IOManager.ImportSystemState( file, this.mDonkey );
+					mDonkey.ImportSystemState( file );
 					mMainForm.ConfigControl.Save.PerformClick();
 					// Set the Academic point counter to a correct value
 					float counter =0;
