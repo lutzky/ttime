@@ -3,35 +3,13 @@ CSCFLAGS=-codepage:utf8 -debug -pkg:glade-sharp -pkg:gtk-sharp
 
 UDONKEY_EXE=$(TARGET)/UDonkey.exe
 UDONKEY_PDB=$(TARGET)/UDonkey.exe
-UDONKEY_SRC=./AssemblyInfo.cs \
+UDONKEY_SHARE=./AssemblyInfo.cs \
 	./UDonkeyEnums.cs \
 	./UDonkeyInterfaces.cs \
 	./DB/CourseDB.cs \
 	./DB/DBSerialBuilder.cs \
-	./GUI/AboutForm.cs \
-	./GUI/ColorMixer.cs \
-	./GUI/ConfigControl.cs \
-	./GUI/DBbrowser.cs \
-	./GUI/DBEditor.cs \
-	./GUI/LoadDBForm.cs \
-	./GUI/MainForm.cs \
-	./GUI/RepFileConvertForm.cs \
-	./GUI/Resources.cs \
-	./GUI/ScheduleDataGrid.cs \
-	./GUI/ScheduleDataGridColumnStyle.cs \
-	./GUI/ScheduleMenuItem.cs \
-	./GUI/SchedulingProgressbar.cs \
-	./GUI/SearchControl.cs \
-	./GUI/UDonkeyForm.cs \
-	./GUI/UsersEventForm.cs \
 	./IO/IOManager.cs \
 	./Logic/Configuration.cs \
-	./GUI/ConfigurationController.cs \
-	./GUI/DBLogic.cs \
-	./GUI/MainFormLogic.cs \
-	./GUI/ScheduleGridLogic.cs \
-	./GUI/UDonkeyClass.cs \
-	./GUI/CommonDialogs.cs \
 	./Logic/Constraints/AbstractConstraint.cs \
 	./Logic/Constraints/FreeDaysConstraint.cs \
 	./Logic/Constraints/MaximalStudyHoursConstraint.cs \
@@ -82,6 +60,57 @@ UDONKEY_SRC=./AssemblyInfo.cs \
 	./RepFile/DosHeb.cs \
 	./RepFile/RepToXML.cs
 
+UDONKEY_WINFORMS=	./GUI/AboutForm.cs \
+	./GUI/ColorMixer.cs \
+	./GUI/ConfigControl.cs \
+	./GUI/DBbrowser.cs \
+	./GUI/DBEditor.cs \
+	./GUI/LoadDBForm.cs \
+	./GUI/MainForm.cs \
+	./GUI/RepFileConvertForm.cs \
+	./GUI/Resources.cs \
+	./GUI/ScheduleDataGrid.cs \
+	./GUI/ScheduleDataGridColumnStyle.cs \
+	./GUI/ScheduleMenuItem.cs \
+	./GUI/SchedulingProgressbar.cs \
+	./GUI/SearchControl.cs \
+	./GUI/UDonkeyForm.cs \
+	./GUI/UsersEventForm.cs \
+	./GUI/ConfigurationController.cs \
+	./GUI/DBLogic.cs \
+	./GUI/MainFormLogic.cs \
+	./GUI/ScheduleGridLogic.cs \
+	./GUI/UDonkeyClass.cs \
+	./GUI/CommonDialogs.cs \
+
+
+UDONKEY_GTK=	./GUI/AboutForm.cs \
+	./GUI/ColorMixer.cs \
+	./GUI/ConfigControl.cs \
+	./GUI/DBbrowser.cs \
+	./GUI/DBEditor.cs \
+	./Gtk/LoadDBForm.cs \
+	./GUI/MainForm.cs \
+	./GUI/RepFileConvertForm.cs \
+	./GUI/Resources.cs \
+	./GUI/ScheduleDataGrid.cs \
+	./GUI/ScheduleDataGridColumnStyle.cs \
+	./GUI/ScheduleMenuItem.cs \
+	./GUI/SchedulingProgressbar.cs \
+	./GUI/SearchControl.cs \
+	./GUI/UDonkeyForm.cs \
+	./GUI/UsersEventForm.cs \
+	./GUI/ConfigurationController.cs \
+	./GUI/DBLogic.cs \
+	./GUI/MainFormLogic.cs \
+	./GUI/ScheduleGridLogic.cs \
+	./GUI/UDonkeyClass.cs \
+	./GUI/CommonDialogs.cs \
+
+
+	
+
+
 UDONKEY_RES=./GUI/AboutForm.resx \
 	./GUI/ScheduleDataGridColumnStyle.resx \
 	./GUI/ConfigControl.resx \
@@ -102,7 +131,7 @@ UDONKEY_RESOURCES=$(patsubst %.resx, %.resources, $UDONKEY_RES)
 
 $(UDONKEY_EXE): $(UDONKEY_SRC) 
 #	resgen /compile $(UDONKEY_RES)
-	$(CSC) $(CSCFLAGS) /r:System.dll /r:System.Windows.Forms.dll /r:System.Xml.dll /r:System.Drawing.dll /r:System.Data.dll /r:ICSharpCode.SharpZipLib.dll /r:System.Web.dll /target:winexe /out:$(UDONKEY_EXE) $(UDONKEY_SRC) # $(UDONKEY_RESOURCES)
+	$(CSC) $(CSCFLAGS) /r:System.dll /r:System.Windows.Forms.dll /r:System.Xml.dll /r:System.Drawing.dll /r:System.Data.dll /r:ICSharpCode.SharpZipLib.dll /r:System.Web.dll /target:winexe /out:$(UDONKEY_EXE) $(UDONKEY_SHARE) $(UDONKEY_WINFORMS) # $(UDONKEY_RESOURCES)
 
 
 # common targets
