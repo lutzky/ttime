@@ -1,0 +1,4 @@
+repository structure:
+Gtk will contain the GTK# version of the GUI
+GUI will contain the WinForms version of the GUI
+all the other directories are considered shared code
