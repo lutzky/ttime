@@ -1,5 +1,5 @@
 CSC=mcs
-CSCFLAGS=-codepage:utf8 -debug
+CSCFLAGS=-codepage:utf8 -debug -pkg:glade-sharp -pkg:gtk-sharp
 
 UDONKEY_EXE=$(TARGET)/UDonkey.exe
 UDONKEY_PDB=$(TARGET)/UDonkey.exe
@@ -31,6 +31,7 @@ UDONKEY_SRC=./AssemblyInfo.cs \
 	./GUI/MainFormLogic.cs \
 	./GUI/ScheduleGridLogic.cs \
 	./GUI/UDonkeyClass.cs \
+	./GUI/CommonDialogs.cs \
 	./Logic/Constraints/AbstractConstraint.cs \
 	./Logic/Constraints/FreeDaysConstraint.cs \
 	./Logic/Constraints/MaximalStudyHoursConstraint.cs \

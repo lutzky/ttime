@@ -22,7 +22,7 @@
   <property name="logo">UDonkey.gif</property>
 </widget>
 
-<widget class="GtkWindow" id="LoadDBForm">
+<widget class="GtkWindow" id="LoadDBFormWindow">
   <property name="visible">True</property>
   <property name="title" translatable="yes">אנא בחר פעולה</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
