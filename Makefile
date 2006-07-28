@@ -1,5 +1,5 @@
 CSC=mcs
-CSCFLAGS=-codepage:utf8 -debug -pkg:glade-sharp -pkg:gtk-sharp
+CSCFLAGS=-codepage:utf8 -pkg:glade-sharp -pkg:gtk-sharp
 
 UDONKEY_EXE=$(TARGET)/UDonkey.exe
 UDONKEY_PDB=$(TARGET)/UDonkey.exe
@@ -57,6 +57,7 @@ UDONKEY_SHARE=./AssemblyInfo.cs \
 	./Logic/Schedule/ScheduleObjectsBucket.cs \
 	./Logic/Schedule/StartHourStatistic.cs \
 	./Logic/Schedule/UsersEventScheduleObject.cs \
+	./Logic/LoadDBFormLogic.cs \
 	./RepFile/DosHeb.cs \
 	./RepFile/RepToXML.cs
 
@@ -81,7 +82,6 @@ UDONKEY_WINFORMS=	./GUI/AboutForm.cs \
 	./GUI/MainFormLogic.cs \
 	./GUI/ScheduleGridLogic.cs \
 	./GUI/UDonkeyClass.cs \
-	./GUI/CommonDialogs.cs \
 
 
 UDONKEY_GTK=	./GUI/AboutForm.cs \
@@ -89,7 +89,6 @@ UDONKEY_GTK=	./GUI/AboutForm.cs \
 	./GUI/ConfigControl.cs \
 	./GUI/DBbrowser.cs \
 	./GUI/DBEditor.cs \
-	./Gtk/LoadDBForm.cs \
 	./GUI/MainForm.cs \
 	./GUI/RepFileConvertForm.cs \
 	./GUI/Resources.cs \
@@ -105,7 +104,8 @@ UDONKEY_GTK=	./GUI/AboutForm.cs \
 	./GUI/MainFormLogic.cs \
 	./GUI/ScheduleGridLogic.cs \
 	./GUI/UDonkeyClass.cs \
-	./GUI/CommonDialogs.cs \
+	./Gtk/LoadDBForm.cs \
+	./Gtk/CommonDialogs.cs 
 
 
 	
@@ -129,14 +129,20 @@ UDONKEY_RES=./GUI/AboutForm.resx \
 
 UDONKEY_RESOURCES=$(patsubst %.resx, %.resources, $UDONKEY_RES)
 
-$(UDONKEY_EXE): $(UDONKEY_SRC) 
-#	resgen /compile $(UDONKEY_RES)
-	$(CSC) $(CSCFLAGS) /r:System.dll /r:System.Windows.Forms.dll /r:System.Xml.dll /r:System.Drawing.dll /r:System.Data.dll /r:ICSharpCode.SharpZipLib.dll /r:System.Web.dll /target:winexe /out:$(UDONKEY_EXE) $(UDONKEY_SHARE) $(UDONKEY_WINFORMS) # $(UDONKEY_RESOURCES)
 
 
 # common targets
+all: UDonkey UDonkey-win
 
-all:	$(UDONKEY_EXE)
+win/$(UDONKEY_EXE): $(UDONKEY_SHARE) $(UDONKEY_WINFORMS) 
+#	resgen /compile $(UDONKEY_RES)
+	$(CSC) $(CSCFLAGS) /r:System.dll /r:System.Windows.Forms.dll /r:System.Xml.dll /r:System.Drawing.dll /r:System.Data.dll /r:ICSharpCode.SharpZipLib.dll /r:System.Web.dll /target:winexe /out:win/$(UDONKEY_EXE) $(UDONKEY_SHARE) $(UDONKEY_WINFORMS) # $(UDONKEY_RESOURCES)
+
+$(UDONKEY_EXE): $(UDONKEY_SHARE) $(UDONKEY_GTK) 
+#	resgen /compile $(UDONKEY_RES)
+	$(CSC) $(CSCFLAGS) /r:System.dll /r:System.Windows.Forms.dll /r:System.Xml.dll /r:System.Drawing.dll /r:System.Data.dll /r:ICSharpCode.SharpZipLib.dll /r:System.Web.dll /target:winexe /out:$(UDONKEY_EXE) $(UDONKEY_SHARE) $(UDONKEY_GTK) # $(UDONKEY_RESOURCES)
+
+
 
 clean:
 	-rm -f "$(UDONKEY_EXE)" 2> /dev/null
@@ -146,3 +152,4 @@ clean:
 # project names as targets
 
 UDonkey: $(UDONKEY_EXE)
+UDonkey-win: win/$(UDONKEY_EXE)

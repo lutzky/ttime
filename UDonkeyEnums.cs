@@ -60,4 +60,8 @@ namespace UDonkey
         Overlaps
     }
 
+    public class Constants {
+      public const string MainDB = "mainDB.xml"; 
+    }
+
 }

@@ -96,7 +96,8 @@ namespace UDonkey.GUI
 				catch
 				{
 					//no defualt DB found
-					new LoadDBForm(mCourseDB,System.IO.Directory.GetCurrentDirectory());
+          //changed for cross-platformness
+					LoadDBForm.Start(mCourseDB,System.IO.Directory.GetCurrentDirectory());
 				}	
 			}
 		}

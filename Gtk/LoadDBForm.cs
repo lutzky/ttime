@@ -4,7 +4,7 @@ using Gtk;
 using GtkSharp;
 using Glade;
 using UDonkey.DB;
-using UDonkey.RepFile;
+using UDonkey.Logic;
 
 namespace UDonkey.GUI
 {
@@ -25,6 +25,9 @@ namespace UDonkey.GUI
 		private string msWorkingFolder;
 		private const string RESOURCES_GROUP = "CourseDB";
 
+    public static void Start(CourseDB courseDB, string workingfolder){
+      new LoadDBForm(courseDB,workingfolder);
+    }
 		public LoadDBForm(CourseDB courseDB, string workingfolder)
     {
 			msWorkingFolder = workingfolder;
@@ -104,23 +107,11 @@ namespace UDonkey.GUI
 		private void FileOk(object o, ResponseArgs args)
 		{
 			LoadDBFormWindow.HideAll();
+      fs.HideAll();
       string fileName = fs.Filename;
 			try
 			{
-				if (fileName.EndsWith("REPFILE.zip"))
-				{
-					cDB.OpenLocalZip(fileName);
-					RepToXML.Convert("REPY", msWorkingFolder + "\\" + CourseDB.DEFAULT_DB_FILE_NAME);
-				}
-				else if (fileName.EndsWith("REPY"))
-				{
-					RepToXML.Convert("REPY", msWorkingFolder + "\\" + CourseDB.DEFAULT_DB_FILE_NAME);
-				}
-				else if (fileName.EndsWith("mainDB.xml"))
-				{
-					System.IO.File.Copy(fileName ,msWorkingFolder + "\\" + CourseDB.DEFAULT_DB_FILE_NAME, true);
-				}
-				cDB.Load( CourseDB.DEFAULT_DB_FILE_NAME );
+        LoadDBFormLogic.updateFromFile(cDB,msWorkingFolder,fileName);
 				LoadDBFormWindow.Destroy();
 			}
 			catch(System.IO.FileNotFoundException)
@@ -138,7 +129,7 @@ namespace UDonkey.GUI
 				{
 					LoadDBFormWindow.HideAll();
 					try {
-						cDB.AutoUpdate();
+					  LoadDBFormLogic.updateFromWeb(cDB,msWorkingFolder);
 					}
 					catch(System.Net.WebException)
 					{
@@ -147,11 +138,6 @@ namespace UDonkey.GUI
             Environment.Exit(0);
 						return;
 					}
-					RepToXML.Convert("REPY", msWorkingFolder + "\\" + CourseDB.DEFAULT_DB_FILE_NAME);
-          
-          // rather static, methinks. FIXME
-					cDB.Load( "mainDB.xml" );
-
 					LoadDBFormWindow.Destroy();
 					return;
 				}

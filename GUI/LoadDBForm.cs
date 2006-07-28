@@ -4,7 +4,7 @@ using System.Collections;
 using System.ComponentModel;
 using System.Windows.Forms;
 using UDonkey.DB;
-using UDonkey.RepFile;
+using UDonkey.Logic;
 
 namespace UDonkey.GUI
 {
@@ -28,6 +28,9 @@ namespace UDonkey.GUI
 		/// </summary>
 		private System.ComponentModel.Container components = null;
 
+    public static void Start(CourseDB courseDB, string workingfolder){
+      Application.Run(new LoadDBForm(courseDB,workingfolder));
+    }
 		public LoadDBForm(CourseDB courseDB, string workingfolder)
 		{
 			//
@@ -152,19 +155,22 @@ namespace UDonkey.GUI
 			}
 			else if (radioButton4.Checked)
 			{
-				try
+	// code is commented out as it is moved to the Logic
+        try
 				{
 					this.Hide();
 					try {
-						cDB.AutoUpdate();
+            LoadDBFormLogic.updateFromWeb(cDB,msWorkingFolder);
+//						cDB.AutoUpdate();
+             
 					}
 					catch(System.Net.WebException)
 					{
 						MessageBox.Show( null, Resources.String( RESOURCES_GROUP, "InternetFailedMessage1" ), Resources.String( RESOURCES_GROUP, "InternetFailedMessage1" ), MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign);
 						return;
 					}
-					RepToXML.Convert("REPY", msWorkingFolder + "\\" + CourseDB.DEFAULT_DB_FILE_NAME);
-					cDB.Load( "mainDB.xml" );
+//					RepToXML.Convert("REPY", msWorkingFolder + "\\" + CourseDB.DEFAULT_DB_FILE_NAME);
+//					cDB.Load( Constants.MainDB );
 					this.Close();
 					return;
 				}
@@ -188,20 +194,7 @@ namespace UDonkey.GUI
 			string fileName = fileDialog.FileName;
 			try
 			{
-				if (fileName.EndsWith("REPFILE.zip"))
-				{
-					cDB.OpenLocalZip(fileName);
-					RepToXML.Convert("REPY", msWorkingFolder + "\\" + CourseDB.DEFAULT_DB_FILE_NAME);
-				}
-				else if (fileName.EndsWith("REPY"))
-				{
-					RepToXML.Convert("REPY", msWorkingFolder + "\\" + CourseDB.DEFAULT_DB_FILE_NAME);
-				}
-				else if (fileName.EndsWith("mainDB.xml"))
-				{
-					System.IO.File.Copy(fileName ,msWorkingFolder + "\\" + CourseDB.DEFAULT_DB_FILE_NAME, true);
-				}
-				cDB.Load( CourseDB.DEFAULT_DB_FILE_NAME );
+        LoadDBFormLogic.updateFromFile(cDB,msWorkingFolder,fileName);
 				this.Close();
 			}
 			catch(System.IO.FileNotFoundException)
