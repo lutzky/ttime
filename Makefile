@@ -108,7 +108,7 @@ UDONKEY_GTK=	./GUI/AboutForm.cs \
 	./GUI/UDonkeyClass.cs \
 	./Gtk/LoadDBForm.cs \
 	./Gtk/CommonDialogs.cs \
-	./GUI/TabPageContainer.cs
+	./GUI/TabPageContainer.cs \
 	./Gtk/ConfigControl.cs
 
 
