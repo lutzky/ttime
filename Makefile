@@ -1,6 +1,8 @@
 CSC=mcs
-CSCFLAGS=-codepage:utf8 -pkg:glade-sharp -pkg:gtk-sharp
+DEBUGFLAGS=
+CSCFLAGS=-codepage:utf8 -pkg:glade-sharp-2.0 -pkg:gtk-sharp-2.0 $(DEBUGFLAGS)
 
+TARGET=.
 UDONKEY_EXE=$(TARGET)/UDonkey.exe
 UDONKEY_PDB=$(TARGET)/UDonkey.exe
 UDONKEY_SHARE=./AssemblyInfo.cs \
@@ -87,7 +89,6 @@ UDONKEY_WINFORMS=	./GUI/AboutForm.cs \
 
 UDONKEY_GTK=	./GUI/AboutForm.cs \
 	./GUI/ColorMixer.cs \
-	./GUI/ConfigControl.cs \
 	./GUI/DBbrowser.cs \
 	./GUI/DBEditor.cs \
 	./GUI/MainForm.cs \
@@ -108,6 +109,7 @@ UDONKEY_GTK=	./GUI/AboutForm.cs \
 	./Gtk/LoadDBForm.cs \
 	./Gtk/CommonDialogs.cs \
 	./GUI/TabPageContainer.cs
+	./Gtk/ConfigControl.cs
 
 
 
@@ -138,10 +140,14 @@ UDONKEY_RESOURCES=$(patsubst %.resx, %.resources, $UDONKEY_RES)
 all: UDonkey UDonkey-win
 
 win/$(UDONKEY_EXE): $(UDONKEY_SHARE) $(UDONKEY_WINFORMS) 
+	echo Compiling Windows version
+	echo *************************
 #	resgen /compile $(UDONKEY_RES)
 	$(CSC) $(CSCFLAGS) /r:System.dll /r:System.Windows.Forms.dll /r:System.Xml.dll /r:System.Drawing.dll /r:System.Data.dll /r:ICSharpCode.SharpZipLib.dll /r:System.Web.dll /target:winexe /out:win/$(UDONKEY_EXE) $(UDONKEY_SHARE) $(UDONKEY_WINFORMS) # $(UDONKEY_RESOURCES)
 
 $(UDONKEY_EXE): $(UDONKEY_SHARE) $(UDONKEY_GTK) 
+	echo Compiling GTK version
+	echo *********************
 #	resgen /compile $(UDONKEY_RES)
 	$(CSC) $(CSCFLAGS) /r:System.dll /r:System.Windows.Forms.dll /r:System.Xml.dll /r:System.Drawing.dll /r:System.Data.dll /r:ICSharpCode.SharpZipLib.dll /r:System.Web.dll /target:winexe /out:$(UDONKEY_EXE) $(UDONKEY_SHARE) $(UDONKEY_GTK) # $(UDONKEY_RESOURCES)
 
@@ -150,6 +156,8 @@ $(UDONKEY_EXE): $(UDONKEY_SHARE) $(UDONKEY_GTK)
 clean:
 	-rm -f "$(UDONKEY_EXE)" 2> /dev/null
 	-rm -f "$(UDONKEY_PDB)" 2> /dev/null
+	-rm -f "win/$(UDONKEY_EXE)" 2> /dev/null
+	-rm -f "win/$(UDONKEY_PDB)" 2> /dev/null
 
 
 # project names as targets
