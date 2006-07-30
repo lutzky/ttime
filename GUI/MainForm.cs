@@ -17,6 +17,7 @@ namespace UDonkey.GUI
 	{
 
 		private MainFormLogic                  Logic;
+    private const string RESOURCES_GROUP = "MainForm";  
 		private System.Windows.Forms.MainMenu  MainMenu;
 		private System.Windows.Forms.MenuItem  HelpMenuItem;
 		private System.Windows.Forms.MenuItem  AboutMenuItem;
@@ -70,7 +71,7 @@ namespace UDonkey.GUI
 private void AutoUpdateMenuItem_Click(object sender, System.EventArgs e)
     {
       try {
-        Logic.AutoUpdate()
+        Logic.AutoUpdate();
       }
       catch(System.Net.WebException)
       {
@@ -497,17 +498,17 @@ private void AutoUpdateMenuItem_Click(object sender, System.EventArgs e)
         }
         case "Prev10StatesButton":
         {
-          Logic.SetScedulerState( this.mScheduler.Index - 10 );
+          Logic.SetScedulerState( Logic.mScheduler.Index - 10 );
           break;
         }
         case "PrevStateButton":
         {
-          Logic.SetScedulerState( this.mScheduler.Index - 1 );
+          Logic.SetScedulerState( Logic.mScheduler.Index - 1 );
           break;
         }
         case "NextStateButton":
         {
-          Logic.SetScedulerState( this.mScheduler.Index + 1 );
+          Logic.SetScedulerState( Logic.mScheduler.Index + 1 );
           break;
         }
         case "Next10StatesButton":
@@ -519,7 +520,7 @@ private void AutoUpdateMenuItem_Click(object sender, System.EventArgs e)
         case "SaveView":
         {
           string file = GetFileName( false );
-          UDonkey.IO.IOManager.ExportSystemState( file, mScheduler );
+          UDonkey.IO.IOManager.ExportSystemState(file,Logic.mScheduler );
           break;
         }
         case "LoadView":
@@ -527,7 +528,7 @@ private void AutoUpdateMenuItem_Click(object sender, System.EventArgs e)
               this.ConfigControl.Save.PerformClick();
               string file = GetFileName( true );
           // Set the Academic point counter to a correct value
-              this.DBBrowserControl.SelectedPoints = UpdateAndGetAcademicPoints(file);
+              this.DBBrowserControl.SelectedPoints = Logic.UpdateAndGetAcademicPoints(file);
           break;
         }
         case "Print":
@@ -556,10 +557,10 @@ private void AutoUpdateMenuItem_Click(object sender, System.EventArgs e)
     // sets the next next10 back back10.
     public void SetNavigationButton( bool enable )
     {
-      mMainForm.ToolBarControl.Buttons[2].Enabled = enable;
-      mMainForm.ToolBarControl.Buttons[3].Enabled = enable;
-      mMainForm.ToolBarControl.Buttons[4].Enabled = enable;
-      mMainForm.ToolBarControl.Buttons[5].Enabled = enable;
+      ToolBarControl.Buttons[2].Enabled = enable;
+     ToolBarControl.Buttons[3].Enabled = enable;
+     ToolBarControl.Buttons[4].Enabled = enable;
+     ToolBarControl.Buttons[5].Enabled = enable;
     }
 
 
@@ -575,7 +576,7 @@ private void AutoUpdateMenuItem_Click(object sender, System.EventArgs e)
       StatusBar.Text = line;
     }
 
-    public void Refresh()
+    public void RefreshView()
     {
       Grid.Refresh();
     }
@@ -616,10 +617,26 @@ private void AutoUpdateMenuItem_Click(object sender, System.EventArgs e)
 		}
 
     //TODO: is this ever used
-		public void RemovePage( TabPage pageCon )
+		public void RemovePage( TabPageContainer pageCon )
 		{
 			this.TabControl.Controls.Remove( pageCon.page );
 		}
+
+
+    public void SaveView()
+    {
+      string file = GetFileName( false );
+
+      //FIXME: this is just WRONG
+      Logic.mScheduler.Schedule.ExportToXml( file );
+    }
+    public void LoadView()
+    {
+      string file = GetFileName( true );
+      Logic.LoadSchedule( file );
+    }
+
+
 
 		#region Properties
 		public int SelectedTab

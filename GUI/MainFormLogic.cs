@@ -12,8 +12,10 @@ namespace UDonkey.GUI
   public class MainFormLogic
   {
     private MainForm          mMainForm;
-    private CoursesScheduler  mScheduler;
-    private UDonkeyClass	  mDonkey {get;};
+
+    //screw good code. damn C#
+    public CoursesScheduler  mScheduler;
+    public UDonkeyClass	  mDonkey;
     private const string RESOURCES_GROUP = "MainForm";  
     private SchedulingProgressbar mProgressBar;
     private int				  progressCounter;
@@ -129,7 +131,7 @@ namespace UDonkey.GUI
             mScheduler.Index + 1,
             mScheduler.Count ,
             mScheduler.CurrentState.Mark) );
-      mMainForm.Refresh();
+      mMainForm.RefreshView();
     }
 
     public void SetStatusBarLine( string line )
@@ -147,7 +149,7 @@ namespace UDonkey.GUI
       if( s != null )
       {
         string name = file.Substring( file.LastIndexOf(@"\") + 1 );
-        TabPage page = new TabPageContainer(name);
+        TabPageContainer page = new TabPageContainer(name);
         ScheduleDataGrid grid = new ScheduleDataGrid();
 //        grid.Dock = System.Windows.Forms.DockStyle.Fill; // not needed.
         grid.DataSource = s;
@@ -217,7 +219,7 @@ namespace UDonkey.GUI
       }
       else
       {
-        m.MainForm.SetNavigationButton( false );
+        mMainForm.SetNavigationButton( false );
         if ( mScheduler.Errors.Count != 0 )
         {
           string s = Resources.String( RESOURCES_GROUP, "ConstraintFailMessage1" );
@@ -252,15 +254,14 @@ namespace UDonkey.GUI
       }
       return counter.ToString();
     }
-    public void SaveView()
-    {
-      string file = mMainForm.GetFileName( false );
-      this.mScheduler.Schedule.ExportToXml( file );
+
+
+    public void LoadView(){
+      mMainForm.LoadView();
     }
-    public void LoadView()
-    {
-      string file = m.MainForm.GetFileName( true );
-      this.LoadSchedule( file );
+
+    public void SaveView(){
+      mMainForm.LoadView();
     }
 
     private string CreateErrorMessage( System.Collections.IDictionary dic )
@@ -327,7 +328,7 @@ namespace UDonkey.GUI
 
     }
 
-    AutoUpdate(){
+    public void AutoUpdate(){
       mDonkey.CourseDB.AutoUpdate(); // this my throw System.Net.WebException
                                      // handeled by GUI.
       mDonkey.CourseDB.Unload(Constants.MainDB);
@@ -342,6 +343,10 @@ namespace UDonkey.GUI
     // FIXME: why does this exist?
     private void Something()
     {
+    }
+
+    public void SetNavigationButton(bool en){
+      mMainForm.SetNavigationButton(en);
     }
   }
 }

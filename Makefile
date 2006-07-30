@@ -82,6 +82,7 @@ UDONKEY_WINFORMS=	./GUI/AboutForm.cs \
 	./GUI/MainFormLogic.cs \
 	./GUI/ScheduleGridLogic.cs \
 	./GUI/UDonkeyClass.cs \
+	./GUI/TabPageContainer.cs
 
 
 UDONKEY_GTK=	./GUI/AboutForm.cs \
@@ -105,7 +106,9 @@ UDONKEY_GTK=	./GUI/AboutForm.cs \
 	./GUI/ScheduleGridLogic.cs \
 	./GUI/UDonkeyClass.cs \
 	./Gtk/LoadDBForm.cs \
-	./Gtk/CommonDialogs.cs 
+	./Gtk/CommonDialogs.cs \
+	./GUI/TabPageContainer.cs
+
 
 
 	
