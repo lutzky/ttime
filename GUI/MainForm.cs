@@ -498,22 +498,22 @@ private void AutoUpdateMenuItem_Click(object sender, System.EventArgs e)
         }
         case "Prev10StatesButton":
         {
-          Logic.SetScedulerState( Logic.mScheduler.Index - 10 );
+          Logic.MoveSchedulerState( -10 );
           break;
         }
         case "PrevStateButton":
         {
-          Logic.SetScedulerState( Logic.mScheduler.Index - 1 );
+          Logic.MoveSchedulerState(  -1 );
           break;
         }
         case "NextStateButton":
         {
-          Logic.SetScedulerState( Logic.mScheduler.Index + 1 );
+          Logic.MoveSchedulerState( 1 );
           break;
         }
         case "Next10StatesButton":
         {
-          Logic.SetScedulerState( Logic.mScheduler.Index + 10 );
+          Logic.MoveSchedulerState( 10 );
           break;
         }
 

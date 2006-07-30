@@ -14,8 +14,8 @@ namespace UDonkey.GUI
     private MainForm          mMainForm;
 
     //screw good code. damn C#
-    public CoursesScheduler  mScheduler;
-    public UDonkeyClass	  mDonkey;
+    private CoursesScheduler  mScheduler {get { return CoursesScheduler;}};
+    private UDonkeyClass	  mDonkey {get{return UDonkeyClass;}}
     private const string RESOURCES_GROUP = "MainForm";  
     private SchedulingProgressbar mProgressBar;
     private int				  progressCounter;
@@ -123,6 +123,8 @@ namespace UDonkey.GUI
       mMainForm.Start();
     }
 
+    /// depricated
+    /// should be made private
     public void SetScedulerState( int index )
     {
       this.mScheduler.Index = index;
@@ -132,6 +134,10 @@ namespace UDonkey.GUI
             mScheduler.Count ,
             mScheduler.CurrentState.Mark) );
       mMainForm.RefreshView();
+    }
+
+    public void MoveSchedulerState(int diff){
+      SetScedulerState(mScheduler.Index + diff);
     }
 
     public void SetStatusBarLine( string line )
