@@ -47,15 +47,41 @@ namespace UDonkey.GUI
 		private System.Windows.Forms.MenuItem menuItem2;
 		private System.Windows.Forms.MenuItem AutoUpdatemenuItem;
 		private System.ComponentModel.IContainer components;
+    private UDonkeyClass mDonkey;
 
 		public MainForm( MainFormLogic logic )
 		{
 			Logic = logic;
+      mDonkey = Logic.mDonkey;
 			//
 			// Required for Windows Form Designer support
 			//
 			InitializeComponent();			
+      InitializeListeners();
 		}
+
+    // please note: while all listeners should be initialized here, they are not.
+    private void InitializeListeners(){
+
+      // request to update the database
+      AutoUpdateMenuItem.Click +=new EventHandler(AutoUpdateMenuItem_Click);
+    }
+
+private void AutoUpdateMenuItem_Click(object sender, System.EventArgs e)
+    {
+      try {
+        Logic.AutoUpdate()
+      }
+      catch(System.Net.WebException)
+      {
+        // could not download REPY
+        MessageBox.Show( null, Resources.String( RESOURCES_GROUP, "InternetFailedMessage1" ), Resources.String( RESOURCES_GROUP, "InternetFailedMessage1" ), MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign);
+        return;
+      }
+      // success
+      System.Windows.Forms.MessageBox.Show("מסד הנתונים עודכן בהצלחה");
+    }
+
 
 		/// <summary>
 		/// Clean up any resources being used.
@@ -223,7 +249,7 @@ namespace UDonkey.GUI
 			this.nextStateButton.Tag = "NextStateButton";
 			this.nextStateButton.Text = "המערכת הבאה";
 			this.nextStateButton.ToolTipText = "המערכת הבאה";
-			// 
+			//
 			// next10StatesButton
 			// 
 			this.next10StatesButton.Enabled = false;
@@ -455,8 +481,126 @@ namespace UDonkey.GUI
 
 		private void ToolBar_ButtonClick(object sender, System.Windows.Forms.ToolBarButtonClickEventArgs e)
 		{
-			Logic.ToolBar_ButtonClick( sender, e );
-		}
+      ToolBarButton button = e.Button;
+      switch ( button.Tag.ToString() )
+      {
+        case "Reset":
+        {
+          mDonkey.Reset();
+          break;
+        }
+        case "Scedule":
+        {
+          this.ConfigControl.Save.PerformClick();
+          Logic.ScheduleSchedules();
+          break;
+        }
+        case "Prev10StatesButton":
+        {
+          Logic.SetScedulerState( this.mScheduler.Index - 10 );
+          break;
+        }
+        case "PrevStateButton":
+        {
+          Logic.SetScedulerState( this.mScheduler.Index - 1 );
+          break;
+        }
+        case "NextStateButton":
+        {
+          Logic.SetScedulerState( this.mScheduler.Index + 1 );
+          break;
+        }
+        case "Next10StatesButton":
+        {
+          Logic.SetScedulerState( Logic.mScheduler.Index + 10 );
+          break;
+        }
+
+        case "SaveView":
+        {
+          string file = GetFileName( false );
+          UDonkey.IO.IOManager.ExportSystemState( file, mScheduler );
+          break;
+        }
+        case "LoadView":
+        {
+              this.ConfigControl.Save.PerformClick();
+              string file = GetFileName( true );
+          // Set the Academic point counter to a correct value
+              this.DBBrowserControl.SelectedPoints = UpdateAndGetAcademicPoints(file);
+          break;
+        }
+        case "Print":
+        {
+          Logic.Print();
+          break;
+        }
+        case "CourseList":
+        {
+          Logic.CourseList();
+          break;
+
+        }
+        case "Something":
+        {
+       //   do we really need this?
+      //    Logic.Something();
+          break;
+        }
+      }
+      return;
+    }
+
+
+
+    // sets the next next10 back back10.
+    public void SetNavigationButton( bool enable )
+    {
+      mMainForm.ToolBarControl.Buttons[2].Enabled = enable;
+      mMainForm.ToolBarControl.Buttons[3].Enabled = enable;
+      mMainForm.ToolBarControl.Buttons[4].Enabled = enable;
+      mMainForm.ToolBarControl.Buttons[5].Enabled = enable;
+    }
+
+
+
+    // start an instace of this GUI
+    public void Start(){
+      Application.Run( this );
+    }
+
+
+    public void SetStatusBarLine( string line )
+    {
+      StatusBar.Text = line;
+    }
+
+    public void Refresh()
+    {
+      Grid.Refresh();
+    }
+    // TODO: this is duplicated code (also used in LoadDBForm)
+    private string GetFileName( bool load )
+    {
+      FileDialog dialog;
+      if (load)
+      {
+        dialog = new OpenFileDialog();
+      }
+      else
+      {
+        dialog = new SaveFileDialog();
+      }
+      dialog.InitialDirectory = System.IO.Directory.GetCurrentDirectory();
+      dialog.CheckFileExists = load;
+      dialog.Filter = "View File(*.xml)|*.xml";
+      dialog.AddExtension = true;
+      dialog.FilterIndex = 1;         
+      dialog.ShowDialog();
+      return dialog.FileName;
+    }
+
+
 		private void SelectedIndexChanged(object sender, System.EventArgs e)
 		{
 			TabControl tabs = (TabControl)sender;
@@ -466,13 +610,15 @@ namespace UDonkey.GUI
 			return;
 		}
 		#endregion Events Handlers
-		public void AddPage( TabPage page )
+		public void AddPage( TabPageContainer pageCon )
 		{
-			this.TabControl.Controls.Add( page );
+			this.TabControl.Controls.Add( pageCon.page );
 		}
-		public void RemovePage( TabPage page )
+
+    //TODO: is this ever used
+		public void RemovePage( TabPage pageCon )
 		{
-			this.TabControl.Controls.Remove( page );
+			this.TabControl.Controls.Remove( pageCon.page );
 		}
 
 		#region Properties
