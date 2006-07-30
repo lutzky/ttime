@@ -256,7 +256,7 @@
 	  </child>
 
 	  <child>
-	    <widget class="GtkButton" id="button7">
+	    <widget class="GtkButton" id="btClose">
 	      <property name="visible">True</property>
 	      <property name="can_default">True</property>
 	      <property name="can_focus">True</property>
@@ -826,6 +826,31 @@
 			      <child>
 				<widget class="GtkComboBoxEntry" id="cbEndHour">
 				  <property name="visible">True</property>
+				  <property name="items" translatable="yes"> 0:30
+ 1:30
+ 2:30
+ 3:30
+ 4:30
+ 5:30
+ 6:30
+ 7:30
+ 8:30
+ 9:30
+10:30
+11:30
+12:30
+13:30
+14:30
+15:30
+16:30
+17:30
+18:30
+19:30
+20:30
+21:30
+22:30
+23:30
+</property>
 				  <property name="add_tearoffs">False</property>
 				  <property name="has_frame">True</property>
 				  <property name="focus_on_click">True</property>
@@ -843,9 +868,35 @@
 			      <child>
 				<widget class="GtkComboBoxEntry" id="cbStartHour">
 				  <property name="visible">True</property>
+				  <property name="items"> 0:30
+ 1:30
+ 2:30
+ 3:30
+ 4:30
+ 5:30
+ 6:30
+ 7:30
+ 8:30
+ 9:30
+10:30
+11:30
+12:30
+13:30
+14:30
+15:30
+16:30
+17:30
+18:30
+19:30
+20:30
+21:30
+22:30
+23:30
+</property>
 				  <property name="add_tearoffs">False</property>
 				  <property name="has_frame">True</property>
 				  <property name="focus_on_click">True</property>
+				  <signal name="changed" handler="on_TimeCombo_changed" last_modification_time="Sun, 30 Jul 2006 02:29:12 GMT"/>
 				</widget>
 				<packing>
 				  <property name="left_attach">1</property>
@@ -2047,6 +2098,31 @@
 			  <child>
 			    <widget class="GtkComboBoxEntry" id="cbSundayStart">
 			      <property name="visible">True</property>
+			      <property name="items" translatable="yes"> 0:30
+ 1:30
+ 2:30
+ 3:30
+ 4:30
+ 5:30
+ 6:30
+ 7:30
+ 8:30
+ 9:30
+10:30
+11:30
+12:30
+13:30
+14:30
+15:30
+16:30
+17:30
+18:30
+19:30
+20:30
+21:30
+22:30
+23:30
+</property>
 			      <property name="add_tearoffs">False</property>
 			      <property name="has_frame">True</property>
 			      <property name="focus_on_click">True</property>
@@ -2064,6 +2140,31 @@
 			  <child>
 			    <widget class="GtkComboBoxEntry" id="cbSundayEnd">
 			      <property name="visible">True</property>
+			      <property name="items" translatable="yes"> 0:30
+ 1:30
+ 2:30
+ 3:30
+ 4:30
+ 5:30
+ 6:30
+ 7:30
+ 8:30
+ 9:30
+10:30
+11:30
+12:30
+13:30
+14:30
+15:30
+16:30
+17:30
+18:30
+19:30
+20:30
+21:30
+22:30
+23:30
+</property>
 			      <property name="add_tearoffs">False</property>
 			      <property name="has_frame">True</property>
 			      <property name="focus_on_click">True</property>
@@ -2081,6 +2182,31 @@
 			  <child>
 			    <widget class="GtkComboBoxEntry" id="cbMondayStart">
 			      <property name="visible">True</property>
+			      <property name="items" translatable="yes"> 0:30
+ 1:30
+ 2:30
+ 3:30
+ 4:30
+ 5:30
+ 6:30
+ 7:30
+ 8:30
+ 9:30
+10:30
+11:30
+12:30
+13:30
+14:30
+15:30
+16:30
+17:30
+18:30
+19:30
+20:30
+21:30
+22:30
+23:30
+</property>
 			      <property name="add_tearoffs">False</property>
 			      <property name="has_frame">True</property>
 			      <property name="focus_on_click">True</property>
@@ -2098,6 +2224,31 @@
 			  <child>
 			    <widget class="GtkComboBoxEntry" id="cbMondayEnd">
 			      <property name="visible">True</property>
+			      <property name="items" translatable="yes"> 0:30
+ 1:30
+ 2:30
+ 3:30
+ 4:30
+ 5:30
+ 6:30
+ 7:30
+ 8:30
+ 9:30
+10:30
+11:30
+12:30
+13:30
+14:30
+15:30
+16:30
+17:30
+18:30
+19:30
+20:30
+21:30
+22:30
+23:30
+</property>
 			      <property name="add_tearoffs">False</property>
 			      <property name="has_frame">True</property>
 			      <property name="focus_on_click">True</property>
@@ -2115,6 +2266,31 @@
 			  <child>
 			    <widget class="GtkComboBoxEntry" id="cbTuesdayStart">
 			      <property name="visible">True</property>
+			      <property name="items" translatable="yes"> 0:30
+ 1:30
+ 2:30
+ 3:30
+ 4:30
+ 5:30
+ 6:30
+ 7:30
+ 8:30
+ 9:30
+10:30
+11:30
+12:30
+13:30
+14:30
+15:30
+16:30
+17:30
+18:30
+19:30
+20:30
+21:30
+22:30
+23:30
+</property>
 			      <property name="add_tearoffs">False</property>
 			      <property name="has_frame">True</property>
 			      <property name="focus_on_click">True</property>
@@ -2132,6 +2308,31 @@
 			  <child>
 			    <widget class="GtkComboBoxEntry" id="cbTuesdayEnd">
 			      <property name="visible">True</property>
+			      <property name="items" translatable="yes"> 0:30
+ 1:30
+ 2:30
+ 3:30
+ 4:30
+ 5:30
+ 6:30
+ 7:30
+ 8:30
+ 9:30
+10:30
+11:30
+12:30
+13:30
+14:30
+15:30
+16:30
+17:30
+18:30
+19:30
+20:30
+21:30
+22:30
+23:30
+</property>
 			      <property name="add_tearoffs">False</property>
 			      <property name="has_frame">True</property>
 			      <property name="focus_on_click">True</property>
@@ -2149,6 +2350,30 @@
 			  <child>
 			    <widget class="GtkComboBoxEntry" id="cbWednesdayStart">
 			      <property name="visible">True</property>
+			      <property name="items" translatable="yes"> 0:30
+ 1:30
+ 2:30
+ 3:30
+ 4:30
+ 5:30
+ 6:30
+ 7:30
+ 8:30
+ 9:30
+10:30
+11:30
+12:30
+13:30
+14:30
+15:30
+16:30
+17:30
+18:30
+19:30
+20:30
+21:30
+22:30
+23:30</property>
 			      <property name="add_tearoffs">False</property>
 			      <property name="has_frame">True</property>
 			      <property name="focus_on_click">True</property>
@@ -2166,6 +2391,31 @@
 			  <child>
 			    <widget class="GtkComboBoxEntry" id="cbWednesdayEnd">
 			      <property name="visible">True</property>
+			      <property name="items" translatable="yes"> 0:30
+ 1:30
+ 2:30
+ 3:30
+ 4:30
+ 5:30
+ 6:30
+ 7:30
+ 8:30
+ 9:30
+10:30
+11:30
+12:30
+13:30
+14:30
+15:30
+16:30
+17:30
+18:30
+19:30
+20:30
+21:30
+22:30
+23:30
+</property>
 			      <property name="add_tearoffs">False</property>
 			      <property name="has_frame">True</property>
 			      <property name="focus_on_click">True</property>
@@ -2183,6 +2433,31 @@
 			  <child>
 			    <widget class="GtkComboBoxEntry" id="cbThursdayStart">
 			      <property name="visible">True</property>
+			      <property name="items" translatable="yes"> 0:30
+ 1:30
+ 2:30
+ 3:30
+ 4:30
+ 5:30
+ 6:30
+ 7:30
+ 8:30
+ 9:30
+10:30
+11:30
+12:30
+13:30
+14:30
+15:30
+16:30
+17:30
+18:30
+19:30
+20:30
+21:30
+22:30
+23:30
+</property>
 			      <property name="add_tearoffs">False</property>
 			      <property name="has_frame">True</property>
 			      <property name="focus_on_click">True</property>
@@ -2200,6 +2475,31 @@
 			  <child>
 			    <widget class="GtkComboBoxEntry" id="cbThursdayEnd">
 			      <property name="visible">True</property>
+			      <property name="items" translatable="yes"> 0:30
+ 1:30
+ 2:30
+ 3:30
+ 4:30
+ 5:30
+ 6:30
+ 7:30
+ 8:30
+ 9:30
+10:30
+11:30
+12:30
+13:30
+14:30
+15:30
+16:30
+17:30
+18:30
+19:30
+20:30
+21:30
+22:30
+23:30
+</property>
 			      <property name="add_tearoffs">False</property>
 			      <property name="has_frame">True</property>
 			      <property name="focus_on_click">True</property>
