@@ -2748,10 +2748,16 @@ namespace UDonkey.GUI
 			get { return lblSaveResult;}
 		}
 
-		public Button Save
+		/*public Button Save
 		{
 			get { return btSaveChanges; }
-		}
+		}*/
 		#endregion
+
+		public event System.EventHandler Save
+		{
+			add { btSaveChanges.Click += value; }
+			remove { btSaveChanges.Click -= value; }
+		}
 	}
 }

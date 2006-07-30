@@ -19,7 +19,7 @@ namespace UDonkey.GUI
 		{
 			mConfigControl=configControl;		
 			this.UpdateHash();
-			configControl.Save.Click += new System.EventHandler(this.btSaveChanges_Click);
+			configControl.Save += new System.EventHandler(this.btSaveChanges_Click);
 			configControl.VisibleChanged += new EventHandler(configControl_VisibleChanged);
 		}
 

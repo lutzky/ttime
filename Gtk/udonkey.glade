@@ -156,7 +156,7 @@
   <property name="title" translatable="yes">העדפות</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
   <property name="window_position">GTK_WIN_POS_NONE</property>
-  <property name="modal">False</property>
+  <property name="modal">True</property>
   <property name="resizable">True</property>
   <property name="destroy_with_parent">False</property>
   <property name="icon">UDonkeyProgram.ico</property>
@@ -178,7 +178,7 @@
       <child internal-child="action_area">
 	<widget class="GtkHButtonBox" id="dialog-action_area-ConfigControl">
 	  <property name="visible">True</property>
-	  <property name="layout_style">GTK_BUTTONBOX_EDGE</property>
+	  <property name="layout_style">GTK_BUTTONBOX_DEFAULT_STYLE</property>
 
 	  <child>
 	    <widget class="GtkButton" id="btDefaults">
@@ -188,6 +188,7 @@
 	      <property name="relief">GTK_RELIEF_NORMAL</property>
 	      <property name="focus_on_click">True</property>
 	      <property name="response_id">0</property>
+	      <signal name="clicked" handler="on_btDefaults_clicked" last_modification_time="Sun, 30 Jul 2006 09:25:41 GMT"/>
 
 	      <child>
 		<widget class="GtkAlignment" id="alignment4">
@@ -256,15 +257,28 @@
 	  </child>
 
 	  <child>
-	    <widget class="GtkButton" id="btClose">
+	    <widget class="GtkButton" id="btCancel">
 	      <property name="visible">True</property>
 	      <property name="can_default">True</property>
 	      <property name="can_focus">True</property>
-	      <property name="label">gtk-close</property>
+	      <property name="label">gtk-cancel</property>
 	      <property name="use_stock">True</property>
 	      <property name="relief">GTK_RELIEF_NORMAL</property>
 	      <property name="focus_on_click">True</property>
-	      <property name="response_id">-7</property>
+	      <property name="response_id">-6</property>
+	    </widget>
+	  </child>
+
+	  <child>
+	    <widget class="GtkButton" id="btSaveChanges">
+	      <property name="visible">True</property>
+	      <property name="can_default">True</property>
+	      <property name="can_focus">True</property>
+	      <property name="label">gtk-save</property>
+	      <property name="use_stock">True</property>
+	      <property name="relief">GTK_RELIEF_NORMAL</property>
+	      <property name="focus_on_click">True</property>
+	      <property name="response_id">0</property>
 	    </widget>
 	  </child>
 	</widget>
@@ -346,7 +360,7 @@
 			      </child>
 
 			      <child>
-				<widget class="GtkLabel" id="label20">
+				<widget class="GtkLabel" id="lblMaxCollisions">
 				  <property name="visible">True</property>
 				  <property name="label" translatable="yes">מקסימום התנגשויות:</property>
 				  <property name="use_underline">False</property>
@@ -432,6 +446,7 @@
 				  <property name="active">False</property>
 				  <property name="inconsistent">False</property>
 				  <property name="draw_indicator">True</property>
+				  <signal name="toggled" handler="on_chbTestAlert_toggled" last_modification_time="Sun, 30 Jul 2006 09:23:35 GMT"/>
 				</widget>
 				<packing>
 				  <property name="padding">0</property>
@@ -592,7 +607,7 @@
 				  <property name="column_spacing">0</property>
 
 				  <child>
-				    <widget class="GtkCheckButton" id="checkbutton6">
+				    <widget class="GtkCheckButton" id="chbSunday">
 				      <property name="visible">True</property>
 				      <property name="can_focus">True</property>
 				      <property name="label" translatable="yes">א'</property>
@@ -614,7 +629,7 @@
 				  </child>
 
 				  <child>
-				    <widget class="GtkCheckButton" id="checkbutton7">
+				    <widget class="GtkCheckButton" id="chbWednesday">
 				      <property name="visible">True</property>
 				      <property name="can_focus">True</property>
 				      <property name="label" translatable="yes">ד'</property>
@@ -636,7 +651,7 @@
 				  </child>
 
 				  <child>
-				    <widget class="GtkCheckButton" id="checkbutton8">
+				    <widget class="GtkCheckButton" id="chbMonday">
 				      <property name="visible">True</property>
 				      <property name="can_focus">True</property>
 				      <property name="label" translatable="yes">ב'</property>
@@ -658,7 +673,7 @@
 				  </child>
 
 				  <child>
-				    <widget class="GtkCheckButton" id="checkbutton9">
+				    <widget class="GtkCheckButton" id="chbThursday">
 				      <property name="visible">True</property>
 				      <property name="can_focus">True</property>
 				      <property name="label" translatable="yes">ה'</property>
@@ -680,7 +695,7 @@
 				  </child>
 
 				  <child>
-				    <widget class="GtkCheckButton" id="checkbutton10">
+				    <widget class="GtkCheckButton" id="chbFriday">
 				      <property name="visible">True</property>
 				      <property name="can_focus">True</property>
 				      <property name="label" translatable="yes">ו'</property>
@@ -702,7 +717,7 @@
 				  </child>
 
 				  <child>
-				    <widget class="GtkCheckButton" id="checkbutton11">
+				    <widget class="GtkCheckButton" id="chbTuesday">
 				      <property name="visible">True</property>
 				      <property name="can_focus">True</property>
 				      <property name="label" translatable="yes">ג'</property>
@@ -724,7 +739,7 @@
 				  </child>
 
 				  <child>
-				    <widget class="GtkCheckButton" id="checkbutton12">
+				    <widget class="GtkCheckButton" id="chbSaturday">
 				      <property name="visible">True</property>
 				      <property name="can_focus">True</property>
 				      <property name="label" translatable="yes">שבת</property>
@@ -1284,7 +1299,8 @@
 			      <property name="digits">1</property>
 			      <property name="update_policy">GTK_UPDATE_DISCONTINUOUS</property>
 			      <property name="inverted">True</property>
-			      <property name="adjustment">0 -5 5 1 0 0</property>
+			      <property name="adjustment">0 -5 5 1 1 0</property>
+			      <signal name="value_changed" handler="on_scale_value_changed" last_modification_time="Sun, 30 Jul 2006 10:31:38 GMT"/>
 			    </widget>
 			    <packing>
 			      <property name="left_attach">0</property>
@@ -1302,9 +1318,10 @@
 			      <property name="draw_value">False</property>
 			      <property name="value_pos">GTK_POS_TOP</property>
 			      <property name="digits">1</property>
-			      <property name="update_policy">GTK_UPDATE_CONTINUOUS</property>
+			      <property name="update_policy">GTK_UPDATE_DISCONTINUOUS</property>
 			      <property name="inverted">True</property>
-			      <property name="adjustment">0 -5 5 1 0 0</property>
+			      <property name="adjustment">0 -5 5 1 1 0</property>
+			      <signal name="value_changed" handler="on_scale_value_changed" last_modification_time="Sun, 30 Jul 2006 10:31:54 GMT"/>
 			    </widget>
 			    <packing>
 			      <property name="left_attach">1</property>
@@ -1324,7 +1341,8 @@
 			      <property name="digits">1</property>
 			      <property name="update_policy">GTK_UPDATE_DISCONTINUOUS</property>
 			      <property name="inverted">True</property>
-			      <property name="adjustment">0 -5 5 1 0 0</property>
+			      <property name="adjustment">0 -5 5 1 1 0</property>
+			      <signal name="value_changed" handler="on_scale_value_changed" last_modification_time="Sun, 30 Jul 2006 10:32:06 GMT"/>
 			    </widget>
 			    <packing>
 			      <property name="left_attach">3</property>
@@ -1344,7 +1362,8 @@
 			      <property name="digits">1</property>
 			      <property name="update_policy">GTK_UPDATE_DISCONTINUOUS</property>
 			      <property name="inverted">True</property>
-			      <property name="adjustment">0 -5 5 1 0 0</property>
+			      <property name="adjustment">0 -5 5 1 1 0</property>
+			      <signal name="value_changed" handler="on_scale_value_changed" last_modification_time="Sun, 30 Jul 2006 10:32:15 GMT"/>
 			    </widget>
 			    <packing>
 			      <property name="left_attach">4</property>
@@ -1657,6 +1676,7 @@
 			      <property name="use_underline">True</property>
 			      <property name="relief">GTK_RELIEF_NORMAL</property>
 			      <property name="focus_on_click">True</property>
+			      <signal name="clicked" handler="on_btAnt_clicked" last_modification_time="Sun, 30 Jul 2006 09:24:52 GMT"/>
 			    </widget>
 			  </child>
 
@@ -1669,6 +1689,7 @@
 			      <property name="use_underline">True</property>
 			      <property name="relief">GTK_RELIEF_NORMAL</property>
 			      <property name="focus_on_click">True</property>
+			      <signal name="clicked" handler="on_btDontCare_clicked" last_modification_time="Sun, 30 Jul 2006 09:25:18 GMT"/>
 			    </widget>
 			  </child>
 
@@ -1681,6 +1702,7 @@
 			      <property name="use_underline">True</property>
 			      <property name="relief">GTK_RELIEF_NORMAL</property>
 			      <property name="focus_on_click">True</property>
+			      <signal name="clicked" handler="on_btPadlaa_clicked" last_modification_time="Sun, 30 Jul 2006 09:25:07 GMT"/>
 			    </widget>
 			  </child>
 			</widget>
@@ -1997,6 +2019,7 @@
 			      <property name="active">False</property>
 			      <property name="inconsistent">False</property>
 			      <property name="draw_indicator">True</property>
+			      <signal name="toggled" handler="on_chbFreeSunday_toggled" last_modification_time="Sun, 30 Jul 2006 09:23:58 GMT"/>
 			    </widget>
 			    <packing>
 			      <property name="left_attach">0</property>
@@ -2019,6 +2042,7 @@
 			      <property name="active">False</property>
 			      <property name="inconsistent">False</property>
 			      <property name="draw_indicator">True</property>
+			      <signal name="toggled" handler="on_chbFreeMonday_toggled" last_modification_time="Sun, 30 Jul 2006 09:24:05 GMT"/>
 			    </widget>
 			    <packing>
 			      <property name="left_attach">0</property>
@@ -2041,6 +2065,7 @@
 			      <property name="active">False</property>
 			      <property name="inconsistent">False</property>
 			      <property name="draw_indicator">True</property>
+			      <signal name="toggled" handler="on_chbFreeTuesday_toggled" last_modification_time="Sun, 30 Jul 2006 09:24:10 GMT"/>
 			    </widget>
 			    <packing>
 			      <property name="left_attach">0</property>
@@ -2063,6 +2088,7 @@
 			      <property name="active">False</property>
 			      <property name="inconsistent">False</property>
 			      <property name="draw_indicator">True</property>
+			      <signal name="toggled" handler="on_chbFreeWednesday_toggled" last_modification_time="Sun, 30 Jul 2006 09:24:15 GMT"/>
 			    </widget>
 			    <packing>
 			      <property name="left_attach">0</property>
@@ -2085,6 +2111,7 @@
 			      <property name="active">False</property>
 			      <property name="inconsistent">False</property>
 			      <property name="draw_indicator">True</property>
+			      <signal name="toggled" handler="on_chbFreeThursday_toggled" last_modification_time="Sun, 30 Jul 2006 09:24:21 GMT"/>
 			    </widget>
 			    <packing>
 			      <property name="left_attach">0</property>
