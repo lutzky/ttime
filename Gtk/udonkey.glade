@@ -824,7 +824,7 @@
 			      </child>
 
 			      <child>
-				<widget class="GtkComboBoxEntry" id="comboboxentry2">
+				<widget class="GtkComboBoxEntry" id="cbEndHour">
 				  <property name="visible">True</property>
 				  <property name="add_tearoffs">False</property>
 				  <property name="has_frame">True</property>
@@ -841,7 +841,7 @@
 			      </child>
 
 			      <child>
-				<widget class="GtkComboBoxEntry" id="comboboxentry1">
+				<widget class="GtkComboBoxEntry" id="cbStartHour">
 				  <property name="visible">True</property>
 				  <property name="add_tearoffs">False</property>
 				  <property name="has_frame">True</property>
@@ -1642,10 +1642,6 @@
 		  </child>
 		</widget>
 	      </child>
-
-	      <child>
-		<placeholder/>
-	      </child>
 	    </widget>
 	    <packing>
 	      <property name="tab_expand">False</property>
@@ -2049,7 +2045,7 @@
 			  </child>
 
 			  <child>
-			    <widget class="GtkComboBoxEntry" id="comboboxentry3">
+			    <widget class="GtkComboBoxEntry" id="cbSundayStart">
 			      <property name="visible">True</property>
 			      <property name="add_tearoffs">False</property>
 			      <property name="has_frame">True</property>
@@ -2066,7 +2062,7 @@
 			  </child>
 
 			  <child>
-			    <widget class="GtkComboBoxEntry" id="comboboxentry4">
+			    <widget class="GtkComboBoxEntry" id="cbSundayEnd">
 			      <property name="visible">True</property>
 			      <property name="add_tearoffs">False</property>
 			      <property name="has_frame">True</property>
@@ -2083,7 +2079,7 @@
 			  </child>
 
 			  <child>
-			    <widget class="GtkComboBoxEntry" id="comboboxentry5">
+			    <widget class="GtkComboBoxEntry" id="cbMondayStart">
 			      <property name="visible">True</property>
 			      <property name="add_tearoffs">False</property>
 			      <property name="has_frame">True</property>
@@ -2100,7 +2096,7 @@
 			  </child>
 
 			  <child>
-			    <widget class="GtkComboBoxEntry" id="comboboxentry6">
+			    <widget class="GtkComboBoxEntry" id="cbMondayEnd">
 			      <property name="visible">True</property>
 			      <property name="add_tearoffs">False</property>
 			      <property name="has_frame">True</property>
@@ -2117,7 +2113,7 @@
 			  </child>
 
 			  <child>
-			    <widget class="GtkComboBoxEntry" id="comboboxentry7">
+			    <widget class="GtkComboBoxEntry" id="cbTuesdayStart">
 			      <property name="visible">True</property>
 			      <property name="add_tearoffs">False</property>
 			      <property name="has_frame">True</property>
@@ -2134,7 +2130,7 @@
 			  </child>
 
 			  <child>
-			    <widget class="GtkComboBoxEntry" id="comboboxentry8">
+			    <widget class="GtkComboBoxEntry" id="cbTuesdayEnd">
 			      <property name="visible">True</property>
 			      <property name="add_tearoffs">False</property>
 			      <property name="has_frame">True</property>
@@ -2151,7 +2147,7 @@
 			  </child>
 
 			  <child>
-			    <widget class="GtkComboBoxEntry" id="comboboxentry9">
+			    <widget class="GtkComboBoxEntry" id="cbWednesdayStart">
 			      <property name="visible">True</property>
 			      <property name="add_tearoffs">False</property>
 			      <property name="has_frame">True</property>
@@ -2168,7 +2164,7 @@
 			  </child>
 
 			  <child>
-			    <widget class="GtkComboBoxEntry" id="comboboxentry10">
+			    <widget class="GtkComboBoxEntry" id="cbWednesdayEnd">
 			      <property name="visible">True</property>
 			      <property name="add_tearoffs">False</property>
 			      <property name="has_frame">True</property>
@@ -2185,7 +2181,7 @@
 			  </child>
 
 			  <child>
-			    <widget class="GtkComboBoxEntry" id="comboboxentry11">
+			    <widget class="GtkComboBoxEntry" id="cbThursdayStart">
 			      <property name="visible">True</property>
 			      <property name="add_tearoffs">False</property>
 			      <property name="has_frame">True</property>
@@ -2202,7 +2198,7 @@
 			  </child>
 
 			  <child>
-			    <widget class="GtkComboBoxEntry" id="comboboxentry12">
+			    <widget class="GtkComboBoxEntry" id="cbThursdayEnd">
 			      <property name="visible">True</property>
 			      <property name="add_tearoffs">False</property>
 			      <property name="has_frame">True</property>
@@ -2227,10 +2223,6 @@
 		    </widget>
 		  </child>
 		</widget>
-	      </child>
-
-	      <child>
-		<placeholder/>
 	      </child>
 	    </widget>
 	    <packing>
