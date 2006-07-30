@@ -181,7 +181,7 @@
 	  <property name="layout_style">GTK_BUTTONBOX_EDGE</property>
 
 	  <child>
-	    <widget class="GtkButton" id="btReset">
+	    <widget class="GtkButton" id="btDefaults">
 	      <property name="visible">True</property>
 	      <property name="can_default">True</property>
 	      <property name="can_focus">True</property>
@@ -326,7 +326,7 @@
 			      <property name="spacing">10</property>
 
 			      <child>
-				<widget class="GtkCheckButton" id="checkbutton3">
+				<widget class="GtkCheckButton" id="chbCollisions">
 				  <property name="visible">True</property>
 				  <property name="can_focus">True</property>
 				  <property name="label" translatable="yes">אפשר התנגשויות במערכת</property>
@@ -336,6 +336,7 @@
 				  <property name="active">False</property>
 				  <property name="inconsistent">False</property>
 				  <property name="draw_indicator">True</property>
+				  <signal name="toggled" handler="on_chbCollisions_toggled" last_modification_time="Sun, 30 Jul 2006 09:22:05 GMT"/>
 				</widget>
 				<packing>
 				  <property name="padding">0</property>
@@ -370,7 +371,7 @@
 			      </child>
 
 			      <child>
-				<widget class="GtkSpinButton" id="spinbutton3">
+				<widget class="GtkSpinButton" id="tbMaxCollisions">
 				  <property name="visible">True</property>
 				  <property name="can_focus">True</property>
 				  <property name="climb_rate">1</property>
@@ -396,7 +397,7 @@
 			  </child>
 
 			  <child>
-			    <widget class="GtkCheckButton" id="checkbutton4">
+			    <widget class="GtkCheckButton" id="chbRegGroups">
 			      <property name="visible">True</property>
 			      <property name="can_focus">True</property>
 			      <property name="label" translatable="yes">אפשר שיבוץ ארועים מקבוצות רישום שונות</property>
@@ -421,7 +422,7 @@
 			      <property name="spacing">5</property>
 
 			      <child>
-				<widget class="GtkCheckButton" id="checkbutton5">
+				<widget class="GtkCheckButton" id="chbTestAlert">
 				  <property name="visible">True</property>
 				  <property name="can_focus">True</property>
 				  <property name="label" translatable="yes">התרע אם מועדי א' ברווח של פחות מ-</property>
@@ -440,7 +441,7 @@
 			      </child>
 
 			      <child>
-				<widget class="GtkSpinButton" id="spinbutton2">
+				<widget class="GtkSpinButton" id="tbMinTestDays">
 				  <property name="visible">True</property>
 				  <property name="can_focus">True</property>
 				  <property name="climb_rate">1</property>
@@ -449,7 +450,7 @@
 				  <property name="update_policy">GTK_UPDATE_ALWAYS</property>
 				  <property name="snap_to_ticks">False</property>
 				  <property name="wrap">False</property>
-				  <property name="adjustment">1 0 100 1 10 10</property>
+				  <property name="adjustment">1 0 28 1 10 10</property>
 				</widget>
 				<packing>
 				  <property name="padding">0</property>
@@ -1010,7 +1011,7 @@
 			      <property name="column_spacing">0</property>
 
 			      <child>
-				<widget class="GtkCheckButton" id="checkbutton13">
+				<widget class="GtkCheckButton" id="chbExportName">
 				  <property name="visible">True</property>
 				  <property name="can_focus">True</property>
 				  <property name="label" translatable="yes">שם הקורס</property>
@@ -1032,7 +1033,7 @@
 			      </child>
 
 			      <child>
-				<widget class="GtkCheckButton" id="checkbutton15">
+				<widget class="GtkCheckButton" id="chbExportRegNum">
 				  <property name="visible">True</property>
 				  <property name="can_focus">True</property>
 				  <property name="label" translatable="yes">מספר קבוצה</property>
@@ -1054,7 +1055,7 @@
 			      </child>
 
 			      <child>
-				<widget class="GtkCheckButton" id="checkbutton16">
+				<widget class="GtkCheckButton" id="chbExportType">
 				  <property name="visible">True</property>
 				  <property name="can_focus">True</property>
 				  <property name="label" translatable="yes">סוג הארוע (הרצאה, תרגול ...)</property>
@@ -1076,7 +1077,7 @@
 			      </child>
 
 			      <child>
-				<widget class="GtkCheckButton" id="checkbutton17">
+				<widget class="GtkCheckButton" id="chbExportTeacher">
 				  <property name="visible">True</property>
 				  <property name="can_focus">True</property>
 				  <property name="label" translatable="yes">שם המרצה/המתרגל</property>
@@ -1098,7 +1099,7 @@
 			      </child>
 
 			      <child>
-				<widget class="GtkCheckButton" id="checkbutton18">
+				<widget class="GtkCheckButton" id="chbExportLocation">
 				  <property name="visible">True</property>
 				  <property name="can_focus">True</property>
 				  <property name="label" translatable="yes">מיקום (בנין וחדר)</property>
@@ -1120,7 +1121,7 @@
 			      </child>
 
 			      <child>
-				<widget class="GtkCheckButton" id="checkbutton14">
+				<widget class="GtkCheckButton" id="chbExportNumber">
 				  <property name="visible">True</property>
 				  <property name="can_focus">True</property>
 				  <property name="label" translatable="yes">מספר הקורס</property>
@@ -1275,15 +1276,15 @@
 			  </child>
 
 			  <child>
-			    <widget class="GtkVScale" id="vscale1">
+			    <widget class="GtkVScale" id="tbStartDay">
 			      <property name="visible">True</property>
 			      <property name="can_focus">True</property>
 			      <property name="draw_value">False</property>
 			      <property name="value_pos">GTK_POS_TOP</property>
 			      <property name="digits">1</property>
 			      <property name="update_policy">GTK_UPDATE_DISCONTINUOUS</property>
-			      <property name="inverted">False</property>
-			      <property name="adjustment">0 0 0 0 0 0</property>
+			      <property name="inverted">True</property>
+			      <property name="adjustment">0 -5 5 1 0 0</property>
 			    </widget>
 			    <packing>
 			      <property name="left_attach">0</property>
@@ -1295,15 +1296,15 @@
 			  </child>
 
 			  <child>
-			    <widget class="GtkVScale" id="vscale2">
+			    <widget class="GtkVScale" id="tbEndDay">
 			      <property name="visible">True</property>
 			      <property name="can_focus">True</property>
 			      <property name="draw_value">False</property>
 			      <property name="value_pos">GTK_POS_TOP</property>
 			      <property name="digits">1</property>
 			      <property name="update_policy">GTK_UPDATE_CONTINUOUS</property>
-			      <property name="inverted">False</property>
-			      <property name="adjustment">0 0 0 0 0 0</property>
+			      <property name="inverted">True</property>
+			      <property name="adjustment">0 -5 5 1 0 0</property>
 			    </widget>
 			    <packing>
 			      <property name="left_attach">1</property>
@@ -1315,15 +1316,15 @@
 			  </child>
 
 			  <child>
-			    <widget class="GtkVScale" id="vscale3">
+			    <widget class="GtkVScale" id="tbFreeDays">
 			      <property name="visible">True</property>
 			      <property name="can_focus">True</property>
 			      <property name="draw_value">False</property>
 			      <property name="value_pos">GTK_POS_TOP</property>
 			      <property name="digits">1</property>
-			      <property name="update_policy">GTK_UPDATE_CONTINUOUS</property>
-			      <property name="inverted">False</property>
-			      <property name="adjustment">0 0 0 0 0 0</property>
+			      <property name="update_policy">GTK_UPDATE_DISCONTINUOUS</property>
+			      <property name="inverted">True</property>
+			      <property name="adjustment">0 -5 5 1 0 0</property>
 			    </widget>
 			    <packing>
 			      <property name="left_attach">3</property>
@@ -1335,15 +1336,15 @@
 			  </child>
 
 			  <child>
-			    <widget class="GtkVScale" id="vscale4">
+			    <widget class="GtkVScale" id="tbHoles">
 			      <property name="visible">True</property>
 			      <property name="can_focus">True</property>
 			      <property name="draw_value">False</property>
 			      <property name="value_pos">GTK_POS_TOP</property>
 			      <property name="digits">1</property>
-			      <property name="update_policy">GTK_UPDATE_CONTINUOUS</property>
-			      <property name="inverted">False</property>
-			      <property name="adjustment">0 0 0 0 0 0</property>
+			      <property name="update_policy">GTK_UPDATE_DISCONTINUOUS</property>
+			      <property name="inverted">True</property>
+			      <property name="adjustment">0 -5 5 1 0 0</property>
 			    </widget>
 			    <packing>
 			      <property name="left_attach">4</property>
@@ -1648,7 +1649,7 @@
 			  <property name="spacing">0</property>
 
 			  <child>
-			    <widget class="GtkButton" id="button10">
+			    <widget class="GtkButton" id="btAnt">
 			      <property name="visible">True</property>
 			      <property name="can_default">True</property>
 			      <property name="can_focus">True</property>
@@ -1660,7 +1661,7 @@
 			  </child>
 
 			  <child>
-			    <widget class="GtkButton" id="button11">
+			    <widget class="GtkButton" id="btDontCare">
 			      <property name="visible">True</property>
 			      <property name="can_default">True</property>
 			      <property name="can_focus">True</property>
@@ -1672,7 +1673,7 @@
 			  </child>
 
 			  <child>
-			    <widget class="GtkButton" id="button12">
+			    <widget class="GtkButton" id="btPadlaa">
 			      <property name="visible">True</property>
 			      <property name="can_default">True</property>
 			      <property name="can_focus">True</property>
@@ -1781,7 +1782,7 @@
 			  </child>
 
 			  <child>
-			    <widget class="GtkSpinButton" id="spinbutton4">
+			    <widget class="GtkSpinButton" id="tbMinFreeDays">
 			      <property name="visible">True</property>
 			      <property name="can_focus">True</property>
 			      <property name="climb_rate">1</property>
@@ -1790,7 +1791,7 @@
 			      <property name="update_policy">GTK_UPDATE_ALWAYS</property>
 			      <property name="snap_to_ticks">False</property>
 			      <property name="wrap">False</property>
-			      <property name="adjustment">1 0 100 1 10 10</property>
+			      <property name="adjustment">1 0 7 1 2 2</property>
 			    </widget>
 			    <packing>
 			      <property name="padding">0</property>
@@ -1838,7 +1839,7 @@
 			  </child>
 
 			  <child>
-			    <widget class="GtkSpinButton" id="spinbutton5">
+			    <widget class="GtkSpinButton" id="tbMinDailyHours">
 			      <property name="visible">True</property>
 			      <property name="can_focus">True</property>
 			      <property name="climb_rate">1</property>
@@ -1895,7 +1896,7 @@
 			  </child>
 
 			  <child>
-			    <widget class="GtkSpinButton" id="spinbutton6">
+			    <widget class="GtkSpinButton" id="tbMaxDailyHours">
 			      <property name="visible">True</property>
 			      <property name="can_focus">True</property>
 			      <property name="climb_rate">1</property>
@@ -1986,7 +1987,7 @@
 			  </child>
 
 			  <child>
-			    <widget class="GtkCheckButton" id="checkbutton19">
+			    <widget class="GtkCheckButton" id="chbFreeSunday">
 			      <property name="visible">True</property>
 			      <property name="can_focus">True</property>
 			      <property name="label" translatable="yes">יום א' חופשי</property>
@@ -2008,7 +2009,7 @@
 			  </child>
 
 			  <child>
-			    <widget class="GtkCheckButton" id="checkbutton20">
+			    <widget class="GtkCheckButton" id="chbFreeMonday">
 			      <property name="visible">True</property>
 			      <property name="can_focus">True</property>
 			      <property name="label" translatable="yes">יום ב' חופשי</property>
@@ -2030,7 +2031,7 @@
 			  </child>
 
 			  <child>
-			    <widget class="GtkCheckButton" id="checkbutton21">
+			    <widget class="GtkCheckButton" id="chbFreeTuesday">
 			      <property name="visible">True</property>
 			      <property name="can_focus">True</property>
 			      <property name="label" translatable="yes">יום ג' חופשי</property>
@@ -2052,7 +2053,7 @@
 			  </child>
 
 			  <child>
-			    <widget class="GtkCheckButton" id="checkbutton22">
+			    <widget class="GtkCheckButton" id="chbFreeWednesday">
 			      <property name="visible">True</property>
 			      <property name="can_focus">True</property>
 			      <property name="label" translatable="yes">יום ד' חופשי</property>
@@ -2074,7 +2075,7 @@
 			  </child>
 
 			  <child>
-			    <widget class="GtkCheckButton" id="checkbutton23">
+			    <widget class="GtkCheckButton" id="chbFreeThursday">
 			      <property name="visible">True</property>
 			      <property name="can_focus">True</property>
 			      <property name="label" translatable="yes">יום ה' חופשי</property>
