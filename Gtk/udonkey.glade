@@ -2592,7 +2592,7 @@
   </child>
 </widget>
 
-<widget class="GtkWindow" id="DBbrowser">
+<widget class="GtkWindow" id="DBbrowserWindow">
   <property name="visible">True</property>
   <property name="title" translatable="yes">DBbrowser</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
@@ -2609,7 +2609,7 @@
   <property name="urgency_hint">False</property>
 
   <child>
-    <widget class="GtkVPaned" id="vpaned1">
+    <widget class="GtkVPaned" id="DBbrowser">
       <property name="visible">True</property>
       <property name="can_focus">True</property>
       <property name="position">350</property>
@@ -3435,7 +3435,7 @@
 			</widget>
 			<packing>
 			  <property name="padding">0</property>
-			  <property name="expand">False</property>
+			  <property name="expand">True</property>
 			  <property name="fill">True</property>
 			</packing>
 		      </child>
