@@ -3,6 +3,7 @@ DEBUGFLAGS=
 CSCFLAGS=-codepage:utf8 -pkg:glade-sharp-2.0 -pkg:gtk-sharp-2.0 $(DEBUGFLAGS)
 
 UDONKEY_EXE=UDonkey.exe
+UDONKEY_DLL=UDonkey.dll
 UDONKEY_PDB=UDonkey.exe
 UDONKEY_SHARE=./AssemblyInfo.cs \
 	./UDonkeyEnums.cs \
@@ -135,21 +136,24 @@ UDONKEY_RESOURCES=$(patsubst %.resx, %.resources, $UDONKEY_RES)
 
 
 # common targets
-all: UDonkey UDonkey-win
+all: UDonkey UDonkey-win dll
 
-win/$(UDONKEY_EXE): $(UDONKEY_SHARE) $(UDONKEY_WINFORMS) 
+win/$(UDONKEY_EXE): $(UDONKEY_WINFORMS) $(UDONKEY_DLL) 
 	echo Compiling Windows version
 	echo *************************
 #	resgen /compile $(UDONKEY_RES)
-	$(CSC) $(CSCFLAGS) /r:System.dll /r:System.Windows.Forms.dll /r:System.Xml.dll /r:System.Drawing.dll /r:System.Data.dll /r:ICSharpCode.SharpZipLib.dll /r:System.Web.dll /target:winexe /out:win/$(UDONKEY_EXE) $(UDONKEY_SHARE) $(UDONKEY_WINFORMS) # $(UDONKEY_RESOURCES)
+	$(CSC) $(CSCFLAGS) /r:System.dll /r:System.Windows.Forms.dll /r:System.Xml.dll /r:System.Drawing.dll /r:System.Data.dll /r:ICSharpCode.SharpZipLib.dll /r:System.Web.dll /target:winexe /out:win/$(UDONKEY_EXE) -r:$(UDONKEY_DLL) $(UDONKEY_WINFORMS) # $(UDONKEY_RESOURCES)
 
-$(UDONKEY_EXE): $(UDONKEY_SHARE) $(UDONKEY_GTK) 
+$(UDONKEY_EXE): $(UDONKEY_DLL) $(UDONKEY_GTK) 
 	echo Compiling GTK version
 	echo *********************
 #	resgen /compile $(UDONKEY_RES)
-	$(CSC) $(CSCFLAGS) /r:System.dll /r:System.Windows.Forms.dll /r:System.Xml.dll /r:System.Drawing.dll /r:System.Data.dll /r:ICSharpCode.SharpZipLib.dll /r:System.Web.dll /target:winexe /out:$(UDONKEY_EXE) $(UDONKEY_SHARE) $(UDONKEY_GTK) # $(UDONKEY_RESOURCES)
+	$(CSC) $(CSCFLAGS) /r:System.dll /r:System.Windows.Forms.dll /r:System.Xml.dll /r:System.Drawing.dll /r:System.Data.dll /r:ICSharpCode.SharpZipLib.dll /r:System.Web.dll /target:winexe /out:$(UDONKEY_EXE) -r:$(UDONKEY_DLL) $(UDONKEY_GTK) # $(UDONKEY_RESOURCES)
 
-
+$(UDONKEY_DLL): $(UDONKEY_SHARE)
+	echo Compiling DLL
+	echo *************
+	$(CSC) $(CSCFLAGS) -r:System.dll -r:System.Windows.Forms.dll -r:System.Xml.dll -r:System.Drawing.dll -r:System.Data.dll -r:ICSharpCode.SharpZipLib.dll -r:System.Web.dll /target:library /out:$@ $(UDONKEY_SHARE)
 
 clean:
 	-rm -f "$(UDONKEY_EXE)" 2> /dev/null
@@ -162,3 +166,5 @@ clean:
 
 UDonkey: $(UDONKEY_EXE)
 UDonkey-win: win/$(UDONKEY_EXE)
+
+dll: $(UDONKEY_DLL)
