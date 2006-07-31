@@ -5,6 +5,8 @@ using System.Drawing;
 using System.Data;
 using System.Windows.Forms;
 
+using UDonkey.Logic;
+
 namespace UDonkey.GUI
 {
 	/// <summary>
@@ -13,8 +15,9 @@ namespace UDonkey.GUI
 	public class ScheduleMenuItem : System.Windows.Forms.MenuItem 
 	{
 		private IScheduleObject mObject;
+		private EventHandler mOnClick;
 
-		#region Constructros
+		#region Constructors
 		public ScheduleMenuItem(IScheduleObject obj)
 			:this( obj, string.Empty, null ){}
 
@@ -22,16 +25,25 @@ namespace UDonkey.GUI
 			:this( obj, text, null ){}
 
 		public  ScheduleMenuItem (IScheduleObject obj, string text, EventHandler onClick)
-			:base( text, onClick )
+			:base( text )
 		{
 			mObject = obj;
+			mOnClick = onClick;
 		}
-		#endregion Constructros
+		#endregion Constructors
 		#region Properties
 		public IScheduleObject ScheduleObject
 		{
 			get{ return mObject; }
 		}
 		#endregion Properties
+
+		protected override void OnClick(EventArgs args)
+		{
+			if (mOnClick)
+			{
+				mOnClick(mObject, new ScheduleEventArgs(Text));
+			}
+		}
 	}
 }

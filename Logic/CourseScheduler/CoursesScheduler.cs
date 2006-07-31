@@ -363,34 +363,33 @@ namespace UDonkey.Logic
 		}
 		private void FixOccurrence( object sender, EventArgs args )
 		{
-			GUI.ScheduleMenuItem menuItem = (GUI.ScheduleMenuItem)sender;
-			IScheduleObject obj = menuItem.ScheduleObject;
-			obj.Events.Remove( menuItem.Text );
+			IScheduleObject obj = (IScheduleObject)sender;
+			ScheduleEventArgs sargs = (ScheduleEventArgs)args;
+			obj.Events.Remove( sargs.Text );
 			ISchedulerConstraint constraint = new ScheduleObjectConstraint( obj );
 			constraint.Set = true;
 			this.AddConstraint( constraint );
 			this.AddFixItemMenu( obj,
-				menuItem.Text.Replace(FIX, UNFIX),
+				sargs.Text.Replace(FIX, UNFIX),
 				false);
 			ScheduleChanged( this, null );
 			return;
 		}
 		private void UnFixOccurrence( object sender, EventArgs args )
 		{			
-			GUI.ScheduleMenuItem menuItem = (GUI.ScheduleMenuItem)sender;
-			IScheduleObject obj = menuItem.ScheduleObject;
-			obj.Events.Remove( menuItem.Text );
+			IScheduleObject obj = (IScheduleObject)sender;
+			ScheduleEventArgs sargs = (ScheduleEventArgs)args;
+			obj.Events.Remove( sargs.Text );
 			this.mPostConstraints.Remove( obj.Key );
 			this.AddFixItemMenu( obj, 
-				menuItem.Text.Replace(UNFIX, FIX),
+				sargs.Text.Replace(UNFIX, FIX),
 				true );
 			ScheduleChanged( this, null );
 			return;
 		}
 		private void RemoveUserEvent( object sender, EventArgs args )
 		{
-			GUI.ScheduleMenuItem menuItem = (GUI.ScheduleMenuItem)sender;
-			IScheduleObject obj = menuItem.ScheduleObject;
+			IScheduleObject obj = (IScheduleObject) sender;
 			this.Schedule.RemoveScheduleObject( obj );
 			this.mConstraints.Remove( obj.Key );
 			this.Schedule.CallChanged();
@@ -514,5 +513,15 @@ namespace UDonkey.Logic
 			}
 		}
 		#endregion Properties
+	}
+
+	class ScheduleEventArgs : EventArgs 
+	{
+		public ScheduleEventArgs(string text)
+		{
+			Text = text;
+		}
+
+		public string Text;
 	}
 }
