@@ -6,24 +6,29 @@ using Glade;
 
 namespace UDonkey.GUI
 {
-	public class DBbrowser : VPaned 
+	public class DBbrowser 
 	{
+		private Widget mMainWidget;
 #region Glade Widgets
-		[Widget] Label label44;
+		//[Widget] Label label44;
 #endregion
 
-		public DBbrowser()
+		public DBbrowser() 
 		{
 			Glade.XML gxml = new Glade.XML("udonkey.glade", "DBbrowser", null); 
 			//Glade.XML gxml = Glade.XML.FromAssembly("udonkey.glade", "ConfigControl", null);
 			gxml.Autoconnect (this);
+			mMainWidget = gxml.GetWidget("DBbrowser");
 		}
 
+		public static implicit operator Widget(DBbrowser dbb)
+		{
+			return dbb.mMainWidget; 
+		}
 #region Events
 #endregion
 
 #region Properties
-
 #endregion
 		
 #region Events
@@ -33,10 +38,9 @@ namespace UDonkey.GUI
 		{
 			Application.Init();
 			Window win = new Window("Hello World");
-			DBbrowser dbb = new DBbrowser();
-			win.Add(dbb);
+			Widget w = new DBbrowser();
+			win.Add(w);
 			win.ShowAll();
-			Console.WriteLine(dbb.label44.IsRealized);
 			Application.Run();
 		}
 	}
