@@ -1119,6 +1119,11 @@ namespace UDonkey.GUI
 			add { btSaveChanges.Clicked += value; } 
 			remove { btSaveChanges.Clicked -= value; }
 		}
+
+		public event System.EventHandler VisibleChanged {
+			add { VisibilityNotifyEvent += value; }
+			remove { VisibilityNotifyEvent -= value; }
+		}
 #endregion
 
 		/*public static void Main()

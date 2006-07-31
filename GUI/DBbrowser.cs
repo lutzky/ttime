@@ -894,16 +894,19 @@ namespace UDonkey.GUI
 			System.Diagnostics.Process.Start( link );
 		}
 
-		public ListView Courses
+		//FIXME don't expose gui parts
+		/*public ListView Courses
 		{
 			get{ return lbCourses; }
-		}
+		}*/
 
 		public string NickName
 		{
 			get{ return tbNickName.Text;}
 		}
-		public ListView Occurrences
+		
+		// FIXME
+		/*public ListView Occurrences
 		{
 			get{ return lvOccurences; }
 		}
@@ -943,7 +946,7 @@ namespace UDonkey.GUI
 		public TextBox  CourseNumber
 		{
 			get { return tbCourseNum; }
-		}
+		}*/
 		public string  SelectedPoints
 		{
 			get { return lblSelectedPoints.Text; }
@@ -1004,10 +1007,12 @@ namespace UDonkey.GUI
 				}
             }
         }
+
+	/* FIXME
         public SearchControl SearchControl
         {
             get{ return searchControl1; }
-        }
+        }*/
 
 		
 	}

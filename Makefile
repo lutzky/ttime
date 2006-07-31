@@ -2,9 +2,8 @@ CSC=mcs
 DEBUGFLAGS=
 CSCFLAGS=-codepage:utf8 -pkg:glade-sharp-2.0 -pkg:gtk-sharp-2.0 $(DEBUGFLAGS)
 
-TARGET=.
-UDONKEY_EXE=$(TARGET)/UDonkey.exe
-UDONKEY_PDB=$(TARGET)/UDonkey.exe
+UDONKEY_EXE=UDonkey.exe
+UDONKEY_PDB=UDonkey.exe
 UDONKEY_SHARE=./AssemblyInfo.cs \
 	./UDonkeyEnums.cs \
 	./UDonkeyInterfaces.cs \
@@ -64,10 +63,8 @@ UDONKEY_SHARE=./AssemblyInfo.cs \
 	./RepFile/RepToXML.cs
 
 UDONKEY_WINFORMS=	./GUI/AboutForm.cs \
-	./GUI/ColorMixer.cs \
 	./GUI/ConfigControl.cs \
 	./GUI/DBbrowser.cs \
-	./GUI/DBEditor.cs \
 	./GUI/LoadDBForm.cs \
 	./GUI/MainForm.cs \
 	./GUI/RepFileConvertForm.cs \
@@ -85,12 +82,12 @@ UDONKEY_WINFORMS=	./GUI/AboutForm.cs \
 	./GUI/ScheduleGridLogic.cs \
 	./GUI/UDonkeyClass.cs \
 	./GUI/TabPageContainer.cs
+#	./GUI/DBEditor.cs \
+#	./GUI/ColorMixer.cs      		# doesn't seem to be used
 
 
 UDONKEY_GTK=	./GUI/AboutForm.cs \
-	./GUI/ColorMixer.cs \
-	./GUI/DBbrowser.cs \
-	./GUI/DBEditor.cs \
+	./Gtk/DBbrowser.cs \
 	./GUI/MainForm.cs \
 	./GUI/RepFileConvertForm.cs \
 	./GUI/Resources.cs \
@@ -110,7 +107,8 @@ UDONKEY_GTK=	./GUI/AboutForm.cs \
 	./Gtk/CommonDialogs.cs \
 	./GUI/TabPageContainer.cs \
 	./Gtk/ConfigControl.cs
-
+#	./GUI/DBEditor.cs \
+#	./GUI/ColorMixer.cs      		# doesn't seem to be used
 
 
 	
@@ -122,7 +120,6 @@ UDONKEY_RES=./GUI/AboutForm.resx \
 	./GUI/ScheduleDataGrid.resx \
 	./GUI/DBbrowser.resx \
 	./GUI/ScheduleMenuItem.resx \
-	./GUI/DBEditor.resx \
 	./GUI/SchedulingProgressbar.resx \
 	./GUI/LoadDBForm.resx \
 	./GUI/SearchControl.resx \
@@ -131,6 +128,7 @@ UDONKEY_RES=./GUI/AboutForm.resx \
 	./GUI/RepFileConvertForm.resx \
 	./GUI/UsersEventForm.resx \
 	./GUI/Resources.resx
+#	./GUI/DBEditor.resx			# doesn't seem to be used 
 
 UDONKEY_RESOURCES=$(patsubst %.resx, %.resources, $UDONKEY_RES)
 

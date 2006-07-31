@@ -2627,7 +2627,7 @@
 	      <property name="spacing">0</property>
 
 	      <child>
-		<widget class="GtkComboBoxEntry" id="comboboxentry1">
+		<widget class="GtkComboBoxEntry" id="cbFaculties">
 		  <property name="visible">True</property>
 		  <property name="add_tearoffs">False</property>
 		  <property name="has_frame">True</property>
@@ -2641,7 +2641,7 @@
 	      </child>
 
 	      <child>
-		<widget class="GtkEntry" id="entry1">
+		<widget class="GtkEntry" id="entrySearch">
 		  <property name="visible">True</property>
 		  <property name="can_focus">True</property>
 		  <property name="editable">True</property>
@@ -2660,7 +2660,7 @@
 	      </child>
 
 	      <child>
-		<widget class="GtkButton" id="button1">
+		<widget class="GtkButton" id="btFind">
 		  <property name="visible">True</property>
 		  <property name="can_focus">True</property>
 		  <property name="label">gtk-find</property>
@@ -2676,7 +2676,7 @@
 	      </child>
 
 	      <child>
-		<widget class="GtkButton" id="button2">
+		<widget class="GtkButton" id="btAdvancedSearch">
 		  <property name="visible">True</property>
 		  <property name="can_focus">True</property>
 		  <property name="label" translatable="yes">חיפוש מתקדם ...</property>
@@ -2711,7 +2711,7 @@
 		  <property name="spacing">0</property>
 
 		  <child>
-		    <widget class="GtkLabel" id="label44">
+		    <widget class="GtkLabel" id="lblSemester">
 		      <property name="visible">True</property>
 		      <property name="label" translatable="yes">רשימת הקורסים נכון לסמסטר %s</property>
 		      <property name="use_underline">False</property>
@@ -2745,7 +2745,7 @@
 		      <property name="window_placement">GTK_CORNER_TOP_LEFT</property>
 
 		      <child>
-			<widget class="GtkTreeView" id="treeview3">
+			<widget class="GtkTreeView" id="tvCourses">
 			  <property name="visible">True</property>
 			  <property name="can_focus">True</property>
 			  <property name="headers_visible">True</property>
@@ -2772,7 +2772,7 @@
 		      <property name="spacing">0</property>
 
 		      <child>
-			<widget class="GtkButton" id="button5">
+			<widget class="GtkButton" id="btAddCourse">
 			  <property name="visible">True</property>
 			  <property name="can_default">True</property>
 			  <property name="can_focus">True</property>
@@ -2784,7 +2784,7 @@
 		      </child>
 
 		      <child>
-			<widget class="GtkButton" id="button6">
+			<widget class="GtkButton" id="btDone">
 			  <property name="visible">True</property>
 			  <property name="can_default">True</property>
 			  <property name="can_focus">True</property>
@@ -2816,7 +2816,7 @@
 		  <property name="spacing">0</property>
 
 		  <child>
-		    <widget class="GtkLabel" id="label43">
+		    <widget class="GtkLabel" id="lblCourseBasket">
 		      <property name="visible">True</property>
 		      <property name="label" translatable="yes">סל הקורסים שנבחרו (%d נקודות)</property>
 		      <property name="use_underline">False</property>
@@ -2850,7 +2850,7 @@
 		      <property name="window_placement">GTK_CORNER_TOP_LEFT</property>
 
 		      <child>
-			<widget class="GtkTreeView" id="treeview1">
+			<widget class="GtkTreeView" id="tvCourseBasket">
 			  <property name="visible">True</property>
 			  <property name="can_focus">True</property>
 			  <property name="headers_visible">True</property>
@@ -2877,7 +2877,7 @@
 		      <property name="spacing">0</property>
 
 		      <child>
-			<widget class="GtkButton" id="button3">
+			<widget class="GtkButton" id="btRemoveCourse">
 			  <property name="visible">True</property>
 			  <property name="can_default">True</property>
 			  <property name="can_focus">True</property>
@@ -2889,7 +2889,7 @@
 		      </child>
 
 		      <child>
-			<widget class="GtkButton" id="button4">
+			<widget class="GtkButton" id="btRemoveAll">
 			  <property name="visible">True</property>
 			  <property name="can_default">True</property>
 			  <property name="can_focus">True</property>
@@ -2992,7 +2992,7 @@
 			  </child>
 
 			  <child>
-			    <widget class="GtkEntry" id="entry2">
+			    <widget class="GtkEntry" id="tbAcademicPoints">
 			      <property name="visible">True</property>
 			      <property name="can_focus">True</property>
 			      <property name="editable">False</property>
@@ -3049,7 +3049,7 @@
 			  </child>
 
 			  <child>
-			    <widget class="GtkEntry" id="entry4">
+			    <widget class="GtkEntry" id="tbMoedA">
 			      <property name="visible">True</property>
 			      <property name="can_focus">True</property>
 			      <property name="editable">False</property>
@@ -3106,7 +3106,7 @@
 			  </child>
 
 			  <child>
-			    <widget class="GtkEntry" id="entry5">
+			    <widget class="GtkEntry" id="tbMoedB">
 			      <property name="visible">True</property>
 			      <property name="can_focus">True</property>
 			      <property name="editable">False</property>
@@ -3163,7 +3163,7 @@
 			  </child>
 
 			  <child>
-			    <widget class="GtkEntry" id="entry6">
+			    <widget class="GtkEntry" id="tbLecturer">
 			      <property name="visible">True</property>
 			      <property name="can_focus">True</property>
 			      <property name="editable">False</property>
@@ -3341,7 +3341,7 @@
 			      </child>
 
 			      <child>
-				<widget class="GtkEntry" id="entry7">
+				<widget class="GtkEntry" id="tbLectureHours">
 				  <property name="visible">True</property>
 				  <property name="tooltip" translatable="yes">הרצאה</property>
 				  <property name="can_focus">True</property>
@@ -3364,7 +3364,7 @@
 			      </child>
 
 			      <child>
-				<widget class="GtkEntry" id="entry8">
+				<widget class="GtkEntry" id="tbTutorialHours">
 				  <property name="visible">True</property>
 				  <property name="tooltip" translatable="yes">תרגול</property>
 				  <property name="can_focus">True</property>
@@ -3387,7 +3387,7 @@
 			      </child>
 
 			      <child>
-				<widget class="GtkEntry" id="entry9">
+				<widget class="GtkEntry" id="tbLabHours">
 				  <property name="visible">True</property>
 				  <property name="tooltip" translatable="yes">מעבדה</property>
 				  <property name="can_focus">True</property>
@@ -3410,8 +3410,9 @@
 			      </child>
 
 			      <child>
-				<widget class="GtkEntry" id="entry10">
+				<widget class="GtkEntry" id="tbProjectHours">
 				  <property name="visible">True</property>
+				  <property name="tooltip" translatable="yes">פרויקט</property>
 				  <property name="can_focus">True</property>
 				  <property name="editable">False</property>
 				  <property name="visibility">True</property>
@@ -3547,12 +3548,12 @@
 			      <property name="window_placement">GTK_CORNER_TOP_LEFT</property>
 
 			      <child>
-				<widget class="GtkTreeView" id="treeview4">
+				<widget class="GtkTreeView" id="tvCourseEvents">
 				  <property name="visible">True</property>
 				  <property name="can_focus">True</property>
 				  <property name="headers_visible">True</property>
 				  <property name="rules_hint">False</property>
-				  <property name="reorderable">False</property>
+				  <property name="reorderable">True</property>
 				  <property name="enable_search">True</property>
 				  <property name="fixed_height_mode">False</property>
 				  <property name="hover_selection">False</property>
@@ -3574,7 +3575,7 @@
 			      <property name="spacing">0</property>
 
 			      <child>
-				<widget class="GtkButton" id="button12">
+				<widget class="GtkButton" id="btChooseAll">
 				  <property name="visible">True</property>
 				  <property name="can_focus">True</property>
 				  <property name="label" translatable="yes">בחר הכל</property>
@@ -3590,7 +3591,7 @@
 			      </child>
 
 			      <child>
-				<widget class="GtkButton" id="button13">
+				<widget class="GtkButton" id="btChooseNone">
 				  <property name="visible">True</property>
 				  <property name="can_focus">True</property>
 				  <property name="label" translatable="yes">הסר בחירה מהכל</property>
@@ -3606,7 +3607,7 @@
 			      </child>
 
 			      <child>
-				<widget class="GtkButton" id="button14">
+				<widget class="GtkButton" id="btReverseChecked">
 				  <property name="visible">True</property>
 				  <property name="can_focus">True</property>
 				  <property name="label" translatable="yes">הפוך בחירה</property>
@@ -3675,7 +3676,7 @@
 			      <property name="window_placement">GTK_CORNER_TOP_LEFT</property>
 
 			      <child>
-				<widget class="GtkTreeView" id="treeview5">
+				<widget class="GtkTreeView" id="tvOccurences">
 				  <property name="visible">True</property>
 				  <property name="can_focus">True</property>
 				  <property name="headers_visible">True</property>
