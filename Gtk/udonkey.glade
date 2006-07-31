@@ -2612,7 +2612,7 @@
     <widget class="GtkVPaned" id="DBbrowser">
       <property name="visible">True</property>
       <property name="can_focus">True</property>
-      <property name="position">350</property>
+      <property name="position">600</property>
 
       <child>
 	<widget class="GtkVBox" id="vbox2">
@@ -2803,13 +2803,14 @@
 		  </child>
 		</widget>
 		<packing>
-		  <property name="shrink">True</property>
+		  <property name="shrink">False</property>
 		  <property name="resize">False</property>
 		</packing>
 	      </child>
 
 	      <child>
 		<widget class="GtkVBox" id="vbox3">
+		  <property name="width_request">206</property>
 		  <property name="visible">True</property>
 		  <property name="homogeneous">False</property>
 		  <property name="spacing">0</property>
@@ -2907,7 +2908,7 @@
 		  </child>
 		</widget>
 		<packing>
-		  <property name="shrink">True</property>
+		  <property name="shrink">False</property>
 		  <property name="resize">True</property>
 		</packing>
 	      </child>
@@ -2920,7 +2921,7 @@
 	  </child>
 	</widget>
 	<packing>
-	  <property name="shrink">True</property>
+	  <property name="shrink">False</property>
 	  <property name="resize">False</property>
 	</packing>
       </child>
@@ -2934,6 +2935,7 @@
 	  <child>
 	    <widget class="GtkFrame" id="frame8">
 	      <property name="border_width">5</property>
+	      <property name="height_request">253</property>
 	      <property name="visible">True</property>
 	      <property name="label_xalign">0</property>
 	      <property name="label_yalign">0.5</property>
@@ -3213,7 +3215,7 @@
 			    <packing>
 			      <property name="padding">0</property>
 			      <property name="expand">False</property>
-			      <property name="fill">False</property>
+			      <property name="fill">True</property>
 			    </packing>
 			  </child>
 
@@ -3341,6 +3343,7 @@
 			      <child>
 				<widget class="GtkEntry" id="entry7">
 				  <property name="visible">True</property>
+				  <property name="tooltip" translatable="yes">הרצאה</property>
 				  <property name="can_focus">True</property>
 				  <property name="editable">False</property>
 				  <property name="visibility">True</property>
@@ -3363,6 +3366,7 @@
 			      <child>
 				<widget class="GtkEntry" id="entry8">
 				  <property name="visible">True</property>
+				  <property name="tooltip" translatable="yes">תרגול</property>
 				  <property name="can_focus">True</property>
 				  <property name="editable">False</property>
 				  <property name="visibility">True</property>
@@ -3385,6 +3389,7 @@
 			      <child>
 				<widget class="GtkEntry" id="entry9">
 				  <property name="visible">True</property>
+				  <property name="tooltip" translatable="yes">מעבדה</property>
 				  <property name="can_focus">True</property>
 				  <property name="editable">False</property>
 				  <property name="visibility">True</property>
@@ -3499,6 +3504,7 @@
 		    <widget class="GtkHPaned" id="hpaned2">
 		      <property name="visible">True</property>
 		      <property name="can_focus">True</property>
+		      <property name="position">300</property>
 
 		      <child>
 			<widget class="GtkVBox" id="vbox6">
@@ -3562,45 +3568,57 @@
 			  </child>
 
 			  <child>
-			    <widget class="GtkHButtonBox" id="hbuttonbox3">
+			    <widget class="GtkHBox" id="hbox24">
 			      <property name="visible">True</property>
-			      <property name="layout_style">GTK_BUTTONBOX_DEFAULT_STYLE</property>
+			      <property name="homogeneous">False</property>
 			      <property name="spacing">0</property>
 
 			      <child>
-				<widget class="GtkButton" id="button7">
+				<widget class="GtkButton" id="button12">
 				  <property name="visible">True</property>
-				  <property name="can_default">True</property>
 				  <property name="can_focus">True</property>
 				  <property name="label" translatable="yes">בחר הכל</property>
 				  <property name="use_underline">True</property>
 				  <property name="relief">GTK_RELIEF_NORMAL</property>
 				  <property name="focus_on_click">True</property>
 				</widget>
+				<packing>
+				  <property name="padding">0</property>
+				  <property name="expand">False</property>
+				  <property name="fill">True</property>
+				</packing>
 			      </child>
 
 			      <child>
-				<widget class="GtkButton" id="button8">
+				<widget class="GtkButton" id="button13">
 				  <property name="visible">True</property>
-				  <property name="can_default">True</property>
 				  <property name="can_focus">True</property>
 				  <property name="label" translatable="yes">הסר בחירה מהכל</property>
 				  <property name="use_underline">True</property>
 				  <property name="relief">GTK_RELIEF_NORMAL</property>
 				  <property name="focus_on_click">True</property>
 				</widget>
+				<packing>
+				  <property name="padding">0</property>
+				  <property name="expand">False</property>
+				  <property name="fill">True</property>
+				</packing>
 			      </child>
 
 			      <child>
-				<widget class="GtkButton" id="button9">
+				<widget class="GtkButton" id="button14">
 				  <property name="visible">True</property>
-				  <property name="can_default">True</property>
 				  <property name="can_focus">True</property>
 				  <property name="label" translatable="yes">הפוך בחירה</property>
 				  <property name="use_underline">True</property>
 				  <property name="relief">GTK_RELIEF_NORMAL</property>
 				  <property name="focus_on_click">True</property>
 				</widget>
+				<packing>
+				  <property name="padding">0</property>
+				  <property name="expand">False</property>
+				  <property name="fill">True</property>
+				</packing>
 			      </child>
 			    </widget>
 			    <packing>
@@ -3611,7 +3629,7 @@
 			  </child>
 			</widget>
 			<packing>
-			  <property name="shrink">True</property>
+			  <property name="shrink">False</property>
 			  <property name="resize">False</property>
 			</packing>
 		      </child>
@@ -3678,7 +3696,7 @@
 			  </child>
 			</widget>
 			<packing>
-			  <property name="shrink">True</property>
+			  <property name="shrink">False</property>
 			  <property name="resize">True</property>
 			</packing>
 		      </child>
@@ -3718,7 +3736,7 @@
 	  </child>
 	</widget>
 	<packing>
-	  <property name="shrink">True</property>
+	  <property name="shrink">False</property>
 	  <property name="resize">True</property>
 	</packing>
       </child>

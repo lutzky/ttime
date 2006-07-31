@@ -38,6 +38,7 @@ namespace UDonkey.GUI
 		{
 			Application.Init();
 			Window win = new Window("Hello World");
+			win.Resize(800,600);
 			Widget w = new DBbrowser();
 			win.Add(w);
 			win.ShowAll();
