@@ -80,7 +80,7 @@ namespace UDonkey.GUI
 		public void RemoveAllCourses()
 		{
 			mCoursesScheduler.Courses.Clear(); // Clear course basket
-			mDBBrowser.CourseBasket.Items.Clear(); // Clear course basket display
+			mDBBrowser.RemoveAllFromCourseBasket(); // Clear course basket display
 			mDBBrowser.Course = null; // Clear current course
 			mDBBrowser.SelectedPoints="0"; // Clear points counter
 		}
@@ -106,16 +106,7 @@ namespace UDonkey.GUI
 					args.Faculty,
 					args.Lecturer,
 					args.Days);
-				mDBBrowser.Courses.Items.Clear();
-				foreach (CourseID aCourse in courses)
-				{
-					string[] lv = new String[2];
-					lv[1]=aCourse.CourseName;
-					lv[0]=aCourse.CourseNumber;
-					ListViewItem lvItem = new ListViewItem(lv);
-					lvItem.Tag = aCourse;
-					mDBBrowser.Courses.Items.Add(lvItem);
-				}
+				mDBBrowser.Courses = courses;
 				mMainFormLogic.SetStatusBarLine(Resources.String(RESOURCES_GROUP, "CourseFoundMessage1" ) + courses.Count.ToString() + Resources.String(RESOURCES_GROUP, "CourseFoundMessage2" ));
 			}
 		}
@@ -134,11 +125,8 @@ namespace UDonkey.GUI
 		private void DBBrowser_Load(object sender, EventArgs e)
 		{
 			System.Collections.Specialized.StringCollection faculties=mCourseDB.GetFacultyList();
-			mDBBrowser.Faculties.Items.Clear();
-			foreach (string faculty in faculties)
-			{
-				this.mDBBrowser.Faculties.Items.Add(faculty);
-			}
+			mDBBrowser.Faculties = faculties;
+
 			foreach (Course aCourse in mCoursesScheduler.Courses.Values)
 			{
 				this.mDBBrowser.AddCourseToCourseBasket( aCourse );
@@ -168,9 +156,9 @@ namespace UDonkey.GUI
 			temp.MoadB = curr.MoadB;
 			temp.RegistrationGroups = curr.RegistrationGroups;
 
-			foreach (ListViewItem item in DBBrowser.CourseEvents.CheckedItems)
+			foreach (object item in DBBrowser.CheckedCourseEvents)
 			{
-				CourseEvent courseEvent = (CourseEvent)(item.Tag);
+				CourseEvent courseEvent = (CourseEvent)(item);
 				courseEvent.Course = temp;
 				CourseEvent ce = temp.FindEvent(courseEvent); // Check if the same event already exists
 				if (ce==null) // If the new event does not exist already in the course. We add the event.
@@ -206,10 +194,9 @@ namespace UDonkey.GUI
 
 		private void RemoveCourse_Click(object sender, System.EventArgs e)
 		{			
-			ListBox courseBasket = mDBBrowser.CourseBasket;
-			if ( courseBasket.SelectedItem != null )
+			Course course = mDBBrowser.CurrentBasketCourse;
+			if ( course != null )
 			{
-				Course course = (Course)courseBasket.SelectedItem;
 				this.RemoveCourse( course );
 			}
 		}
@@ -398,7 +385,7 @@ namespace UDonkey.GUI
 				if ( mDBBrowser != null )
 				{
 					mDBBrowser.Load -= new EventHandler(DBBrowser_Load);
-					mDBBrowser.RemoveCourse.Click -= new EventHandler(this.RemoveCourse_Click);
+					mDBBrowser.RemoveCourse -= new EventHandler(this.RemoveCourse_Click);
 					mDBBrowser.AddCourse.Click    -= new EventHandler(this.AddCourse_Click);
 					mDBBrowser.CourseNumber.TextChanged -= new EventHandler(this.CourseNumerTextChanged);
 					mDBBrowser.Faculties.TextChanged    -= new EventHandler( this.Faculties_SelectedIndexChanged );
@@ -409,13 +396,12 @@ namespace UDonkey.GUI
 					mDBBrowser.Done.Click -= new System.EventHandler(this.btDone_Click);
 					mDBBrowser.RemoveAll.Click -= new System.EventHandler(this.btRemoveAll_Click);
 					mDBBrowser.VisibleChanged -=new EventHandler(mDBBrowser_VisibleChanged);
-					mDBBrowser.CourseBasket.DoubleClick -= new EventHandler(this.RemoveCourse_Click);
 				}
 				mDBBrowser = value;
 				if ( mDBBrowser != null )
 				{				
 					mDBBrowser.Load += new EventHandler(DBBrowser_Load);
-					mDBBrowser.RemoveCourse.Click += new EventHandler(this.RemoveCourse_Click);
+					mDBBrowser.RemoveCourse += new EventHandler(this.RemoveCourse_Click);
 					mDBBrowser.AddCourse.Click += new EventHandler(this.AddCourse_Click);
 					mDBBrowser.CourseNumber.TextChanged += new EventHandler(this.CourseNumerTextChanged);
 					mDBBrowser.Faculties.SelectedIndexChanged += new EventHandler( this.Faculties_SelectedIndexChanged );
@@ -426,7 +412,6 @@ namespace UDonkey.GUI
 					mDBBrowser.Done.Click += new System.EventHandler(this.btDone_Click);
 					mDBBrowser.RemoveAll.Click += new System.EventHandler(this.btRemoveAll_Click);
 					mDBBrowser.VisibleChanged +=new EventHandler(mDBBrowser_VisibleChanged);
-					mDBBrowser.CourseBasket.DoubleClick += new EventHandler(this.RemoveCourse_Click);
 					this.SearchControl = mDBBrowser.SearchControl;
 					
 

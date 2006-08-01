@@ -1,8 +1,11 @@
 //
 using System;
+using System.Collections;
+using System.Collections.Specialized;
 using Gtk;
 using GtkSharp;
 using Glade;
+using Gdk;
 
 using UDonkey.Logic;
 
@@ -45,18 +48,25 @@ namespace UDonkey.GUI
 		// members of tvCourses
 		TreeViewColumn nameColumn, numberColumn; 
 		ListStore storeCourses;
+		CourseIDCollection mCourses;
 
 		// members of tvOccurences
 		TreeViewColumn chLocation, chUntil, chFrom, chDay;
 		ListStore storeOccurences;
 
 		// members of tvCourseEvents
-		TreeViewColumn chCourseEventCheckBox, chRegNum, chEvent, chGivenBy;
+		TreeViewColumn chCourseEventCheckBox, 
+			       chRegNum, chEvent, chGivenBy;
 		ListStore storeCourseEvents;
+		Pixbuf PixbufLab, PixbufProject, PixbufTutorial, PixbufLecture;
 
 		// members of tvCourseBasket
 		TreeViewColumn chBasketName, chBasketNumber;
 		ListStore storeCourseBasket;
+
+		// members of cbFaculties
+		StringCollection mFaculties;
+		ListStore storeFaculties;
 
 		string strSelectedPoints, strSemester;
 
@@ -76,14 +86,14 @@ namespace UDonkey.GUI
 			numberColumn.Title = "מס' קורס";
 			cr = new CellRendererText();
 			numberColumn.PackStart(cr, true);
-			numberColumn.SetCellDataFunc( cr, new TreeCellDataFunc (RenderCourseNumber));
+			numberColumn.SetCellDataFunc( cr, new TreeCellDataFunc (RenderCourseIDNumber));
 			nameColumn = new TreeViewColumn();
 			nameColumn.Title = "שם הקורס";
 			cr = new CellRendererText();
 			nameColumn.PackStart(cr, true);
-			nameColumn.SetCellDataFunc( cr, new TreeCellDataFunc (RenderCourseName));
+			nameColumn.SetCellDataFunc( cr, new TreeCellDataFunc (RenderCourseIDName));
 			
-			storeCourses = new ListStore(typeof (UDonkey.Logic.Course));
+			storeCourses = new ListStore(typeof (UDonkey.Logic.CourseID));
 			tvCourses.AppendColumn(numberColumn);
 			tvCourses.AppendColumn(nameColumn); 
 			tvCourses.Model = storeCourses;
@@ -105,12 +115,22 @@ namespace UDonkey.GUI
 			tvOccurences.Model = storeOccurences;
 			
 			// tvCourseEvents stuff
+
+			PixbufLecture = new Pixbuf("lecture.bmp");
+			PixbufLab = new Pixbuf("lab.bmp");
+			PixbufTutorial = new Pixbuf("tutorial.bmp");
+			PixbufProject = new Pixbuf("project.bmp");
+			
 			chCourseEventCheckBox = new TreeViewColumn();
 			cr = new CellRendererToggle();
 			(cr as CellRendererToggle).Toggled += new ToggledHandler(OnCourseEventToggle);
 
 			chCourseEventCheckBox.PackStart(cr, false);
 			chCourseEventCheckBox.AddAttribute(cr, "active", 1);
+			
+			cr = new CellRendererPixbuf();
+			chCourseEventCheckBox.PackStart(cr, false);
+			chCourseEventCheckBox.SetCellDataFunc(cr, new TreeCellDataFunc (RenderCourseEventIcon));
 			
 			chEvent = new TreeViewColumn();
 			chEvent.Title = "קבוצה";
@@ -153,6 +173,11 @@ namespace UDonkey.GUI
 			tvCourseBasket.AppendColumn(chBasketNumber);
 			tvCourseBasket.AppendColumn(chBasketName);
 			tvCourseBasket.Model = storeCourseBasket;
+
+			// cbFaculties stuff
+			storeFaculties = new ListStore(typeof (string));
+			cbFaculties.Model = storeFaculties;
+			cbFaculties.TextColumn = 0;
 		}
 
 		public static implicit operator Widget(DBbrowser dbb)
@@ -162,14 +187,31 @@ namespace UDonkey.GUI
 
 		public void AddCourseToCourseBasket(Course course)
 		{
-			// TODO
+			storeCourseBasket.AppendValues(course);
 		}
 
-		public void RemoveCourseFromeCourseBasket( Course course )
+		public void RemoveCourseFromCourseBasket( Course course )
 		{
-			// TODO
+			TreeIter iter;
+			storeCourseBasket.GetIterFirst(out iter);
+			do			{
+				Course c = (Course)storeCourseBasket.GetValue(iter, 0);
+				if (c == course)
+				{
+					storeCourseBasket.Remove(ref iter);
+					return;
+				}
+			}
+			while (storeCourseBasket.IterNext(ref iter));
+
 		}
 
+		public void RemoveAllFromCourseBasket()
+		{
+			storeCourseBasket.Clear();
+		}
+
+#region Properties
 		public string NickName
 		{
 			get { return null; } // TODO
@@ -189,7 +231,7 @@ namespace UDonkey.GUI
 			get { return strSemester; }
 			set {
 				strSemester = value;
-				lblSemester.Text = "רשימת הקורסים נכון לסמסטר " + value;
+				lblSemester.Text = "רשימת הקורסים " + value;
 			}
 		}
 
@@ -243,7 +285,59 @@ namespace UDonkey.GUI
 			}
 		}
 
-#region Events
+		public Course CurrentBasketCourse
+		{
+			get {
+				TreePath path;
+				TreeViewColumn col;
+				TreeIter iter;
+				tvCourseBasket.GetCursor(out path, out col);
+				if (storeCourseBasket.GetIter(out iter, path))
+					return (Course)storeCourseBasket.GetValue(iter, 0);
+				else
+					return null;
+			}
+		}
+
+		public StringCollection Faculties {
+			get { return mFaculties; }
+			set {
+				mFaculties = value;
+				storeFaculties.Clear();
+				foreach (string faculty in mFaculties)
+				{
+					storeFaculties.AppendValues(faculty);
+				}
+			}
+		}
+
+		public IList CheckedCourseEvents {
+			get {
+				ArrayList list = new ArrayList();
+				foreach (object[] row in storeCourseEvents)
+				{
+					if ((bool)row[1])
+						list.Add((CourseEvent)row[0]);
+				}
+				return list;
+			}
+		}
+
+		public CourseIDCollection Courses {
+			get { return mCourses; }
+			set {
+				mCourses = value;
+				storeCourses.Clear();
+				foreach (CourseID course in mCourses)
+				{
+					storeCourses.AppendValues(course);
+				}
+			}
+		}
+#endregion
+		
+
+#region Event handlers
 		private void OnCourseEventToggle(object obj, ToggledArgs args)
 		{
 
@@ -253,12 +347,39 @@ namespace UDonkey.GUI
 			storeCourseEvents.SetValue(iter, 1,
 				!(bool)storeCourseEvents.GetValue(iter, 1));
 		}
+
+		private void on_button_press_event(object obj, ButtonPressEventArgs args)
+		{
+			if (args.Event.Type == EventType.TwoButtonPress) {
+				if (obj == tvCourses) ;
+				else if (obj == tvCourseBasket) 
+					mRemoveCourseEvent(this, new EventArgs());
+			}
+		}
 #endregion
 
-#region Properties
+#region Event 
+		private EventHandler mRemoveCourseEvent;
+		public event EventHandler RemoveCourse
+		{
+			add { mRemoveCourseEvent += value; } 
+			remove { mRemoveCourseEvent -= value; }
+		}
 #endregion
 
-		// course renderers
+		// courseID renderers
+		private void RenderCourseIDName(TreeViewColumn column, CellRenderer cell, TreeModel model, TreeIter iter)
+		{
+			CourseID course = (CourseID) model.GetValue(iter, 0);
+			(cell as CellRendererText).Text = course.CourseName;
+		}
+		private void RenderCourseIDNumber(TreeViewColumn column, CellRenderer cell, TreeModel model, TreeIter iter)
+		{
+			CourseID course = (CourseID) model.GetValue(iter, 0);
+			(cell as CellRendererText).Text = course.CourseNumber;
+		}
+		
+		// Course renderers
 		private void RenderCourseName(TreeViewColumn column, CellRenderer cell, TreeModel model, TreeIter iter)
 		{
 			Course course = (Course) model.GetValue(iter, 0);
@@ -286,6 +407,26 @@ namespace UDonkey.GUI
 			CourseEvent ev = (CourseEvent) model.GetValue(iter, 0);
 			(cell as CellRendererText).Text = ev.Type;
 		}
+		private void RenderCourseEventIcon(TreeViewColumn column, CellRenderer cell, TreeModel model, TreeIter iter)
+		{
+			CourseEvent ev = (CourseEvent) model.GetValue(iter, 0);
+			CellRendererPixbuf cellp = (CellRendererPixbuf) cell;
+			switch (ev.Type)
+			{
+				case "הרצאה":
+					cellp.Pixbuf = PixbufLecture;
+					break;
+				case "מעבדה":
+					cellp.Pixbuf = PixbufLab;
+					break;
+				case "קבוצה":
+					cellp.Pixbuf = PixbufTutorial;
+					break;
+				default:
+					cellp.Pixbuf = PixbufProject;
+					break;
+			}		
+		}
 		
 		private void DisplayCourseEvents()
 		{
@@ -296,21 +437,6 @@ namespace UDonkey.GUI
 		    	foreach (CourseEvent aCourseEvent in courseEvents)
 		    	{
 				storeCourseEvents.AppendValues(aCourseEvent, true);
-				/*string[] lv = new String[2];
-					lv[0]=aCourseEvent.EventNum.ToString();
-					lv[1]=aCourseEvent.Type + " " + aCourseEvent.Giver;
-					ListViewItem lvItem;
-					switch (aCourseEvent.Type)
-					{
-						case "הרצאה": { lvItem = new ListViewItem(lv,0); break; }
-						case "מעבדה": { lvItem = new ListViewItem(lv,2); break; }
-						case "קבוצה": { lvItem = new ListViewItem(lv,3); break; }
-						default: { lvItem = new ListViewItem(lv,1); break; }
-					}
-					lvItem.Tag = aCourseEvent;
-					lvItem.Checked=true;
-					lvCourseEvents.Items.Add(lvItem);
-					*/
 		    	}
 /* TODO		    	if ( lvCourseEvents.Items.Count>0)
 			lvCourseEvents.Items[0].Selected=true;*/
@@ -319,8 +445,10 @@ namespace UDonkey.GUI
 
 		public void AddCourse(Course c)
 		{
-			storeCourses.AppendValues(c);
-			storeCourseBasket.AppendValues(c);
+			AddCourseToCourseBasket(c);
+			AddCourseToCourseBasket(c);
+			AddCourseToCourseBasket(c);
+			RemoveCourseFromCourseBasket(c);
 
 			this.Course = c;
 		}
@@ -328,7 +456,7 @@ namespace UDonkey.GUI
 		public static void Main()
 		{
 			Application.Init();
-			Window win = new Window("Hello World");
+			Gtk.Window win = new Gtk.Window("Hello World");
 			win.Resize(800,600);
 			DBbrowser dbb = new DBbrowser();
 
@@ -338,6 +466,8 @@ namespace UDonkey.GUI
 			UDonkey.DB.CourseDB cdb = new UDonkey.DB.CourseDB();
 			cdb.Load("MainDB.xml");
 
+			dbb.Faculties = cdb.GetFacultyList();
+			dbb.Courses = cdb.GetCoursesByFacultyName("מדעי המחשב");
 			dbb.AddCourse(cdb.GetCourseByNumber("046267"));
 			Application.Run();
 		}

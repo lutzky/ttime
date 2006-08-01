@@ -1,6 +1,7 @@
 using System;
 using System.Drawing;
 using System.Collections;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Windows.Forms;
 using System.Data;
@@ -79,6 +80,8 @@ namespace UDonkey.GUI
 		private System.Windows.Forms.Label lblSemester;
 		private System.Windows.Forms.Button btUGLink;
 		private System.ComponentModel.IContainer components;
+
+	private StringCollection mFaculties;
 
         public DBbrowser( )
         {
@@ -842,6 +845,11 @@ namespace UDonkey.GUI
             }
         }
 
+	public void RemoveAllFromCourseBasket()
+	{
+		lbCourseBasket.Items.Clear();
+	}
+
 		private void btChooseAll_Click(object sender, System.EventArgs e)
 		{
 			if (lvCourseEvents.Items.Count==0)
@@ -894,17 +902,53 @@ namespace UDonkey.GUI
 			System.Diagnostics.Process.Start( link );
 		}
 
-		//FIXME don't expose gui parts
-		/*public ListView Courses
-		{
-			get{ return lbCourses; }
-		}*/
-
 		public string NickName
 		{
 			get{ return tbNickName.Text;}
 		}
 		
+		public StringCollection Faculties
+		{
+			get{ return mFaculties; }
+			set {
+				mFaculties = value;
+				cbFaculties.Items.Clear();
+				foreach (string faculty in mFaculties)
+				{
+					cbFaculties.Items.Add(faculty);
+				}
+			}
+		}
+
+		public IList CheckedCourseEvents {
+			get {
+				ArrayList list = new ArrayList();
+				foreach (ListViewItem item in lvCourseEvents.CheckedItems)
+				{
+					list.Add(item.Tag);
+				}
+				return list;
+			}
+		}
+
+		private CourseIDCollection mCourses;
+		public CourseIDCollection Courses {
+			get { return mCourses; }
+			set {
+				mCourses = value;
+				lbCourses.Items.Clear();
+				foreach (CourseID aCourse in mCourses)
+				{
+					string[] lv = new String[2];
+					lv[1]=aCourse.CourseName;
+					lv[0]=aCourse.CourseNumber;
+					ListViewItem lvItem = new ListViewItem(lv);
+					lvItem.Tag = aCourse;
+					lbCourses.Items.Add(lvItem);
+				}
+			}
+		}
+
 		// FIXME
 		/*public ListView Occurrences
 		{
@@ -918,14 +962,6 @@ namespace UDonkey.GUI
 		public ListView CourseEvents
 		{
 			get{ return lvCourseEvents; }
-		}
-		public ComboBox Faculties
-		{
-			get{ return cbFaculties; }
-		}
-		public Button   RemoveCourse
-		{
-			get{ return btRemoveCourse; }
 		}
 		public Button   AddCourse
 		{
@@ -1008,12 +1044,27 @@ namespace UDonkey.GUI
             }
         }
 
+	public Course CurrentBasketCourse
+	{
+		get { return courseBasket.SelectedItem as Course; }
+	}
+
 	/* FIXME
         public SearchControl SearchControl
         {
             get{ return searchControl1; }
         }*/
 
-		
+    	public event EventHandler RemoveCourse
+	{
+		add { 
+			btRemoveCourse.Click += value;
+			lbCourseBasket.DoubleClick += value;
+	       	}
+		remove { 
+			btRemoveCourse.Click -= value;
+			lbCourseBasket.DoubleClick -= value;
+		}
 	}
+    }
 }
