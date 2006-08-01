@@ -60,6 +60,7 @@ UDONKEY_SHARE=./AssemblyInfo.cs \
 	./Logic/Schedule/StartHourStatistic.cs \
 	./Logic/Schedule/UsersEventScheduleObject.cs \
 	./Logic/LoadDBFormLogic.cs \
+	./Logic/MainFormLogic.cs \
 	./RepFile/DosHeb.cs \
 	./RepFile/RepToXML.cs
 
@@ -79,7 +80,6 @@ UDONKEY_WINFORMS=	./GUI/AboutForm.cs \
 	./GUI/UsersEventForm.cs \
 	./GUI/ConfigurationController.cs \
 	./GUI/DBLogic.cs \
-	./GUI/MainFormLogic.cs \
 	./GUI/ScheduleGridLogic.cs \
 	./GUI/UDonkeyClass.cs \
 	./GUI/TabPageContainer.cs
@@ -101,7 +101,6 @@ UDONKEY_GTK=	./GUI/AboutForm.cs \
 	./GUI/UsersEventForm.cs \
 	./GUI/ConfigurationController.cs \
 	./GUI/DBLogic.cs \
-	./GUI/MainFormLogic.cs \
 	./GUI/ScheduleGridLogic.cs \
 	./GUI/UDonkeyClass.cs \
 	./Gtk/LoadDBForm.cs \

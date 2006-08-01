@@ -1,10 +1,9 @@
 using System;
-using System.Windows.Forms;
 using UDonkey.RepFile;
-using UDonkey.Logic;
+using UDonkey.GUI;
 using System.Threading;
 
-namespace UDonkey.GUI
+namespace UDonkey.Logic
 {
   /// <summary>
   /// MainFormLogic controls the MainForm events.
@@ -14,8 +13,8 @@ namespace UDonkey.GUI
     private MainForm          mMainForm;
 
     //screw good code. damn C#
-    private CoursesScheduler  mScheduler {get { return CoursesScheduler;}};
-    private UDonkeyClass	  mDonkey {get{return UDonkeyClass;}}
+    public CoursesScheduler  mScheduler;// {get { return CoursesScheduler;}; set }
+    public UDonkeyClass	  mDonkey ;//{get{return UDonkeyClass;} }
     private const string RESOURCES_GROUP = "MainForm";  
     private SchedulingProgressbar mProgressBar;
     private int				  progressCounter;
@@ -165,7 +164,7 @@ namespace UDonkey.GUI
       else
       {
         throw new Exception();
-        MessageBox.Show(Resources.String( RESOURCES_GROUP, "LoadError" ));
+        //MessageBox.Show(Resources.String( RESOURCES_GROUP, "LoadError" ));
       }
     }
     /// <summary>
@@ -232,11 +231,11 @@ namespace UDonkey.GUI
           s += Resources.String( RESOURCES_GROUP, "ConstraintFailMessage2" );
           s += CreateErrorMessage( mScheduler.Errors );
           //MessageBox.Show( s );
-          MessageBox.Show( null, s, Resources.String( RESOURCES_GROUP, "ConstraintFailMessage4" ), MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign);
+          //MessageBox.Show( null, s, Resources.String( RESOURCES_GROUP, "ConstraintFailMessage4" ), MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign);
         }
         if( mScheduler.Courses.Count != 0 )
         {
-          MessageBox.Show( null, "לא מצא מערכות עבורך UDonkey", Resources.String( RESOURCES_GROUP, "ConstraintFailMessage4" ), MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign);
+         // MessageBox.Show( null, "לא מצא מערכות עבורך UDonkey", Resources.String( RESOURCES_GROUP, "ConstraintFailMessage4" ), MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign);
           this.SetStatusBarLine("לא מצא מערכות עבורך UDonkey");
         }
         else

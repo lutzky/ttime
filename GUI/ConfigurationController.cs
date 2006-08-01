@@ -1,6 +1,7 @@
 using System;
 using System.Xml;
-using System.IO;using UDonkey.Logic;
+using System.IO;
+using UDonkey.Logic;
 using System.Collections;
 using System.Collections.Specialized;
 
@@ -19,7 +20,7 @@ namespace UDonkey.GUI
 		{
 			mConfigControl=configControl;		
 			this.UpdateHash();
-			configControl.Save += new System.EventHandler(this.btSaveChanges_Click);
+			configControl.Save.Click += new System.EventHandler(this.btSaveChanges_Click);
 			configControl.VisibleChanged += new EventHandler(configControl_VisibleChanged);
 		}
 
