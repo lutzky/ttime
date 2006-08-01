@@ -2754,6 +2754,7 @@
 			  <property name="fixed_height_mode">False</property>
 			  <property name="hover_selection">False</property>
 			  <property name="hover_expand">False</property>
+			  <signal name="button_press_event" handler="on_button_press_event" last_modification_time="Tue, 01 Aug 2006 02:01:54 GMT"/>
 			</widget>
 		      </child>
 		    </widget>
@@ -2859,6 +2860,7 @@
 			  <property name="fixed_height_mode">False</property>
 			  <property name="hover_selection">False</property>
 			  <property name="hover_expand">False</property>
+			  <signal name="button_press_event" handler="on_button_press_event" last_modification_time="Tue, 01 Aug 2006 02:02:20 GMT"/>
 			</widget>
 		      </child>
 		    </widget>
