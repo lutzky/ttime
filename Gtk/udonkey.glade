@@ -2,6 +2,7 @@
 <!DOCTYPE glade-interface SYSTEM "http://glade.gnome.org/glade-2.0.dtd">
 
 <glade-interface>
+<requires lib="gnome"/>
 
 <widget class="GtkAboutDialog" id="AboutForm">
   <property name="visible">True</property>
@@ -3687,6 +3688,7 @@
 				  <property name="fixed_height_mode">False</property>
 				  <property name="hover_selection">False</property>
 				  <property name="hover_expand">False</property>
+				  <signal name="focus_out_event" handler="on_tvOccurences_focus_out_event" last_modification_time="Wed, 02 Aug 2006 00:08:50 GMT"/>
 				</widget>
 			      </child>
 			    </widget>
