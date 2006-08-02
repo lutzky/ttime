@@ -206,10 +206,10 @@ namespace UDonkey.GUI
 
 		}
 
-		public void RemoveAllFromCourseBasket()
+/*		public void RemoveAllFromCourseBasket()
 		{
 			storeCourseBasket.Clear();
-		}
+		}*/
 
 #region Properties
 		public string NickName
@@ -235,11 +235,7 @@ namespace UDonkey.GUI
 			}
 		}
 
-		public bool FacultyClicked
-		{
-			//FIXME is this really necessary?
-			get { return false; }
-		}
+		public bool FacultyClicked;
 
 		public Course Course
 		{
@@ -334,6 +330,48 @@ namespace UDonkey.GUI
 				}
 			}
 		}
+
+		public string SelectedFaculty {
+			get { return cbFaculties.Entry.Text; }
+			set { cbFaculties.Entry.Text = value; }
+		}
+
+		public CourseID[] SelectedCourseID {
+			get { 
+				TreeIter iter;
+				if (tvCourses.Selection.GetSelected(out iter))
+				{
+					CourseID c = (CourseID) storeCourses.GetValue(iter, 0);
+					return new CourseID[1]{c};
+				}
+				else
+					return new CourseID[0];
+			}
+		}
+
+		public CoursesList CourseBasket
+		{
+			get {
+				CoursesList list = new CoursesList();
+				foreach (object[] row in storeCourseBasket)
+				{
+					Course c = (Course)row[0];
+					list.Add(c.Number, c);
+				}
+				return list;
+			}
+
+			set {
+				storeCourseBasket.Clear();
+				if (value != null)
+				{
+					foreach (Course c in value)
+					{
+						storeCourseBasket.AppendValues(c);
+					}
+				}
+			}
+		}
 #endregion
 		
 
@@ -351,19 +389,97 @@ namespace UDonkey.GUI
 		private void on_button_press_event(object obj, ButtonPressEventArgs args)
 		{
 			if (args.Event.Type == EventType.TwoButtonPress) {
-				if (obj == tvCourses) ;
+				if (obj == tvCourses) 
+					mAddCourseEvent(this, new EventArgs());
 				else if (obj == tvCourseBasket) 
 					mRemoveCourseEvent(this, new EventArgs());
 			}
+		}
+
+		private void on_tvOccurences_focus_out_event(object obj, FocusOutEventArgs args)
+		{
+			mOccurrencesFocusOut(obj, args);
 		}
 #endregion
 
 #region Event 
 		private EventHandler mRemoveCourseEvent;
-		public event EventHandler RemoveCourse
+		public event EventHandler RemoveCourseClick
 		{
-			add { mRemoveCourseEvent += value; } 
-			remove { mRemoveCourseEvent -= value; }
+			add { 
+				mRemoveCourseEvent += value; 
+				btRemoveCourse.Clicked += value;
+			} 
+			remove { 
+				mRemoveCourseEvent -= value;
+				btRemoveCourse.Clicked -= value;
+		       	}
+		}
+
+		public event EventHandler SelectedFacultyChanged
+		{
+			add { 
+				cbFaculties.EditingDone += value;
+				cbFaculties.Changed += value;
+			}
+			remove {
+				cbFaculties.EditingDone -= value;
+				cbFaculties.Changed -= value;
+			}
+		}
+		
+		public event EventHandler SelectedCourseChanged
+		{
+			add { 
+				tvCourses.Selection.Changed += value;
+			}
+			remove {
+				tvCourses.Selection.Changed -= value;
+			}
+		}
+
+		public event EventHandler Load
+		{
+			add { mMainWidget.Realized += value; }
+			remove { mMainWidget.Realized -= value; }
+		}
+		
+		public event EventHandler VisibleChanged 
+		{
+			add { mMainWidget.Shown += value; }
+			remove { mMainWidget.Shown -= value; }
+		}
+		
+		private EventHandler mAddCourseEvent;
+		public event EventHandler AddCourseClick
+		{
+			add { 
+				mAddCourseEvent += value;
+				btAddCourse.Clicked += value; 
+			}
+			remove {
+			        mAddCourseEvent -= value;	
+				btAddCourse.Clicked -= value; 
+			}
+		}
+
+		private EventHandler mOccurrencesFocusOut;
+		public event EventHandler OccurrencesFocusOut
+		{
+			add { mOccurrencesFocusOut += value; }
+			remove { mOccurrencesFocusOut -= value; }
+		}
+
+		public event EventHandler DoneClick
+		{
+			add { btDone.Clicked += value; }
+			remove { btDone.Clicked -= value; }
+		}
+		
+		public event EventHandler RemoveAllClick
+		{
+			add { btRemoveAll.Clicked += value; }
+			remove { btRemoveAll.Clicked -= value; }
 		}
 #endregion
 

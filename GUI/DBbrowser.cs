@@ -385,6 +385,8 @@ namespace UDonkey.GUI
 			this.lbCourses.Size = new System.Drawing.Size(416, 216);
 			this.lbCourses.TabIndex = 24;
 			this.lbCourses.View = System.Windows.Forms.View.Details;
+			this.lbCourses.ColumnClick += new ColumnClickEventHandler(this.lbCourses_ColumnClick);
+			
 			// 
 			// numberColumn
 			// 
@@ -761,6 +763,25 @@ namespace UDonkey.GUI
 		}
 		#endregion
 
+		private void lbCourses_ColumnClick(object sender, System.Windows.Forms.ColumnClickEventArgs e)
+		{
+			ListView courses = (ListView) sender;
+			
+			if (courses.Sorting == SortOrder.Descending)
+				courses.Sorting = SortOrder.Ascending;
+			else
+				courses.Sorting = SortOrder.Descending;
+			if (courses.Sorting == SortOrder.Ascending)
+			{
+				courses.ListViewItemSorter = new ListViewItemComparer(e.Column);
+			}
+			else
+			{
+				courses.ListViewItemSorter = new InvListViewItemComparer(e.Column);
+			}
+			courses.Sort();
+		}
+
         private void cbFaculties_OnClick(object sender, System.EventArgs e)
         {
             mFacultyClicked=true;
@@ -845,10 +866,10 @@ namespace UDonkey.GUI
             }
         }
 
-	public void RemoveAllFromCourseBasket()
+/*	public void RemoveAllFromCourseBasket()
 	{
 		lbCourseBasket.Items.Clear();
-	}
+	}*/
 
 		private void btChooseAll_Click(object sender, System.EventArgs e)
 		{
@@ -1046,7 +1067,42 @@ namespace UDonkey.GUI
 
 	public Course CurrentBasketCourse
 	{
-		get { return courseBasket.SelectedItem as Course; }
+		get { return lbCourseBasket.SelectedItem as Course; }
+	}
+
+	public string SelectedFaculty {
+		get { return cbFaculties.SelectedItem; }
+	       	set { cbFaculties.SelectedItem = value; }
+	}	
+
+	public CourseID[] SelectedCourseID {
+		get {
+			if (lvCourses.SelectedIndices.Count() > 0) {
+				ListViewItem lvItem = lvCourses.Items[ lvCourses.SelectedIndices[0]];
+				CourseID theCourseID = (CourseID)(lvItem.Tag);
+				return new CourseID[1]{theCourseID};
+			}
+			else
+				return new CourseID[0];
+		}
+	}
+
+	public CoursesList CourseBasket {
+		get {
+			CoursesList list = new CoursesList();
+			foreach (Course c in lbCourseBasket.Items)
+			{
+				list.Add(c);
+			}
+			return list;
+		}
+		set {
+			lbCourseBasket.Items.Clear();
+			foreach (Course c in value)
+			{
+				AddCourseToCourseBasket(c);
+			}
+		}
 	}
 
 	/* FIXME
@@ -1055,7 +1111,7 @@ namespace UDonkey.GUI
             get{ return searchControl1; }
         }*/
 
-    	public event EventHandler RemoveCourse
+    	public event EventHandler RemoveCourseClick
 	{
 		add { 
 			btRemoveCourse.Click += value;
@@ -1065,6 +1121,58 @@ namespace UDonkey.GUI
 			btRemoveCourse.Click -= value;
 			lbCourseBasket.DoubleClick -= value;
 		}
+	}
+
+    	public event EventHandler AddCourseClick
+	{
+		add { 
+			btAddCourse.Click += value;
+			lbCourses.DoubleClick += value;
+	       	}
+		remove { 
+			btAddCourse.Click -= value;
+			lbCourses.DoubleClick -= value;
+		}
+	}
+
+	public event EventHandler SelectedFacultyChanged
+	{
+		add { 
+			cbFaculties.SelectedIndexChanged += value;
+			cbFaculties.TextChanged += value;
+		}
+		remove {
+			cbFaculties.SelectedIndexChanged -= value;
+			cbFaculties.TextChanged -= value;
+		}
+	}
+	
+	public event EventHandler SelectedCourseChanged
+	{
+		add { 
+			lbCourses.SelectedIndexChanged += value;
+		}
+		remove {
+			lbCourses.SelectedIndexChanged -= value;
+		}
+	}
+
+	public event EventHandler OccurrencesFocusOut
+	{
+		add { lvOccurences.Validated += value; }
+	       	remove { lvOccurences.Validated -= value; }
+	}
+
+	public event EventHandler DoneClick
+	{
+		add { btDone.Click += value; }
+		remove { btDone.Click -= value; }
+	}
+	
+	public event EventHandler RemoveAllClick 
+	{
+		add { btRemoveAll.Click += value; }
+		remove { btRemoveAll.Click -= value; }
 	}
     }
 }

@@ -80,14 +80,13 @@ namespace UDonkey.GUI
 		public void RemoveAllCourses()
 		{
 			mCoursesScheduler.Courses.Clear(); // Clear course basket
-			mDBBrowser.RemoveAllFromCourseBasket(); // Clear course basket display
+			mDBBrowser.CourseBasket = null; // Clear course basket display
 			mDBBrowser.Course = null; // Clear current course
 			mDBBrowser.SelectedPoints="0"; // Clear points counter
 		}
 
 		public void Load()
 		{
-			mDBBrowser.Faculties.Items.Clear();
 			SearchControl.FacultiesComboBox.Items.Clear();
 			SearchControl_Load(this, new System.EventArgs());
 			DBBrowser_Load(this, new System.EventArgs());
@@ -239,55 +238,25 @@ namespace UDonkey.GUI
 		}
 		private void Faculties_SelectedIndexChanged(object sender, System.EventArgs e)
 		{
-			if ( mDBBrowser.FacultyClicked)
+			if (mDBBrowser.FacultyClicked)
 			{
-				mDBBrowser.Courses.Items.Clear();
-				CourseIDCollection courses=mCourseDB.GetCoursesByFacultyName((string)mDBBrowser.Faculties.SelectedItem);
-				foreach (CourseID aCourse in courses)
-				{
-					string[] lv = new String[2];
-					lv[1]=aCourse.CourseName;
-					lv[0]=aCourse.CourseNumber;
-					ListViewItem lvItem = new ListViewItem(lv);
-					lvItem.Tag = aCourse;
-					mDBBrowser.Courses.Items.Add(lvItem);
-				}
+				CourseIDCollection courses=mCourseDB.GetCoursesByFacultyName((string)mDBBrowser.SelectedFaculty);
+				mDBBrowser.Courses = courses;
 			}
 		}
 
 		
 		private void Courses_SelectedIndexChanged(object sender, System.EventArgs e)
 		{
-			ListView courses = (ListView) sender;
-			if( courses.SelectedIndices.Count == 0 )
+			if( mDBBrowser.SelectedCourseID.Count() == 0 )
 			{
 				return;
 			}
 			mDBBrowser.FacultyClicked = false;
-			ListViewItem lvItem = mDBBrowser.Courses.Items[ mDBBrowser.Courses.SelectedIndices[0]];
-			CourseID theCourseID = (CourseID)(lvItem.Tag);
-            mDBBrowser.Course    = mCourseDB.GetCourseByNumber(theCourseID.CourseNumber);
+			CourseID theCourseID = mDBBrowser.SelectedCourseID[0]; 
+	            	mDBBrowser.Course    = mCourseDB.GetCourseByNumber(theCourseID.CourseNumber);
 		}
 		
-		private void lbCourses_ColumnClick(object sender, System.Windows.Forms.ColumnClickEventArgs e)
-		{
-			ListView courses = (ListView) sender;
-			
-			if (courses.Sorting == SortOrder.Descending)
-				courses.Sorting = SortOrder.Ascending;
-			else
-				courses.Sorting = SortOrder.Descending;
-			if (courses.Sorting == SortOrder.Ascending)
-			{
-				courses.ListViewItemSorter = new ListViewItemComparer(e.Column);
-			}
-			else
-			{
-				courses.ListViewItemSorter = new InvListViewItemComparer(e.Column);
-			}
-			courses.Sort();
-		}
-
 		private void btRemoveAll_Click(object sender, System.EventArgs e)
 		{
 			RemoveAllCourses();
@@ -314,19 +283,14 @@ namespace UDonkey.GUI
 		}
 		private void btDone_Click(object sender, System.EventArgs e)
 		{
-			if (mDBBrowser.CourseBasket.Items.Count>0)
+			if (mDBBrowser.CourseBasket.Count>0)
 				mMainFormLogic.ScheduleSchedules();
 			else
 				System.Windows.Forms.MessageBox.Show("נא לבחור קורס אחד לפחות על מנת לסדר מערכות");
 		}
 		private void mDBBrowser_VisibleChanged(object sender, EventArgs e)
 		{
-			mDBBrowser.CourseBasket.Items.Clear();
-			foreach (Course aCourse in mCoursesScheduler.Courses.Values)
-			{
-				this.mDBBrowser.AddCourseToCourseBasket( aCourse );
-			}
-
+			mDBBrowser.CourseBasket = mCoursesScheduler.Courses;
 		}
 		#endregion Events
 		#region Private Methods
@@ -336,7 +300,7 @@ namespace UDonkey.GUI
 			{
 				if ( mCoursesScheduler.Courses.Contains( course.Number ) )  
 				{ // If course already exists in the basket, we must remove it so it can be updated
-					foreach (Course c in mDBBrowser.CourseBasket.Items) // search for the course in the basket
+					foreach (Course c in mDBBrowser.CourseBasket) // search for the course in the basket
 					{
 						if (c.Number == course.Number) // We found the course
 						{
@@ -385,36 +349,31 @@ namespace UDonkey.GUI
 				if ( mDBBrowser != null )
 				{
 					mDBBrowser.Load -= new EventHandler(DBBrowser_Load);
-					mDBBrowser.RemoveCourse -= new EventHandler(this.RemoveCourse_Click);
-					mDBBrowser.AddCourse.Click    -= new EventHandler(this.AddCourse_Click);
+					mDBBrowser.RemoveCourseClick -= new EventHandler(this.RemoveCourse_Click);
+					mDBBrowser.AddCourseClick -= new EventHandler(this.AddCourse_Click);
 					mDBBrowser.CourseNumber.TextChanged -= new EventHandler(this.CourseNumerTextChanged);
-					mDBBrowser.Faculties.TextChanged    -= new EventHandler( this.Faculties_SelectedIndexChanged );
-					mDBBrowser.Courses.SelectedIndexChanged -= new EventHandler(this.Courses_SelectedIndexChanged);
-					mDBBrowser.Courses.DoubleClick -= new EventHandler(this.AddCourse_Click);
-					mDBBrowser.Courses.ColumnClick -= new System.Windows.Forms.ColumnClickEventHandler(this.lbCourses_ColumnClick);
-					mDBBrowser.Occurrences.Validated -= new EventHandler(this.lvOccurences_Validated);
-					mDBBrowser.Done.Click -= new System.EventHandler(this.btDone_Click);
-					mDBBrowser.RemoveAll.Click -= new System.EventHandler(this.btRemoveAll_Click);
+					mDBBrowser.SelectedFacultyChanged -= new EventHandler( this.Faculties_SelectedIndexChanged );
+					mDBBrowser.SelectedCourseChanged -= new EventHandler(this.Courses_SelectedIndexChanged);
+					mDBBrowser.OccurrencesFocusOut -= new EventHandler(this.lvOccurences_Validated);
+					mDBBrowser.DoneClick -= new System.EventHandler(this.btDone_Click);
+					mDBBrowser.RemoveAllClick -= new System.EventHandler(this.btRemoveAll_Click);
 					mDBBrowser.VisibleChanged -=new EventHandler(mDBBrowser_VisibleChanged);
 				}
 				mDBBrowser = value;
 				if ( mDBBrowser != null )
 				{				
 					mDBBrowser.Load += new EventHandler(DBBrowser_Load);
-					mDBBrowser.RemoveCourse += new EventHandler(this.RemoveCourse_Click);
-					mDBBrowser.AddCourse.Click += new EventHandler(this.AddCourse_Click);
+					mDBBrowser.RemoveCourseClick += new EventHandler(this.RemoveCourse_Click);
+					mDBBrowser.AddCourseClick += new EventHandler(this.AddCourse_Click);
 					mDBBrowser.CourseNumber.TextChanged += new EventHandler(this.CourseNumerTextChanged);
-					mDBBrowser.Faculties.SelectedIndexChanged += new EventHandler( this.Faculties_SelectedIndexChanged );
-					mDBBrowser.Courses.SelectedIndexChanged += new EventHandler(this.Courses_SelectedIndexChanged);
-					mDBBrowser.Courses.DoubleClick += new EventHandler(this.AddCourse_Click);
-					mDBBrowser.Courses.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lbCourses_ColumnClick);
-					mDBBrowser.Occurrences.Validated += new EventHandler(this.lvOccurences_Validated);
-					mDBBrowser.Done.Click += new System.EventHandler(this.btDone_Click);
-					mDBBrowser.RemoveAll.Click += new System.EventHandler(this.btRemoveAll_Click);
+					mDBBrowser.SelectedFacultyChanged += new EventHandler( this.Faculties_SelectedIndexChanged );
+					mDBBrowser.SelectedCourseChanged += new EventHandler(this.Courses_SelectedIndexChanged);
+					mDBBrowser.OccurrencesFocusOut += new EventHandler(this.lvOccurences_Validated);
+					mDBBrowser.DoneClick += new System.EventHandler(this.btDone_Click);
+					mDBBrowser.RemoveAllClick += new System.EventHandler(this.btRemoveAll_Click);
 					mDBBrowser.VisibleChanged +=new EventHandler(mDBBrowser_VisibleChanged);
 					this.SearchControl = mDBBrowser.SearchControl;
 					
-
 				}
 			}
 		}
