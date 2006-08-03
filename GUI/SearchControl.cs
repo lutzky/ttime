@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Drawing;
 using System.Data;
@@ -36,7 +37,6 @@ namespace UDonkey.GUI
 		private System.Windows.Forms.ComboBox cfaculty;
 		private System.Windows.Forms.TextBox textBox1;
 	
-		public delegate void SearchEventHandler(object sender, System.EventArgs e);
 		private event SearchEventHandler mSearch;
 		
 		/// <summary> 
@@ -391,7 +391,7 @@ namespace UDonkey.GUI
 			if( friday.Checked )
 				args.Days[5]="ו";
 
-			this.mSearch( this, args );
+			if (mSearch != null) mSearch( this, args );
 		}
 
 		private void KeyPressEvent(object sender, System.Windows.Forms.KeyPressEventArgs e)
@@ -402,21 +402,26 @@ namespace UDonkey.GUI
 			}
 		}
 	
-		public class SearchEventArgs: EventArgs
-		{
-			public string Name   = null;
-			public string Number = null;
-			public string Points = null;
-			public string Faculty      = null;
-			public string Lecturer     = null;
-			public string[] Days = new string[6];
-		}
-
 		public event SearchEventHandler Search
 		{
 			add { mSearch += value; }
 			remove { mSearch -= value; }
 		}
+
+		private StringCollection mFaculties;
+		public StringCollection Faculties {
+			get { return mFaculties; }
+			set {
+				mFaculties = value;
+				cfaculty.Items.Clear();
+				cfaculty.Items.Add("");
+				foreach (string faculty in value)
+				{
+					cfaculty.Items.Add(faculty);
+				}
+			}
+		}
+
 	
 		public ComboBox FacultiesComboBox
 		{

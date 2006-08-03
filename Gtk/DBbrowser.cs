@@ -14,6 +14,8 @@ namespace UDonkey.GUI
 	public class DBbrowser 
 	{
 		private Widget mMainWidget;
+		private UDonkey.GUI.SearchControl mSearchControl;
+
 #region Glade Widgets
 		[Widget] ComboBoxEntry cbFaculties;
 		[Widget] Entry entrySearch;
@@ -178,6 +180,9 @@ namespace UDonkey.GUI
 			storeFaculties = new ListStore(typeof (string));
 			cbFaculties.Model = storeFaculties;
 			cbFaculties.TextColumn = 0;
+
+			// SearchControl
+			mSearchControl = new UDonkey.GUI.SearchControl();
 		}
 
 		public static implicit operator Widget(DBbrowser dbb)
@@ -299,6 +304,7 @@ namespace UDonkey.GUI
 			get { return mFaculties; }
 			set {
 				mFaculties = value;
+				mSearchControl.Faculties = value;
 				storeFaculties.Clear();
 				foreach (string faculty in mFaculties)
 				{
@@ -372,6 +378,11 @@ namespace UDonkey.GUI
 				}
 			}
 		}
+
+		public UDonkey.GUI.SearchControl SearchControl 
+		{
+			get { return mSearchControl; }
+		}
 #endregion
 		
 
@@ -399,6 +410,11 @@ namespace UDonkey.GUI
 		private void on_tvOccurences_focus_out_event(object obj, FocusOutEventArgs args)
 		{
 			mOccurrencesFocusOut(obj, args);
+		}
+
+		private void on_btAdvancedSearch_clicked(object obj, EventArgs args)
+		{
+			mSearchControl.Show();
 		}
 #endregion
 

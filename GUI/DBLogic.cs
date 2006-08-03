@@ -112,13 +112,7 @@ namespace UDonkey.GUI
 
 		private void SearchControl_Load(object sender, EventArgs e)
 		{				
-			SearchControl.FacultiesComboBox.Items.Add("");
-			
-			System.Collections.Specialized.StringCollection faculties=mCourseDB.GetFacultyList();
-			foreach (string faculty in faculties)
-			{
-				SearchControl.FacultiesComboBox.Items.Add(faculty);
-			}
+			mSearchControl.Faculties = mCourseDB.GetFacultyList();
 		}
 
 		private void DBBrowser_Load(object sender, EventArgs e)

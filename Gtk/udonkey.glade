@@ -152,7 +152,6 @@
 </widget>
 
 <widget class="GtkDialog" id="ConfigControl">
-  <property name="visible">True</property>
   <property name="title" translatable="yes">העדפות</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
   <property name="window_position">GTK_WIN_POS_NONE</property>
@@ -2683,6 +2682,7 @@
 		  <property name="use_underline">True</property>
 		  <property name="relief">GTK_RELIEF_NORMAL</property>
 		  <property name="focus_on_click">True</property>
+		  <signal name="clicked" handler="on_btAdvancedSearch_clicked" last_modification_time="Thu, 03 Aug 2006 08:48:52 GMT"/>
 		</widget>
 		<packing>
 		  <property name="padding">0</property>
@@ -3748,8 +3748,7 @@
   </child>
 </widget>
 
-<widget class="GtkDialog" id="AdvancedCourseSearch">
-  <property name="visible">True</property>
+<widget class="GtkDialog" id="AdvancedSearchDialog">
   <property name="title" translatable="yes">חיפוש מתקדם</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
   <property name="window_position">GTK_WIN_POS_NONE</property>
@@ -3757,13 +3756,15 @@
   <property name="resizable">True</property>
   <property name="destroy_with_parent">False</property>
   <property name="decorated">True</property>
-  <property name="skip_taskbar_hint">False</property>
+  <property name="skip_taskbar_hint">True</property>
   <property name="skip_pager_hint">False</property>
   <property name="type_hint">GDK_WINDOW_TYPE_HINT_DIALOG</property>
   <property name="gravity">GDK_GRAVITY_NORTH_WEST</property>
   <property name="focus_on_map">True</property>
   <property name="urgency_hint">False</property>
   <property name="has_separator">True</property>
+  <signal name="response" handler="on_response" last_modification_time="Thu, 03 Aug 2006 08:55:30 GMT"/>
+  <signal name="delete_event" handler="on_delete" last_modification_time="Thu, 03 Aug 2006 09:07:58 GMT"/>
 
   <child internal-child="vbox">
     <widget class="GtkVBox" id="dialog-vbox1">
@@ -3777,7 +3778,7 @@
 	  <property name="layout_style">GTK_BUTTONBOX_END</property>
 
 	  <child>
-	    <widget class="GtkButton" id="button10">
+	    <widget class="GtkButton" id="btClose">
 	      <property name="visible">True</property>
 	      <property name="can_default">True</property>
 	      <property name="can_focus">True</property>
@@ -3786,6 +3787,7 @@
 	      <property name="relief">GTK_RELIEF_NORMAL</property>
 	      <property name="focus_on_click">True</property>
 	      <property name="response_id">-7</property>
+	      <accelerator key="Escape" modifiers="0" signal="clicked"/>
 	    </widget>
 	  </child>
 
@@ -3793,12 +3795,13 @@
 	    <widget class="GtkButton" id="button11">
 	      <property name="visible">True</property>
 	      <property name="can_default">True</property>
+	      <property name="has_default">True</property>
 	      <property name="can_focus">True</property>
 	      <property name="label">gtk-find</property>
 	      <property name="use_stock">True</property>
 	      <property name="relief">GTK_RELIEF_NORMAL</property>
 	      <property name="focus_on_click">True</property>
-	      <property name="response_id">0</property>
+	      <property name="response_id">-5</property>
 	    </widget>
 	  </child>
 	</widget>
@@ -3959,7 +3962,7 @@
 		      </child>
 
 		      <child>
-			<widget class="GtkComboBoxEntry" id="comboboxentry2">
+			<widget class="GtkComboBoxEntry" id="cbFaculties">
 			  <property name="visible">True</property>
 			  <property name="add_tearoffs">False</property>
 			  <property name="has_frame">True</property>
@@ -3975,24 +3978,7 @@
 		      </child>
 
 		      <child>
-			<widget class="GtkComboBoxEntry" id="comboboxentry3">
-			  <property name="visible">True</property>
-			  <property name="add_tearoffs">False</property>
-			  <property name="has_frame">True</property>
-			  <property name="focus_on_click">True</property>
-			</widget>
-			<packing>
-			  <property name="left_attach">1</property>
-			  <property name="right_attach">2</property>
-			  <property name="top_attach">2</property>
-			  <property name="bottom_attach">3</property>
-			  <property name="x_options">fill</property>
-			  <property name="y_options">fill</property>
-			</packing>
-		      </child>
-
-		      <child>
-			<widget class="GtkEntry" id="entry11">
+			<widget class="GtkEntry" id="courseName">
 			  <property name="visible">True</property>
 			  <property name="can_focus">True</property>
 			  <property name="editable">True</property>
@@ -4013,7 +3999,7 @@
 		      </child>
 
 		      <child>
-			<widget class="GtkEntry" id="entry12">
+			<widget class="GtkEntry" id="courseNumber">
 			  <property name="visible">True</property>
 			  <property name="can_focus">True</property>
 			  <property name="editable">True</property>
@@ -4030,6 +4016,37 @@
 			  <property name="top_attach">1</property>
 			  <property name="bottom_attach">2</property>
 			  <property name="y_options"></property>
+			</packing>
+		      </child>
+
+		      <child>
+			<widget class="GtkComboBoxEntry" id="coursePoints">
+			  <property name="visible">True</property>
+			  <property name="items" translatable="yes">0.5
+1.0
+1.5
+2.0
+2.5
+3.0
+3.5
+4.0
+4.5
+5.0
+5.5
+6.0
+6.5
+7.0</property>
+			  <property name="add_tearoffs">False</property>
+			  <property name="has_frame">True</property>
+			  <property name="focus_on_click">True</property>
+			</widget>
+			<packing>
+			  <property name="left_attach">1</property>
+			  <property name="right_attach">2</property>
+			  <property name="top_attach">2</property>
+			  <property name="bottom_attach">3</property>
+			  <property name="x_options">fill</property>
+			  <property name="y_options">fill</property>
 			</packing>
 		      </child>
 		    </widget>
@@ -4126,7 +4143,7 @@
 		      </child>
 
 		      <child>
-			<widget class="GtkEntry" id="entry13">
+			<widget class="GtkEntry" id="lecturer">
 			  <property name="visible">True</property>
 			  <property name="can_focus">True</property>
 			  <property name="editable">True</property>
@@ -4210,7 +4227,7 @@
 		      <property name="column_spacing">5</property>
 
 		      <child>
-			<widget class="GtkCheckButton" id="checkbutton2">
+			<widget class="GtkCheckButton" id="monday">
 			  <property name="visible">True</property>
 			  <property name="can_focus">True</property>
 			  <property name="label" translatable="yes">ב'</property>
@@ -4232,7 +4249,7 @@
 		      </child>
 
 		      <child>
-			<widget class="GtkCheckButton" id="checkbutton3">
+			<widget class="GtkCheckButton" id="tuesday">
 			  <property name="visible">True</property>
 			  <property name="can_focus">True</property>
 			  <property name="label" translatable="yes">ג'</property>
@@ -4254,29 +4271,7 @@
 		      </child>
 
 		      <child>
-			<widget class="GtkCheckButton" id="checkbutton4">
-			  <property name="visible">True</property>
-			  <property name="can_focus">True</property>
-			  <property name="label" translatable="yes">ד'</property>
-			  <property name="use_underline">True</property>
-			  <property name="relief">GTK_RELIEF_NORMAL</property>
-			  <property name="focus_on_click">True</property>
-			  <property name="active">False</property>
-			  <property name="inconsistent">False</property>
-			  <property name="draw_indicator">True</property>
-			</widget>
-			<packing>
-			  <property name="left_attach">3</property>
-			  <property name="right_attach">4</property>
-			  <property name="top_attach">0</property>
-			  <property name="bottom_attach">1</property>
-			  <property name="x_options">fill</property>
-			  <property name="y_options"></property>
-			</packing>
-		      </child>
-
-		      <child>
-			<widget class="GtkCheckButton" id="checkbutton5">
+			<widget class="GtkCheckButton" id="thursday">
 			  <property name="visible">True</property>
 			  <property name="can_focus">True</property>
 			  <property name="label" translatable="yes">ה'</property>
@@ -4298,7 +4293,7 @@
 		      </child>
 
 		      <child>
-			<widget class="GtkCheckButton" id="checkbutton6">
+			<widget class="GtkCheckButton" id="friday">
 			  <property name="visible">True</property>
 			  <property name="can_focus">True</property>
 			  <property name="label" translatable="yes">ו'</property>
@@ -4320,7 +4315,7 @@
 		      </child>
 
 		      <child>
-			<widget class="GtkCheckButton" id="checkbutton1">
+			<widget class="GtkCheckButton" id="sunday">
 			  <property name="visible">True</property>
 			  <property name="can_focus">True</property>
 			  <property name="label" translatable="yes">א'</property>
@@ -4336,6 +4331,28 @@
 			  <property name="right_attach">1</property>
 			  <property name="top_attach">0</property>
 			  <property name="bottom_attach">1</property>
+			  <property name="y_options"></property>
+			</packing>
+		      </child>
+
+		      <child>
+			<widget class="GtkCheckButton" id="wednesday">
+			  <property name="visible">True</property>
+			  <property name="can_focus">True</property>
+			  <property name="label" translatable="yes">ד'</property>
+			  <property name="use_underline">True</property>
+			  <property name="relief">GTK_RELIEF_NORMAL</property>
+			  <property name="focus_on_click">True</property>
+			  <property name="active">False</property>
+			  <property name="inconsistent">False</property>
+			  <property name="draw_indicator">True</property>
+			</widget>
+			<packing>
+			  <property name="left_attach">3</property>
+			  <property name="right_attach">4</property>
+			  <property name="top_attach">0</property>
+			  <property name="bottom_attach">1</property>
+			  <property name="x_options">fill</property>
 			  <property name="y_options"></property>
 			</packing>
 		      </child>

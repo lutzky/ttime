@@ -75,6 +75,7 @@ UDONKEY_WINFORMS=	./GUI/AboutForm.cs \
 	./GUI/ScheduleDataGridColumnStyle.cs \
 	./GUI/ScheduleMenuItem.cs \
 	./GUI/SchedulingProgressbar.cs \
+	./GUI/SearchEvent.cs \
 	./GUI/SearchControl.cs \
 	./GUI/UDonkeyForm.cs \
 	./GUI/UsersEventForm.cs \
@@ -96,7 +97,8 @@ UDONKEY_GTK=	./GUI/AboutForm.cs \
 	./GUI/ScheduleDataGridColumnStyle.cs \
 	./GUI/ScheduleMenuItem.cs \
 	./GUI/SchedulingProgressbar.cs \
-	./GUI/SearchControl.cs \
+	./Gtk/SearchControl.cs \
+	./GUI/SearchEvent.cs \
 	./GUI/UDonkeyForm.cs \
 	./GUI/UsersEventForm.cs \
 	./GUI/ConfigurationController.cs \

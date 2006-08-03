@@ -81,8 +81,6 @@ namespace UDonkey.GUI
 		private System.Windows.Forms.Button btUGLink;
 		private System.ComponentModel.IContainer components;
 
-	private StringCollection mFaculties;
-
         public DBbrowser( )
         {
             //
@@ -928,11 +926,14 @@ namespace UDonkey.GUI
 			get{ return tbNickName.Text;}
 		}
 		
+	
+		private StringCollection mFaculties;
 		public StringCollection Faculties
 		{
 			get{ return mFaculties; }
 			set {
 				mFaculties = value;
+				searchControl1.Faculties = value;
 				cbFaculties.Items.Clear();
 				foreach (string faculty in mFaculties)
 				{
@@ -1105,11 +1106,10 @@ namespace UDonkey.GUI
 		}
 	}
 
-	/* FIXME
         public SearchControl SearchControl
         {
             get{ return searchControl1; }
-        }*/
+        }
 
     	public event EventHandler RemoveCourseClick
 	{
