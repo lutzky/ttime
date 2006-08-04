@@ -119,7 +119,10 @@ namespace UDonkey.GUI
 			this.ContextMenu = new ContextMenu( );
 			base.OnMouseDown(e); 
 			this.ContextMenu.Show( this, mPoint);
-			return;
+			
+			GridMouseEventArgs args = new GridMouseEventArgs();
+			args.HitTestInfo = mHitTestInfo;
+			if (mMouseDown != null) mMouseMove(this, args);
 		} 
 		protected override void OnMouseMove(MouseEventArgs e)
 		{
@@ -127,6 +130,11 @@ namespace UDonkey.GUI
 			mPoint       = new Point( e.X, e.Y );
 			this.ToolTip.SetToolTip( this, msHoverString );
 			base.OnMouseMove (e);
+			
+			GridMouseEventArgs args = new GridMouseEventArgs();
+			args.HitTestInfo = mHitTestInfo;
+			if (mMouseMove != null) mMouseMove(this, args);
+
 		}
         protected override void OnResize( EventArgs args )
         {
@@ -304,6 +312,20 @@ namespace UDonkey.GUI
             {
                 get{ return mSchedule.FullDataTable.Rows[mHitTestInfo.Row + mSchedule.StartHour][mHitTestInfo.Column] as IScheduleEntry; }
             }
+	}
+	
+		private event GridMouseEventHandler mMouseMove;
+		public event GridMouseEventHandler MouseMove
+		{
+			add { mMouseMove += value; }
+			remove { mMouseMove -= value; }
+		}
+		private event GridMouseEventHandler mMouseDown;
+		public event GridMouseEventHandler MouseDown
+		{
+			add { mMouseDown += value; }
+			remove { mMouseDown -= value; }
 		}
 	}
+
 }

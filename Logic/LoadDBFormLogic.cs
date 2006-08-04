@@ -5,7 +5,7 @@ using UDonkey.RepFile;
 
 namespace UDonkey.Logic{
   // this class contains 2 static methods used in LoadDBForm classes
-  class LoadDBFormLogic {
+  public class LoadDBFormLogic {
     static public void updateFromWeb(CourseDB cDB, string msWorkingFolder) {
       cDB.AutoUpdate();
       RepToXML.Convert("REPY", msWorkingFolder + "\\" + CourseDB.DEFAULT_DB_FILE_NAME);

@@ -515,7 +515,7 @@ namespace UDonkey.Logic
 		#endregion Properties
 	}
 
-	class ScheduleEventArgs : EventArgs 
+	public class ScheduleEventArgs : EventArgs 
 	{
 		public ScheduleEventArgs(string text)
 		{

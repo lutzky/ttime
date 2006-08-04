@@ -771,11 +771,11 @@ namespace UDonkey.GUI
 				courses.Sorting = SortOrder.Descending;
 			if (courses.Sorting == SortOrder.Ascending)
 			{
-				courses.ListViewItemSorter = new ListViewItemComparer(e.Column);
+				courses.ListViewItemSorter = new DBLogic.ListViewItemComparer(e.Column);
 			}
 			else
 			{
-				courses.ListViewItemSorter = new InvListViewItemComparer(e.Column);
+				courses.ListViewItemSorter = new DBLogic.InvListViewItemComparer(e.Column);
 			}
 			courses.Sort();
 		}
@@ -952,6 +952,17 @@ namespace UDonkey.GUI
 				return list;
 			}
 		}
+		
+		public IList CourseEvents {
+			get {
+				ArrayList list = new ArrayList();
+				foreach (ListViewItem item in lvCourseEvents.CheckedItems)
+				{
+					list.Add(item.Tag);
+				}
+				return list;
+			}
+		}
 
 		private CourseIDCollection mCourses;
 		public CourseIDCollection Courses {
@@ -1005,6 +1016,7 @@ namespace UDonkey.GUI
 		{
 			get { return tbCourseNum; }
 		}*/
+
 		public string  SelectedPoints
 		{
 			get { return lblSelectedPoints.Text; }
@@ -1018,7 +1030,12 @@ namespace UDonkey.GUI
 		public bool FacultyClicked
 		{
 			get {return mFacultyClicked; }
-            set { mFacultyClicked = value; }
+	                set { mFacultyClicked = value; }
+		}
+		public string CourseNumber
+		{
+			get { return tbCourseNum.Text; }
+			set { tbCourseNum.Text = value; }
 		}
         public Course Course
         {
@@ -1072,14 +1089,14 @@ namespace UDonkey.GUI
 	}
 
 	public string SelectedFaculty {
-		get { return cbFaculties.SelectedItem; }
+		get { return (string)cbFaculties.SelectedItem; }
 	       	set { cbFaculties.SelectedItem = value; }
 	}	
 
 	public CourseID[] SelectedCourseID {
 		get {
-			if (lvCourses.SelectedIndices.Count() > 0) {
-				ListViewItem lvItem = lvCourses.Items[ lvCourses.SelectedIndices[0]];
+			if (lbCourses.SelectedIndices.Count > 0) {
+				ListViewItem lvItem = lbCourses.Items[ lbCourses.SelectedIndices[0]];
 				CourseID theCourseID = (CourseID)(lvItem.Tag);
 				return new CourseID[1]{theCourseID};
 			}
@@ -1093,7 +1110,7 @@ namespace UDonkey.GUI
 			CoursesList list = new CoursesList();
 			foreach (Course c in lbCourseBasket.Items)
 			{
-				list.Add(c);
+				list.Add(c.Number, c);
 			}
 			return list;
 		}
@@ -1103,6 +1120,13 @@ namespace UDonkey.GUI
 			{
 				AddCourseToCourseBasket(c);
 			}
+		}
+	}
+
+	public CourseEvent SelectedCourseEvent 
+	{
+		get { 
+			return (CourseEvent)(lvCourseEvents.SelectedItems[0].Tag);
 		}
 	}
 
@@ -1173,6 +1197,12 @@ namespace UDonkey.GUI
 	{
 		add { btRemoveAll.Click += value; }
 		remove { btRemoveAll.Click -= value; }
+	}
+	
+	public event EventHandler CourseNumberChanged 
+	{
+		add { tbCourseNum.TextChanged += value; }
+		remove { tbCourseNum.TextChanged -= value; }
 	}
     }
 }

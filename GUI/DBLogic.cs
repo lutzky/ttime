@@ -97,7 +97,7 @@ namespace UDonkey.GUI
 		{
 			if ( mDBBrowser != null )
 			{
-				SearchControl.SearchEventArgs args = e as SearchControl.SearchEventArgs;
+				SearchEventArgs args = e as SearchEventArgs;
 				CourseIDCollection courses =  mCourseDB.SearchDBByParam(
 					args.Name,
 					args.Number,
@@ -196,11 +196,11 @@ namespace UDonkey.GUI
 
 		private void CourseNumerTextChanged(object sender, System.EventArgs e)
 		{
-			if ((mDBBrowser.CourseNumber.Text.Length==6)
+			if ((mDBBrowser.CourseNumber.Length==6)
 				&&((DBBrowser.Course==null)
-				||(mDBBrowser.CourseNumber.Text != DBBrowser.Course.Number)))
+				||(mDBBrowser.CourseNumber != DBBrowser.Course.Number)))
 			{
-				Course course = mCourseDB.GetCourseByNumber( mDBBrowser.CourseNumber.Text );
+				Course course = mCourseDB.GetCourseByNumber( mDBBrowser.CourseNumber );
 
 				if ( course != null)
 				{
@@ -211,19 +211,15 @@ namespace UDonkey.GUI
 				
 					if (!(CoursesListViewContains(course.Number)))
 					{
+						CourseIDCollection courses = new CourseIDCollection();
 						CourseID aCourseID = new CourseID();
 						aCourseID.CourseName = course.Name;
 						aCourseID.CourseNumber = course.Number;
-						string[] lv = new String[2];
-						lv[1]=course.Name;
-						lv[0]=course.Number;
-						ListViewItem lvItem = new ListViewItem(lv);
-						lvItem.Tag = aCourseID;
-						mDBBrowser.Courses.Items.Clear();
-						mDBBrowser.Courses.Items.Add(lvItem);
-						mDBBrowser.Courses.Items[0].Selected = true;
+						courses.Add(aCourseID);
+						mDBBrowser.Courses = courses;
+						/* FIXME mDBBrowser.Courses.Items[0].Selected = true;
 						if (mDBBrowser.CourseEvents.Items.Count>0)
-							mDBBrowser.CourseEvents.Items[0].Selected = true; 
+							mDBBrowser.CourseEvents.Items[0].Selected = true;  */
 					}
 				
 				
@@ -242,7 +238,7 @@ namespace UDonkey.GUI
 		
 		private void Courses_SelectedIndexChanged(object sender, System.EventArgs e)
 		{
-			if( mDBBrowser.SelectedCourseID.Count() == 0 )
+			if( mDBBrowser.SelectedCourseID.Length == 0 )
 			{
 				return;
 			}
@@ -261,8 +257,7 @@ namespace UDonkey.GUI
 			ListView occurrences = (ListView) sender;
 			if (occurrences.Items.Count==0)
 				return;
-			ListView courseEvents = DBBrowser.CourseEvents;
-			CourseEvent theEvent = (CourseEvent)(courseEvents.SelectedItems[0].Tag);
+			CourseEvent theEvent = DBBrowser.SelectedCourseEvent ;
 			CourseEventOccurrenceCollection ceoCollection = theEvent.Occurrences;
 			// Reset Selected status
 			foreach (CourseEventOccurrence ceo in ceoCollection)
@@ -321,12 +316,11 @@ namespace UDonkey.GUI
 		/// <returns></returns>
 		private bool CoursesListViewContains ( string courseNumber)
 		{
-			ListView courses = DBBrowser.Courses;
-			foreach (ListViewItem item in courses.Items)
+			foreach (CourseID course in DBBrowser.Courses)
 			{
-				if (((CourseID)(item.Tag)).CourseNumber == courseNumber)
+				if (course.CourseNumber == courseNumber)
 				{
-					item.Selected = true;
+					// TODO DBBrowser.SelectedCourseID = course;
 					return true;
 				}
 			}
@@ -345,7 +339,7 @@ namespace UDonkey.GUI
 					mDBBrowser.Load -= new EventHandler(DBBrowser_Load);
 					mDBBrowser.RemoveCourseClick -= new EventHandler(this.RemoveCourse_Click);
 					mDBBrowser.AddCourseClick -= new EventHandler(this.AddCourse_Click);
-					mDBBrowser.CourseNumber.TextChanged -= new EventHandler(this.CourseNumerTextChanged);
+					mDBBrowser.CourseNumberChanged -= new EventHandler(this.CourseNumerTextChanged);
 					mDBBrowser.SelectedFacultyChanged -= new EventHandler( this.Faculties_SelectedIndexChanged );
 					mDBBrowser.SelectedCourseChanged -= new EventHandler(this.Courses_SelectedIndexChanged);
 					mDBBrowser.OccurrencesFocusOut -= new EventHandler(this.lvOccurences_Validated);
@@ -359,7 +353,7 @@ namespace UDonkey.GUI
 					mDBBrowser.Load += new EventHandler(DBBrowser_Load);
 					mDBBrowser.RemoveCourseClick += new EventHandler(this.RemoveCourse_Click);
 					mDBBrowser.AddCourseClick += new EventHandler(this.AddCourse_Click);
-					mDBBrowser.CourseNumber.TextChanged += new EventHandler(this.CourseNumerTextChanged);
+					mDBBrowser.CourseNumberChanged += new EventHandler(this.CourseNumerTextChanged);
 					mDBBrowser.SelectedFacultyChanged += new EventHandler( this.Faculties_SelectedIndexChanged );
 					mDBBrowser.SelectedCourseChanged += new EventHandler(this.Courses_SelectedIndexChanged);
 					mDBBrowser.OccurrencesFocusOut += new EventHandler(this.lvOccurences_Validated);
@@ -378,14 +372,14 @@ namespace UDonkey.GUI
 			{
 				if ( mSearchControl != null )
 				{
-					mSearchControl.Search -= new SearchControl.SearchEventHandler( Search );
+					mSearchControl.Search -= new SearchEventHandler( Search );
 					mSearchControl.Load   -= new EventHandler( SearchControl_Load );
 				}
 				
 				mSearchControl = value;
 				if ( value != null )
 				{
-					mSearchControl.Search += new SearchControl.SearchEventHandler( Search );
+					mSearchControl.Search += new SearchEventHandler( Search );
 					mSearchControl.Load   += new EventHandler( SearchControl_Load );
 				}
 			}
@@ -394,7 +388,7 @@ namespace UDonkey.GUI
 		#endregion Properties
 		#region Comparers
 		// Implements the manual sorting of items by columns.
-		class ListViewItemComparer : System.Collections.IComparer
+		public class ListViewItemComparer : System.Collections.IComparer
 		{
 			private int col;
 			public ListViewItemComparer()
@@ -411,7 +405,7 @@ namespace UDonkey.GUI
 			}
 		}
 
-		class InvListViewItemComparer : System.Collections.IComparer
+		public class InvListViewItemComparer : System.Collections.IComparer
 		{
 			private int col;
 			public InvListViewItemComparer()

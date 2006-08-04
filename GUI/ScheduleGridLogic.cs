@@ -1,5 +1,6 @@
 using System;
-//using System.Windows.Forms;
+// TODO don't depend on windows forms
+using System.Windows.Forms;
 using UDonkey.Logic;
 using UDonkey.DB;
 
@@ -33,8 +34,8 @@ namespace UDonkey.GUI
 			mScheduler.ScheduleChanged += new EventHandler(mScheduler_ScheduleChanged);
             mGrid = grid;
 			mGrid.DataSource     = Scheduler.Schedule;
-            mGrid.MouseDown     += new MouseEventHandler( this.OnScheduleGridMouseDown );
-			mGrid.MouseMove     += new MouseEventHandler(OnScheduleGridMouseMove); 
+            mGrid.MouseDown     += new GridMouseEventHandler( this.OnScheduleGridMouseDown );
+			mGrid.MouseMove     += new GridMouseEventHandler(OnScheduleGridMouseMove); 
             mEmptyCellMenuItem   = new ScheduleMenuItem( null, "צור אירוע משתמש", new EventHandler( NewUsersEvent ) );
             mFreeDayConstraint   = new EventHandler( FreeDayConstraint );
             mStartHourConstraint = new EventHandler( StartHourConstraint );
@@ -48,10 +49,10 @@ namespace UDonkey.GUI
         /// </summary>
         /// <param name="sender">The ScheduleGrid that raised this event</param>
         /// <param name="args">MouseEventArgs of this event</param>
-		public void OnScheduleGridMouseDown( object sender, MouseEventArgs args )
+		public void OnScheduleGridMouseDown( object sender, GridMouseEventArgs args )
 		{
 			ScheduleMenuItem menuItem;
-			mHitTestInfo = mGrid.HitTest( args.X, args.Y );
+			mHitTestInfo = args.HitTestInfo;
 			if ( mHitTestInfo.Type == DataGrid.HitTestType.Cell ||
 				mHitTestInfo.Type == DataGrid.HitTestType.ColumnHeader )
 			{
@@ -137,9 +138,9 @@ namespace UDonkey.GUI
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void OnScheduleGridMouseMove(object sender, MouseEventArgs args)
+		private void OnScheduleGridMouseMove(object sender, GridMouseEventArgs args)
 		{
-			mHitTestInfo = mGrid.HitTest( args.X, args.Y );
+			mHitTestInfo = args.HitTestInfo; 
 			if ( mHitTestInfo.Type == DataGrid.HitTestType.Cell ) 
 			{
 				mGrid.HoverString = mHitTestInfo.Object.ToString( VerbosityFlag.Full );

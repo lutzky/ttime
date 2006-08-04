@@ -15,4 +15,11 @@ namespace UDonkey.GUI
 		public string[] Days = new string[6];
 	}
 
+	public delegate void GridMouseEventHandler(object sender, GridMouseEventArgs args);
+
+	public class GridMouseEventArgs : EventArgs
+	{
+		public ScheduleDataGrid.HitTestInfo HitTestInfo;
+	}
+
 }

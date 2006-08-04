@@ -160,7 +160,7 @@ namespace UDonkey.GUI
 				{
 					this.Hide();
 					try {
-            LoadDBFormLogic.updateFromWeb(cDB,msWorkingFolder);
+            					UDonkey.Logic.LoadDBFormLogic.updateFromWeb(cDB,msWorkingFolder);
 //						cDB.AutoUpdate();
              
 					}
@@ -194,7 +194,7 @@ namespace UDonkey.GUI
 			string fileName = fileDialog.FileName;
 			try
 			{
-        LoadDBFormLogic.updateFromFile(cDB,msWorkingFolder,fileName);
+       				UDonkey.Logic.LoadDBFormLogic.updateFromFile(cDB,msWorkingFolder,fileName);
 				this.Close();
 			}
 			catch(System.IO.FileNotFoundException)

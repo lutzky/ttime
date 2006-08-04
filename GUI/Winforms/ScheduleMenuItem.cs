@@ -40,7 +40,7 @@ namespace UDonkey.GUI
 
 		protected override void OnClick(EventArgs args)
 		{
-			if (mOnClick)
+			if (mOnClick != null)
 			{
 				mOnClick(mObject, new ScheduleEventArgs(Text));
 			}

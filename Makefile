@@ -1,11 +1,11 @@
 CSC=mcs
-DEBUGFLAGS=
+DEBUGFLAGS= -debug
 CSCFLAGS=-codepage:utf8 -pkg:glade-sharp-2.0 -pkg:gtk-sharp-2.0 $(DEBUGFLAGS)
 
 UDONKEY_EXE=UDonkey.exe
 UDONKEY_DLL=UDonkey.dll
 UDONKEY_PDB=UDonkey.exe
-UDONKEY_SHARE=./AssemblyInfo.cs \
+UDONKEY_DLL_SRC=./AssemblyInfo.cs \
 	./UDonkeyEnums.cs \
 	./UDonkeyInterfaces.cs \
 	./DB/CourseDB.cs \
@@ -60,112 +60,102 @@ UDONKEY_SHARE=./AssemblyInfo.cs \
 	./Logic/Schedule/StartHourStatistic.cs \
 	./Logic/Schedule/UsersEventScheduleObject.cs \
 	./Logic/LoadDBFormLogic.cs \
-	./Logic/MainFormLogic.cs \
 	./RepFile/DosHeb.cs \
 	./RepFile/RepToXML.cs
 
-UDONKEY_WINFORMS=	./GUI/AboutForm.cs \
-	./GUI/ConfigControl.cs \
-	./GUI/DBbrowser.cs \
-	./GUI/LoadDBForm.cs \
-	./GUI/MainForm.cs \
-	./GUI/RepFileConvertForm.cs \
-	./GUI/Resources.cs \
-	./GUI/ScheduleDataGrid.cs \
-	./GUI/ScheduleDataGridColumnStyle.cs \
-	./GUI/ScheduleMenuItem.cs \
-	./GUI/SchedulingProgressbar.cs \
-	./GUI/SearchEvent.cs \
-	./GUI/SearchControl.cs \
-	./GUI/UDonkeyForm.cs \
-	./GUI/UsersEventForm.cs \
+UDONKEY_GUI_SHARED=./GUI/CustomEvents.cs \
 	./GUI/ConfigurationController.cs \
 	./GUI/DBLogic.cs \
 	./GUI/ScheduleGridLogic.cs \
 	./GUI/UDonkeyClass.cs \
-	./GUI/TabPageContainer.cs
-#	./GUI/DBEditor.cs \
-#	./GUI/ColorMixer.cs      		# doesn't seem to be used
-
-
-UDONKEY_GTK=	./GUI/AboutForm.cs \
-	./Gtk/DBbrowser.cs \
-	./GUI/MainForm.cs \
-	./GUI/RepFileConvertForm.cs \
-	./GUI/Resources.cs \
-	./GUI/ScheduleDataGrid.cs \
-	./GUI/ScheduleDataGridColumnStyle.cs \
-	./GUI/ScheduleMenuItem.cs \
-	./GUI/SchedulingProgressbar.cs \
-	./Gtk/SearchControl.cs \
-	./GUI/SearchEvent.cs \
-	./GUI/UDonkeyForm.cs \
-	./GUI/UsersEventForm.cs \
-	./GUI/ConfigurationController.cs \
-	./GUI/DBLogic.cs \
-	./GUI/ScheduleGridLogic.cs \
-	./GUI/UDonkeyClass.cs \
-	./Gtk/LoadDBForm.cs \
-	./Gtk/CommonDialogs.cs \
-	./GUI/TabPageContainer.cs \
-	./Gtk/ConfigControl.cs
-#	./GUI/DBEditor.cs \
-#	./GUI/ColorMixer.cs      		# doesn't seem to be used
-
-
+	./GUI/MainFormLogic.cs \
+	./GUI/TabPageContainer.cs 
 	
 
+UDONKEY_WINFORMS=./GUI/Winforms/AboutForm.cs \
+	./GUI/Winforms/ConfigControl.cs \
+	./GUI/Winforms/DBbrowser.cs \
+	./GUI/Winforms/LoadDBForm.cs \
+	./GUI/Winforms/MainForm.cs \
+	./GUI/Winforms/RepFileConvertForm.cs \
+	./GUI/Winforms/Resources.cs \
+	./GUI/Winforms/ScheduleDataGrid.cs \
+	./GUI/Winforms/ScheduleDataGridColumnStyle.cs \
+	./GUI/Winforms/ScheduleMenuItem.cs \
+	./GUI/Winforms/SchedulingProgressbar.cs \
+	./GUI/Winforms/SearchControl.cs \
+	./GUI/Winforms/UDonkeyForm.cs \
+	./GUI/Winforms/UsersEventForm.cs 
 
-UDONKEY_RES=./GUI/AboutForm.resx \
-	./GUI/ScheduleDataGridColumnStyle.resx \
-	./GUI/ConfigControl.resx \
-	./GUI/ScheduleDataGrid.resx \
-	./GUI/DBbrowser.resx \
-	./GUI/ScheduleMenuItem.resx \
-	./GUI/SchedulingProgressbar.resx \
-	./GUI/LoadDBForm.resx \
-	./GUI/SearchControl.resx \
-	./GUI/MainForm.resx \
-	./GUI/UDonkeyForm.resx \
-	./GUI/RepFileConvertForm.resx \
-	./GUI/UsersEventForm.resx \
-	./GUI/Resources.resx
-#	./GUI/DBEditor.resx			# doesn't seem to be used 
+UDONKEY_GTK_DIR = $(UDONKEY_GUI_DIR)/Gtk
+UDONKEY_GTK = ./GUI/Gtk/AboutForm.cs \
+	./GUI/Gtk/DBbrowser.cs \
+	./GUI/Gtk/MainForm.cs \
+	./GUI/Gtk/RepFileConvertForm.cs \
+	./GUI/Gtk/ScheduleDataGrid.cs \
+	./GUI/Gtk/SearchControl.cs \
+	./GUI/Gtk/UDonkeyForm.cs \
+	./GUI/Gtk/UsersEventForm.cs \
+	./GUI/Gtk/LoadDBForm.cs \
+	./GUI/Gtk/CommonDialogs.cs \
+	./GUI/Gtk/ConfigControl.cs 
 
-UDONKEY_RESOURCES=$(patsubst %.resx, %.resources, $UDONKEY_RES)
+UDONKEY_WINFORMS_RESX=./GUI/Winforms/AboutForm.resx \
+	./GUI/Winforms/ScheduleDataGridColumnStyle.resx \
+	./GUI/Winforms/ConfigControl.resx \
+	./GUI/Winforms/ScheduleDataGrid.resx \
+	./GUI/Winforms/ScheduleMenuItem.resx \
+	./GUI/Winforms/SchedulingProgressbar.resx \
+	./GUI/Winforms/LoadDBForm.resx \
+	./GUI/Winforms/SearchControl.resx \
+	./GUI/Winforms/MainForm.resx \
+	./GUI/Winforms/RepFileConvertForm.resx \
+	./GUI/Winforms/UsersEventForm.resx \
+	./GUI/Winforms/Resources.resx  
+#	./GUI/Winforms/UDonkeyForm.resx \
+#	./GUI/Winforms/DBbrowser.resx 			# crashes on linux
+#	./GUI/Winforms/DBEditor.resx			# doesn't seem to be used 
+
+UDONKEY_WINFORMS_RESOURCES:=$(patsubst %.resx, %.resources, $(UDONKEY_WINFORMS_RESX))
 
 
 
 # common targets
 all: UDonkey UDonkey-win dll
 
-win/$(UDONKEY_EXE): $(UDONKEY_WINFORMS) $(UDONKEY_DLL) 
+%.resources: %.resx
+	resgen /compile $<
+
+win/$(UDONKEY_EXE): $(UDONKEY_GUI_SHARED) $(UDONKEY_WINFORMS) $(UDONKEY_DLL) $(UDONKEY_WINFORMS_RESOURCES) 
 	echo Compiling Windows version
 	echo *************************
 #	resgen /compile $(UDONKEY_RES)
-	$(CSC) $(CSCFLAGS) /r:System.dll /r:System.Windows.Forms.dll /r:System.Xml.dll /r:System.Drawing.dll /r:System.Data.dll /r:ICSharpCode.SharpZipLib.dll /r:System.Web.dll /target:winexe /out:win/$(UDONKEY_EXE) -r:$(UDONKEY_DLL) $(UDONKEY_WINFORMS) # $(UDONKEY_RESOURCES)
+	$(CSC) $(CSCFLAGS) /r:System.dll /r:System.Windows.Forms.dll /r:System.Xml.dll /r:System.Drawing.dll /r:System.Data.dll /r:ICSharpCode.SharpZipLib.dll /r:System.Web.dll /target:winexe /out:win/$(UDONKEY_EXE) -r:$(UDONKEY_DLL) $(UDONKEY_GUI_SHARED) $(UDONKEY_WINFORMS) $(patsubst %, -resource:%, $(UDONKEY_WINFORMS_RESOURCES))
 
 $(UDONKEY_EXE): $(UDONKEY_DLL) $(UDONKEY_GTK) 
 	echo Compiling GTK version
 	echo *********************
 #	resgen /compile $(UDONKEY_RES)
-	$(CSC) $(CSCFLAGS) /r:System.dll /r:System.Windows.Forms.dll /r:System.Xml.dll /r:System.Drawing.dll /r:System.Data.dll /r:ICSharpCode.SharpZipLib.dll /r:System.Web.dll /target:winexe /out:$(UDONKEY_EXE) -r:$(UDONKEY_DLL) $(UDONKEY_GTK) # $(UDONKEY_RESOURCES)
+	$(CSC) $(CSCFLAGS) /r:System.dll /r:System.Windows.Forms.dll /r:System.Xml.dll /r:System.Drawing.dll /r:System.Data.dll /r:ICSharpCode.SharpZipLib.dll /r:System.Web.dll /target:winexe /out:$(UDONKEY_EXE) -r:$(UDONKEY_DLL) $(UDONKEY_GUI_SHARED) $(UDONKEY_GTK) 
 
-$(UDONKEY_DLL): $(UDONKEY_SHARE)
+$(UDONKEY_DLL): $(UDONKEY_DLL_SRC)
 	echo Compiling DLL
 	echo *************
-	$(CSC) $(CSCFLAGS) -r:System.dll -r:System.Windows.Forms.dll -r:System.Xml.dll -r:System.Drawing.dll -r:System.Data.dll -r:ICSharpCode.SharpZipLib.dll -r:System.Web.dll /target:library /out:$@ $(UDONKEY_SHARE)
+	$(CSC) $(CSCFLAGS) -r:System.dll -r:System.Windows.Forms.dll -r:System.Xml.dll -r:System.Drawing.dll -r:System.Data.dll -r:ICSharpCode.SharpZipLib.dll -r:System.Web.dll /target:library /out:$@ $(UDONKEY_DLL_SRC)
 
 clean:
 	-rm -f "$(UDONKEY_EXE)" 2> /dev/null
 	-rm -f "$(UDONKEY_PDB)" 2> /dev/null
 	-rm -f "win/$(UDONKEY_EXE)" 2> /dev/null
 	-rm -f "win/$(UDONKEY_PDB)" 2> /dev/null
+	-rm -f "$(UDONKEY_DLL)" 2> /dev/null
 
 
 # project names as targets
 
-UDonkey: $(UDONKEY_EXE)
-UDonkey-win: win/$(UDONKEY_EXE)
-
+UDonkey gtk: $(UDONKEY_EXE)
+UDonkey-win win: win/$(UDONKEY_EXE)
 dll: $(UDONKEY_DLL)
+
+tags: $(UDONKEY_DLL_SRC) $(UDONKEY_GTK) $(UDONKEY_WINFORMS)
+	ctags $^
