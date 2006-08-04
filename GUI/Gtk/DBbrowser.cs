@@ -118,10 +118,10 @@ namespace UDonkey.GUI
 			
 			// tvCourseEvents stuff
 
-			PixbufLecture = new Pixbuf("lecture.bmp");
-			PixbufLab = new Pixbuf("lab.bmp");
-			PixbufTutorial = new Pixbuf("tutorial.bmp");
-			PixbufProject = new Pixbuf("project.bmp");
+			PixbufLecture = new Pixbuf(null, "lecture.bmp");
+			PixbufLab = new Pixbuf(null, "lab.bmp");
+			PixbufTutorial = new Pixbuf(null, "tutorial.bmp");
+			PixbufProject = new Pixbuf(null, "project.bmp");
 			
 			chCourseEventCheckBox = new TreeViewColumn();
 			cr = new CellRendererToggle();

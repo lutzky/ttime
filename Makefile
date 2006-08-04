@@ -87,19 +87,6 @@ UDONKEY_WINFORMS=./GUI/Winforms/AboutForm.cs \
 	./GUI/Winforms/UDonkeyForm.cs \
 	./GUI/Winforms/UsersEventForm.cs 
 
-UDONKEY_GTK_DIR = $(UDONKEY_GUI_DIR)/Gtk
-UDONKEY_GTK = ./GUI/Gtk/AboutForm.cs \
-	./GUI/Gtk/DBbrowser.cs \
-	./GUI/Gtk/MainForm.cs \
-	./GUI/Gtk/RepFileConvertForm.cs \
-	./GUI/Gtk/ScheduleDataGrid.cs \
-	./GUI/Gtk/SearchControl.cs \
-	./GUI/Gtk/UDonkeyForm.cs \
-	./GUI/Gtk/UsersEventForm.cs \
-	./GUI/Gtk/LoadDBForm.cs \
-	./GUI/Gtk/CommonDialogs.cs \
-	./GUI/Gtk/ConfigControl.cs 
-
 UDONKEY_WINFORMS_RESX=./GUI/Winforms/AboutForm.resx \
 	./GUI/Winforms/ScheduleDataGridColumnStyle.resx \
 	./GUI/Winforms/ConfigControl.resx \
@@ -118,7 +105,22 @@ UDONKEY_WINFORMS_RESX=./GUI/Winforms/AboutForm.resx \
 
 UDONKEY_WINFORMS_RESOURCES:=$(patsubst %.resx, %.resources, $(UDONKEY_WINFORMS_RESX))
 
+UDONKEY_GTK = ./GUI/Gtk/AboutForm.cs \
+	./GUI/Gtk/DBbrowser.cs \
+	./GUI/Gtk/MainForm.cs \
+	./GUI/Gtk/RepFileConvertForm.cs \
+	./GUI/Gtk/ScheduleDataGrid.cs \
+	./GUI/Gtk/SearchControl.cs \
+	./GUI/Gtk/UDonkeyForm.cs \
+	./GUI/Gtk/UsersEventForm.cs \
+	./GUI/Gtk/LoadDBForm.cs \
+	./GUI/Gtk/CommonDialogs.cs \
+	./GUI/Gtk/ConfigControl.cs 
 
+UDONKEY_GTK_RESOURCSE=./GUI/lecture.bmp \
+	./GUI/lab.bmp	\
+	./GUI/project.bmp 	\
+	./GUI/tutorial.bmp
 
 # common targets
 all: UDonkey UDonkey-win dll
