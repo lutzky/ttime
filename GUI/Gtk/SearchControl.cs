@@ -31,8 +31,7 @@ namespace UDonkey.GUI
 
 		public SearchControl() 
 		{
-			Glade.XML gxml = new Glade.XML("udonkey.glade", "AdvancedSearchDialog", null); 
-			//Glade.XML gxml = Glade.XML.FromAssembly("udonkey.glade", "SearchControl", null);
+			Glade.XML gxml = new Glade.XML(null, "udonkey.glade", "AdvancedSearchDialog", null); 
 			gxml.Autoconnect (this);
 
 			// cbFaculties stuff

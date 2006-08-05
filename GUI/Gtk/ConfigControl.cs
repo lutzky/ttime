@@ -69,7 +69,7 @@ namespace UDonkey.GUI
 
 		public ConfigControl()
 		{
-			Glade.XML gxml = new Glade.XML("udonkey.glade", "ConfigControl", null);
+			Glade.XML gxml = new Glade.XML(null, "udonkey.glade", "ConfigControl", null);
 			//Glade.XML gxml = Glade.XML.FromAssembly("udonkey.glade", "ConfigControl", null);
 			gxml.Autoconnect (this);
 		}
@@ -148,6 +148,12 @@ namespace UDonkey.GUI
 		{
 			VScale scale = o as VScale;
 			scale.Value = (int)scale.Value;
+		}
+
+		protected void on_focus(object o, FocusedArgs args)
+		{
+			if (mVisibilityNotifyEvent != null) 
+				mVisibilityNotifyEvent(o, args);
 		}
 #endregion
 
@@ -1112,6 +1118,8 @@ namespace UDonkey.GUI
 			set { tbMinFreeDays.Text = value.ToString();}
 		}
 
+		public bool SavedLabelVisible;
+
 #endregion
 		
 #region Events
@@ -1120,13 +1128,14 @@ namespace UDonkey.GUI
 			remove { btSaveChanges.Clicked -= value; }
 		}
 
+		private System.EventHandler mVisibilityNotifyEvent;
 		public event System.EventHandler VisibleChanged {
-			add { VisibilityNotifyEvent += value; }
-			remove { VisibilityNotifyEvent -= value; }
+			add { mVisibilityNotifyEvent += value; }
+			remove { mVisibilityNotifyEvent -= value; }
 		}
 #endregion
 
-		/*public static void Main()
+/*		public static void Main()
 		{
 			Application.Init();
 			new ConfigControl();

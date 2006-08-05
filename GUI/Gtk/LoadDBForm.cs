@@ -11,11 +11,11 @@ namespace UDonkey.GUI
   public class LoadDBForm 
   {
 #region Glade Widgets
-    [Widget] Gtk.RadioButton remoteRadioButton;
-    [Widget] Gtk.RadioButton openXMLRadioButton;
-    [Widget] Gtk.RadioButton closeRadioButton;
-    [Widget] Gtk.Window LoadDBFormWindow;
-    [Widget] Gtk.Button executeButton;
+    [Widget] RadioButton remoteRadioButton;
+    [Widget] RadioButton openXMLRadioButton;
+    [Widget] RadioButton closeRadioButton;
+    [Widget] Window LoadDBFormWindow;
+    [Widget] Button executeButton;
 #endregion
 
     FileSelection fs; // bad news - fileChooser is out of
@@ -34,7 +34,7 @@ namespace UDonkey.GUI
 			cDB	= courseDB;
 
       Application.Init();
-      Glade.XML gxml = new Glade.XML("Gtk/udonkey.glade", "LoadDBFormWindow", null);
+      Glade.XML gxml = new Glade.XML(null, "udonkey.glade", "LoadDBFormWindow", null);
       gxml.Autoconnect (this);
       Application.Run();
     }

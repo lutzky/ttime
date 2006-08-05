@@ -76,8 +76,7 @@ namespace UDonkey.GUI
 
 		public DBbrowser() 
 		{
-			Glade.XML gxml = new Glade.XML("udonkey.glade", "DBbrowser", null); 
-			//Glade.XML gxml = Glade.XML.FromAssembly("udonkey.glade", "ConfigControl", null);
+			Glade.XML gxml = new Glade.XML(null, "udonkey.glade", "DBbrowser", null); 
 			gxml.Autoconnect (this);
 			mMainWidget = gxml.GetWidget("DBbrowser");
 
@@ -222,6 +221,11 @@ namespace UDonkey.GUI
 			get { return null; } // TODO
 		}
 
+		public string CourseNumber
+		{
+			get { return null; } // TODO
+		}
+
 		public string SelectedPoints
 		{
 			get { return strSelectedPoints; }
@@ -352,6 +356,18 @@ namespace UDonkey.GUI
 				}
 				else
 					return new CourseID[0];
+			}
+		}
+		
+		public CourseEvent SelectedCourseEvent {
+			get { 
+				TreeIter iter;
+				if (tvCourseEvents.Selection.GetSelected(out iter))
+				{
+					return (CourseEvent) storeCourseEvents.GetValue(iter, 0);
+				}
+				else
+					return null;
 			}
 		}
 
@@ -497,6 +513,8 @@ namespace UDonkey.GUI
 			add { btRemoveAll.Clicked += value; }
 			remove { btRemoveAll.Clicked -= value; }
 		}
+
+		public event EventHandler CourseNumberChanged;
 #endregion
 
 		// courseID renderers
@@ -585,7 +603,7 @@ namespace UDonkey.GUI
 			this.Course = c;
 		}
 
-		public static void Main()
+/*		public static void Main()
 		{
 			Application.Init();
 			Gtk.Window win = new Gtk.Window("Hello World");
@@ -602,7 +620,7 @@ namespace UDonkey.GUI
 			dbb.Courses = cdb.GetCoursesByFacultyName("מדעי המחשב");
 			dbb.AddCourse(cdb.GetCourseByNumber("046267"));
 			Application.Run();
-		}
+		}*/
 		
 	}
 	

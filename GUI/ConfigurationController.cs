@@ -20,7 +20,7 @@ namespace UDonkey.GUI
 		{
 			mConfigControl=configControl;		
 			this.UpdateHash();
-			configControl.Save.Click += new System.EventHandler(this.btSaveChanges_Click);
+			configControl.Save += new System.EventHandler(this.btSaveChanges_Click);
 			configControl.VisibleChanged += new EventHandler(configControl_VisibleChanged);
 		}
 
@@ -38,7 +38,7 @@ namespace UDonkey.GUI
 		{
 			this.UpdateHash();
 			Configuration.SaveToXml();
-			mConfigControl.SavedLabel.Visible = true;
+			mConfigControl.SavedLabelVisible = true;
 			new System.Threading.Thread( new System.Threading.ThreadStart( this.HideLabel )).Start();
 		}
 
@@ -136,7 +136,7 @@ namespace UDonkey.GUI
 		private void HideLabel()
 		{
 			System.Threading.Thread.Sleep( 3000 );
-			mConfigControl.SavedLabel.Visible = false;
+			mConfigControl.SavedLabelVisible = false;
 		}
 		/*public object this[ string key ]
 		{

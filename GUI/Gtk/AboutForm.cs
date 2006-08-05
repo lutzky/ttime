@@ -6,11 +6,11 @@ using Glade;
 
 namespace UDonkey.Gtk
 {
-	public class AboutForm : Window
+	public class AboutForm 
 	{
-		public AboutForm () : base ("AboutForm")
+		public AboutForm () 
 		{
-			Glade.XML gxml = new Glade.XML("udonkey.glade", "AboutForm", null);
+			Glade.XML gxml = new Glade.XML(null, "udonkey.glade", "AboutForm", null);
 			gxml.Autoconnect (this);
 		}
 	}

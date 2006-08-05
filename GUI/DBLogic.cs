@@ -70,7 +70,7 @@ namespace UDonkey.GUI
 		public void RemoveCourse( Course course )
 		{
 			mCoursesScheduler.Courses.Remove(course.Number);
-			mDBBrowser.RemoveCourseFromeCourseBasket( course );
+			mDBBrowser.RemoveCourseFromCourseBasket( course );
 			// Remove course's points from point counter
 			float totalPoints = float.Parse(mDBBrowser.SelectedPoints);
 			totalPoints -= course.AcademicPoints;
@@ -87,7 +87,6 @@ namespace UDonkey.GUI
 
 		public void Load()
 		{
-			SearchControl.FacultiesComboBox.Items.Clear();
 			SearchControl_Load(this, new System.EventArgs());
 			DBBrowser_Load(this, new System.EventArgs());
 		}

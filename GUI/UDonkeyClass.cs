@@ -67,8 +67,6 @@ namespace UDonkey.GUI
 			Configuration.RegisterConfigurationChangeHandler( Configuration.CONSTRAINTS , "", new ConfigurationChangeHandler( this.ConstraintsConfigurationChanged ) );
 			mMainFormLogic           = new MainFormLogic( this, mScheduler ); 
 			mMainForm                = mMainFormLogic.MainForm;
-			mMainForm.WindowState    = FormWindowState.Maximized;
-			mMainForm.SelectedTab    = 1;
 			mDBLogic                 = new DBLogic( this.CourseDB , this.Scheduler, this.mMainFormLogic );
 			mScheduleGridLogic       = new ScheduleGridLogic( this.Scheduler, mMainForm.Grid );
 			mDBLogic.DBBrowser       = mMainForm.DBBrowserControl;

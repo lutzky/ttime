@@ -17,7 +17,7 @@ namespace UDonkey.GUI
 	{
 
 		private MainFormLogic                  Logic;
-    private const string RESOURCES_GROUP = "MainForm";  
+    		private const string RESOURCES_GROUP = "MainForm";  
 		private System.Windows.Forms.MainMenu  MainMenu;
 		private System.Windows.Forms.MenuItem  HelpMenuItem;
 		private System.Windows.Forms.MenuItem  AboutMenuItem;
@@ -463,6 +463,8 @@ private void AutoUpdateMenuItem_Click(object sender, System.EventArgs e)
 			this.TabControl.ResumeLayout(false);
 			this.ResumeLayout(false);
 
+			this.WindowState = FormWindowState.Maximized;
+			this.SelectedTab = 1;
 		}
 
 		#endregion
@@ -611,9 +613,11 @@ private void AutoUpdateMenuItem_Click(object sender, System.EventArgs e)
 			return;
 		}
 		#endregion Events Handlers
-		public void AddPage( TabPageContainer pageCon )
+		public void AddPage( string name, ScheduleDataGrid grid)
 		{
-			this.TabControl.Controls.Add( pageCon.page );
+			TabPageContainer page = new TabPageContainer(name);
+			page.AddScheduleDataGrid(grid);
+			this.TabControl.Controls.Add( page.page );
 		}
 
     //TODO: is this ever used

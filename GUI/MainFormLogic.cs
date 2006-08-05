@@ -141,7 +141,7 @@ namespace UDonkey.Logic
 
     public void SetStatusBarLine( string line )
     {
-      mMainForm.StatusBar.Text = line;
+      mMainForm.SetStatusBarLine ( line );
     }
 
     /// <summary>
@@ -154,12 +154,10 @@ namespace UDonkey.Logic
       if( s != null )
       {
         string name = file.Substring( file.LastIndexOf(@"\") + 1 );
-        TabPageContainer page = new TabPageContainer(name);
         ScheduleDataGrid grid = new ScheduleDataGrid();
 //        grid.Dock = System.Windows.Forms.DockStyle.Fill; // not needed.
         grid.DataSource = s;
-        page.AddScheduleDataGrid( grid );
-        mMainForm.AddPage ( page );
+        mMainForm.AddPage ( name, grid );
       }
       else
       {

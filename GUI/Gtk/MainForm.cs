@@ -16,10 +16,14 @@ namespace UDonkey.GUI
 		private UDonkeyClass mDonkey;
 
 		private DBbrowser mDBBrowser;
+		private HTML mHTML;
+		private ConfigControl mConfigControl;
 #region Glade Widgets
 		[Widget] Window MainFormWindow;
+		[Widget] Notebook notebook;
 		[Widget] HBox boxDBBrowser;
-		[Widget] StatusBar statusbar;
+		[Widget] HBox boxScheduleGrid;
+		[Widget] Statusbar statusbar;
 
 		[Widget] ToolButton btPrev10;
 		[Widget] ToolButton btPrev;
@@ -31,12 +35,14 @@ namespace UDonkey.GUI
 		{
 			Logic = logic;
 			mDonkey = logic.mDonkey;
-			Glade.XML gxml = new Glade.XML("udonkey.glade", "MainFormWindow", null); 
-			//Glade.XML gxml = Glade.XML.FromAssembly("udonkey.glade", "SearchControl", null);
+			Glade.XML gxml = new Glade.XML(null, "udonkey.glade", "MainFormWindow", null); 
 			gxml.Autoconnect (this);
 
 			mDBBrowser = new DBbrowser();
 			boxDBBrowser.Add(mDBBrowser);
+
+			mHTML = new HTML();
+			boxScheduleGrid.Add(mHTML);
 		}
 
 		public void Start()
@@ -66,9 +72,44 @@ namespace UDonkey.GUI
 			// TODO Refresh grid
 		}
 
+		public void AddPage(string name, ScheduleDataGrid grid)
+		{
+			// TODO add another grid
+		}
 
+
+		public void BringToFront()
+		{
+			// TODO
+		}
+
+
+		public void LoadView()
+		{
+		}
+
+		public void SaveView()
+		{
+		}
 
 #region Properties
+		public ScheduleDataGrid Grid;
+
+		public DBbrowser DBBrowserControl 
+		{
+			get { return mDBBrowser; }
+		}
+
+		public ConfigControl ConfigControl
+		{
+			get { return mConfigControl; }
+		}
+
+		public int SelectedTab
+		{
+			get { return notebook.CurrentPage; }
+			set { notebook.CurrentPage = value; }
+		}
 #endregion
 		
 
@@ -190,31 +231,6 @@ namespace UDonkey.GUI
 		}
 		*/		 
 #endregion
-
-		public static void Main( string[] args)
-		{
-			/*
-			Gtk.Window win = new Gtk.Window("Hello World");
-			win.Resize(800,600);
-			DBbrowser dbb = new DBbrowser();
-
-			win.Add(dbb);
-			win.ShowAll();
-
-			UDonkey.DB.CourseDB cdb = new UDonkey.DB.CourseDB();
-			cdb.Load("MainDB.xml");
-
-			dbb.Faculties = cdb.GetFacultyList();
-			dbb.Courses = cdb.GetCoursesByFacultyName("מדעי המחשב");
-			dbb.AddCourse(cdb.GetCourseByNumber("046267"));*/
-
-			Application.Init();
-			new MainForm();
-			Application.Run();
-			
-			
-		}
-		
 	}
 	
 }

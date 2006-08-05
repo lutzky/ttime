@@ -1,6 +1,6 @@
 CSC=mcs
 DEBUGFLAGS= -debug
-CSCFLAGS=-codepage:utf8 -pkg:glade-sharp-2.0 -pkg:gtk-sharp-2.0 $(DEBUGFLAGS)
+CSCFLAGS=-codepage:utf8 -pkg:glade-sharp-2.0 -pkg:gtk-sharp-2.0 -pkg:gtkhtml-sharp-2.0 $(DEBUGFLAGS)
 
 UDONKEY_EXE=UDonkey.exe
 UDONKEY_DLL=UDonkey.dll
@@ -69,6 +69,7 @@ UDONKEY_GUI_SHARED=./GUI/CustomEvents.cs \
 	./GUI/ScheduleGridLogic.cs \
 	./GUI/UDonkeyClass.cs \
 	./GUI/MainFormLogic.cs \
+	./GUI/Winforms/Resources.cs \
 	./GUI/TabPageContainer.cs 
 	
 
@@ -78,7 +79,6 @@ UDONKEY_WINFORMS=./GUI/Winforms/AboutForm.cs \
 	./GUI/Winforms/LoadDBForm.cs \
 	./GUI/Winforms/MainForm.cs \
 	./GUI/Winforms/RepFileConvertForm.cs \
-	./GUI/Winforms/Resources.cs \
 	./GUI/Winforms/ScheduleDataGrid.cs \
 	./GUI/Winforms/ScheduleDataGridColumnStyle.cs \
 	./GUI/Winforms/ScheduleMenuItem.cs \
@@ -109,7 +109,12 @@ UDONKEY_GTK = ./GUI/Gtk/AboutForm.cs \
 	./GUI/Gtk/DBbrowser.cs \
 	./GUI/Gtk/MainForm.cs \
 	./GUI/Gtk/RepFileConvertForm.cs \
-	./GUI/Gtk/ScheduleDataGrid.cs \
+	./GUI/Winforms/ScheduleDataGrid.cs \
+	./GUI/Winforms/ScheduleMenuItem.cs \
+	./GUI/Winforms/SchedulingProgressbar.cs \
+	./GUI/Winforms/RepFileConvertForm.cs \
+	./GUI/Winforms/ScheduleDataGridColumnStyle.cs \
+	./GUI/Winforms/UsersEventForm.cs \
 	./GUI/Gtk/SearchControl.cs \
 	./GUI/Gtk/UDonkeyForm.cs \
 	./GUI/Gtk/UsersEventForm.cs \
@@ -120,7 +125,9 @@ UDONKEY_GTK = ./GUI/Gtk/AboutForm.cs \
 UDONKEY_GTK_RESOURCSE=./GUI/lecture.bmp \
 	./GUI/lab.bmp	\
 	./GUI/project.bmp 	\
-	./GUI/tutorial.bmp
+	./GUI/tutorial.bmp	\
+	./GUI/Winforms/Resources.resources \
+	./GUI/Gtk/udonkey.glade
 
 # common targets
 all: UDonkey UDonkey-win dll
@@ -138,7 +145,8 @@ $(UDONKEY_EXE): $(UDONKEY_DLL) $(UDONKEY_GTK)
 	echo Compiling GTK version
 	echo *********************
 #	resgen /compile $(UDONKEY_RES)
-	$(CSC) $(CSCFLAGS) /r:System.dll /r:System.Windows.Forms.dll /r:System.Xml.dll /r:System.Drawing.dll /r:System.Data.dll /r:ICSharpCode.SharpZipLib.dll /r:System.Web.dll /target:winexe /out:$(UDONKEY_EXE) -r:$(UDONKEY_DLL) $(UDONKEY_GUI_SHARED) $(UDONKEY_GTK) 
+	#$(CSC) $(CSCFLAGS) /r:System.dll /r:System.Windows.Forms.dll /r:System.Xml.dll /r:System.Drawing.dll /r:System.Data.dll /r:ICSharpCode.SharpZipLib.dll /r:System.Web.dll /target:winexe /out:$(UDONKEY_EXE) -r:$(UDONKEY_DLL) $(UDONKEY_GUI_SHARED) $(UDONKEY_GTK) 
+	$(CSC) $(CSCFLAGS) /r:System.dll /r:System.Windows.Forms.dll /r:System.Xml.dll /r:System.Drawing.dll /r:System.Data.dll /r:ICSharpCode.SharpZipLib.dll /r:System.Web.dll /target:winexe /out:$(UDONKEY_EXE) $(UDONKEY_DLL_SRC) $(UDONKEY_GUI_SHARED) $(UDONKEY_GTK) $(patsubst %, -resource:%, $(UDONKEY_GTK_RESOURCSE))
 
 $(UDONKEY_DLL): $(UDONKEY_DLL_SRC)
 	echo Compiling DLL
