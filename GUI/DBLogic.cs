@@ -227,9 +227,11 @@ namespace UDonkey.GUI
 		}
 		private void Faculties_SelectedIndexChanged(object sender, System.EventArgs e)
 		{
+			Console.WriteLine("DBLogic.SelectedFacultyChanged()");
 			if (mDBBrowser.FacultyClicked)
 			{
 				CourseIDCollection courses=mCourseDB.GetCoursesByFacultyName((string)mDBBrowser.SelectedFaculty);
+				Console.WriteLine("courses="+courses);
 				mDBBrowser.Courses = courses;
 			}
 		}
@@ -335,7 +337,7 @@ namespace UDonkey.GUI
 			{
 				if ( mDBBrowser != null )
 				{
-					mDBBrowser.Load -= new EventHandler(DBBrowser_Load);
+					//mDBBrowser.Load -= new EventHandler(DBBrowser_Load);
 					mDBBrowser.RemoveCourseClick -= new EventHandler(this.RemoveCourse_Click);
 					mDBBrowser.AddCourseClick -= new EventHandler(this.AddCourse_Click);
 					mDBBrowser.CourseNumberChanged -= new EventHandler(this.CourseNumerTextChanged);
@@ -349,7 +351,8 @@ namespace UDonkey.GUI
 				mDBBrowser = value;
 				if ( mDBBrowser != null )
 				{				
-					mDBBrowser.Load += new EventHandler(DBBrowser_Load);
+					DBBrowser_Load(this, new EventArgs());
+					//mDBBrowser.Load += new EventHandler(DBBrowser_Load);
 					mDBBrowser.RemoveCourseClick += new EventHandler(this.RemoveCourse_Click);
 					mDBBrowser.AddCourseClick += new EventHandler(this.AddCourse_Click);
 					mDBBrowser.CourseNumberChanged += new EventHandler(this.CourseNumerTextChanged);

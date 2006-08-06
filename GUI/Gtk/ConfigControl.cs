@@ -6,7 +6,7 @@ using Glade;
 
 namespace UDonkey.GUI
 {
-	public class ConfigControl : Dialog
+	public class ConfigControl 
 	{
 #region Glade Widgets
 		[Widget] CheckButton chbCollisions;

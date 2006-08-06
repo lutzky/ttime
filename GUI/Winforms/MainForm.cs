@@ -672,5 +672,10 @@ private void AutoUpdateMenuItem_Click(object sender, System.EventArgs e)
 			get { return AutoUpdatemenuItem; }
 		}
 		#endregion Properties
+		
+		public static void InitGUI()
+		{
+		}
 	}
+
 }

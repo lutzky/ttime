@@ -1,4 +1,5 @@
 using UDonkey.DB;
+using UDonkey.RepFile;
 
 namespace UDonkey.Tests
 {
@@ -12,6 +13,12 @@ namespace UDonkey.Tests
 		{
 			CourseDB db = new CourseDB();
 			db.AutoUpdate();
+		}
+
+		[Test]
+		public void TestConversion()
+		{
+			RepToXML.Convert("REPY", CourseDB.DEFAULT_DB_FILE_NAME);
 		}
 	}
 }

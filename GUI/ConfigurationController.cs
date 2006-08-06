@@ -19,13 +19,14 @@ namespace UDonkey.GUI
 		public ConfigurationController(ConfigControl configControl)
 		{
 			mConfigControl=configControl;		
-			this.UpdateHash();
+			//this.UpdateHash();
 			configControl.Save += new System.EventHandler(this.btSaveChanges_Click);
 			configControl.VisibleChanged += new EventHandler(configControl_VisibleChanged);
 		}
 
 		public bool Load()
 		{
+			Console.WriteLine("ConfigurationController.Load()");
             if (Configuration.Load())
             {
                 this.UpdateGUI();
@@ -44,6 +45,7 @@ namespace UDonkey.GUI
 
 		private void UpdateHash()
 		{
+			Console.WriteLine("ConfigurationController.UpdateHash()");
 			Configuration.Set( "General","AllowCollisions", mConfigControl.AllowCollisions );
 			Configuration.Set( "General","MaxCollisions", mConfigControl.MaxCollisions);
 			Configuration.Set( "General","AllowRegSplit", mConfigControl.AllowRegSplit);
@@ -89,6 +91,7 @@ namespace UDonkey.GUI
 		}
 		private void UpdateGUI()
 		{
+			Console.WriteLine("ConfigurationController.UpdateGUI()");
 			mConfigControl.AllowCollisions = Configuration.Get( "General","AllowCollisions", mConfigControl.AllowCollisions );
 			mConfigControl.MaxCollisions = Configuration.Get( "General","MaxCollisions", mConfigControl.MaxCollisions);
 			mConfigControl.AllowRegSplit = Configuration.Get( "General","AllowRegSplit", mConfigControl.AllowRegSplit);

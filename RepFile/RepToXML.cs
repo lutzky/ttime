@@ -122,8 +122,9 @@ namespace UDonkey.RepFile
 		}*/
 		public static void Convert( string fileName, string toFile )
 		{  
+			Console.WriteLine("RepToXML.Convert("+fileName+", " + toFile + ")");
 			string file = DosHeb.Translate( fileName );
-			StartConvertion( null , new EventArgs() );
+			if (StartConvertion != null) StartConvertion( null , new EventArgs() );
 			ConvertFiles( file, toFile );
 		}
 		#endregion Public Methods
@@ -144,7 +145,7 @@ namespace UDonkey.RepFile
 				lastIndex = index;
 			}
             
-			Progress( 0 );
+			if (Progress != null) Progress( 0 );
 			lastIndex = 0;
 			for( int index = file.IndexOf( FACULTY_SEPERATOR, 0 );
 				lastIndex != -1 ;
@@ -152,10 +153,10 @@ namespace UDonkey.RepFile
 			{
 				int to = ( index == -1 )? file.Length: index;
 				ConvertFaculty( file.Substring(lastIndex, to -  lastIndex ) );  
-				Progress( ++currentFaculty * 100 / numOfFaculties );
+				if (Progress != null) Progress( ++currentFaculty * 100 / numOfFaculties );
 				lastIndex = index;
 			}
-			Progress( 100 );
+			if (Progress != null) Progress( 100 );
 
 			/*TODO When FILE_REGEX will be comleted
 			Regex regex = new Regex( FILE_REGEX, RegexOptions.Singleline );

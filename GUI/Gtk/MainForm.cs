@@ -43,11 +43,14 @@ namespace UDonkey.GUI
 
 			mHTML = new HTML();
 			boxScheduleGrid.Add(mHTML);
+
+			mConfigControl = new ConfigControl();
 		}
 
 		public void Start()
 		{
 			MainFormWindow.ShowAll();
+			Application.Run();
 		}
 		
 		public void Hide()
@@ -92,8 +95,14 @@ namespace UDonkey.GUI
 		{
 		}
 
+		public static void InitGUI()
+ 		{
+			Console.WriteLine("InitGUI");
+			Application.Init();
+		}
+
 #region Properties
-		public ScheduleDataGrid Grid;
+		public ScheduleDataGrid Grid = new ScheduleDataGrid();
 
 		public DBbrowser DBBrowserControl 
 		{
@@ -206,13 +215,13 @@ namespace UDonkey.GUI
 				       		break;
 				       	}
 			}
-		}
+		} */
 		
-		private void on_delete(object obj, DeleteEventArgs args)
+		private void on_delete_event(object obj, DeleteEventArgs args)
 		{
-			args.RetVal = true;  // Prevent closing
-			Hide();
-		}*/
+			//args.RetVal = true;  // Prevent closing
+			Application.Quit();
+		}
 #endregion
 
 #region Event 
@@ -232,5 +241,7 @@ namespace UDonkey.GUI
 		*/		 
 #endregion
 	}
+
+
 	
 }

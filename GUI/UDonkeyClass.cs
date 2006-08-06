@@ -46,9 +46,10 @@ namespace UDonkey.GUI
 
 		private void InitComponents()
 		{
+			Console.WriteLine("UDonkeyClass.InitComponents: ");
 			mScheduler = new CoursesScheduler();
-            InitCoursesScheduler();
-            try {
+		       	InitCoursesScheduler();
+            		try {
 				mCourseDB = new CourseDB();
 			}
 			catch(System.IO.FileNotFoundException)
@@ -60,6 +61,7 @@ namespace UDonkey.GUI
 			}
 			
 			if (this.CourseDB.isSchemaExists != true) return;
+			MainForm.InitGUI();
 			InitDataBase();
 			if (this.CourseDB.isInitialized != true) return;
 			Configuration.RegisterConfigurationChangeHandler( Configuration.DISPLAY     , "", new ConfigurationChangeHandler( this.DisplayConfigurationChanged ) );
@@ -75,7 +77,8 @@ namespace UDonkey.GUI
 		}
 
 		private void InitDataBase()
-		{		 
+		{		  
+			Console.WriteLine("InitDataBase");
 			try
 			{
 				//try default mainDB.xml
@@ -102,6 +105,7 @@ namespace UDonkey.GUI
 
 		private void InitCoursesScheduler()
 		{
+			Console.WriteLine("UDonkeyClass.InitCoursesScheduler");
 			ISchedulerConstraint constraint;
 			IScheduleStatistic stat;
 			mComparer = new SchedulerStateComparer();
@@ -150,6 +154,7 @@ namespace UDonkey.GUI
 		[STAThread]
 		public static void Main() 
 		{   
+			Console.WriteLine("UDonkey Main()");
 			UDonkeyClass udonkey = new UDonkeyClass();
 			if ((udonkey.CourseDB.isInitialized != true) || (udonkey.CourseDB.isSchemaExists != true)) return;
 			udonkey.Run();

@@ -244,7 +244,11 @@ namespace UDonkey.GUI
 			}
 		}
 
-		public bool FacultyClicked;
+		public bool FacultyClicked
+		{
+			get { return true; }
+			set {}
+		}
 
 		public Course Course
 		{

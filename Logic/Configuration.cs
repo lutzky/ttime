@@ -77,6 +77,8 @@ namespace UDonkey.Logic
 		/// <returns></returns>
 		public static int Get( string path, string name, int def )
 		{
+			Console.WriteLine("path="+path+", name="+name+", def = " + def);
+			Console.WriteLine(Get(path,  name, def.ToString()));
 			return int.Parse( Get( path, name, def.ToString())  );
 		}
 		/// <summary>
@@ -175,6 +177,7 @@ namespace UDonkey.Logic
 		/// <returns></returns>
 		private static void Set( string path, string name, object newVal, object oldVal )
 		{
+			Console.WriteLine("Configuration.Set(path="+path+", name="+name+", newVal=" + newVal+", " + "oldVal=" + oldVal + ")");
 			//Call the key listeners
 			CallEvents( (ArrayList)mListenersDictionary[ GetKey(path,name)],
 				path,name,newVal,oldVal );

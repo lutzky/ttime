@@ -26,17 +26,17 @@ namespace UDonkey.GUI
 		private const string RESOURCES_GROUP = "CourseDB";
 
     public static void Start(CourseDB courseDB, string workingfolder){
-      new LoadDBForm(courseDB,workingfolder);
+	Console.WriteLine("LoadDBForm.Start");
+      	LoadDBForm form = new LoadDBForm(courseDB,workingfolder);
+      	Application.Run();
     }
 		public LoadDBForm(CourseDB courseDB, string workingfolder)
     {
 			msWorkingFolder = workingfolder;
 			cDB	= courseDB;
 
-      Application.Init();
       Glade.XML gxml = new Glade.XML(null, "udonkey.glade", "LoadDBFormWindow", null);
       gxml.Autoconnect (this);
-      Application.Run();
     }
 
     protected void onExecuteButtonClicked (object o, EventArgs args)
