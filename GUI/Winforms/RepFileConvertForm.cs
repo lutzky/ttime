@@ -110,9 +110,10 @@ namespace UDonkey.GUI
 			thread.Start();
 		}
 
-		private void ShowNow()
+		private bool ShowNow()
 		{
 			this.ShowDialog();
+			return true;
 		}
 	}
 }

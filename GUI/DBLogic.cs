@@ -31,7 +31,7 @@ namespace UDonkey.GUI
 		#region Public Method
 		public void AddCourse( Course course )
 		{
-            ICollection col = mCoursesScheduler.FindExamsOverlaps( course, true );
+	            	ICollection col = mCoursesScheduler.FindExamsOverlaps( course, true );
 			if ( col.Count != 0 )
 			{//If there are Exams overlaps
 				string err = string.Format(Resources.String( RESOURCES_GROUP, "ExamOverlapMessage1" ),
@@ -286,23 +286,25 @@ namespace UDonkey.GUI
 		#region Private Methods
         private bool AddCourseToScheduler( Course course )
         {
-			if ( course != null )
-			{
-				if ( mCoursesScheduler.Courses.Contains( course.Number ) )  
-				{ // If course already exists in the basket, we must remove it so it can be updated
-					foreach (Course c in mDBBrowser.CourseBasket) // search for the course in the basket
+		if ( course != null )
+		{
+			if ( mCoursesScheduler.Courses.Contains( course.Number ) )  
+			{ // If course already exists in the basket, we must remove it so it can be updated
+				Console.WriteLine("DBLogic.AddCourseToScheduler - Modify course");
+				RemoveCourse(course);
+				/*foreach (Course c in mDBBrowser.CourseBasket) // search for the course in the basket
+				{
+					if (c.Number == course.Number) // We found the course
 					{
-						if (c.Number == course.Number) // We found the course
-						{
-							RemoveCourse(c);
-							break;
-						}
+						RemoveCourse(c);
+						break;
 					}
-				}
-				mCoursesScheduler.AddCourse(course);
-				return true;
+				}*/
 			}
-            return false;
+			mCoursesScheduler.AddCourse(course);
+			return true;
+		}
+            	return false;
         }
         private void RemoveCourseFromScheduler( string courseNumber )
         {

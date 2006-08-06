@@ -61,7 +61,7 @@ namespace UDonkey
     }
 
     public class Constants {
-      public const string MainDB = "mainDB.xml"; 
+      public const string MainDB = UDonkey.DB.CourseDB.DEFAULT_DB_FILE_NAME; //"mainDB.xml"; 
     }
 
 }

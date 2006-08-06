@@ -145,26 +145,6 @@ namespace UDonkey.GUI
 		}
 				 
 #endregion
-
-		/*public static void Main()
-		{
-			Application.Init();
-			Gtk.Window win = new Gtk.Window("Hello World");
-			win.Resize(800,600);
-			DBbrowser dbb = new DBbrowser();
-
-			win.Add(dbb);
-			win.ShowAll();
-
-			UDonkey.DB.CourseDB cdb = new UDonkey.DB.CourseDB();
-			cdb.Load("MainDB.xml");
-
-			dbb.Faculties = cdb.GetFacultyList();
-			dbb.Courses = cdb.GetCoursesByFacultyName("מדעי המחשב");
-			dbb.AddCourse(cdb.GetCourseByNumber("046267"));
-			Application.Run();
-		}*/
-		
 	}
 	
 }

@@ -2753,7 +2753,7 @@
 			  <property name="fixed_height_mode">False</property>
 			  <property name="hover_selection">False</property>
 			  <property name="hover_expand">False</property>
-			  <signal name="button_press_event" handler="on_button_press_event" last_modification_time="Tue, 01 Aug 2006 02:01:54 GMT"/>
+			  <signal name="row_activated" handler="on_tvCourses_row_activated" last_modification_time="Sun, 06 Aug 2006 12:37:32 GMT"/>
 			</widget>
 		      </child>
 		    </widget>
@@ -2859,7 +2859,7 @@
 			  <property name="fixed_height_mode">False</property>
 			  <property name="hover_selection">False</property>
 			  <property name="hover_expand">False</property>
-			  <signal name="button_press_event" handler="on_button_press_event" last_modification_time="Tue, 01 Aug 2006 02:02:20 GMT"/>
+			  <signal name="row_activated" handler="on_tvCourseBasket_row_activated" last_modification_time="Sun, 06 Aug 2006 12:33:13 GMT"/>
 			</widget>
 		      </child>
 		    </widget>
@@ -5524,6 +5524,8 @@
   <property name="focus_on_map">True</property>
   <property name="urgency_hint">False</property>
   <property name="has_separator">True</property>
+  <signal name="close" handler="on_close" last_modification_time="Sun, 06 Aug 2006 01:55:56 GMT"/>
+  <signal name="response" handler="on_response" last_modification_time="Sun, 06 Aug 2006 01:56:19 GMT"/>
 
   <child internal-child="vbox">
     <widget class="GtkVBox" id="dialog-vbox2">

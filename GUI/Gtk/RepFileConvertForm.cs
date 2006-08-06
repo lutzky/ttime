@@ -29,26 +29,45 @@ namespace UDonkey.GUI
 			RepFile.RepToXML.Progress += new RepFile.RepToXML.ConvertProgress(RepToXML_Progress);
 		}
 
-		public void ShowNow()
+		public void Show()
 		{
-			Console.WriteLine("RepFileConvertForm.ShowNow()");
+			Console.WriteLine("RepFileConvertForm.Show()");
 			mDialog.ShowAll();
-			Application.Run();
 		}
 
 #region Event handlers
 
-		private void RepToXML_Progress(int prec)
+		private void on_show(object sender, EventArgs args)
 		{
+			mDialog.ShowAll();
+		}
+		
+		private void on_close(object sender, EventArgs args)
+		{
+			//Application.Quit();
+		}
+		
+		private void on_response(object sender, EventArgs args)
+		{
+			//Application.Quit();
+		}
+
+		private void on_progress(object o, EventArgs args)
+		{
+			int prec = (int)o; 
 			progressbar.Fraction = prec / 100.0;
 			if (prec == 100)
 				mDialog.Destroy();
 		}
 
+		private void RepToXML_Progress(int prec)
+		{
+			//Application.Invoke(prec, null, new EventHandler(on_progress));
+		}
+
 		private void RepToXML_StartConvertion(object sender, EventArgs args)
 		{
-			Thread thread = new Thread(new ThreadStart( this.ShowNow ) );
-			thread.Start();
+			//Application.Invoke(new EventHandler(on_show));
 		}
 #endregion
 

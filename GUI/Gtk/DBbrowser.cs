@@ -70,7 +70,7 @@ namespace UDonkey.GUI
 		StringCollection mFaculties;
 		ListStore storeFaculties;
 
-		string strSelectedPoints, strSemester;
+		string strSelectedPoints = "0", strSemester = "";
 
 		Course mCurrentCourse;
 
@@ -174,6 +174,8 @@ namespace UDonkey.GUI
 			tvCourseBasket.AppendColumn(chBasketNumber);
 			tvCourseBasket.AppendColumn(chBasketName);
 			tvCourseBasket.Model = storeCourseBasket;
+			
+			tvCourseBasket.Selection.Changed += new EventHandler(on_tvCourseBasket_SelectionChanged);
 
 			// cbFaculties stuff
 			storeFaculties = new ListStore(typeof (string));
@@ -191,16 +193,20 @@ namespace UDonkey.GUI
 
 		public void AddCourseToCourseBasket(Course course)
 		{
-			storeCourseBasket.AppendValues(course);
+			Console.WriteLine("DBbrowser.CourseBasket.add: " + course.Name);
+			TreeIter iter = storeCourseBasket.AppendValues(course);
+			tvCourseBasket.Selection.SelectIter(iter);
 		}
 
 		public void RemoveCourseFromCourseBasket( Course course )
 		{
+			Console.WriteLine("DBbrowser.RemoveCourseFromCourseBasket("+course.Number+")");
 			TreeIter iter;
 			storeCourseBasket.GetIterFirst(out iter);
-			do			{
+			do {
 				Course c = (Course)storeCourseBasket.GetValue(iter, 0);
-				if (c == course)
+			Console.WriteLine("  found "+c.Number);
+				if (c.Number == course.Number)
 				{
 					storeCourseBasket.Remove(ref iter);
 					return;
@@ -208,6 +214,7 @@ namespace UDonkey.GUI
 			}
 			while (storeCourseBasket.IterNext(ref iter));
 
+			Console.WriteLine("Try to remove a course not available: " + course.Number);
 		}
 
 /*		public void RemoveAllFromCourseBasket()
@@ -297,12 +304,9 @@ namespace UDonkey.GUI
 		public Course CurrentBasketCourse
 		{
 			get {
-				TreePath path;
-				TreeViewColumn col;
 				TreeIter iter;
-				tvCourseBasket.GetCursor(out path, out col);
-				if (storeCourseBasket.GetIter(out iter, path))
-					return (Course)storeCourseBasket.GetValue(iter, 0);
+				if (tvCourseBasket.Selection.GetSelected(out iter))
+					return (Course) storeCourseBasket.GetValue(iter, 0);
 				else
 					return null;
 			}
@@ -378,9 +382,11 @@ namespace UDonkey.GUI
 		public CoursesList CourseBasket
 		{
 			get {
+				Console.WriteLine("DBbrowser.CourseBasket.get: ");
 				CoursesList list = new CoursesList();
 				foreach (object[] row in storeCourseBasket)
 				{
+					Console.WriteLine("DBbrowser.CourseBasket.get: " + ((row[0] == null) ? "Null" : (row[0] as Course).Name));
 					Course c = (Course)row[0];
 					list.Add(c.Number, c);
 				}
@@ -388,11 +394,13 @@ namespace UDonkey.GUI
 			}
 
 			set {
+				Console.WriteLine("DBbrowser.CourseBasket.set");
 				storeCourseBasket.Clear();
 				if (value != null)
 				{
 					foreach (Course c in value)
 					{
+						Console.WriteLine("DBbrowser.CourseBasket.add: " + c.Name);
 						storeCourseBasket.AppendValues(c);
 					}
 				}
@@ -417,14 +425,14 @@ namespace UDonkey.GUI
 				!(bool)storeCourseEvents.GetValue(iter, 1));
 		}
 
-		private void on_button_press_event(object obj, ButtonPressEventArgs args)
+		private void on_tvCourseBasket_row_activated(object obj, RowActivatedArgs args)
 		{
-			if (args.Event.Type == EventType.TwoButtonPress) {
-				if (obj == tvCourses) 
-					mAddCourseEvent(this, new EventArgs());
-				else if (obj == tvCourseBasket) 
-					mRemoveCourseEvent(this, new EventArgs());
-			}
+			mRemoveCourseEvent(this, new EventArgs());
+		}
+		
+		private void on_tvCourses_row_activated(object obj, RowActivatedArgs args)
+		{
+			mAddCourseEvent(this, new EventArgs());
 		}
 
 		private void on_tvOccurences_focus_out_event(object obj, FocusOutEventArgs args)
@@ -435,6 +443,14 @@ namespace UDonkey.GUI
 		private void on_btAdvancedSearch_clicked(object obj, EventArgs args)
 		{
 			mSearchControl.Show();
+		}
+
+		private void on_tvCourseBasket_SelectionChanged(object obj, EventArgs args)
+		{
+			TreeIter iter;
+			Course c = CurrentBasketCourse;
+			if (c != null)
+				this.Course = c; 
 		}
 #endregion
 
@@ -597,7 +613,7 @@ namespace UDonkey.GUI
 
 		}
 
-		public void AddCourse(Course c)
+		/*public void AddCourse(Course c)
 		{
 			AddCourseToCourseBasket(c);
 			AddCourseToCourseBasket(c);
@@ -605,7 +621,7 @@ namespace UDonkey.GUI
 			RemoveCourseFromCourseBasket(c);
 
 			this.Course = c;
-		}
+		}*/
 
 /*		public static void Main()
 		{
@@ -618,7 +634,7 @@ namespace UDonkey.GUI
 			win.ShowAll();
 
 			UDonkey.DB.CourseDB cdb = new UDonkey.DB.CourseDB();
-			cdb.Load("MainDB.xml");
+			cdb.Load(UDonkey.DB.CourseDB.DEFAULT_DB_FILE_NAME) // "MainDB.xml");
 
 			dbb.Faculties = cdb.GetFacultyList();
 			dbb.Courses = cdb.GetCoursesByFacultyName("מדעי המחשב");
