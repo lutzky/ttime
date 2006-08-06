@@ -11,3 +11,6 @@ $(TEST_LIB): $(TEST_SRCS) $(UDONKEY_DLL)
 run_tests: $(TEST_LIB)
 	nunit-console $(TEST_LIB)
 
+
+profile: $(TEST_LIB)
+	mono --profile /usr/lib/nunit/nunit-console.exe $(TEST_LIB)

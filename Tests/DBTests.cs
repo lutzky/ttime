@@ -8,12 +8,12 @@ namespace UDonkey.Tests
 	[TestFixture]
 	public class DBTests
 	{
-		[Test]
+/*		[Test]
 		public void TestAutoUpdate()
 		{
 			CourseDB db = new CourseDB();
 			db.AutoUpdate();
-		}
+		}*/
 
 		[Test]
 		public void TestConversion()
