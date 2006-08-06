@@ -24,6 +24,7 @@ namespace UDonkey.RepFile
 		///   XXX )*
 		/// </summary>
 		private const string FILE_REGEX = @"";
+		//private const Regex FileRegex = new Regex(FILE_REGEX);
 		#region Faculty
 		/// <summary>
 		/// Regex for:
@@ -40,6 +41,7 @@ namespace UDonkey.RepFile
 		private const string FACULTY_REGEX = 
 			@"\+=+\+(?<FacultyHeader>[^+]*)\+=+\+[^+]*\+-+\+" + //Faculty Header
 			@"(?<Course>.*?\+-+\+.*?\+-+\+)*"; //Course
+		private static Regex FacultyRegex = new Regex( FACULTY_REGEX, RegexOptions.Singleline );
 		/// <summary>
 		/// Regex for:
 		/// | FacultyName - XXX |
@@ -51,7 +53,7 @@ namespace UDonkey.RepFile
 			@"\|\s+(?<FacultyName>[^-]+)-.*\|.*\|\s+(?<Semster>.*)רטסמס\s+\|" + 
 			"|" +
 			@"\|\s+(?<Semster>.*)רטסמס - (?<FacultyName>[^|]+)\|"; 
-   
+		private static Regex FacultyHeaderRegex = new Regex( FACULTY_HEADER_REGEX, RegexOptions.Singleline );
 		private const string FACULTY_SEPERATOR = "\r\n\r\n";
 		#endregion Faculty
 		#region Course
@@ -64,6 +66,7 @@ namespace UDonkey.RepFile
 		/// </summary>
 		private const string COURSE_REGEX =
 			@"(?<CourseHeader>.*)\+-+\+(?<CourseParams>.*)\+-+\+";
+		private static Regex CourseRegex = new Regex( COURSE_REGEX, RegexOptions.Singleline );
 		/// <summary>
 		/// Regex for:
 		/// | CourseNumber CourseID                   |
@@ -72,6 +75,7 @@ namespace UDonkey.RepFile
 		private const string COURSE_HEADER = 
 			"\\|\\s*(?<CourseName>.*)\\s+(?<CourseNumber>\\d+?)\\s+\\|\r\n" +
 			"\\|(?<CourseAcademicPoints>[^:]+):קנ(?<CourseHours>[^:]+).*\\|";
+		private static Regex CourseHeaderRegex = new Regex( COURSE_HEADER );
 		/// <summary>
 		/// Regex for:
 		/// | LacturerInCharge : מורה אחראי |
@@ -89,6 +93,7 @@ namespace UDonkey.RepFile
 			"\\|\\s*-+\\s*\\|\r\n)?" +
 			"(\\|(?<SecondTestDate>.*)םוי:   ינש דעומ \\|\r\n" +
 			"\\|\\s*-+\\s*\\|\r\n)?";
+		private static Regex CourseBodyRegex = new Regex( COURSE_BODY, RegexOptions.RightToLeft );
         
 		/// <summary>
 		/// Regex for:
@@ -110,8 +115,10 @@ namespace UDonkey.RepFile
 			"(?<PlaceTime>\\|\\s*([^|]+)?(\\s+\\d+)?\\s+(\\d{1,2}.\\d{2}-\\s?\\d{1,2}.\\d{2}'\\w{1})\\s*\\|\r\n)*" +
 			"(\\|\\s+(?<Giver>[^|]*) : (?<GiverType>\\w+)\\s+\\|\r\n" + 
 			"\\|\\s+-+\\s+\\|\r\n)?";
+		private static Regex CourseGroupsRegex = new Regex( COURSE_GROUPS );
 		private const string COURSE_PLACE_TIME =
 			"\\|\\s*(?<Place>[^|]+)?\\s+(?<DayTime>\\d{1,2}.\\d{2}-\\s?\\d{1,2}.\\d{2}'\\w{1})\\s*\\|\r\n";
+		private static Regex CoursePlaceTimeRegex = new Regex( COURSE_PLACE_TIME );
 		#endregion Course
 		#endregion Regular Expressions Constants
 		#region Static Methods
@@ -136,6 +143,7 @@ namespace UDonkey.RepFile
 			int numOfFaculties = 0;
 
 			int lastIndex = 0;
+			// FIXME: this is too slow
 			for( int index = file.IndexOf( FACULTY_SEPERATOR, 0 );
 				lastIndex != -1 ;
 				index = file.IndexOf(FACULTY_SEPERATOR,lastIndex + FACULTY_SEPERATOR.Length ) )
@@ -144,6 +152,7 @@ namespace UDonkey.RepFile
 				numOfFaculties++;  
 				lastIndex = index;
 			}
+			numOfFaculties = 100;
             
 			if (Progress != null) Progress( 0 );
 			lastIndex = 0;
@@ -169,14 +178,14 @@ namespace UDonkey.RepFile
 			DBSerialBuilder.endSerialBuild();
 		}
 		#region Faculty
-		private static void ConvertFaculty( string faculty )
+		private static void ConvertFaculty(string faculty)
 		{         
 			faculty = faculty.Trim();
 			if ( faculty.Length == 0 )
 				return;
 
-			Regex regex = new Regex( FACULTY_REGEX, RegexOptions.Singleline );
-			for ( Match match = regex.Match( faculty ) ;
+			//Regex regex = new Regex( FACULTY_REGEX, RegexOptions.Singleline );
+			for ( Match match = FacultyRegex.Match( faculty ) ;
 				match != Match.Empty ;
 				match = match.NextMatch() )
 			{
@@ -192,7 +201,7 @@ namespace UDonkey.RepFile
 		}
 		private static void ConvertFacultysHeader( string header )
 		{
-			Regex regex = new Regex( FACULTY_HEADER_REGEX, RegexOptions.Singleline );
+			Regex regex = FacultyHeaderRegex; 
             
 			Match match = regex.Match( header );
 
@@ -205,7 +214,7 @@ namespace UDonkey.RepFile
 		#region Course
 		private static void ConvertCourse( string course )
 		{
-			Regex regex = new Regex( COURSE_REGEX, RegexOptions.Singleline );
+			Regex regex = CourseRegex; 
             
 			for ( Match match = regex.Match( course ) ;
 				match != Match.Empty ;
@@ -218,7 +227,7 @@ namespace UDonkey.RepFile
 		}
 		private static void ConvertCoursesHeader( string header )
 		{
-			Regex regex = new Regex( COURSE_HEADER );
+			Regex regex = CourseHeaderRegex; 
 			Match match = regex.Match( header );
  
 			string courseName = DosHeb.Revert(  match.Groups[ "CourseName" ].Value.Trim() );
@@ -231,7 +240,8 @@ namespace UDonkey.RepFile
 		}
 		private static void ConvertCoursesBody( string body )
 		{
-			Regex regex = new Regex( COURSE_BODY, RegexOptions.RightToLeft );
+			//Regex regex = new Regex( COURSE_BODY, RegexOptions.RightToLeft );
+			Regex regex = CourseBodyRegex;
 
 			//Find the longest match (starts at the begining)
 			Match match;           
@@ -248,7 +258,7 @@ namespace UDonkey.RepFile
 		}
 		private static void ConvertCoursesGroups( string groups )
 		{
-			Regex regex = new Regex( COURSE_GROUPS );
+			Regex regex = CourseGroupsRegex; 
 
 			for ( Match match = regex.Match( groups ) ;
 				match != Match.Empty ;
@@ -285,7 +295,7 @@ namespace UDonkey.RepFile
 		}
 		private static void ConvertPlaceTime( string placeTime )
 		{
-			Regex regex = new Regex( COURSE_PLACE_TIME );
+			Regex regex = CoursePlaceTimeRegex; 
 			Match match = regex.Match( placeTime );
 			
 			if( match == Match.Empty ) return;
