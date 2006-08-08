@@ -1,0 +1,137 @@
+<html>
+  <head>
+  <meta http-equiv='Content-Type' content='text/html;charset=utf-8' >
+   <style type='text/css'>
+td {width: 16%; height: 7%; padding: 0px }
+div.menu {width: 98%; height:4%; border: #000000 1px solid; color: #eeeeff; margin: 5px}
+table {width: 98%; height: 95%}
+td.day {background: #cccccc}
+td.hour {background: #eeeeee}
+div.event {width: 97%; height:100%; border:#000000 1px solid; margin: 1px;font-size:12px}
+    </style>
+  <script language=javascript>
+
+  var colorIndex=new Array('#EADEFF','#E0FFDE','#FAFFDE','#FEFFDE','#FFF9DE','#FFE3DE','#FFDEED','#F9DEFF','#EEE5D5','#E2EED5','#EED7D5');
+
+
+
+  // time for a javascript refresher :)
+  function addEvent(course_index,type,day,start,end,desc)
+  {
+    var i;
+    for(i=start;i<=end;i++){
+      var eventStr = '';
+      eventStr = '<div align=right class="event" style="background-color:'
+        +colorIndex[course_index]+'"> ' + 
+      desc + '</div>';
+      target = document.getElementById(""+day+"-"+i+":30");
+      target.innerHTML += eventStr;
+//    target.innerHTML = "test";
+ 
+
+    }
+  }
+function initEvent(){
+//TEMPLATE//
+  addEvent(1,1,2,9,11,"חדו\"א 1מ - תרגול<br>קבוצה 20");
+  addEvent(2,1,2,11,13,"נושאים מתקדמים באפטחת מידע<br>מרצה - אלי ביהם");
+//  addEvent(2,1,2,11,13,"kjngwekjrg");
+}
+
+  </script>
+
+  </head>
+  <body onLoad='initEvent()'>
+  <div align=center>
+  <div align=center class='menu'>no menu yet...</div>
+<table border=1 rules=all>
+ <tr>
+   <td class=day><div align=center>חמישי</div></td>
+   <td class=day><div align=center>רביעי</div></td>
+   <td class=day><div align=center>שלישי</div></td>
+   <td class=day><div align=center>שני</div></td>
+   <td class=day><div align=center>ראשון</div></td>
+   <td class=day><div align=center></div></td>
+ </tr>
+ <tr>
+   <td><div id='5-8:30' >
+   </div></td>   <td><div id='4-8:30' >
+   </div></td>   <td><div id='3-8:30' >
+   </div></td>   <td><div id='2-8:30' >
+   </div></td>   <td><div id='1-8:30' >
+   </div></td><td class=hour>8:30</td></tr> <tr>
+   <td><div id='5-9:30' >
+   </div></td>   <td><div id='4-9:30' >
+   </div></td>   <td><div id='3-9:30' >
+   </div></td>   <td><div id='2-9:30' >
+   </div></td>   <td><div id='1-9:30' >
+   </div></td><td class=hour>9:30</td></tr> <tr>
+   <td><div id='5-10:30' >
+   </div></td>   <td><div id='4-10:30' >
+   </div></td>   <td><div id='3-10:30' >
+   </div></td>   <td><div id='2-10:30' >
+   </div></td>   <td><div id='1-10:30' >
+   </div></td><td class=hour>10:30</td></tr> <tr>
+   <td><div id='5-11:30' >
+   </div></td>   <td><div id='4-11:30' >
+   </div></td>   <td><div id='3-11:30' >
+   </div></td>   <td><div id='2-11:30' >
+   </div></td>   <td><div id='1-11:30' >
+   </div></td><td class=hour>11:30</td></tr> <tr>
+   <td><div id='5-12:30' >
+   </div></td>   <td><div id='4-12:30' >
+   </div></td>   <td><div id='3-12:30' >
+   </div></td>   <td><div id='2-12:30' >
+   </div></td>   <td><div id='1-12:30' >
+   </div></td><td class=hour>12:30</td></tr> <tr>
+   <td><div id='5-13:30' >
+   </div></td>   <td><div id='4-13:30' >
+   </div></td>   <td><div id='3-13:30' >
+   </div></td>   <td><div id='2-13:30' >
+   </div></td>   <td><div id='1-13:30' >
+   </div></td><td class=hour>13:30</td></tr> <tr>
+   <td><div id='5-14:30' >
+   </div></td>   <td><div id='4-14:30' >
+   </div></td>   <td><div id='3-14:30' >
+   </div></td>   <td><div id='2-14:30' >
+   </div></td>   <td><div id='1-14:30' >
+   </div></td><td class=hour>14:30</td></tr> <tr>
+   <td><div id='5-15:30' >
+   </div></td>   <td><div id='4-15:30' >
+   </div></td>   <td><div id='3-15:30' >
+   </div></td>   <td><div id='2-15:30' >
+   </div></td>   <td><div id='1-15:30' >
+   </div></td><td class=hour>15:30</td></tr> <tr>
+   <td><div id='5-16:30' >
+   </div></td>   <td><div id='4-16:30' >
+   </div></td>   <td><div id='3-16:30' >
+   </div></td>   <td><div id='2-16:30' >
+   </div></td>   <td><div id='1-16:30' >
+   </div></td><td class=hour>16:30</td></tr> <tr>
+   <td><div id='5-17:30' >
+   </div></td>   <td><div id='4-17:30' >
+   </div></td>   <td><div id='3-17:30' >
+   </div></td>   <td><div id='2-17:30' >
+   </div></td>   <td><div id='1-17:30' >
+   </div></td><td class=hour>17:30</td></tr> <tr>
+   <td><div id='5-18:30' >
+   </div></td>   <td><div id='4-18:30' >
+   </div></td>   <td><div id='3-18:30' >
+   </div></td>   <td><div id='2-18:30' >
+   </div></td>   <td><div id='1-18:30' >
+   </div></td><td class=hour>18:30</td></tr> <tr>
+   <td><div id='5-19:30' >
+   </div></td>   <td><div id='4-19:30' >
+   </div></td>   <td><div id='3-19:30' >
+   </div></td>   <td><div id='2-19:30' >
+   </div></td>   <td><div id='1-19:30' >
+   </div></td><td class=hour>19:30</td></tr> <tr>
+   <td><div id='5-20:30' >
+   </div></td>   <td><div id='4-20:30' >
+   </div></td>   <td><div id='3-20:30' >
+   </div></td>   <td><div id='2-20:30' >
+   </div></td>   <td><div id='1-20:30' >
+   </div></td><td class=hour>20:30</td></tr></table>
+</div>
+</body>
+</html>
