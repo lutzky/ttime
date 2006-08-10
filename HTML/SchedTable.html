@@ -18,13 +18,27 @@ width: 100%;
 height: 100%;
 }
 div.event {
-width: 15.4%; 
+  /*width: 15.4%;*/
        /*height:7%; */
 border:#eeeeff 1px solid; 
-margin: 1px;
+/*margin: 1px;*/
 padding: 3px;
          font-size:10px;
-         z-index:2;
+/*         z-index:2; */
+position: absolute;
+          -moz-border-radius: 1em;
+overflow:hidden;
+}
+
+div.selected {
+
+  /*width: 15.4%;*/
+       /*height:7%; */
+border:#ccccdd 2px solid; 
+/*margin: 1px;*/
+padding: 2px;
+         font-size:10px;
+/*         z-index:2; */
 position: absolute;
           -moz-border-radius: 1em;
 overflow:hidden;
@@ -56,20 +70,20 @@ function addEvent(course_index,type,day,start,end,desc){
   events++;
 }
 
-
+var maxIndex=0;
 function proccessEvents(){
   var i;
 
   quickSort(eventArr,eventCmp);
   var layers = intervalsToLayers(eventArr);
-  for(i=0;i<layers.length();i++){
-    for (x in layers[i]){
-    doEvent(x.course_index,
-        x.type,
-        x.day,
-        x.start,
-        x.end,
-        x.desc + "<br>layer: " + i  );
+  maxIndex = layers.length+2;
+  calculateCollisions(layers);
+  for(i=0;i<layers.length;i++){
+    for (j=0;j<layers[i].length;j++){
+      var x=layers[i][j];
+      x.layer = i;
+      x.zIndex = layers.length - i;
+      doEvent(x);
     }
   }
 }
@@ -94,12 +108,43 @@ function intervalsToLayers(arrIn){
   return res;
 
 }
+
+// O(n^2) :(
+function calculateCollisions( layers){
+
+  for(i=0;i<layers.length;i++){
+    for (j=0;j<layers[i].length;j++){
+     var x = layers[i][j];
+     x.collisions = i;
+     var k=i+1;
+     while(k<layers.length){
+        var l=0;
+        while(l < layers[k].length && layers[k][l].pend < x.pstart){
+          l++;
+        }
+        if(l<layers[k].length && layers[k][l].pstart <= x.pend){
+          x.collisions ++;
+        }
+
+
+
+
+       k++;
+     }
+
+    }
+  }
+
+}
+
 // this implements the greedy algorithm:
 //    the earliest ending interval which does not intersects the current one
 // arrIn shoudl be sorted by end time
 function greedyIntervalSchedule(arrIn,arrSelected,arrRejected){
   var maxtime = 0;
-  for (x in arrIn){
+  var i;
+  for (i=0;i<arrIn.length;i++){
+    var x = arrIn[i];
     if (x.pstart>maxtime){
       arrSelected.push(x);
       maxtime = x.pend;
@@ -110,29 +155,93 @@ function greedyIntervalSchedule(arrIn,arrSelected,arrRejected){
 
 }
 
+var selectedEvent = 0;
+var oldIndex = 0;
+var fresh = 0;
+
+function setSelected(obj){
+  if(selectedEvent != 0){
+    selectedEvent.style.zIndex=oldIndex;
+    selectedEvent.className = 'event';
+  }
+  oldIndex = obj.style.zIndex;
+  obj.style.zIndex = maxIndex;
+  obj.className = 'selected';
+  selectedEvent = obj;
+  fresh = 1;
+}
+
+function deselect(obj)
+{
+  if(fresh==0){
+    if(selectedEvent != 0){
+      selectedEvent.style.zIndex=oldIndex;
+      selectedEvent.className = 'event';
+    }
+  }
+  else
+    fresh=0;
+}
 
 // time for a javascript refresher :)
-function doEvent(course_index,type,day,start,end,desc)
+function doEvent(e)
 {
   var eventStr = '';
   eventStr = '<div align=right class="event" style="background-color:'
-    +colorIndex[course_index]+';'+
-    'height:' + ((end-start+1)*6.58 -1.7) + '%;"> ' + 
-    desc + '</div>';
-  target = document.getElementById(""+day+"-"+start+":30");
+    +colorIndex[e.course_index%colorIndex.length]+';'+
+    'height:' + ((e.end-e.start+1)*6.58 -1.7) + '%;' +
+    'margin: 0.1% 0.1% 0.1%' + ((( e.layer)/(e.collisions+2))*16 + 0.1) +'%;' +
+    'width:  ' + (((2)/(e.collisions+2))*16 - 0.6) + '%;'+
+    'z-index:  ' + (e.zIndex) + ';'+
+    '"'+
+    'onClick="setSelected(this)"'+
+    '> ' + 
+    e.desc +
+    '</div>';
+  target = document.getElementById(""+e.day+"-"+e.start+":30");
   target.innerHTML += eventStr;
-  //    target.innerHTML = "test";
-
-
 }
+
+
+function MouseOnRow(o)
+{
+  o.style.backgroundColor = '#f9f6ee';
+}
+
+
+
+function MouseOutRow(o)
+{
+  o.style.backgroundColor = '#ffffff';
+}
+// a non-top piece should be half-visible
+// a top piece should be fully visible
+// for n elements we have n+1 parts, so 2/n+1
 function initEvent(){
+
+  
   //TEMPLATE//
   addEvent(1,1,2,9,11,"חדו\"א 1מ - תרגול<br>קבוצה 20");
+  addEvent(1,1,2,13,14,"חדו\"א 1מ - תרגול<br>קבוצה 20");
   addEvent(2,1,2,11,13,"נושאים מתקדמים באפטחת מידע<br>מרצה - אלי ביהם");
-  addEvent(3,1,3,11,15,"נושאים מתקדמים באפטחת מידע<br>מרצה - אלי ביהם");
-  addEvent(4,1,4,11,12,"נושאים מתקדמים באפטחת מידע<br>מרצה - אלי ביהם");
-  addEvent(5,1,5,11,11,"נושאים מתקדמים באפטחת מידע<br>מרצה - אלי ביהם");
-  addEvent(6,1,1,10,18,"נושאים מתקדמים באפטחת מידע<br>מרצה - אלי ביהם");
+  addEvent(3,1,3,11,15,"נושאיםsgdfgser מידע<br>מרצה - אלי ביהם");
+  addEvent(4,1,3,11,12,"נושאים מתrgergeth באפטחת מידע<br>מרצה - אלי ביהם");
+  addEvent(4,1,3,13,14,"נושאים מתrgergeth באפטחת מידע<br>מרצה - אלי ביהם");
+  addEvent(5,1,5,11,11,"נושאים מתקדherherפטחת מידע<br>מרצה - אלי ביהם");
+  addEvent(6,1,3,9,18,"נושאים מawrgawerפטחת מידע<br>מרצה - אלי ביהם");
+  addEvent(7,1,1,10,18,"נושאים מawrgawerפטחת מידע<br>מרצה - אלי ביהם");
+  addEvent(8,1,1,10,18,"נושאים מawrgawerפטחת מידע<br>מרצה - אלי ביהם");
+  addEvent(9,1,1,10,18,"נושאים מawrgawerפטחת מידע<br>מרצה - אלי ביהם");
+  addEvent(10,1,1,10,18,"נושאים מawrgawerפטחת מידע<br>מרצה - אלי ביהם");
+  addEvent(11,1,1,10,18,"נושאים מawrgawerפטחת מידע<br>מרצה - אלי ביהם");
+  addEvent(12,1,1,10,18,"נושאים מawrgawerפטחת מידע<br>מרצה - אלי ביהם");
+  addEvent(13,1,1,10,18,"נושאים מawrgawerפטחת מידע<br>מרצה - אלי ביהם");
+  addEvent(14,1,1,10,18,"נושאים מawrgawerפטחת מידע<br>מרצה - אלי ביהם");
+  addEvent(15,1,1,10,18,"נושאים מawrgawerפטחת מידע<br>מרצה - אלי ביהם");
+  addEvent(16,1,1,10,18,"נושאים מawrgawerפטחת מידע<br>מרצה - אלי ביהם");
+  addEvent(17,1,1,10,18,"נושאים מawrgawerפטחת מידע<br>מרצה - אלי ביהם");
+  addEvent(18,1,1,10,18,"נושאים מawrgawerפטחת מידע<br>מרצה - אלי ביהם");
+  addEvent(19,1,1,10,18,"נושאים מawrgawerפטחת מידע<br>מרצה - אלי ביהם");
   //  addEvent(2,1,2,11,13,"kjngwekjrg");
   proccessEvents();
 }
@@ -258,11 +367,11 @@ function insertionSort(array,compareFunc)
 </script>
 
   </head>
-  <body onLoad='initEvent()'>
+  <body onLoad='initEvent()' onClick='deselect(this)'>
     <div align=center>
-      <div align=center class='menu'>no menu yet...</div>
-      <table border=1 rules=all>
-        <tr>
+      <div align=center class='menu' >no menu yet...</div>
+      <table border=1 rules=all >
+        <tr onMouseOut='MouseOutRow(this)' onMouseOver='MouseOnRow(this)'>
           <td class=day><div align=center>חמישי</div></td>
           <td class=day><div align=center>רביעי</div></td>
           <td class=day><div align=center>שלישי</div></td>
@@ -270,79 +379,79 @@ function insertionSort(array,compareFunc)
           <td class=day><div align=center>ראשון</div></td>
           <td class=day><div align=center></div></td>
         </tr>
-        <tr>
+        <tr onMouseOut='MouseOutRow(this)' onMouseOver='MouseOnRow(this)'>
           <td><div class='hourDiv' id='5-8:30' >
               </div></td>   <td><div class='hourDiv' id='4-8:30' >
               </div></td>   <td><div class='hourDiv' id='3-8:30' >
               </div></td>   <td><div class='hourDiv' id='2-8:30' >
               </div></td>   <td><div class='hourDiv' id='1-8:30' >
-          </div></td><td class=hour>8:30</td></tr> <tr>
+          </div></td><td class=hour>8:30</td></tr> <tr onMouseOut='MouseOutRow(this)' onMouseOver='MouseOnRow(this)'>
           <td><div class='hourDiv' id='5-9:30' >
               </div></td>   <td><div class='hourDiv' id='4-9:30' >
               </div></td>   <td><div class='hourDiv' id='3-9:30' >
               </div></td>   <td><div class='hourDiv' id='2-9:30' >
               </div></td>   <td><div class='hourDiv' id='1-9:30' >
-          </div></td><td class=hour>9:30</td></tr> <tr>
+          </div></td><td class=hour>9:30</td></tr> <tr onMouseOut='MouseOutRow(this)' onMouseOver='MouseOnRow(this)'>
           <td><div class='hourDiv' id='5-10:30' >
               </div></td>   <td><div class='hourDiv' id='4-10:30' >
               </div></td>   <td><div class='hourDiv' id='3-10:30' >
               </div></td>   <td><div class='hourDiv' id='2-10:30' >
               </div></td>   <td><div class='hourDiv' id='1-10:30' >
-          </div></td><td class=hour>10:30</td></tr> <tr>
+          </div></td><td class=hour>10:30</td></tr> <tr onMouseOut='MouseOutRow(this)' onMouseOver='MouseOnRow(this)'>
           <td><div class='hourDiv' id='5-11:30' >
               </div></td>   <td><div class='hourDiv' id='4-11:30' >
               </div></td>   <td><div class='hourDiv' id='3-11:30' >
               </div></td>   <td><div class='hourDiv' id='2-11:30' >
               </div></td>   <td><div class='hourDiv' id='1-11:30' >
-          </div></td><td class=hour>11:30</td></tr> <tr>
+          </div></td><td class=hour>11:30</td></tr> <tr onMouseOut='MouseOutRow(this)' onMouseOver='MouseOnRow(this)'>
           <td><div class='hourDiv' id='5-12:30' >
               </div></td>   <td><div class='hourDiv' id='4-12:30' >
               </div></td>   <td><div class='hourDiv' id='3-12:30' >
               </div></td>   <td><div class='hourDiv' id='2-12:30' >
               </div></td>   <td><div class='hourDiv' id='1-12:30' >
-          </div></td><td class=hour>12:30</td></tr> <tr>
+          </div></td><td class=hour>12:30</td></tr> <tr onMouseOut='MouseOutRow(this)' onMouseOver='MouseOnRow(this)'>
           <td><div class='hourDiv' id='5-13:30' >
               </div></td>   <td><div class='hourDiv' id='4-13:30' >
               </div></td>   <td><div class='hourDiv' id='3-13:30' >
               </div></td>   <td><div class='hourDiv' id='2-13:30' >
               </div></td>   <td><div class='hourDiv' id='1-13:30' >
-          </div></td><td class=hour>13:30</td></tr> <tr>
+          </div></td><td class=hour>13:30</td></tr> <tr onMouseOut='MouseOutRow(this)' onMouseOver='MouseOnRow(this)'>
           <td><div class='hourDiv' id='5-14:30' >
               </div></td>   <td><div class='hourDiv' id='4-14:30' >
               </div></td>   <td><div class='hourDiv' id='3-14:30' >
               </div></td>   <td><div class='hourDiv' id='2-14:30' >
               </div></td>   <td><div class='hourDiv' id='1-14:30' >
-          </div></td><td class=hour>14:30</td></tr> <tr>
-          <td><div class='hourDiv' id='5-15:30' >
+          </div></td><td class=hour>14:30</td></tr> <tr onMouseOut='MouseOutRow(this)' onMouseOver='MouseOnRow(this)'>
+         <td><div class='hourDiv' id='5-15:30' >
               </div></td>   <td><div class='hourDiv' id='4-15:30' >
               </div></td>   <td><div class='hourDiv' id='3-15:30' >
               </div></td>   <td><div class='hourDiv' id='2-15:30' >
               </div></td>   <td><div class='hourDiv' id='1-15:30' >
-          </div></td><td class=hour>15:30</td></tr> <tr>
+          </div></td><td class=hour>15:30</td></tr> <tr onMouseOut='MouseOutRow(this)' onMouseOver='MouseOnRow(this)'>
           <td><div class='hourDiv' id='5-16:30' >
               </div></td>   <td><div class='hourDiv' id='4-16:30' >
               </div></td>   <td><div class='hourDiv' id='3-16:30' >
               </div></td>   <td><div class='hourDiv' id='2-16:30' >
               </div></td>   <td><div class='hourDiv' id='1-16:30' >
-          </div></td><td class=hour>16:30</td></tr> <tr>
+          </div></td><td class=hour>16:30</td></tr> <tr onMouseOut='MouseOutRow(this)' onMouseOver='MouseOnRow(this)'>
           <td><div class='hourDiv' id='5-17:30' >
               </div></td>   <td><div class='hourDiv' id='4-17:30' >
               </div></td>   <td><div class='hourDiv' id='3-17:30' >
               </div></td>   <td><div class='hourDiv' id='2-17:30' >
               </div></td>   <td><div class='hourDiv' id='1-17:30' >
-          </div></td><td class=hour>17:30</td></tr> <tr>
+          </div></td><td class=hour>17:30</td></tr> <tr onMouseOut='MouseOutRow(this)' onMouseOver='MouseOnRow(this)'>
           <td><div class='hourDiv' id='5-18:30' >
               </div></td>   <td><div class='hourDiv' id='4-18:30' >
               </div></td>   <td><div class='hourDiv' id='3-18:30' >
               </div></td>   <td><div class='hourDiv' id='2-18:30' >
               </div></td>   <td><div class='hourDiv' id='1-18:30' >
-          </div></td><td class=hour>18:30</td></tr> <tr>
+          </div></td><td class=hour>18:30</td></tr> <tr onMouseOut='MouseOutRow(this)' onMouseOver='MouseOnRow(this)'>
           <td><div class='hourDiv' id='5-19:30' >
               </div></td>   <td><div class='hourDiv' id='4-19:30' >
               </div></td>   <td><div class='hourDiv' id='3-19:30' >
               </div></td>   <td><div class='hourDiv' id='2-19:30' >
               </div></td>   <td><div class='hourDiv' id='1-19:30' >
-          </div></td><td class=hour>19:30</td></tr> <tr>
+          </div></td><td class=hour>19:30</td></tr> <tr onMouseOut='MouseOutRow(this)' onMouseOver='MouseOnRow(this)'>
           <td><div class='hourDiv' id='5-20:30' >
               </div></td>   <td><div class='hourDiv' id='4-20:30' >
               </div></td>   <td><div class='hourDiv' id='3-20:30' >
