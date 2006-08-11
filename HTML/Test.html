@@ -1,0 +1,479 @@
+<html>
+<head>
+<meta http-equiv='Content-Type' content='text/html;charset=utf-8' >
+<style type='text/css'>
+td {width: 16%; height: 7%; padding: 0px; margin:0px }
+div.menu {width: 99%;
+height:3.5%;
+border: #ddddee 2px solid; 
+        background-color: #f9f9ff; 
+margin: 2px;
+        -moz-border-radius: 1em;
+}
+table {width: 100%; height: 95%;}
+td.day {background: #cccccc}
+td.hour {background: #eeeeee}
+div.hourDiv {
+width: 100%;
+height: 100%;
+}
+div.event {
+  /*width: 15.4%;*/
+       /*height:7%; */
+border:#eeeeff 1px solid; 
+/*margin: 1px;*/
+padding: 3px;
+         font-size:10px;
+/*         z-index:2; */
+position: absolute;
+          -moz-border-radius: 1em;
+overflow:hidden;
+}
+
+div.selected {
+
+  /*width: 15.4%;*/
+       /*height:7%; */
+border:#ccccdd 2px solid; 
+/*margin: 1px;*/
+padding: 2px;
+         font-size:10px;
+/*         z-index:2; */
+position: absolute;
+          -moz-border-radius: 1em;
+overflow:hidden;
+}
+</style>
+<script language=javascript>
+
+var colorIndex=new Array('#EADEFF','#E0FFDE','#FEFFDE','#FFF9DE','#FFE3DE','#F9DEFF','#EEE5D5','#E2EED5','#FAFFDE','#FFDEED','#EED7D5');
+
+var events = 0;
+var eventArr = new Array();
+
+// this is OO JS :(
+// behold, a constructor..
+function evnt(course_index,type,day,start,end,desc){
+  this.course_index=course_index;
+  this.type=type;
+  this.day = day;
+  this.start = start;
+  this.end=end;
+  this.pstart=start + 100 * day; // a hack. for the greedy algo...
+  this.pend=end + 100 * day; // a hack. this is now sortable by end time...
+  this.desc=desc;
+}
+
+
+function addEvent(course_index,type,day,start,end,desc){
+  eventArr[events] = new evnt(course_index,type,day,start,end,desc);
+  events++;
+}
+
+var maxIndex=0;
+function proccessEvents(){
+  var i;
+
+  quickSort(eventArr,eventCmp);
+  var layers = intervalsToLayers(eventArr);
+  maxIndex = layers.length+2;
+  calculateCollisions(layers);
+  for(i=0;i<layers.length;i++){
+    for (j=0;j<layers[i].length;j++){
+      var x=layers[i][j];
+      x.layer = i;
+      x.zIndex = layers.length - i;
+      doEvent(x);
+    }
+  }
+
+}
+
+
+var Selecting = 0;
+var InitialRow;
+var currentRow;
+var SelectionColumn;
+
+function cellMouseDown(o){
+  Selecting = 1;
+  InitialRow = o.id.split(':')[1];
+  SelectionColumn = o.id.split(':')[0];
+
+
+}
+function cellMouseUp(o){
+  o.innerHTML="UP";
+}
+
+
+function intervalsToLayers(arrIn){
+  var selected,rejected,temp,res;
+  res = new Array();
+  selected = new Array();
+  rejected = new Array();
+  greedyIntervalSchedule(arrIn,selected,rejected);
+  res.push(selected)
+  while(rejected.length > 0){
+    temp = rejected;
+    rejected = new Array();
+    selected = new Array();
+    greedyIntervalSchedule(temp,selected,rejected);
+    res.push(selected)
+  }
+  return res;
+
+}
+
+// O(n^2) :(
+function calculateCollisions( layers){
+
+  for(i=0;i<layers.length;i++){
+    for (j=0;j<layers[i].length;j++){
+     var x = layers[i][j];
+     x.collisions = i;
+     var k=i+1;
+     while(k<layers.length){
+        var l=0;
+        while(l < layers[k].length && layers[k][l].pend < x.pstart){
+          l++;
+        }
+        if(l<layers[k].length && layers[k][l].pstart <= x.pend){
+          x.collisions ++;
+        }
+
+
+
+
+       k++;
+     }
+
+    }
+  }
+
+}
+
+// this implements the greedy algorithm:
+//    the earliest ending interval which does not intersects the current one
+// arrIn shoudl be sorted by end time
+function greedyIntervalSchedule(arrIn,arrSelected,arrRejected){
+  var maxtime = 0;
+  var i;
+  for (i=0;i<arrIn.length;i++){
+    var x = arrIn[i];
+    if (x.pstart>maxtime){
+      arrSelected.push(x);
+      maxtime = x.pend;
+    }else{
+     arrRejected.push(x); 
+    }
+  }
+
+}
+
+var selectedEvent = 0;
+var oldIndex = 0;
+var fresh = 0;
+
+function setSelected(obj){
+  if(selectedEvent != 0){
+    selectedEvent.style.zIndex=oldIndex;
+    selectedEvent.className = 'event';
+  }
+  oldIndex = obj.style.zIndex;
+  obj.style.zIndex = maxIndex;
+  obj.className = 'selected';
+  selectedEvent = obj;
+  fresh = 1;
+}
+
+function deselect(obj)
+{
+  if(fresh==0){
+    if(selectedEvent != 0){
+      selectedEvent.style.zIndex=oldIndex;
+      selectedEvent.className = 'event';
+    }
+  }
+  else
+    fresh=0;
+}
+
+// time for a javascript refresher :)
+function doEvent(e)
+{
+  var eventStr = '';
+  eventStr = '<div align=right class="event" style="background-color:'
+    +colorIndex[e.course_index%colorIndex.length]+';'+
+    'height:' + ((e.end-e.start+1)*6.58 -1.7) + '%;' +
+    'margin: 0.1% 0.1% 0.1%' + ((( e.layer)/(e.collisions+2))*16 + 0.1) +'%;' +
+    'width:  ' + (((2)/(e.collisions+2))*16 - 0.6) + '%;'+
+    'z-index:  ' + (e.zIndex) + ';'+
+    '"'+
+    'onClick="setSelected(this)"'+
+    '> ' + 
+    e.desc +
+    '</div>';
+  target = document.getElementById(""+e.day+"-"+e.start+":30");
+  target.innerHTML += eventStr;
+}
+
+
+function MouseOnRow(o)
+{
+  o.style.backgroundColor = '#f9f6ee';
+}
+
+
+
+function MouseOutRow(o)
+{
+  o.style.backgroundColor = '#ffffff';
+}
+// a non-top piece should be half-visible
+// a top piece should be fully visible
+// for n elements we have n+1 parts, so 2/n+1
+function initEvent(){
+
+  
+  //TEMPLATE//
+  addEvent(1,1,2,9,11,"חדו\"א 1מ - תרגול<br>קבוצה 20");
+  addEvent(1,1,2,13,14,"חדו\"א 1מ - תרגול<br>קבוצה 20");
+  addEvent(2,1,2,11,13,"נושאים מתקדמים באפטחת מידע<br>מרצה - אלי ביהם");
+  addEvent(3,1,3,11,15,"נושאיםsgdfgser מידע<br>מרצה - אלי ביהם");
+  addEvent(4,1,3,11,12,"נושאים מתrgergeth באפטחת מידע<br>מרצה - אלי ביהם");
+  addEvent(4,1,3,13,14,"נושאים מתrgergeth באפטחת מידע<br>מרצה - אלי ביהם");
+  addEvent(5,1,5,11,11,"נושאים מתקדherherפטחת מידע<br>מרצה - אלי ביהם");
+  addEvent(6,1,3,9,18,"נושאים מawrgawerפטחת מידע<br>מרצה - אלי ביהם");
+  addEvent(7,1,1,10,18,"נושאים מawrgawerפטחת מידע<br>מרצה - אלי ביהם");
+  addEvent(8,1,1,10,18,"נושאים מawrgawerפטחת מידע<br>מרצה - אלי ביהם");
+  addEvent(9,1,1,10,18,"נושאים מawrgawerפטחת מידע<br>מרצה - אלי ביהם");
+  addEvent(10,1,1,10,18,"נושאים מawrgawerפטחת מידע<br>מרצה - אלי ביהם");
+  addEvent(11,1,1,10,18,"נושאים מawrgawerפטחת מידע<br>מרצה - אלי ביהם");
+  addEvent(12,1,1,10,18,"נושאים מawrgawerפטחת מידע<br>מרצה - אלי ביהם");
+  addEvent(13,1,1,10,18,"נושאים מawrgawerפטחת מידע<br>מרצה - אלי ביהם");
+  addEvent(14,1,1,10,18,"נושאים מawrgawerפטחת מידע<br>מרצה - אלי ביהם");
+  addEvent(15,1,1,10,18,"נושאים מawrgawerפטחת מידע<br>מרצה - אלי ביהם");
+  addEvent(16,1,1,10,18,"נושאים מawrgawerפטחת מידע<br>מרצה - אלי ביהם");
+  addEvent(17,1,1,10,18,"נושאים מawrgawerפטחת מידע<br>מרצה - אלי ביהם");
+  addEvent(18,1,1,10,18,"נושאים מawrgawerפטחת מידע<br>מרצה - אלי ביהם");
+  addEvent(19,1,1,10,18,"נושאים מawrgawerפטחת מידע<br>מרצה - אלי ביהם");
+  //  addEvent(2,1,2,11,13,"kjngwekjrg");
+  proccessEvents();
+}
+
+
+function eventCmp(a,b){
+  if(a.pend>b.pend){
+    return 1;
+  }else if(a.pend<b.pend){
+    return -1;
+  }
+  return 0;
+}
+
+// this quicksort was taken from the GPL'd project jukedaddy, 
+// found on sourceforge.
+// thx :)
+function quickSort(array,compareFunc)
+{
+  quickSort_(array,0,array.length-1,compareFunc);
+  // Complete the sort using fast insertion sort
+  insertionSort(array,compareFunc);
+  return array;
+}
+function quickSort_(array,L,R,compareFunc)
+{
+  while (R-L >= 9) // Sort only if >= 10 elements
+  {
+    // Sort Lth, Rth, & middle element, then swap the middle
+    // element with the R-1th element--this will obviate the
+    // need for boundary checking
+    var m=(L+R) >> 1;
+    if (compareFunc(array[L],array[m])>0) // Swap elements
+    {
+      var t=array[L];
+      array[L]=array[m];
+      array[m]=t;
+    }
+    if (compareFunc(array[L],array[R])>0) // Swap elements
+    {
+      var t=array[L];
+      array[L]=array[R];
+      array[R]=t;
+    }
+    if (compareFunc(array[m],array[R])>0) // Swap elements
+    {
+      var t=array[m];
+      array[m]=array[R];
+      array[R]=t;
+    }
+    var t=array[m];
+    // Swap mth & R-1th elements
+    array[m]=array[R-1];
+    array[R-1]=t;
+    // Since array[L] <= array[R-1] <= array[R], we can
+    // use array[R-1] as the pivot and this relationship
+    // provides us with known sentinels. Also, it's only
+    // necessary to partition between L+1 and R-2
+    var l=L+1;
+    var r=R-2;
+    do // Partitions array[] so that all elements to the
+      // left of array[l] are < array[l] & all elements
+      // to the right of array[l] are >= array[l]
+    {
+      // Looking from left, find element >= array[R-1]
+      while (compareFunc(array[R-1],array[l])>=0) l++;
+      // Looking from right, find element <= array[R-1]
+      while (compareFunc(array[R-1],array[r])<0) r--;
+      // Partitioning completes
+      // when the counters cross
+      if (l<r)
+      {
+        var t=array[l];
+        // Swap lth and rth elements
+        array[l]=array[r];
+        array[r]=t;
+      }
+      else break;
+    }
+    while (true);
+    t=array[l];
+    // Swap the lth and R-1th elements
+    array[l]=array[R-1];
+    array[R-1]=t;
+    // Recurse on the smaller half & loop on the
+    // larger half of each partition to avoid the
+    // possibility that worst-case input causes N
+    // recursive calls. Instead, the worst case
+    // becomes just log2 N calls
+    if (l-L > R-1)
+    {
+      // Left half is larger
+      quickSort_(array,l+1,R,compareFunc);
+      R=l-1;
+    }
+    else
+    {
+      // Right half is larger
+      quickSort_(array,L,l-1,compareFunc);
+      L=l+1;
+    }
+  }
+}
+function insertionSort(array,compareFunc)
+{
+  for (var i=1;i<array.length;i++)
+  {
+    // Look at 2nd-Nth elements,
+    // putting each in its place
+    var t=array[i];
+    for (var j=i-1;j>=0;j--)
+      // Look at elements left of i
+      // and find the insertion spot
+      if (compareFunc(array[j],t)>0)
+        // Not there yet--make room
+        array[j+1]=array[j];
+      else break;
+      // Now insert the original value
+      array[j+1]=t;
+  }
+}
+
+</script>
+
+  </head>
+  <body onLoad='initEvent()' onClick='deselect(this)'>
+    <div align=center>
+      <div align=center class='menu' >no menu yet...</div>
+      <table border=1 rules=all >
+        <tr onMouseOut='MouseOutRow(this)' onMouseOver='MouseOnRow(this)'>
+          <td class=day><div align=center>חמישי</div></td>
+          <td class=day><div align=center>רביעי</div></td>
+          <td class=day><div align=center>שלישי</div></td>
+          <td class=day><div align=center>שני</div></td>
+          <td class=day><div align=center>ראשון</div></td>
+          <td class=day><div align=center></div></td>
+        </tr>
+        <tr onMouseOut='MouseOutRow(this)' onMouseOver='MouseOnRow(this)'>
+          <td id="5:8" onMouseDown="cellMouseDown(this)" onMouseUp="cellMouseUp(this)"><div class='hourDiv' id='5-8:30' >
+              </div></td>   <td id="4:8" onMouseDown="cellMouseDown(this)" onMouseUp="cellMouseUp(this)"><div class='hourDiv' id='4-8:30' >
+              </div></td>   <td id="3:8" onMouseDown="cellMouseDown(this)" onMouseUp="cellMouseUp(this)"><div class='hourDiv' id='3-8:30' >
+              </div></td>   <td id="2:8" onMouseDown="cellMouseDown(this)" onMouseUp="cellMouseUp(this)"><div class='hourDiv' id='2-8:30' >
+              </div></td>   <td id="1:8" onMouseDown="cellMouseDown(this)" onMouseUp="cellMouseUp(this)"><div class='hourDiv' id='1-8:30' >
+          </div></td><td class=hour>8:30</td></tr> <tr onMouseOut='MouseOutRow(this)' onMouseOver='MouseOnRow(this)'>
+          <td id="5:9" onMouseDown="cellMouseDown(this)" onMouseUp="cellMouseUp(this)"><div class='hourDiv' id='5-9:30' >
+              </div></td>   <td id="4:9" onMouseDown="cellMouseDown(this)" onMouseUp="cellMouseUp(this)"><div class='hourDiv' id='4-9:30' >
+              </div></td>   <td id="3:9" onMouseDown="cellMouseDown(this)" onMouseUp="cellMouseUp(this)"><div class='hourDiv' id='3-9:30' >
+              </div></td>   <td id="2:9" onMouseDown="cellMouseDown(this)" onMouseUp="cellMouseUp(this)"><div class='hourDiv' id='2-9:30' >
+              </div></td>   <td id="1:9" onMouseDown="cellMouseDown(this)" onMouseUp="cellMouseUp(this)"><div class='hourDiv' id='1-9:30' >
+          </div></td><td class=hour>9:30</td></tr> <tr onMouseOut='MouseOutRow(this)' onMouseOver='MouseOnRow(this)'>
+          <td id="5:10" onMouseDown="cellMouseDown(this)" onMouseUp="cellMouseUp(this)"><div class='hourDiv' id='5-10:30' >
+              </div></td>   <td id="4:10" onMouseDown="cellMouseDown(this)" onMouseUp="cellMouseUp(this)"><div class='hourDiv' id='4-10:30' >
+              </div></td>   <td id="3:10" onMouseDown="cellMouseDown(this)" onMouseUp="cellMouseUp(this)"><div class='hourDiv' id='3-10:30' >
+              </div></td>   <td id="2:10" onMouseDown="cellMouseDown(this)" onMouseUp="cellMouseUp(this)"><div class='hourDiv' id='2-10:30' >
+              </div></td>   <td id="1:10" onMouseDown="cellMouseDown(this)" onMouseUp="cellMouseUp(this)"><div class='hourDiv' id='1-10:30' >
+          </div></td><td class=hour>10:30</td></tr> <tr onMouseOut='MouseOutRow(this)' onMouseOver='MouseOnRow(this)'>
+          <td id="5:11" onMouseDown="cellMouseDown(this)" onMouseUp="cellMouseUp(this)"><div class='hourDiv' id='5-11:30' >
+              </div></td>   <td id="4:11" onMouseDown="cellMouseDown(this)" onMouseUp="cellMouseUp(this)"><div class='hourDiv' id='4-11:30' >
+              </div></td>   <td id="3:11" onMouseDown="cellMouseDown(this)" onMouseUp="cellMouseUp(this)"><div class='hourDiv' id='3-11:30' >
+              </div></td>   <td id="2:11" onMouseDown="cellMouseDown(this)" onMouseUp="cellMouseUp(this)"><div class='hourDiv' id='2-11:30' >
+              </div></td>   <td id="1:11" onMouseDown="cellMouseDown(this)" onMouseUp="cellMouseUp(this)"><div class='hourDiv' id='1-11:30' >
+          </div></td><td class=hour>11:30</td></tr> <tr onMouseOut='MouseOutRow(this)' onMouseOver='MouseOnRow(this)'>
+          <td id="5:12" onMouseDown="cellMouseDown(this)" onMouseUp="cellMouseUp(this)"><div class='hourDiv' id='5-12:30' >
+              </div></td>   <td id="4:12" onMouseDown="cellMouseDown(this)" onMouseUp="cellMouseUp(this)"><div class='hourDiv' id='4-12:30' >
+              </div></td>   <td id="3:12" onMouseDown="cellMouseDown(this)" onMouseUp="cellMouseUp(this)"><div class='hourDiv' id='3-12:30' >
+              </div></td>   <td id="2:12" onMouseDown="cellMouseDown(this)" onMouseUp="cellMouseUp(this)"><div class='hourDiv' id='2-12:30' >
+              </div></td>   <td id="1:12" onMouseDown="cellMouseDown(this)" onMouseUp="cellMouseUp(this)"><div class='hourDiv' id='1-12:30' >
+          </div></td><td class=hour>12:30</td></tr> <tr onMouseOut='MouseOutRow(this)' onMouseOver='MouseOnRow(this)'>
+          <td id="5:13" onMouseDown="cellMouseDown(this)" onMouseUp="cellMouseUp(this)"><div class='hourDiv' id='5-13:30' >
+              </div></td>   <td id="4:13" onMouseDown="cellMouseDown(this)" onMouseUp="cellMouseUp(this)"><div class='hourDiv' id='4-13:30' >
+              </div></td>   <td id="3:13" onMouseDown="cellMouseDown(this)" onMouseUp="cellMouseUp(this)"><div class='hourDiv' id='3-13:30' >
+              </div></td>   <td id="2:13" onMouseDown="cellMouseDown(this)" onMouseUp="cellMouseUp(this)"><div class='hourDiv' id='2-13:30' >
+              </div></td>   <td id="1:13" onMouseDown="cellMouseDown(this)" onMouseUp="cellMouseUp(this)"><div class='hourDiv' id='1-13:30' >
+          </div></td><td class=hour>13:30</td></tr> <tr onMouseOut='MouseOutRow(this)' onMouseOver='MouseOnRow(this)'>
+          <td id="5:14" onMouseDown="cellMouseDown(this)" onMouseUp="cellMouseUp(this)"><div class='hourDiv' id='5-14:30' >
+              </div></td>   <td id="4:14" onMouseDown="cellMouseDown(this)" onMouseUp="cellMouseUp(this)"><div class='hourDiv' id='4-14:30' >
+              </div></td>   <td id="3:14" onMouseDown="cellMouseDown(this)" onMouseUp="cellMouseUp(this)"><div class='hourDiv' id='3-14:30' >
+              </div></td>   <td id="2:14" onMouseDown="cellMouseDown(this)" onMouseUp="cellMouseUp(this)"><div class='hourDiv' id='2-14:30' >
+              </div></td>   <td id="1:14" onMouseDown="cellMouseDown(this)" onMouseUp="cellMouseUp(this)"><div class='hourDiv' id='1-14:30' >
+          </div></td><td class=hour>14:30</td></tr> <tr onMouseOut='MouseOutRow(this)' onMouseOver='MouseOnRow(this)'>
+         <td id="5:15" onMouseDown="cellMouseDown(this)" onMouseUp="cellMouseUp(this)"><div class='hourDiv' id='5-15:30' >
+              </div></td>   <td id="4:15" onMouseDown="cellMouseDown(this)" onMouseUp="cellMouseUp(this)"><div class='hourDiv' id='4-15:30' >
+              </div></td>   <td id="3:15" onMouseDown="cellMouseDown(this)" onMouseUp="cellMouseUp(this)"><div class='hourDiv' id='3-15:30' >
+              </div></td>   <td id="2:15" onMouseDown="cellMouseDown(this)" onMouseUp="cellMouseUp(this)"><div class='hourDiv' id='2-15:30' >
+              </div></td>   <td id="1:15" onMouseDown="cellMouseDown(this)" onMouseUp="cellMouseUp(this)"><div class='hourDiv' id='1-15:30' >
+          </div></td><td class=hour>15:30</td></tr> <tr onMouseOut='MouseOutRow(this)' onMouseOver='MouseOnRow(this)'>
+          <td id="5:16" onMouseDown="cellMouseDown(this)" onMouseUp="cellMouseUp(this)"><div class='hourDiv' id='5-16:30' >
+              </div></td>   <td id="4:16" onMouseDown="cellMouseDown(this)" onMouseUp="cellMouseUp(this)"><div class='hourDiv' id='4-16:30' >
+              </div></td>   <td id="3:16" onMouseDown="cellMouseDown(this)" onMouseUp="cellMouseUp(this)"><div class='hourDiv' id='3-16:30' >
+              </div></td>   <td id="2:16" onMouseDown="cellMouseDown(this)" onMouseUp="cellMouseUp(this)"><div class='hourDiv' id='2-16:30' >
+              </div></td>   <td id="1:16" onMouseDown="cellMouseDown(this)" onMouseUp="cellMouseUp(this)"><div class='hourDiv' id='1-16:30' >
+          </div></td><td class=hour>16:30</td></tr> <tr onMouseOut='MouseOutRow(this)' onMouseOver='MouseOnRow(this)'>
+          <td id="5:17" onMouseDown="cellMouseDown(this)" onMouseUp="cellMouseUp(this)"><div class='hourDiv' id='5-17:30' >
+              </div></td>   <td id="4:17" onMouseDown="cellMouseDown(this)" onMouseUp="cellMouseUp(this)"><div class='hourDiv' id='4-17:30' >
+              </div></td>   <td id="3:17" onMouseDown="cellMouseDown(this)" onMouseUp="cellMouseUp(this)"><div class='hourDiv' id='3-17:30' >
+              </div></td>   <td id="2:17" onMouseDown="cellMouseDown(this)" onMouseUp="cellMouseUp(this)"><div class='hourDiv' id='2-17:30' >
+              </div></td>   <td id="1:17" onMouseDown="cellMouseDown(this)" onMouseUp="cellMouseUp(this)"><div class='hourDiv' id='1-17:30' >
+          </div></td><td class=hour>17:30</td></tr> <tr onMouseOut='MouseOutRow(this)' onMouseOver='MouseOnRow(this)'>
+          <td id="5:18" onMouseDown="cellMouseDown(this)" onMouseUp="cellMouseUp(this)"><div class='hourDiv' id='5-18:30' >
+              </div></td>   <td id="4:18" onMouseDown="cellMouseDown(this)" onMouseUp="cellMouseUp(this)"><div class='hourDiv' id='4-18:30' >
+              </div></td>   <td id="3:18" onMouseDown="cellMouseDown(this)" onMouseUp="cellMouseUp(this)"><div class='hourDiv' id='3-18:30' >
+              </div></td>   <td id="2:18" onMouseDown="cellMouseDown(this)" onMouseUp="cellMouseUp(this)"><div class='hourDiv' id='2-18:30' >
+              </div></td>   <td id="1:18" onMouseDown="cellMouseDown(this)" onMouseUp="cellMouseUp(this)"><div class='hourDiv' id='1-18:30' >
+          </div></td><td class=hour>18:30</td></tr> <tr onMouseOut='MouseOutRow(this)' onMouseOver='MouseOnRow(this)'>
+          <td id="5:19" onMouseDown="cellMouseDown(this)" onMouseUp="cellMouseUp(this)"><div class='hourDiv' id='5-19:30' >
+              </div></td>   <td id="4:19" onMouseDown="cellMouseDown(this)" onMouseUp="cellMouseUp(this)"><div class='hourDiv' id='4-19:30' >
+              </div></td>   <td id="3:19" onMouseDown="cellMouseDown(this)" onMouseUp="cellMouseUp(this)"><div class='hourDiv' id='3-19:30' >
+              </div></td>   <td id="2:19" onMouseDown="cellMouseDown(this)" onMouseUp="cellMouseUp(this)"><div class='hourDiv' id='2-19:30' >
+              </div></td>   <td id="1:19" onMouseDown="cellMouseDown(this)" onMouseUp="cellMouseUp(this)"><div class='hourDiv' id='1-19:30' >
+          </div></td><td class=hour>19:30</td></tr> <tr onMouseOut='MouseOutRow(this)' onMouseOver='MouseOnRow(this)'>
+          <td id="5:20" onMouseDown="cellMouseDown(this)" onMouseUp="cellMouseUp(this)"><div class='hourDiv' id='5-20:30' >
+              </div></td>   <td id="4:20" onMouseDown="cellMouseDown(this)" onMouseUp="cellMouseUp(this)"><div class='hourDiv' id='4-20:30' >
+              </div></td>   <td id="3:20" onMouseDown="cellMouseDown(this)" onMouseUp="cellMouseUp(this)"><div class='hourDiv' id='3-20:30' >
+              </div></td>   <td id="2:20" onMouseDown="cellMouseDown(this)" onMouseUp="cellMouseUp(this)"><div class='hourDiv' id='2-20:30' >
+              </div></td>   <td id="1:20" onMouseDown="cellMouseDown(this)" onMouseUp="cellMouseUp(this)"><div class='hourDiv' id='1-20:30' >
+      </div></td><td class=hour>20:30</td></tr></table>
+    </div>
+  </body>
+</html>
