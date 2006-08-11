@@ -90,6 +90,9 @@ function proccessEvents(){
 }
 
 
+
+///// SELECTING ///
+
 var Selecting = 0;
 var InitialRow;
 var currentRow;
@@ -99,12 +102,31 @@ function cellMouseDown(o){
   Selecting = 1;
   InitialRow = o.id.split(':')[1];
   SelectionColumn = o.id.split(':')[0];
-
-
+  currentRow = InitialRow;
+  o.style.backgroundColor='#ddd9b5';
 }
 function cellMouseUp(o){
-  o.innerHTML="UP";
+//  o.innerHTML="UP";
 }
+
+
+
+function MouseOnRow(o)
+{
+//  o.style.backgroundColor = '#f9f6ee';
+}
+
+
+
+function MouseOutRow(o)
+{
+ // o.style.backgroundColor = '#ffffff';
+}
+
+
+
+//// END SELECTING ///
+
 
 
 function intervalsToLayers(arrIn){
@@ -218,18 +240,6 @@ function doEvent(e)
   target.innerHTML += eventStr;
 }
 
-
-function MouseOnRow(o)
-{
-  o.style.backgroundColor = '#f9f6ee';
-}
-
-
-
-function MouseOutRow(o)
-{
-  o.style.backgroundColor = '#ffffff';
-}
 // a non-top piece should be half-visible
 // a top piece should be fully visible
 // for n elements we have n+1 parts, so 2/n+1
