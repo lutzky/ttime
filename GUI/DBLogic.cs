@@ -49,7 +49,6 @@ namespace UDonkey.GUI
 				err += string.Format(Resources.String(RESOURCES_GROUP, "ExamOverlapMessage3" ),
 						course.NickName);
 
-				string s = Resources.String(RESOURCES_GROUP, "ExamOverlapMessage4" );
 				DialogResult result = 
 					MessageBox.Show( null, err, Resources.String(RESOURCES_GROUP, "ExamOverlapMessage4" ), MessageBoxButtons.OKCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1, MessageBoxOptions.RightAlign);
 				if ( result == DialogResult.Cancel )
@@ -306,10 +305,6 @@ namespace UDonkey.GUI
 		}
             	return false;
         }
-        private void RemoveCourseFromScheduler( string courseNumber )
-        {
-            mCoursesScheduler.Courses.Remove( courseNumber );
-        }
 		
 		/// <summary>
 		/// Finds out if the Courses ListView contains a certain course.  If it does, it selects it
@@ -339,7 +334,7 @@ namespace UDonkey.GUI
 			{
 				if ( mDBBrowser != null )
 				{
-					//mDBBrowser.Load -= new EventHandler(DBBrowser_Load);
+					mDBBrowser.Load -= new EventHandler(DBBrowser_Load);
 					mDBBrowser.RemoveCourseClick -= new EventHandler(this.RemoveCourse_Click);
 					mDBBrowser.AddCourseClick -= new EventHandler(this.AddCourse_Click);
 					mDBBrowser.CourseNumberChanged -= new EventHandler(this.CourseNumerTextChanged);
@@ -353,8 +348,8 @@ namespace UDonkey.GUI
 				mDBBrowser = value;
 				if ( mDBBrowser != null )
 				{				
-					DBBrowser_Load(this, new EventArgs());
-					//mDBBrowser.Load += new EventHandler(DBBrowser_Load);
+					//DBBrowser_Load(this, new EventArgs());
+					mDBBrowser.Load += new EventHandler(DBBrowser_Load);
 					mDBBrowser.RemoveCourseClick += new EventHandler(this.RemoveCourse_Click);
 					mDBBrowser.AddCourseClick += new EventHandler(this.AddCourse_Click);
 					mDBBrowser.CourseNumberChanged += new EventHandler(this.CourseNumerTextChanged);

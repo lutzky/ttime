@@ -855,7 +855,7 @@ namespace UDonkey.GUI
             }
         }
 
-        public void RemoveCourseFromeCourseBasket( Course course )
+        public void RemoveCourseFromCourseBasket( Course course )
         {
             lbCourseBasket.Items.Remove( course );
             if (lbCourseBasket.Items.Count>0)

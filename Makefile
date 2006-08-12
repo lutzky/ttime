@@ -112,9 +112,9 @@ UDONKEY_GTK = ./GUI/Gtk/AboutForm.cs \
 	./GUI/Gtk/RepFileConvertForm.cs \
 	./GUI/Winforms/ScheduleDataGrid.cs \
 	./GUI/Winforms/ScheduleMenuItem.cs \
-	./GUI/Winforms/SchedulingProgressbar.cs \
 	./GUI/Winforms/ScheduleDataGridColumnStyle.cs \
 	./GUI/Winforms/UsersEventForm.cs \
+	./GUI/Gtk/SchedulingProgressbar.cs \
 	./GUI/Gtk/SearchControl.cs \
 	./GUI/Gtk/UDonkeyForm.cs \
 	./GUI/Gtk/UsersEventForm.cs \

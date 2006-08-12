@@ -2743,7 +2743,7 @@ namespace UDonkey.GUI
 		}
 
 
-		public Label SavedLabel
+		/*public Label SavedLabel
 		{
 			get { return lblSaveResult;}
 		}
@@ -2751,14 +2751,25 @@ namespace UDonkey.GUI
 		public Button Save
 		{
 			get { return btSaveChanges; }
+		}*/
+
+		public bool SavedLabelVisible
+		{
+			get { return lblSaveResult.Visible; }
+			set { lblSaveResult.Visible = value; }
 		}
+		
 		#endregion
-/*
+
 		public event System.EventHandler Save
 		{
 			add { btSaveChanges.Click += value; }
 			remove { btSaveChanges.Click -= value; }
 		}
-    */
+
+		public void InitiateSave()
+		{
+			btSaveChanges.PerformClick();
+		}
 	}
 }

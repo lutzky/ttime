@@ -27,7 +27,7 @@ namespace UDonkey.GUI
 
     public static void Start(CourseDB courseDB, string workingfolder){
 	Console.WriteLine("LoadDBForm.Start");
-      	LoadDBForm form = new LoadDBForm(courseDB,workingfolder);
+      	new LoadDBForm(courseDB,workingfolder);
       	Application.Run();
     }
 		public LoadDBForm(CourseDB courseDB, string workingfolder)
@@ -41,7 +41,6 @@ namespace UDonkey.GUI
 
     protected void onExecuteButtonClicked (object o, EventArgs args)
     {
-      int i=0;
       if(remoteRadioButton.Active){
         updateFromWeb(); 
       } else if(openXMLRadioButton.Active){

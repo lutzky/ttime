@@ -33,6 +33,12 @@ namespace UDonkey.GUI
 			
 		}
 
+		public void Convert( string fileName, string toFile )
+		{
+			RepToXML.Convert( fileName, toFile);
+		}
+		
+
 		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
@@ -110,10 +116,9 @@ namespace UDonkey.GUI
 			thread.Start();
 		}
 
-		private bool ShowNow()
+		private void ShowNow()
 		{
 			this.ShowDialog();
-			return true;
 		}
 	}
 }

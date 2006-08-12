@@ -315,13 +315,13 @@ namespace UDonkey.GUI
 	}
 	
 		private event GridMouseEventHandler mMouseMove;
-		public event GridMouseEventHandler MouseMove
+		public new event GridMouseEventHandler MouseMove
 		{
 			add { mMouseMove += value; }
 			remove { mMouseMove -= value; }
 		}
 		private event GridMouseEventHandler mMouseDown;
-		public event GridMouseEventHandler MouseDown
+		public new event GridMouseEventHandler MouseDown
 		{
 			add { mMouseDown += value; }
 			remove { mMouseDown -= value; }

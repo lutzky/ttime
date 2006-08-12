@@ -23,10 +23,10 @@ namespace UDonkey.Logic
     {	
       mDonkey    = udonkey;
       mScheduler = sceduler;
+      mProgressBar = new SchedulingProgressbar();
       mScheduler.StartScheduling += new SchedulingProgress( this.StartScheduling );
       mScheduler.ContinueScheduling += new SchedulingProgress( this.ContinueScheduling );
       mScheduler.EndScheduling   += new SchedulingProgress( this.EndScheduling );
-      mProgressBar = new SchedulingProgressbar();
       InitComponents();
       progressCounter=0;
     }
@@ -119,7 +119,8 @@ namespace UDonkey.Logic
 
     public void Run()
     {
-      mMainForm.Start();
+        Console.WriteLine("MainFormLogic.Run()");
+        mMainForm.Start();
     }
 
     /// depricated
@@ -337,17 +338,13 @@ namespace UDonkey.Logic
       mDonkey.CourseDB.Unload(Constants.MainDB);
       RepFileConvertForm form = new RepFileConvertForm();
       // try defualt REPY
-      RepToXML.Convert("REPY", System.IO.Directory.GetCurrentDirectory() + "\\" + Constants.MainDB);
+      //RepToXML.Convert("REPY", System.IO.Directory.GetCurrentDirectory() + "\\" + Constants.MainDB);
+      form.Convert("REPY", Constants.MainDB);
       mDonkey.CourseDB.Load(Constants.MainDB);
       mDonkey.Reset();
       mDonkey.DBLogic.Load();
     }
     
-    // FIXME: why does this exist?
-    private void Something()
-    {
-    }
-
     public void SetNavigationButton(bool en){
       mMainForm.SetNavigationButton(en);
     }

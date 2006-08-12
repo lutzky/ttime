@@ -3,7 +3,6 @@ using System.Collections;
 using System.Xml;
 using System.IO;
 using System.Windows.Forms;
-using System.Threading;
 using UDonkey.DB;
 using UDonkey.RepFile;
 using UDonkey.IO;
@@ -77,13 +76,6 @@ namespace UDonkey.GUI
 			mConfigurationController.Load();
 		}
 
-		private void RepFileConvertThread()
-		{
-			Console.WriteLine("RepFileConvertThread() start");
-			RepToXML.Convert("REPY", System.IO.Directory.GetCurrentDirectory() + "\\" + CourseDB.DEFAULT_DB_FILE_NAME);
-			Console.WriteLine("RepFileConvertThread() end");
-		}
-
 		private void InitDataBase()
 		{		  
 			Console.WriteLine("InitDataBase");
@@ -100,13 +92,10 @@ namespace UDonkey.GUI
 				{
 					RepFileConvertForm form = new RepFileConvertForm();
 					// try defualt REPY
-					Thread t = new Thread(new ThreadStart(RepFileConvertThread));
-					t.Start();
-					form.Show();
-					Console.WriteLine("Hello World");
-					Application.Run();
-					Console.WriteLine("Out of application.run");
-					t.Join();
+					//RepToXML.Convert("REPY", System.IO.Directory.GetCurrentDirectory() + "\\" + CourseDB.DEFAULT_DB_FILE_NAME);
+					//form.Convert("REPY", System.IO.Directory.GetCurrentDirectory() + "\\" + CourseDB.DEFAULT_DB_FILE_NAME);
+					form.Convert("REPY", CourseDB.DEFAULT_DB_FILE_NAME);
+					mCourseDB.Load( CourseDB.DEFAULT_DB_FILE_NAME );				
 				}
 				catch
 				{

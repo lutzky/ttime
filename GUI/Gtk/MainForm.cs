@@ -49,6 +49,7 @@ namespace UDonkey.GUI
 
 		public void Start()
 		{
+			Application.Init();
 			MainFormWindow.ShowAll();
 			Application.Run();
 		}
@@ -118,6 +119,12 @@ namespace UDonkey.GUI
 		{
 			get { return notebook.CurrentPage; }
 			set { notebook.CurrentPage = value; }
+		}
+
+		public bool Enabled
+		{
+			get { return notebook.Sensitive; }
+			set { notebook.Sensitive = value; }
 		}
 #endregion
 		

@@ -447,7 +447,6 @@ namespace UDonkey.GUI
 
 		private void on_tvCourseBasket_SelectionChanged(object obj, EventArgs args)
 		{
-			TreeIter iter;
 			Course c = CurrentBasketCourse;
 			if (c != null)
 				this.Course = c; 
@@ -492,8 +491,8 @@ namespace UDonkey.GUI
 
 		public event EventHandler Load
 		{
-			add { mMainWidget.Realized += value; }
-			remove { mMainWidget.Realized -= value; }
+			add { /*mMainWidget.Realized += value; Console.WriteLine("DBBrowser.Load"); value(this, new EventArgs()); */ }
+			remove { /*mMainWidget.Realized -= value;*/ }
 		}
 		
 		public event EventHandler VisibleChanged 

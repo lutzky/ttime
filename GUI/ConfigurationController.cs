@@ -26,7 +26,7 @@ namespace UDonkey.GUI
 
 		public bool Load()
 		{
-			Console.WriteLine("ConfigurationController.Load()");
+            Console.WriteLine("ConfigurationController.Load()");
             if (Configuration.Load())
             {
                 this.UpdateGUI();
@@ -35,12 +35,18 @@ namespace UDonkey.GUI
             }
             return false;
 		}
-		private void btSaveChanges_Click(object sender, System.EventArgs e)
+
+		public void Save()
 		{
 			this.UpdateHash();
 			Configuration.SaveToXml();
 			mConfigControl.SavedLabelVisible = true;
 			new System.Threading.Thread( new System.Threading.ThreadStart( this.HideLabel )).Start();
+		}
+		
+		private void btSaveChanges_Click(object sender, System.EventArgs e)
+		{
+			Save();
 		}
 
 		private void UpdateHash()

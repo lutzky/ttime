@@ -494,7 +494,7 @@ private void AutoUpdateMenuItem_Click(object sender, System.EventArgs e)
         }
         case "Scedule":
         {
-          this.ConfigControl.Save.PerformClick();
+          this.ConfigControl.InitiateSave();
           Logic.ScheduleSchedules();
           break;
         }
@@ -527,7 +527,7 @@ private void AutoUpdateMenuItem_Click(object sender, System.EventArgs e)
         }
         case "LoadView":
         {
-              this.ConfigControl.Save.PerformClick();
+              this.ConfigControl.InitiateSave();
               string file = GetFileName( true );
           // Set the Academic point counter to a correct value
               this.DBBrowserControl.SelectedPoints = Logic.UpdateAndGetAcademicPoints(file);
