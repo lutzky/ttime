@@ -40,6 +40,7 @@ namespace UDonkey.GUI
 			mThread = new System.Threading.Thread(new ThreadStart( this.DoConvert ) );
 			mThread.Start();
 			mDialog.ShowAll();
+            Application.Run();
 			mThread.Join();
 		}
 

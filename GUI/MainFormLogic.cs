@@ -17,18 +17,15 @@ namespace UDonkey.Logic
     public UDonkeyClass	  mDonkey ;//{get{return UDonkeyClass;} }
     private const string RESOURCES_GROUP = "MainForm";  
     private SchedulingProgressbar mProgressBar;
-    private int				  progressCounter;
 
     public MainFormLogic( UDonkeyClass udonkey, CoursesScheduler sceduler )
     {	
       mDonkey    = udonkey;
       mScheduler = sceduler;
-      mProgressBar = new SchedulingProgressbar();
-      mScheduler.StartScheduling += new SchedulingProgress( this.StartScheduling );
+      /*mScheduler.StartScheduling += new SchedulingProgress( this.StartScheduling );
       mScheduler.ContinueScheduling += new SchedulingProgress( this.ContinueScheduling );
-      mScheduler.EndScheduling   += new SchedulingProgress( this.EndScheduling );
+      mScheduler.EndScheduling   += new SchedulingProgress( this.EndScheduling );*/
       InitComponents();
-      progressCounter=0;
     }
 
     private void InitComponents()
@@ -191,14 +188,9 @@ namespace UDonkey.Logic
         System.Windows.Forms.MessageBox.Show("נא לבחור קורס אחד לפחות על מנת לסדר מערכות");
         return;
       }
-      mProgressBar = new SchedulingProgressbar();
-      mProgressBar.Reset();
+      mProgressBar = new SchedulingProgressbar(mScheduler);
       mMainForm.Grid.DataSource = null;
-      mProgressBar.Show();
-      Thread thread  = new Thread( new ThreadStart( this.mScheduler.CreateSchedules ) );
-      thread.Start();
-      thread.Join();
-      mProgressBar.Close();
+      mProgressBar.CreateSchedules();
       mMainForm.BringToFront();
 
       mDonkey.RefreshSchedule();
@@ -308,28 +300,6 @@ namespace UDonkey.Logic
             );
       }
       return ret;
-    }
-
-    private void StartScheduling( int progress )
-    {
-      progressCounter = 0;
-      mProgressBar.SetMax( progress );
-    }
-    private void ContinueScheduling( int progress )
-    {
-      progressCounter+=progress;
-      if (progressCounter>5000)
-      {
-        mProgressBar.Progress( progressCounter );
-        progressCounter =0;
-      }
-
-    }
-
-    private void EndScheduling( int progress )
-    {
-      mProgressBar.Close();
-
     }
 
     public void AutoUpdate(){

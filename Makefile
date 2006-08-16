@@ -110,7 +110,7 @@ UDONKEY_GTK = ./GUI/Gtk/AboutForm.cs \
 	./GUI/Gtk/DBbrowser.cs \
 	./GUI/Gtk/MainForm.cs \
 	./GUI/Gtk/RepFileConvertForm.cs \
-	./GUI/Winforms/ScheduleDataGrid.cs \
+	./GUI/Gtk/ScheduleDataGrid.cs \
 	./GUI/Winforms/ScheduleMenuItem.cs \
 	./GUI/Winforms/ScheduleDataGridColumnStyle.cs \
 	./GUI/Winforms/UsersEventForm.cs \

@@ -84,7 +84,7 @@ namespace UDonkey.GUI
 				//try default mainDB.xml
 				mCourseDB.Load( CourseDB.DEFAULT_DB_FILE_NAME );				
 			}
-			catch(System.IO.FileNotFoundException)
+			catch //(System.IO.FileNotFoundException)
 			{
 				// try default REPFILE.zip
 				mCourseDB.OpenLocalZip(CourseDB.m_zipFileName);

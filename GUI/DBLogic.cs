@@ -348,7 +348,7 @@ namespace UDonkey.GUI
 				mDBBrowser = value;
 				if ( mDBBrowser != null )
 				{				
-					//DBBrowser_Load(this, new EventArgs());
+					DBBrowser_Load(this, new EventArgs());
 					mDBBrowser.Load += new EventHandler(DBBrowser_Load);
 					mDBBrowser.RemoveCourseClick += new EventHandler(this.RemoveCourse_Click);
 					mDBBrowser.AddCourseClick += new EventHandler(this.AddCourse_Click);

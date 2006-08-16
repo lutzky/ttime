@@ -1,7 +1,6 @@
 //
 using System;
 using System.Threading;
-using GLib;
 using Gtk;
 using GtkSharp;
 using Glade;
@@ -14,18 +13,24 @@ namespace UDonkey.GUI
 	public class SchedulingProgressbar 
 	{
         private int maximum = 1;
+        private CoursesScheduler mScheduler;
 #region Glade Widgets
 		[Widget] Dialog mDialog;
 		[Widget] ProgressBar progressbar;
 		[Widget] Label countLabel;
 #endregion
 
-		public SchedulingProgressbar() 
+		public SchedulingProgressbar(CoursesScheduler scheduler)
 		{
 			Glade.XML gxml = new Glade.XML(null, "udonkey.glade", "SchedulingProgressbar", null); 
 			gxml.Autoconnect (this);
 
 			mDialog = (Dialog)gxml.GetWidget("SchedulingProgressbar");
+
+            mScheduler = scheduler;
+            mScheduler.StartScheduling += new SchedulingProgress( StartScheduling );
+            mScheduler.ContinueScheduling += new SchedulingProgress( ContinueScheduling);
+            mScheduler.EndScheduling += new SchedulingProgress( EndScheduling);
 		}
 
         public void Reset()
@@ -47,7 +52,8 @@ namespace UDonkey.GUI
 
         public void Show()
         {
-            mDialog.Show();
+            Console.WriteLine("SchedulingProgressbar.Show()");
+            mDialog.ShowAll();
         }
 
         public void Close()
@@ -55,6 +61,16 @@ namespace UDonkey.GUI
             mDialog.Destroy();
         }
 
+        public void CreateSchedules()
+        {
+          Reset();
+          Show();
+          Thread thread  = new Thread( new ThreadStart( this.mScheduler.CreateSchedules ) );
+          thread.Start();
+          Application.Run();
+          thread.Join();
+          Close();
+        }
 
 #region Event handlers
 		private void on_close(object sender, EventArgs args)
@@ -66,6 +82,30 @@ namespace UDonkey.GUI
 		{
 			//Application.Quit();
 		}
+        
+        private int progressCounter;
+    private void StartScheduling( int progress )
+    {
+      progressCounter = 0;
+      SetMax( progress );
+    }
+    private void ContinueScheduling( int progress )
+    {
+      progressCounter+=progress;
+      if (progressCounter>5000)
+      {
+        Progress( progressCounter );
+        progressCounter =0;
+      }
+
+    }
+
+    private void EndScheduling( int progress )
+    {
+      Close();
+
+    }
+
 #endregion
 
 #region Event 

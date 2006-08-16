@@ -3,7 +3,8 @@ using System.Drawing;
 using System.Collections;
 using System.ComponentModel;
 using System.Windows.Forms;
-using UDonkey.RepFile;
+using System.Threading;
+using UDonkey.Logic;
 
 namespace UDonkey.GUI
 {
@@ -22,8 +23,9 @@ namespace UDonkey.GUI
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.Container components = null;
+        private CoursesScheduler mScheduler;
 
-        public SchedulingProgressbar()
+        public SchedulingProgressbar(CoursesScheduler scheduler)
         {
             //
             // Required for Windows Form Designer support
@@ -31,6 +33,8 @@ namespace UDonkey.GUI
             InitializeComponent();
             this.label1.Text = string.Format("{0}",
                 "כעת מתבצעת יצירת המערכות");
+
+            mScheduler = scheduler;
         }
 
         /// <summary>
@@ -154,5 +158,37 @@ namespace UDonkey.GUI
             this.countLabel.Text    = this.progressBar1.Value.ToString();
             this.Refresh();
         }
+        public void CreateSchedules()
+        {
+          Reset();
+          Show();
+          Thread thread  = new Thread( new ThreadStart( this.mScheduler.CreateSchedules ) );
+          thread.Start();
+          Application.Run();
+          thread.Join();
+          Close();
+        }
+        private int progressCounter;
+    private void StartScheduling( int progress )
+    {
+      progressCounter = 0;
+      SetMax( progress );
+    }
+    private void ContinueScheduling( int progress )
+    {
+      progressCounter+=progress;
+      if (progressCounter>5000)
+      {
+        Progress( progressCounter );
+        progressCounter =0;
+      }
+
+    }
+
+    private void EndScheduling( int progress )
+    {
+      Close();
+
+    }
     }
 }
