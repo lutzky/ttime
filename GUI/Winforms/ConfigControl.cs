@@ -1870,7 +1870,7 @@ namespace UDonkey.GUI
 			}
 			set 
 			{
-				string hour=(string)cbStartHour.SelectedItem;
+				//string hour=(string)cbStartHour.SelectedItem;
 				if (value!="0" &&
 					value!="1" &&
 					value!="2" &&
@@ -1923,7 +1923,7 @@ namespace UDonkey.GUI
 			}
 			set 
 			{
-				string hour=(string)cbEndHour.SelectedItem;
+				//string hour=(string)cbEndHour.SelectedItem;
 				if (value!="0" &&
 					value!="1" &&
 					value!="2" &&
@@ -2161,7 +2161,7 @@ namespace UDonkey.GUI
 			}
 			set 
 			{
-				string hour=(string)cbSundayStart.SelectedItem;
+				//string hour=(string)cbSundayStart.SelectedItem;
 				if (value!="0" &&
 					value!="1" &&
 					value!="2" &&
@@ -2214,7 +2214,7 @@ namespace UDonkey.GUI
 			}
 			set 
 			{
-				string hour=(string)cbSundayEnd.SelectedItem;
+				//string hour=(string)cbSundayEnd.SelectedItem;
 				if (value!="0" &&
 					value!="1" &&
 					value!="2" &&
@@ -2269,7 +2269,7 @@ namespace UDonkey.GUI
 			}
 			set 
 			{
-				string hour=(string)cbMondayStart.SelectedItem;
+				//string hour=(string)cbMondayStart.SelectedItem;
 				if (value!="0" &&
 					value!="1" &&
 					value!="2" &&
@@ -2322,7 +2322,7 @@ namespace UDonkey.GUI
 			}
 			set 
 			{
-				string hour=(string)cbMondayEnd.SelectedItem;
+				//string hour=(string)cbMondayEnd.SelectedItem;
 				if (value!="0" &&
 					value!="1" &&
 					value!="2" &&
@@ -2377,7 +2377,7 @@ namespace UDonkey.GUI
 			}
 			set 
 			{
-				string hour=(string)cbTuesdayStart.SelectedItem;
+				//string hour=(string)cbTuesdayStart.SelectedItem;
 				if (value!="0" &&
 					value!="1" &&
 					value!="2" &&
@@ -2430,7 +2430,7 @@ namespace UDonkey.GUI
 			}
 			set 
 			{
-				string hour=(string)cbTuesdayEnd.SelectedItem;
+				//string hour=(string)cbTuesdayEnd.SelectedItem;
 				if (value!="0" &&
 					value!="1" &&
 					value!="2" &&
@@ -2485,7 +2485,7 @@ namespace UDonkey.GUI
 			}
 			set 
 			{
-				string hour=(string)cbWednesdayStart.SelectedItem;
+				//string hour=(string)cbWednesdayStart.SelectedItem;
 				if (value!="0" &&
 					value!="1" &&
 					value!="2" &&
@@ -2538,7 +2538,7 @@ namespace UDonkey.GUI
 			}
 			set 
 			{
-				string hour=(string)cbWednesdayEnd.SelectedItem;
+				//string hour=(string)cbWednesdayEnd.SelectedItem;
 				if (value!="0" &&
 					value!="1" &&
 					value!="2" &&
@@ -2593,7 +2593,7 @@ namespace UDonkey.GUI
 			}
 			set 
 			{
-				string hour=(string)cbThursdayStart.SelectedItem;
+				//string hour=(string)cbThursdayStart.SelectedItem;
 				if (value!="0" &&
 					value!="1" &&
 					value!="2" &&
@@ -2646,7 +2646,7 @@ namespace UDonkey.GUI
 			}
 			set 
 			{
-				string hour=(string)cbThursdayEnd.SelectedItem;
+				//string hour=(string)cbThursdayEnd.SelectedItem;
 				if (value!="0" &&
 					value!="1" &&
 					value!="2" &&

@@ -257,6 +257,10 @@ namespace UDonkey.GUI
 			private ScheduleDataGrid     mGrid;
             private DataGrid.HitTestInfo mHitTestInfo;
             private Schedule             mSchedule;
+            public enum HitTestType 
+            {
+                Cell, ColumnHeader, None 
+            }
 
             public HitTestInfo( ScheduleDataGrid grid, DataGrid.HitTestInfo hitTestinfo, Schedule scedule )
             {
@@ -282,9 +286,20 @@ namespace UDonkey.GUI
             /// <summary>
             /// /// Gets the part of the UDonkey.GUI.ScheduleGrid control, other than the row or column, that was clicked.
             /// </summary>
-            public DataGrid.HitTestType Type 
+            public HitTestType Type 
             {
-                get{ return mHitTestInfo.Type; }
+                get{
+                    switch (mHitTestInfo.Type)
+                    {
+                        case DataGrid.HitTestType.Cell:
+                            return HitTestType.Cell;
+                        case DataGrid.HitTestType.ColumnHeader:
+                            return HitTestType.ColumnHeader;
+                        case DataGrid.HitTestType.None:
+                        default:
+                            return HitTestType.None;
+                    }
+                }
             }
 
             /// <summary>
@@ -326,6 +341,17 @@ namespace UDonkey.GUI
 			add { mMouseDown += value; }
 			remove { mMouseDown -= value; }
 		}
+
+        public void AddContextMenuItem(ScheduleMenuItem item)
+        {
+            ContextMenu.MenuItems.Add(item);
+        }
+
+        public void ParentRefresh()
+        {
+            Parent.Refresh();
+        }
+
 	}
 
 }

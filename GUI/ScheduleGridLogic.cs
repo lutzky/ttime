@@ -53,26 +53,26 @@ namespace UDonkey.GUI
 		{
 			ScheduleMenuItem menuItem;
 			mHitTestInfo = args.HitTestInfo;
-			if ( mHitTestInfo.Type == DataGrid.HitTestType.Cell ||
-				mHitTestInfo.Type == DataGrid.HitTestType.ColumnHeader )
+			if ( mHitTestInfo.Type == ScheduleDataGrid.HitTestInfo.HitTestType.Cell ||
+				mHitTestInfo.Type == ScheduleDataGrid.HitTestInfo.HitTestType.ColumnHeader )
 			{
 				mDayData = 
 					(ScheduleDayData)this.mScheduler.Schedule.
 					DaysData[ mHitTestInfo.Day ];
 			}
 
-			if ( mHitTestInfo.Type == DataGrid.HitTestType.Cell ) 
+			if ( mHitTestInfo.Type == ScheduleDataGrid.HitTestInfo.HitTestType.Cell ) 
 			{ 
 				IScheduleEntry entry = mHitTestInfo.Object;
 				if ( entry.IsEmpty )
 				{//Empty Cell
-					mGrid.ContextMenu.MenuItems.Add( mEmptyCellMenuItem );                    
+					mGrid.AddContextMenuItem( mEmptyCellMenuItem );                    
 				}
 				else
 				{//IScheduleEntry entry is not empty
 					if( entry.UserDefined )
 					{
-						mGrid.ContextMenu.MenuItems.Add( mEmptyCellMenuItem );
+						mGrid.AddContextMenuItem( mEmptyCellMenuItem );
 					}
 					foreach ( System.Collections.DictionaryEntry e in entry )
 					{
@@ -83,7 +83,7 @@ namespace UDonkey.GUI
 								obj, 
 								dicEntry.Key as string,
 								dicEntry.Value as EventHandler );
-							mGrid.ContextMenu.MenuItems.Add( menuItem );
+							mGrid.AddContextMenuItem( menuItem );
 						}
 					}
 				}
@@ -95,7 +95,7 @@ namespace UDonkey.GUI
 							null, 
 							string.Format("הגדר את {0} כשעת התחלה", mHitTestInfo.Hour +":30" ),
 							mStartHourConstraint);
-						mGrid.ContextMenu.MenuItems.Add( menuItem );                                
+						mGrid.AddContextMenuItem( menuItem );                                
 					}
 					if( mHitTestInfo.Hour > mDayData.StartHourConstraint )
 					{
@@ -103,12 +103,12 @@ namespace UDonkey.GUI
 							null, 
 							string.Format("הגדר את {0} כשעת סיום", mHitTestInfo.Hour +":30" ),
 							mEndHourConstraint);
-						mGrid.ContextMenu.MenuItems.Add( menuItem ); 
+						mGrid.AddContextMenuItem( menuItem ); 
 					}
 				}
 			}
-			if ( mHitTestInfo.Type == DataGrid.HitTestType.Cell ||
-				mHitTestInfo.Type == DataGrid.HitTestType.ColumnHeader )
+			if ( mHitTestInfo.Type == ScheduleDataGrid.HitTestInfo.HitTestType.Cell ||
+				mHitTestInfo.Type == ScheduleDataGrid.HitTestInfo.HitTestType.ColumnHeader )
 			{
 				if ( mHitTestInfo.Day != DayOfWeek.שעות )
 				{
@@ -118,11 +118,11 @@ namespace UDonkey.GUI
 						mDayData.FreeDayConstraint?"הסר":"הגדר",
 						mHitTestInfo.Day),
 						mFreeDayConstraint);
-					mGrid.ContextMenu.MenuItems.Add( menuItem ); 
+					mGrid.AddContextMenuItem( menuItem ); 
 				}
 			}
 				
-			if ( mHitTestInfo.Type == DataGrid.HitTestType.ColumnHeader )
+			if ( mHitTestInfo.Type == ScheduleDataGrid.HitTestInfo.HitTestType.ColumnHeader )
 			{//Only on ColumnHeaders
 
 				menuItem = new ScheduleMenuItem( 
@@ -130,7 +130,7 @@ namespace UDonkey.GUI
 					string.Format("הסתר את יום {0}",
 					mHitTestInfo.Day),
 					mHideDay);
-				mGrid.ContextMenu.MenuItems.Add( menuItem ); 
+				mGrid.AddContextMenuItem( menuItem ); 
 			}
 		}
 		/// <summary>
@@ -141,7 +141,7 @@ namespace UDonkey.GUI
 		private void OnScheduleGridMouseMove(object sender, GridMouseEventArgs args)
 		{
 			mHitTestInfo = args.HitTestInfo; 
-			if ( mHitTestInfo.Type == DataGrid.HitTestType.Cell ) 
+			if ( mHitTestInfo.Type == ScheduleDataGrid.HitTestInfo.HitTestType.Cell ) 
 			{
 				mGrid.HoverString = mHitTestInfo.Object.ToString( VerbosityFlag.Full );
 			}			
@@ -164,17 +164,17 @@ namespace UDonkey.GUI
         public void FreeDayConstraint( object obj , EventArgs args )
         {
             mDayData.FreeDayConstraint = !mDayData.FreeDayConstraint;
-            mGrid.Parent.Refresh();
+            mGrid.ParentRefresh();
         }
         public void StartHourConstraint( object obj , EventArgs args )
         {
             mDayData.StartHourConstraint = mHitTestInfo.Hour;
-            mGrid.Parent.Refresh();
+            mGrid.ParentRefresh();
         }
         public void EndHourConstraint( object obj , EventArgs args )
         {
             mDayData.EndHourConstraint = mHitTestInfo.Hour;
-            mGrid.Parent.Refresh();
+            mGrid.ParentRefresh();
         }
         public void HideDay( object obj , EventArgs args )
         {

@@ -70,8 +70,8 @@ UDONKEY_GUI_SHARED=./GUI/CustomEvents.cs \
 	./GUI/UDonkeyClass.cs \
 	./GUI/MainFormLogic.cs \
 	./GUI/Winforms/Resources.cs \
-	./GUI/TabPageContainer.cs \
 	./AssemblyInfo.cs 
+#	./GUI/TabPageContainer.cs \
 	
 
 UDONKEY_WINFORMS=./GUI/Winforms/AboutForm.cs \

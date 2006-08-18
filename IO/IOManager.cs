@@ -46,7 +46,6 @@ namespace UDonkey.IO
 		/// <returns>A Fixed DataTable</returns>
 		private static DataTable spanTable( DataTable oldDataTable) 
 		{
-
 			DataTable newDataTable = new DataTable();
 			int i=0, j=0;
 			

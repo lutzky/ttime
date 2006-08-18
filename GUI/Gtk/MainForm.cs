@@ -16,8 +16,8 @@ namespace UDonkey.GUI
 		private UDonkeyClass mDonkey;
 
 		private DBbrowser mDBBrowser;
-		private HTML mHTML;
 		private ConfigControl mConfigControl;
+        private ScheduleDataGrid mScheduleGrid;
 #region Glade Widgets
 		[Widget] Window MainFormWindow;
 		[Widget] Notebook notebook;
@@ -41,8 +41,8 @@ namespace UDonkey.GUI
 			mDBBrowser = new DBbrowser();
 			boxDBBrowser.Add(mDBBrowser);
 
-			mHTML = new HTML();
-			boxScheduleGrid.Add(mHTML);
+            mScheduleGrid = new ScheduleDataGrid();
+			boxScheduleGrid.Add(mScheduleGrid);
 
 			mConfigControl = new ConfigControl();
 		}

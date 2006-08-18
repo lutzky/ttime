@@ -49,7 +49,7 @@ namespace UDonkey.DB
 		public Course GetCourseByNumber(string courseNum)
 		{
 			XmlNodeList nodeList;
-			CultureInfo culture = new CultureInfo( "ru-RU" );
+			/*CultureInfo culture = */ new CultureInfo( "ru-RU" );
 			XmlElement root = mXMLDataFile.DocumentElement;
 			// XPATH QUERY:  /CourseDB/Faculty/Course[@number="courseNum"]
 			nodeList = root.SelectNodes("/CourseDB/Faculty/Course[@number=\""+courseNum+"\"]");
@@ -492,7 +492,7 @@ namespace UDonkey.DB
 			
 				Console.WriteLine(theEntry.Name);
 			
-				string directoryName = Path.GetDirectoryName(theEntry.Name);
+				//string directoryName = Path.GetDirectoryName(theEntry.Name);
 				string fileName      = Path.GetFileName(theEntry.Name);
 
 				if (fileName != String.Empty) 

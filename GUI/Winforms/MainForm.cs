@@ -615,16 +615,17 @@ private void AutoUpdateMenuItem_Click(object sender, System.EventArgs e)
 		#endregion Events Handlers
 		public void AddPage( string name, ScheduleDataGrid grid)
 		{
-			TabPageContainer page = new TabPageContainer(name);
-			page.AddScheduleDataGrid(grid);
-			this.TabControl.Controls.Add( page.page );
+			TabPage page = new TabPage(name);
+			page.Controls.Add(grid);
+			this.TabControl.Controls.Add( page );
 		}
 
     //TODO: is this ever used
+    /*
 		public void RemovePage( TabPageContainer pageCon )
 		{
 			this.TabControl.Controls.Remove( pageCon.page );
-		}
+		}*/
 
 
     public void SaveView()
