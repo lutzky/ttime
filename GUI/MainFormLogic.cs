@@ -194,6 +194,7 @@ namespace UDonkey.Logic
       mMainForm.BringToFront();
 
       mDonkey.RefreshSchedule();
+      Console.WriteLine("MainFormLogic.ScheduleSchedules - calculating grade");
       if( this.mScheduler.Count != 0 )
       {
         mScheduler.States.MaxGrade = ((SchedulerState)mScheduler.States[0]).Mark;

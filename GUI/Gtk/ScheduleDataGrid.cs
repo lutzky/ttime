@@ -5,8 +5,11 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Data;
 using System.IO;
+using System.Text;
 using UDonkey.Logic;
 using Gtk;
+using Mono.Unix.Native;
+using Gecko;
 
 namespace UDonkey.GUI
 {
@@ -17,11 +20,12 @@ namespace UDonkey.GUI
 	{
 		private Schedule        mSchedule;
 		private HitTestInfo     mHitTestInfo;
-		private HTML mHTML;
+		private WebControl      mWebControl;
 		
 		public ScheduleDataGrid()
 		{
-            mHTML = new HTML();
+            mWebControl = new WebControl();
+            mWebControl.Show();
 		}
 
 		public new  HitTestInfo HitTest(Point position)
@@ -65,47 +69,28 @@ namespace UDonkey.GUI
 		{
 			set
 			{
-                if (value == null)
-                {
-                    mHTML.LoadEmpty();
-                    return;
-                }
-
-                UDonkey.IO.IOManager.ExportSchedToHtml("Print.html", (Schedule)value);
-
-                FileStream fstream = new FileStream("Print.html", FileMode.Open, FileAccess.Read);
-
-                HTMLStream stream = mHTML.Begin();
-                byte [] buffer = new byte[8192];
-                int count;
-                while ((count =  fstream.Read(buffer, 0, 8192)) != 0)
-                        stream.Write(buffer, count);
-                mHTML.End(stream, HTMLStreamStatus.Ok);
-
-                /*
-				if( (value != null) && !(value is Schedule) )
-				{
-					throw new ArgumentException( "DataSource is not of type Schedule", "Value" );
-				}
 				if( mSchedule != null )
 				{
 					mSchedule.Changed -= new EventHandler(mSchedule_Changed);
 				}
-                if( value == null )
+
+   				mSchedule = value as Schedule;
+
+                if (mSchedule == null)
                 {
-                    base.DataSource = null;
+                    mWebControl.LoadUrl("about:blank");
                     return;
                 }
-   				mSchedule = value as Schedule;
+
 				mSchedule.Changed += new EventHandler(mSchedule_Changed);
-                if( !mbStyleCreated )
-                {
-                    ResetTableStyles();
-                    mbStyleCreated = true;
-                }
-				base.DataSource  = mSchedule.DataTable;*/
+
+                Refresh();
+
 			}
 		}
+
+
+        
 		public Schedule Schedule
         {
             get{ return mSchedule; }
@@ -205,6 +190,16 @@ namespace UDonkey.GUI
 
         public void Refresh()
         {
+            StringBuilder filename = new StringBuilder("PrintXXXXXX");
+            Mono.Unix.Native.Syscall.mkstemp(filename);
+            UDonkey.IO.IOManager.ExportSchedToHtml(filename.ToString(), mSchedule);
+
+            //FileStream fstream = new FileStream(filename.ToString(), FileMode.Open, FileAccess.Read);
+            //
+
+            mWebControl.LoadUrl(filename.ToString());
+
+
         }
 
         public void ParentRefresh()
@@ -214,9 +209,21 @@ namespace UDonkey.GUI
 
 		public static implicit operator Widget(ScheduleDataGrid grid)
         {
-            return grid.mHTML;
+            return grid.mWebControl;
         }
 
+#region Event Handlers
+		private void mSchedule_Changed(object sender, EventArgs e)
+		{
+            Console.WriteLine("mSchedule_Changed");
+			Refresh();
+		}
+        
+        private void on_html_LoadDone(object sender, EventArgs e)
+        {
+            Console.WriteLine("onLoadDone");
+        }
+#endregion
 	}
 
 }

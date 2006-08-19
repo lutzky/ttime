@@ -23,7 +23,7 @@ namespace UDonkey.Logic
 				if( day.IsFreeDay )
 					++count;
 			}
-			int number = ( NumberOfFreeDays + 2 > 5 )? NumberOfFreeDays : NumberOfFreeDays + 2;
+			//int number = ( NumberOfFreeDays + 2 > 5 )? NumberOfFreeDays : NumberOfFreeDays + 2;
 			return ( count >= 3 + NumberOfFreeDays );
 		}
 		public int NumberOfFreeDays

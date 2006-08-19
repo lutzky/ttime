@@ -59,6 +59,7 @@ namespace UDonkey.GUI
         public void Close()
         {
             mDialog.Destroy();
+            Application.Quit();
         }
 
         public void CreateSchedules()
@@ -69,7 +70,6 @@ namespace UDonkey.GUI
           thread.Start();
           Application.Run();
           thread.Join();
-          Close();
         }
 
 #region Event handlers

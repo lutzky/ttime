@@ -1,6 +1,6 @@
 CSC=mcs
 DEBUGFLAGS= -debug -d:DEBUG
-CSCFLAGS=-codepage:utf8 -pkg:glade-sharp-2.0 -pkg:gtk-sharp-2.0 -pkg:gtkhtml-sharp-2.0 $(DEBUGFLAGS)
+CSCFLAGS=-codepage:utf8 -pkg:glade-sharp-2.0 -pkg:gtk-sharp-2.0 -pkg:gecko-sharp-2.0 $(DEBUGFLAGS)
 
 UDONKEY_EXE=UDonkey.exe
 UDONKEY_DLL=UDonkey-Logic.dll
@@ -144,7 +144,7 @@ $(UDONKEY_EXE): $(UDONKEY_DLL) $(UDONKEY_GTK) $(UDONKEY_GUI_SHARED) $(UDONKEY_GT
 	echo Compiling GTK version
 	echo *********************
 #	resgen /compile $(UDONKEY_RES)
-	$(CSC) $(CSCFLAGS) /r:System.dll /r:System.Windows.Forms.dll /r:System.Xml.dll /r:System.Drawing.dll /r:System.Data.dll /r:ICSharpCode.SharpZipLib.dll /r:System.Web.dll /target:winexe /out:$(UDONKEY_EXE) -lib:. -r:$(UDONKEY_DLL) $(UDONKEY_GUI_SHARED) $(UDONKEY_GTK) $(patsubst %, -resource:%, $(UDONKEY_GTK_RESOURCSE)) -resource:GUI/Winforms/Resources.resources,UDonkey.GUI.Resources.resources
+	$(CSC) $(CSCFLAGS) /r:System.dll /r:System.Windows.Forms.dll /r:System.Xml.dll /r:System.Drawing.dll /r:System.Data.dll /r:ICSharpCode.SharpZipLib.dll /r:System.Web.dll /target:winexe /out:$(UDONKEY_EXE) -lib:. -r:Mono.Posix.dll -r:$(UDONKEY_DLL) $(UDONKEY_GUI_SHARED) $(UDONKEY_GTK) $(patsubst %, -resource:%, $(UDONKEY_GTK_RESOURCSE)) -resource:GUI/Winforms/Resources.resources,UDonkey.GUI.Resources.resources
 
 $(UDONKEY_DLL): $(UDONKEY_DLL_SRC)
 	echo Compiling DLL

@@ -340,7 +340,7 @@ namespace UDonkey.Logic
 		public event EventHandler Changed
 		{
 			add   { mChanged += value; }
-			remove{ mChanged += value; }
+			remove{ mChanged -= value; }
 		}
 		#endregion Properties
 	}

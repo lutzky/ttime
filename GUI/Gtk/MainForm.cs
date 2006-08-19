@@ -42,7 +42,12 @@ namespace UDonkey.GUI
 			boxDBBrowser.Add(mDBBrowser);
 
             mScheduleGrid = new ScheduleDataGrid();
-			boxScheduleGrid.Add(mScheduleGrid);
+            ScrolledWindow sw = new ScrolledWindow();
+            sw.VscrollbarPolicy = PolicyType.Always;
+            sw.HscrollbarPolicy = PolicyType.Always;
+            sw.Add(mScheduleGrid);
+            sw.ShowAll();
+			boxScheduleGrid.Add(sw);
 
 			mConfigControl = new ConfigControl();
 		}

@@ -148,7 +148,7 @@ namespace UDonkey.RepFile
 				lastIndex != -1 ;
 				index = file.IndexOf(FACULTY_SEPERATOR,lastIndex + FACULTY_SEPERATOR.Length ) )
 			{
-				int to = ( index == -1 )? file.Length: index;
+				//int to = ( index == -1 )? file.Length: index;
 				numOfFaculties++;  
 				lastIndex = index;
 			}
@@ -264,7 +264,7 @@ namespace UDonkey.RepFile
 				match != Match.Empty ;
 				match = match.NextMatch() )
 			{   
-				string header      = DosHeb.Revert( match.Groups[ "Header" ].Value.Trim() );
+				//string header      = DosHeb.Revert( match.Groups[ "Header" ].Value.Trim() );
 				string groupType   = DosHeb.Revert( match.Groups[ "GroupType" ].Value.Trim() );
 				string[] dayTime   = match.Groups[ "DayTime" ].Value.Trim().Split('\'');
 				string day         = string.Empty;
@@ -277,7 +277,7 @@ namespace UDonkey.RepFile
 					duration    = GetDuration ( dayTime[0] );
 				}
 				string place       = GetPlace( match.Groups[ "Place" ].Value.Trim() );
-				string giverType   = DosHeb.Revert( match.Groups[ "GiverType"].Value.Trim() );
+				//string giverType   = DosHeb.Revert( match.Groups[ "GiverType"].Value.Trim() );
 				string giver       = DosHeb.Revert( match.Groups[ "Giver"].Value.Trim() );
 				string regNumber   = match.Groups[ "Number" ].Value.Trim();
 
@@ -388,7 +388,7 @@ namespace UDonkey.RepFile
 				string t = s;
 				try
 				{
-					int i = int.Parse( s );
+					//int i = int.Parse( s );
 					ret += string.Format("{0}{1}",
 						(ret.Length == 0)?string.Empty:" ", t );
 				}

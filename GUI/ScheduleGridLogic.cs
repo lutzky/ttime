@@ -182,6 +182,7 @@ namespace UDonkey.GUI
         }
         public void Refresh()
         {
+            Console.WriteLine("ScheduleGridLogic.Refresh");
             this.mGrid.DataSource = mScheduler.Schedule;
         }
         public CoursesScheduler Scheduler

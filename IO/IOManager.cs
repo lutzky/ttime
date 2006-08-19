@@ -56,8 +56,6 @@ namespace UDonkey.IO
 				newDataTable.Columns.Add(myCol.ColumnName, typeof(Cell) );
 			}
 
-			DataColumnCollection myColumn = newDataTable.Columns;
-
 			// Make a duplicate table with the info we need
 			for (i=0;i<oldDataTable.Rows.Count;i++)
 			{
@@ -66,15 +64,17 @@ namespace UDonkey.IO
 
 				for (j=0;j<oldDataTable.Columns.Count;j++)
 				{
+					IScheduleEntry entry = (IScheduleEntry)orig[ (oldDataTable.Columns[j]).ColumnName];
 					// FIXME: configurationcontroller is part of GUI, and we need to move getexportverbosity to Configuration
-					//IScheduleEntry entry = (IScheduleEntry)orig[ (oldDataTable.Columns[j]).ColumnName];
 					//string val = entry.ToString( (VerbosityFlag)ConfigurationController.GetExportVerbosityFlag() );
+                    string val = entry.ToString( VerbosityFlag.Full );
 					// FIXME: use a colorizer that isn't GUI dependant
 					//string fColor = entry.ForeColor.ToKnownColor().ToString();
 					//string bColor = entry.BackColor.ToKnownColor().ToString();
 					//val = val.Replace( "\n", "<br>");
 					//Cell newCell = new Cell(bColor, fColor, val, 1);
-					//newRow[j]=newCell;
+                    Cell newCell = new Cell("white", "black", val, 1);
+					newRow[j]=newCell;
 				}
 				newDataTable.Rows.Add(newRow);
 			}
@@ -90,6 +90,9 @@ namespace UDonkey.IO
 					{
 						continue;
 					}
+                    if (myRow[myCol] == DBNull.Value)
+                        continue;
+
 					if( (((Cell)(myRow[myCol])).sevent).Length!=0 ) // If this cell contains an event
 					{
 						for (j=(i+1) ; j<newDataTable.Rows.Count ; ++j) // Check if the next hours belong to the same event
@@ -140,14 +143,13 @@ namespace UDonkey.IO
 											   Configuration.Get("Display","Friday",    false ),
 											   Configuration.Get("Display","Saturday",  false ) };		
 
-			scheduleWriter.WriteBeginTag("Table");
-			scheduleWriter.WriteAttribute( HtmlTextWriterAttribute.Width.ToString(), "100%");
-			scheduleWriter.WriteAttribute( HtmlTextWriterAttribute.Border.ToString(), "5" );
-			scheduleWriter.WriteAttribute( HtmlTextWriterAttribute.Cellpadding.ToString(), "1");
-			scheduleWriter.WriteAttribute( "Dir", "rtl" );
-			scheduleWriter.Write(">\r\n");
+			scheduleWriter.AddAttribute( HtmlTextWriterAttribute.Width, "100%");
+			scheduleWriter.AddAttribute( HtmlTextWriterAttribute.Border, "5" );
+			scheduleWriter.AddAttribute( HtmlTextWriterAttribute.Cellpadding, "1");
+			scheduleWriter.AddAttribute( "Dir", "rtl" );
+			scheduleWriter.RenderBeginTag("Table");
 
-			scheduleWriter.WriteFullBeginTag("TR");
+			scheduleWriter.RenderBeginTag("TR");
 			// First Header line only
 			foreach (DataColumn myCol in aDataTable.Columns)
 			{
@@ -155,17 +157,16 @@ namespace UDonkey.IO
 				{
 					if (visibleDays[i]==true)
 					{
-						scheduleWriter.WriteBeginTag("TH");
 						if (myCol.ColumnName == "שעות")
 						{
-							scheduleWriter.WriteAttribute( HtmlTextWriterAttribute.Height.ToString(), "60");
+							scheduleWriter.AddAttribute( HtmlTextWriterAttribute.Height, "60");
 						}
-						scheduleWriter.WriteAttribute( HtmlTextWriterAttribute.Height.ToString(), "35");
+						scheduleWriter.AddAttribute( HtmlTextWriterAttribute.Height, "35");
 						
-						scheduleWriter.Write(">");
+						scheduleWriter.RenderBeginTag("TH");
 						scheduleWriter.Write(myCol.ColumnName);
-						scheduleWriter.WriteEndTag("TH");
-						scheduleWriter.Write("\r\n");
+						scheduleWriter.RenderEndTag();
+						//scheduleWriter.Write("\r\n");
 					}
 					++i;
 
@@ -176,8 +177,8 @@ namespace UDonkey.IO
 				}
 			}
 
-			scheduleWriter.WriteEndTag("TR");
-			scheduleWriter.Write("\r\n");
+			scheduleWriter.RenderEndTag();
+			//scheduleWriter.Write("\r\n");
 
 
 			// Write Table Data
@@ -187,9 +188,8 @@ namespace UDonkey.IO
 				i=0;
 				try
 				{
-					scheduleWriter.WriteBeginTag("TR");
-					scheduleWriter.WriteAttribute( HtmlTextWriterAttribute.Bordercolor.ToString(), "#000000");
-					scheduleWriter.Write(">\r\n");
+					scheduleWriter.AddAttribute( HtmlTextWriterAttribute.Bordercolor, "#000000");
+					scheduleWriter.RenderBeginTag("TR");
 				}
 				catch(Exception e)
 				{
@@ -209,43 +209,45 @@ namespace UDonkey.IO
 							{
 								if (myCol.ColumnName=="שעות") // The Hours column gets special treatment
 								{
-									scheduleWriter.WriteBeginTag("TH");
-									scheduleWriter.WriteAttribute(HtmlTextWriterAttribute.Width.ToString(), "60");
-									scheduleWriter.WriteAttribute(HtmlTextWriterAttribute.Height.ToString(), "40");
-									scheduleWriter.WriteBeginTag("div");
-									scheduleWriter.WriteAttribute(HtmlTextWriterAttribute.Align.ToString(), "center");
-									scheduleWriter.Write(">\r\n");
+									scheduleWriter.AddAttribute(HtmlTextWriterAttribute.Width, "60");
+									scheduleWriter.AddAttribute(HtmlTextWriterAttribute.Height, "40");
+									scheduleWriter.RenderBeginTag("TH");
+									scheduleWriter.AddAttribute(HtmlTextWriterAttribute.Align, "center");
+									scheduleWriter.RenderBeginTag("div");
 		
 									scheduleWriter.Write(val);
-									scheduleWriter.WriteEndTag("div");
-									scheduleWriter.WriteEndTag("TH");
-									scheduleWriter.Write("\r\n");
+									scheduleWriter.RenderEndTag(); // div
+									scheduleWriter.RenderEndTag(); // TH
+									//scheduleWriter.Write("\r\n");
 								}
 								else // The current column is not the hours column
 								{
-									scheduleWriter.WriteBeginTag("TD");
-									scheduleWriter.WriteAttribute(HtmlTextWriterAttribute.Width.ToString(), "150");
-									scheduleWriter.WriteAttribute(HtmlTextWriterAttribute.Height.ToString(), "40");
+									scheduleWriter.AddAttribute(HtmlTextWriterAttribute.Width, "150");
+									scheduleWriter.AddAttribute(HtmlTextWriterAttribute.Height, "40");
 									if (val.Length>0) // If there is something to write to this cell
 									{
-										scheduleWriter.WriteAttribute(HtmlTextWriterAttribute.Rowspan.ToString(), ((Cell)(myRow[myCol])).span.ToString() );
-										scheduleWriter.WriteAttribute ( "BGColor" , ((Cell)(myRow[myCol])).BGColor );
-										scheduleWriter.WriteAttribute(HtmlTextWriterAttribute.Align.ToString(), "right" );
-										scheduleWriter.Write(">");
+										scheduleWriter.AddAttribute(HtmlTextWriterAttribute.Rowspan, ((Cell)(myRow[myCol])).span.ToString() );
+										scheduleWriter.AddAttribute ( "BGColor" , ((Cell)(myRow[myCol])).BGColor );
+										scheduleWriter.AddAttribute(HtmlTextWriterAttribute.Align, "right" );
+									    scheduleWriter.RenderBeginTag("TD");
 
-										scheduleWriter.Write( "<FONT COLOR="+((Cell)(myRow[myCol])).FGColor+">" );	
+                                        scheduleWriter.AddAttribute("color", ((Cell)(myRow[myCol])).FGColor);
+                                        scheduleWriter.RenderBeginTag("font");
+										//scheduleWriter.Write( "<FONT COLOR="+((Cell)(myRow[myCol])).FGColor+">" );	
 										
 										scheduleWriter.Write(val);
+
+                                        scheduleWriter.RenderEndTag(); // font
 									}
 									else // There is nothing to write to the current cell
 									{
-										scheduleWriter.Write(">");
+									    scheduleWriter.RenderBeginTag("TD");
 										// Enter a "non breaking space" to avoid "collapse" of the empty cell
 										scheduleWriter.Write("&nbsp"); 
 									
 									}
-									scheduleWriter.WriteEndTag("TD");
-									scheduleWriter.Write("\r\n");
+									scheduleWriter.RenderEndTag(); // TD
+									//scheduleWriter.Write("\r\n");
 								}
 							}
 							
@@ -258,7 +260,7 @@ namespace UDonkey.IO
 					}
 				}
 			}
-			scheduleWriter.WriteEndTag("Table");
+			scheduleWriter.RenderEndTag(); // table
 		}		
 
 		/// <summary>
@@ -273,34 +275,40 @@ namespace UDonkey.IO
 			StreamWriter w =  File.CreateText( filename );
 			HtmlTextWriter scheduleWriter = new HtmlTextWriter( w );
 
-			scheduleWriter.WriteFullBeginTag("html");
-			scheduleWriter.Write("\r\n");
-			scheduleWriter.WriteFullBeginTag("head");
-			scheduleWriter.Write("\r\n");
+			scheduleWriter.RenderBeginTag("html");
+			//scheduleWriter.Write("\r\n");
+			scheduleWriter.RenderBeginTag("head");
+			//scheduleWriter.Write("\r\n");
 			scheduleWriter.Write("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">");
-			scheduleWriter.Write("\r\n");
+			//scheduleWriter.Write("\r\n");
 			scheduleWriter.Write("<style type=\"text/css\">\r\n");
 			scheduleWriter.Write("<!--\r\nth {color: #660066 ; background-color: #99CCFF ; font-size: 22px}\r\n-->\r\n");
 			scheduleWriter.Write("</style>\r\n");
-			scheduleWriter.WriteEndTag("head");
-			scheduleWriter.Write("\r\n");
-			scheduleWriter.WriteBeginTag("body");
-			scheduleWriter.Write(" bgcolor=\"white\"");
-			scheduleWriter.Write(">\r\n");
-			scheduleWriter.WriteBeginTag("h1");		
-			scheduleWriter.WriteAttribute( HtmlTextWriterAttribute.Align.ToString(), "center" );
-			scheduleWriter.WriteFullBeginTag("strong");
+			scheduleWriter.RenderEndTag(); // head
+			//scheduleWriter.Write("\r\n");
+			scheduleWriter.AddAttribute("bgcolor", "white");
+			scheduleWriter.RenderBeginTag("body");
+
+			scheduleWriter.AddAttribute( HtmlTextWriterAttribute.Align, "center" );
+			scheduleWriter.RenderBeginTag("h1");		
+            
+			scheduleWriter.RenderBeginTag("strong");
 			scheduleWriter.Write("מערכת שעות");
-			scheduleWriter.WriteEndTag("strong");
-			scheduleWriter.WriteEndTag("h1");
-			scheduleWriter.Write("\r\n");
+			scheduleWriter.RenderEndTag(); // strong
+            
+			scheduleWriter.RenderEndTag(); // h1
+			//scheduleWriter.Write("\r\n");
 
 			ExportSchedTableHtml ( scheduleWriter,  aSchedule);
 
-			scheduleWriter.WriteEndTag("body");
-			scheduleWriter.WriteEndTag("html");
+			scheduleWriter.RenderEndTag(); // body
+			scheduleWriter.RenderEndTag(); // html
 			scheduleWriter.Flush();
 			scheduleWriter.Close();
+
+            w.Close();
+
+            Console.WriteLine("ExportSchedTableHtml - " + filename + " closed");
 
 		}
 
@@ -599,50 +607,48 @@ namespace UDonkey.IO
 			string toWrite;
 			HtmlTextWriter scheduleWriter = new HtmlTextWriter( w );
 
-			scheduleWriter.WriteFullBeginTag("html");
-			scheduleWriter.Write("\r\n");
-			scheduleWriter.WriteFullBeginTag("head");
-			scheduleWriter.Write("\r\n");
+			scheduleWriter.RenderBeginTag("html");
+			//scheduleWriter.Write("\r\n");
+			scheduleWriter.RenderBeginTag("head");
+			//scheduleWriter.Write("\r\n");
 			scheduleWriter.Write("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">");
-			scheduleWriter.Write("\r\n");
+			//scheduleWriter.Write("\r\n");
 			scheduleWriter.Write("<style type=\"text/css\">\r\n");
 			scheduleWriter.Write("<!--\r\nth {color: #660066 ; background-color: #99CCFF ; font-size: 22px}\r\n-->\r\n");
 			scheduleWriter.Write("</style>\r\n");
-			scheduleWriter.WriteEndTag("head");
-			scheduleWriter.Write("\r\n");
-			scheduleWriter.WriteBeginTag("body");
-			scheduleWriter.Write(" bgcolor=\"white\"");
-			scheduleWriter.Write(">\r\n");
-			scheduleWriter.WriteBeginTag("h1");		
-			scheduleWriter.WriteAttribute( HtmlTextWriterAttribute.Align.ToString(), "center" );
-			scheduleWriter.WriteFullBeginTag("strong");
+			scheduleWriter.RenderEndTag(); // head
+			//scheduleWriter.Write("\r\n");
+			scheduleWriter.AddAttribute("bgcolor","white");
+			scheduleWriter.RenderBeginTag("body");
+			scheduleWriter.AddAttribute( HtmlTextWriterAttribute.Align, "center" );
+			scheduleWriter.RenderBeginTag("h1");		
+			scheduleWriter.RenderBeginTag("strong");
 			scheduleWriter.Write("ריכוז קורסים");
-			scheduleWriter.WriteEndTag("strong");
-			scheduleWriter.WriteEndTag("h1");
-			scheduleWriter.Write("\r\n");
+			scheduleWriter.RenderEndTag(); // strong
+			scheduleWriter.RenderEndTag(); // h1
+			//scheduleWriter.Write("\r\n");
 
-			scheduleWriter.WriteBeginTag("Table");
-			scheduleWriter.WriteAttribute( HtmlTextWriterAttribute.Width.ToString(), "100%");
-			scheduleWriter.WriteAttribute( HtmlTextWriterAttribute.Border.ToString(), "5" );
-			scheduleWriter.WriteAttribute( HtmlTextWriterAttribute.Cellpadding.ToString(), "1");
-			scheduleWriter.WriteAttribute( "Dir", "rtl" );
-			scheduleWriter.Write(">\r\n");
+			scheduleWriter.AddAttribute( HtmlTextWriterAttribute.Width.ToString(), "100%");
+			scheduleWriter.AddAttribute( HtmlTextWriterAttribute.Border.ToString(), "5" );
+			scheduleWriter.AddAttribute( HtmlTextWriterAttribute.Cellpadding.ToString(), "1");
+			scheduleWriter.AddAttribute( "Dir", "rtl" );
+			scheduleWriter.RenderBeginTag("Table");
 
-			scheduleWriter.WriteFullBeginTag("TR");
-			scheduleWriter.Write("\r\n");
-			scheduleWriter.WriteFullBeginTag("TH");
+			scheduleWriter.RenderBeginTag("TR");
+			//scheduleWriter.Write("\r\n");
+			scheduleWriter.RenderBeginTag("TH");
 			scheduleWriter.Write("קורס");
-			scheduleWriter.WriteEndTag("TH");
-			scheduleWriter.Write("\r\n");
-			scheduleWriter.WriteFullBeginTag("TH");
+			scheduleWriter.RenderEndTag(); // TH
+			//scheduleWriter.Write("\r\n");
+			scheduleWriter.RenderBeginTag("TH");
 			scheduleWriter.Write("פרטים");
-			scheduleWriter.WriteEndTag("TH");
-			scheduleWriter.Write("\r\n");
-			scheduleWriter.WriteFullBeginTag("TH");
+			scheduleWriter.RenderEndTag(); // TH
+			//scheduleWriter.Write("\r\n");
+			scheduleWriter.RenderBeginTag("TH");
 			scheduleWriter.Write("ארועים");
-			scheduleWriter.WriteEndTag("TH");
-			scheduleWriter.Write("\r\n");
-			scheduleWriter.WriteEndTag("TR");
+			scheduleWriter.RenderEndTag(); // TH
+			//scheduleWriter.Write("\r\n");
+			scheduleWriter.RenderEndTag(); // TR
 
 
 			foreach (Course aCourse in courses.Values)
@@ -658,22 +664,21 @@ namespace UDonkey.IO
 				else
 					testB = "לא ידוע";
 				
-				scheduleWriter.WriteBeginTag("TR");
-				scheduleWriter.WriteAttribute( HtmlTextWriterAttribute.Bordercolor.ToString(), "#000000");
-				scheduleWriter.Write(">\r\n");
-				scheduleWriter.WriteFullBeginTag("TD");
+				scheduleWriter.AddAttribute( HtmlTextWriterAttribute.Bordercolor.ToString(), "#000000");
+				scheduleWriter.RenderBeginTag("TR");
+				scheduleWriter.RenderBeginTag("TD");
 				toWrite = aCourse.Number + " " + aCourse.NickName;
 				scheduleWriter.Write(toWrite);
-				scheduleWriter.WriteEndTag("TD");
-				scheduleWriter.WriteFullBeginTag("TD");
+				scheduleWriter.RenderEndTag(); // TD
+				scheduleWriter.RenderBeginTag("TD");
 				toWrite = "נקודות אקדמאיות: " +
 					aCourse.AcademicPoints.ToString() +
 					"<br>מועד א: " + testA + 
 					"<br>מועד ב: " + testB + 
 					"<br>"  + "מרצה אחראי: " + aCourse.Lecturer;
 				scheduleWriter.Write(toWrite);
-				scheduleWriter.WriteEndTag("TD");
-				scheduleWriter.WriteFullBeginTag("TD");
+				scheduleWriter.RenderEndTag(); // TD
+				scheduleWriter.RenderBeginTag("TD");
 				toWrite = string.Empty;
 				foreach (CourseEvent ce in aCourse.GetAllCourseEvents())
 				{
@@ -685,13 +690,13 @@ namespace UDonkey.IO
 						scheduleWriter.Write(toWrite);
 					}
 				}
-				scheduleWriter.WriteEndTag("TD");
-				scheduleWriter.WriteEndTag("TR");
+				scheduleWriter.RenderEndTag(); // TD
+				scheduleWriter.RenderEndTag(); // TR
 
 			}
-			scheduleWriter.WriteEndTag("Table");
-			scheduleWriter.WriteEndTag("body");
-			scheduleWriter.WriteEndTag("html");
+			scheduleWriter.RenderEndTag(); // table
+			scheduleWriter.RenderEndTag(); // body
+			scheduleWriter.RenderEndTag(); // html
 			scheduleWriter.Flush();
 			scheduleWriter.Close();
 		}

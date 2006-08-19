@@ -8,7 +8,7 @@ namespace UDonkey.Logic
 	public class CourseEventOccurrencesScheduleObject: AbstractScheduleObject
 	{
 		private CourseEventOccurrence mOccurrence;
-		private int mnSeed;
+		//private int mnSeed;
 		private string msKey;
 
 		public CourseEventOccurrencesScheduleObject( CourseEventOccurrence occurrence )
@@ -18,7 +18,7 @@ namespace UDonkey.Logic
 				throw new ArgumentNullException( "occurrence" );
 			}
 			mOccurrence = occurrence;
-			mnSeed = this.mOccurrence.CourseEvent.Course.Number.GetHashCode();
+			//mnSeed = this.mOccurrence.CourseEvent.Course.Number.GetHashCode();
 			this.UserDefined	= false;
 			msKey = string.Concat(
 				mOccurrence.CourseEvent.Course.Number,
