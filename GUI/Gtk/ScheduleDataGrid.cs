@@ -24,8 +24,11 @@ namespace UDonkey.GUI
 		
 		public ScheduleDataGrid()
 		{
-            mWebControl = new WebControl();
+            mWebControl = new WebControl("/tmp/csharp", "UDonkey");
             mWebControl.Show();
+
+            mWebControl.Progress += new ProgressHandler(on_progress);
+            mWebControl.NetState += new NetStateHandler(on_netstate);
 		}
 
 		public new  HitTestInfo HitTest(Point position)
@@ -197,9 +200,8 @@ namespace UDonkey.GUI
             //FileStream fstream = new FileStream(filename.ToString(), FileMode.Open, FileAccess.Read);
             //
 
-            mWebControl.LoadUrl(filename.ToString());
-
-
+            mWebControl.LoadUrl(System.IO.Path.GetFullPath(filename.ToString()));
+            //mWebControl.LoadUrl("http://www.google.com");
         }
 
         public void ParentRefresh()
@@ -207,7 +209,7 @@ namespace UDonkey.GUI
             Refresh();
         }
 
-		public static implicit operator Widget(ScheduleDataGrid grid)
+		public static implicit operator WebControl(ScheduleDataGrid grid)
         {
             return grid.mWebControl;
         }
@@ -222,6 +224,16 @@ namespace UDonkey.GUI
         private void on_html_LoadDone(object sender, EventArgs e)
         {
             Console.WriteLine("onLoadDone");
+        }
+
+        private void on_progress(object sender, Gecko.ProgressArgs e)
+        {
+            Console.WriteLine("on_progress - " + e.Curprogress);
+        }
+        
+        private void on_netstate(object sender, NetStateArgs e)
+        {
+            Console.WriteLine("on_netstate");
         }
 #endregion
 	}

@@ -16,6 +16,13 @@ namespace UDonkey.GUI
 	public class MainForm : System.Windows.Forms.Form
 	{
 
+        public enum TabIndices : int
+        {
+            ScheduleGrid = 0,
+            DBBrowser = 1,
+            ConfigControl = 2
+        }
+
 		private MainFormLogic                  Logic;
     		private const string RESOURCES_GROUP = "MainForm";  
 		private System.Windows.Forms.MainMenu  MainMenu;
@@ -464,7 +471,7 @@ private void AutoUpdateMenuItem_Click(object sender, System.EventArgs e)
 			this.ResumeLayout(false);
 
 			this.WindowState = FormWindowState.Maximized;
-			this.SelectedTab = 1;
+			this.SelectedTab = TabIndices.DBBrowser;
 		}
 
 		#endregion
@@ -644,9 +651,9 @@ private void AutoUpdateMenuItem_Click(object sender, System.EventArgs e)
 
 
 		#region Properties
-		public int SelectedTab
+		public TabIndices SelectedTab
 		{
-			set{ this.TabControl.SelectedIndex = value; }
+			set{ this.TabControl.SelectedIndex = (int)value; }
 		}
 		public ScheduleDataGrid Grid
 		{

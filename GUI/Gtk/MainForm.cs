@@ -3,6 +3,7 @@ using System;
 using Gtk;
 using GtkSharp;
 using Glade;
+using Gecko;
 
 using UDonkey.Logic;
 
@@ -10,6 +11,12 @@ namespace UDonkey.GUI
 {
 	public class MainForm 
 	{
+
+        public enum TabIndices : int
+        {
+            ScheduleGrid = 1, DBBrowser = 0
+        };
+
 		private const uint StatusBarId = 1;
 			
 		private MainFormLogic Logic;
@@ -39,17 +46,14 @@ namespace UDonkey.GUI
 			gxml.Autoconnect (this);
 
 			mDBBrowser = new DBbrowser();
-			boxDBBrowser.Add(mDBBrowser);
+			boxDBBrowser.PackStart(mDBBrowser, true, true, 0);
 
             mScheduleGrid = new ScheduleDataGrid();
-            ScrolledWindow sw = new ScrolledWindow();
-            sw.VscrollbarPolicy = PolicyType.Always;
-            sw.HscrollbarPolicy = PolicyType.Always;
-            sw.Add(mScheduleGrid);
-            sw.ShowAll();
-			boxScheduleGrid.Add(sw);
+			boxScheduleGrid.PackStart(mScheduleGrid, true, true, 0);
 
 			mConfigControl = new ConfigControl();
+
+            MainFormWindow.Maximize();
 		}
 
 		public void Start()
@@ -120,10 +124,10 @@ namespace UDonkey.GUI
 			get { return mConfigControl; }
 		}
 
-		public int SelectedTab
+		public TabIndices SelectedTab
 		{
-			get { return notebook.CurrentPage; }
-			set { notebook.CurrentPage = value; }
+			get { return (TabIndices)notebook.CurrentPage; }
+			set { notebook.CurrentPage = (int)value; }
 		}
 
 		public bool Enabled
@@ -135,27 +139,18 @@ namespace UDonkey.GUI
 		
 
 #region Event handlers
-		/*
-		private Widget GladeCustomHandler(Glade.XML gxml, string func_name, string name, string str1, string str2,
-				int int1, int int2)
-		{
-			switch (func_name)
-			{
-				case "createDBBrowser":
-					Console.WriteLine("In createDBBrowser");
-					mDBBrowser = new DBbrowser();
-					return mDBBrowser;
-			}
-
-			return null;
-		}
-		*/
-		
 		private void on_new_activate(object obj, EventArgs a) { } 
 		private void on_open_activate(object obj, EventArgs a) { } 
 		private void on_save_activate(object obj, EventArgs a) { } 
 		private void on_save_as_activate(object obj, EventArgs a) { } 
-		private void on_quit_activate(object obj, EventArgs a) { } 
+		private void on_quit_activate(object obj, EventArgs a) 
+        {
+            Application.Quit();
+        } 
+		private void on_schedule_activate(object obj, EventArgs a) 
+        { 
+            Logic.ScheduleSchedules();
+        } 
 
 		private void on_autoupdate_activate(object obj, EventArgs a) 
 		{
@@ -179,61 +174,20 @@ namespace UDonkey.GUI
 		private void on_preferences_activate(object obj, EventArgs a) { } 
 		private void on_udonkey_activate(object obj, EventArgs a) { } 
 		private void on_about_activate(object obj, EventArgs a) { } 
-/*		private void on_response(object obj, ResponseArgs a)
-		{
-			switch (a.ResponseId)
-			{
-				case ResponseType.Close:
-				       Hide();
-				       break;
-				case ResponseType.Ok:  // Find
-				       	{
-					       	SearchEventArgs args = new SearchEventArgs();
-					        if ( courseName.Text != "")
-							args.Name = courseName.Text;
-
-						if ( courseNumber.Text != "")
-							args.Number = courseNumber.Text;
-
-						if ( coursePoints.Entry.Text != "")
-							args.Points = coursePoints.Entry.Text;
-
-						if ( cbFaculties.Entry.Text != "")
-							args.Faculty = cbFaculties.Entry.Text;
-
-						if ( lecturer.Text !="")
-							args.Lecturer = lecturer.Text;
-
-						if( sunday.Active )
-							args.Days[0]="א";
-
-						if( monday.Active )
-							args.Days[1]="ב";
-
-						if( tuesday.Active )
-							args.Days[2]="ג";
-
-						if( wednesday.Active )
-							args.Days[3]="ד";
-
-						if( thursday.Active )
-							args.Days[4]="ה";
-
-						if( friday.Active )
-							args.Days[5]="ו";
-
-						if (mSearch != null) mSearch( this, args );
-
-				       		break;
-				       	}
-			}
-		} */
 		
 		private void on_delete_event(object obj, DeleteEventArgs args)
 		{
 			//args.RetVal = true;  // Prevent closing
 			Application.Quit();
 		}
+
+        private void on_btPrint_clicked(object obj, EventArgs args)
+        {
+            (mScheduleGrid as WebControl).LoadUrl(System.IO.Path.GetFullPath("PrintTC6VLZ"));
+        }
+        private void on_btCourseList_clicked(object obj, EventArgs args)
+        {
+        }
 #endregion
 
 #region Event 

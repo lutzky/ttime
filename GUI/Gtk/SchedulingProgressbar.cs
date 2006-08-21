@@ -75,14 +75,25 @@ namespace UDonkey.GUI
 #region Event handlers
 		private void on_close(object sender, EventArgs args)
 		{
-			//Application.Quit();
+			Close();
 		}
 		
 		private void on_response(object sender, EventArgs args)
 		{
-			//Application.Quit();
+            Close();
 		}
         
+        private void on_progress(object obj, EventArgs args)
+        {
+            int progress = (args as ProgressArgs).prec;
+              progressCounter+=progress;
+              if (progressCounter>5000)
+              {
+                Progress( progressCounter );
+                progressCounter =0;
+              }
+        }
+
         private int progressCounter;
     private void StartScheduling( int progress )
     {
@@ -91,19 +102,12 @@ namespace UDonkey.GUI
     }
     private void ContinueScheduling( int progress )
     {
-      progressCounter+=progress;
-      if (progressCounter>5000)
-      {
-        Progress( progressCounter );
-        progressCounter =0;
-      }
-
+        Application.Invoke(this, new ProgressArgs(progress), new EventHandler(on_progress)); 
     }
 
     private void EndScheduling( int progress )
     {
-      Close();
-
+        Application.Invoke(this, new EventArgs(), new EventHandler(on_close));
     }
 
 #endregion

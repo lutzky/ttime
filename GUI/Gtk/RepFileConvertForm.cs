@@ -88,6 +88,7 @@ namespace UDonkey.GUI
 
 #region Event 
 #endregion
+	}
 		public class ProgressArgs : EventArgs
 		{
 			public ProgressArgs(int p) 
@@ -96,6 +97,5 @@ namespace UDonkey.GUI
 			}
 			public int prec;
 		}
-	}
 
 }

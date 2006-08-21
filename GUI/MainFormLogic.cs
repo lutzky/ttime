@@ -188,12 +188,14 @@ namespace UDonkey.Logic
         System.Windows.Forms.MessageBox.Show("נא לבחור קורס אחד לפחות על מנת לסדר מערכות");
         return;
       }
+      mMainForm.SelectedTab = MainForm.TabIndices.ScheduleGrid;
       mProgressBar = new SchedulingProgressbar(mScheduler);
       mMainForm.Grid.DataSource = null;
       mProgressBar.CreateSchedules();
       mMainForm.BringToFront();
 
       mDonkey.RefreshSchedule();
+
       Console.WriteLine("MainFormLogic.ScheduleSchedules - calculating grade");
       if( this.mScheduler.Count != 0 )
       {
@@ -211,11 +213,11 @@ namespace UDonkey.Logic
           }
         }
         this.SetScedulerState( this.mScheduler.Index + 1 );
-        mMainForm.SelectedTab = 0;
         mMainForm.SetNavigationButton( true );
       }
       else
       {
+        mMainForm.SelectedTab = MainForm.TabIndices.DBBrowser;
         mMainForm.SetNavigationButton( false );
         if ( mScheduler.Errors.Count != 0 )
         {

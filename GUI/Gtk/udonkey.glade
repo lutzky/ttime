@@ -5177,13 +5177,14 @@
 	  <property name="show_arrow">True</property>
 
 	  <child>
-	    <widget class="GtkToolButton" id="toolbutton6">
+	    <widget class="GtkToolButton" id="btNew">
 	      <property name="visible">True</property>
 	      <property name="tooltip" translatable="yes">New File</property>
 	      <property name="stock_id">gtk-new</property>
 	      <property name="visible_horizontal">True</property>
 	      <property name="visible_vertical">True</property>
 	      <property name="is_important">False</property>
+	      <signal name="clicked" handler="on_new_activate" last_modification_time="Mon, 21 Aug 2006 17:29:55 GMT"/>
 	    </widget>
 	    <packing>
 	      <property name="expand">False</property>
@@ -5192,13 +5193,14 @@
 	  </child>
 
 	  <child>
-	    <widget class="GtkToolButton" id="toolbutton7">
+	    <widget class="GtkToolButton" id="btOpen">
 	      <property name="visible">True</property>
 	      <property name="tooltip" translatable="yes">Open File</property>
 	      <property name="stock_id">gtk-open</property>
 	      <property name="visible_horizontal">True</property>
 	      <property name="visible_vertical">True</property>
 	      <property name="is_important">False</property>
+	      <signal name="clicked" handler="on_open_activate" last_modification_time="Mon, 21 Aug 2006 17:30:25 GMT"/>
 	    </widget>
 	    <packing>
 	      <property name="expand">False</property>
@@ -5207,7 +5209,7 @@
 	  </child>
 
 	  <child>
-	    <widget class="GtkToolButton" id="toolbutton8">
+	    <widget class="GtkToolButton" id="btSave">
 	      <property name="visible">True</property>
 	      <property name="tooltip" translatable="yes">Save File</property>
 	      <property name="stock_id">gtk-save</property>
@@ -5235,7 +5237,7 @@
 	  </child>
 
 	  <child>
-	    <widget class="GtkToolButton" id="toolbutton9">
+	    <widget class="GtkToolButton" id="btSchedule">
 	      <property name="visible">True</property>
 	      <property name="label" translatable="yes">סדר מערכות</property>
 	      <property name="use_underline">True</property>
@@ -5243,6 +5245,7 @@
 	      <property name="visible_horizontal">True</property>
 	      <property name="visible_vertical">True</property>
 	      <property name="is_important">False</property>
+	      <signal name="clicked" handler="on_schedule_activate" last_modification_time="Mon, 21 Aug 2006 17:31:16 GMT"/>
 	    </widget>
 	    <packing>
 	      <property name="expand">False</property>
@@ -5341,12 +5344,13 @@
 	  </child>
 
 	  <child>
-	    <widget class="GtkToolButton" id="toolbutton17">
+	    <widget class="GtkToolButton" id="btPrint">
 	      <property name="visible">True</property>
 	      <property name="stock_id">gtk-print</property>
 	      <property name="visible_horizontal">True</property>
 	      <property name="visible_vertical">True</property>
 	      <property name="is_important">False</property>
+	      <signal name="clicked" handler="on_btPrint_clicked" last_modification_time="Mon, 21 Aug 2006 05:17:42 GMT"/>
 	    </widget>
 	    <packing>
 	      <property name="expand">False</property>
@@ -5355,7 +5359,7 @@
 	  </child>
 
 	  <child>
-	    <widget class="GtkToolButton" id="toolbutton18">
+	    <widget class="GtkToolButton" id="btCourseList">
 	      <property name="visible">True</property>
 	      <property name="label" translatable="yes">רשימת קורסים</property>
 	      <property name="use_underline">True</property>
@@ -5363,6 +5367,7 @@
 	      <property name="visible_horizontal">True</property>
 	      <property name="visible_vertical">True</property>
 	      <property name="is_important">False</property>
+	      <signal name="clicked" handler="on_btCourseList_clicked" last_modification_time="Mon, 21 Aug 2006 17:31:58 GMT"/>
 	    </widget>
 	    <packing>
 	      <property name="expand">False</property>
