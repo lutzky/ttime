@@ -157,6 +157,10 @@ clean:
 	-rm -f "win/$(UDONKEY_EXE)" 2> /dev/null
 	-rm -f "win/$(UDONKEY_PDB)" 2> /dev/null
 	-rm -f "$(UDONKEY_DLL)" 2> /dev/null
+	-rm -f "$(UDONKEY_EXE).mdb" 2> /dev/null
+	-rm -f "$(UDONKEY_DLL).mdb" 2> /dev/null
+	-rm -f "GUI/Winforms/Resources.resources" 2> /dev/null
+
 
 
 # project names as targets
