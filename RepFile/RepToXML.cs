@@ -127,6 +127,10 @@ namespace UDonkey.RepFile
 		{
 			RepToXML.Convert( fileName as string );
 		}*/
+		public static void CheckFirst(string fileName) {
+			if (!System.IO.File.Exists(fileName))
+				throw(new System.IO.FileNotFoundException());
+		}
 		public static void Convert( string fileName, string toFile )
 		{  
 			Console.WriteLine("RepToXML.Convert("+fileName+", " + toFile + ")");

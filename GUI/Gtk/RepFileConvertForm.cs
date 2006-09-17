@@ -9,6 +9,8 @@ using Glade;
 using UDonkey.Logic;
 using UDonkey.RepFile;
 
+using System.IO;
+
 namespace UDonkey.GUI
 {
 	public class RepFileConvertForm 
@@ -37,6 +39,8 @@ namespace UDonkey.GUI
 		{
 			convertFileName = fileName;
 			convertToFile = toFile;
+//			RepToXML.CheckFirst(convertFileName);
+
 			mThread = new System.Threading.Thread(new ThreadStart( this.DoConvert ) );
 			mThread.Start();
 			mDialog.ShowAll();
