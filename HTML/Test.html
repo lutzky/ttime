@@ -19,12 +19,12 @@ height: 100%;
 }
 div.event {
   /*width: 15.4%;*/
-       /*height:7%; */
+  /*height:7%; */
 border:#eeeeff 1px solid; 
-/*margin: 1px;*/
+       /*margin: 1px;*/
 padding: 3px;
          font-size:10px;
-/*         z-index:2; */
+         /*         z-index:2; */
 position: absolute;
           -moz-border-radius: 1em;
 overflow:hidden;
@@ -33,12 +33,12 @@ overflow:hidden;
 div.selected {
 
   /*width: 15.4%;*/
-       /*height:7%; */
+  /*height:7%; */
 border:#ccccdd 2px solid; 
-/*margin: 1px;*/
+       /*margin: 1px;*/
 padding: 2px;
          font-size:10px;
-/*         z-index:2; */
+         /*         z-index:2; */
 position: absolute;
           -moz-border-radius: 1em;
 overflow:hidden;
@@ -89,22 +89,39 @@ function proccessEvents(){
 
 }
 
-function min(x,y){
-  if(x>y)
-    return y;
-  return x;
-}
+  function min(x,y){
+    if(x>y)
+      return y;
+    return x;
+  }
 
-function max(x,y){
-  if(x<y)
-    return y;
-  return x;
-}
+  function max(x,y){
+    if(x<y)
+      return y;
+    return x;
+  }
 
 
 
 
 ///// SELECTING ///
+
+
+
+
+function findPos(obj) {
+  var curleft = curtop = 0;
+  if (obj.offsetParent) {
+    curleft = obj.offsetLeft;
+    curtop = obj.offsetTop;
+    while (obj = obj.offsetParent) {
+      curleft += obj.offsetLeft;
+      curtop += obj.offsetTop;
+    }
+  }
+  return [curleft,curtop];
+}
+
 
 var Selecting = 0;
 var InitialRow = 0;
@@ -114,59 +131,73 @@ var SelectionColumn = -5;
 // FIXME inacurate
 function getCurrentRow(e){
   var posx = 0;
-	var posy = 0;
+  var posy = 0;
   posx = e.pageX;
   posy = e.pageY;
- p =  document.getElementById("1:8");
- posy -= p.offsetTop - document.getElementsByTagName("body")[0].offsetTop;
- num = Math.floor(posy / p.offsetHeight);
- return num + 7;
+  p =  document.getElementById("1:8");
+  posy -= findPos(p)[1]; //+ document.getElementsByTagName("body")[0].scrollTop; 
+  num = Math.floor(posy / p.offsetTop);
+  return num + 8;
 }
 
 
 function ColorRows(e){
   currentRow = getCurrentRow(e);
-  topRow = min(currentRow,InitialRow);
-  botRow = max(currentRow,InitialRow);
+  //alert("we are at"+currentRow);
+  minRow = min(currentRow,InitialRow);
+  maxRow = max(currentRow,InitialRow);
 
   var i;
   for(i=8;i<21;i++){
-    if(i>=topRow && i<=botRow)
+    if(i>=minRow && i<=maxRow)
       rowColor='#ddd9b5';
     else
       rowColor='#ffffff';
+    //alert ("setting color of "+i+" to "+rowColor);
     document.getElementById(""+SelectionColumn+":"+i).style.backgroundColor = rowColor;
-    
+
   }
 
 }
 
 function cellMouseDown(o,e){
-  p =  document.getElementById("4:11");
-//  alert("At ("+p.offsetTop+", "+p.offsetLeft+"), size " + p.offsetWidth + "x" + p.offsetHeight);
-//  alert("row: " + getCurrentRow(e));
+  //  alert("row: " + getCurrentRow(e));
   if(InitialRow > currentRow);
   {
     temp = InitialRow;
     InitialRow = currentRow;
     currentRow = temp;
   }
+  SelectionColumnA = SelectionColumn;
+  SelectionColumn = parseInt(o.id.split(':')[0]);
 
-  if (SelectionColumn != -5)
+  if (SelectionColumnA != -5)
   {
-    for( i=min(InitialRow,currentRow); i<=max(currentRow,InitialRow); i++)
-      document.getElementById(""+SelectionColumn + ":" + i).style.backgroundColor = '#ffffff';
+//    alert("cur col: "+SelectionColumnA);
+    for( i=8; i<=20; i++)
+      document.getElementById(""+SelectionColumnA + ":" + i).style.backgroundColor = '#ffffff';
   }
 
   Selecting = 1;
-  InitialRow = parseInt(o.id.split(':')[1]);
+  InitialRow = getCurrentRow(e);
   SelectionColumn = parseInt(o.id.split(':')[0]);
   currentRow = InitialRow;
-  o.style.backgroundColor='#ddd9b5';
 }
 function cellMouseUp(o){
-//  o.innerHTML="UP";
+  //  o.innerHTML="UP";
   Selecting = 0;
+}
+
+
+
+function MouseOnMove(e)
+{
+  if(Selecting == 0)
+  {
+    return;
+  }
+
+  ColorRows(e);
 }
 
 
@@ -177,35 +208,35 @@ function MouseOnRow(o,e)
   {
     return;
   }
-  
-  ColorRows(e);
-/*
-  row = o.rowIndex +7;
-//    alert(""+SelectionColumn + ":" + row);
-  if(InitialRow < currentRow){
-    if(row > currentRow)
-      document.getElementById(""+SelectionColumn + ":" + row).style.backgroundColor = '#ddd9b5';
-    else if (row < currentRow)
-      document.getElementById(""+SelectionColumn + ":" + currentRow).style.backgroundColor = '#ffffff';
-   // alert(row);
-  } else if(InitialRow > currentRow){
-    if(row < currentRow)
-      document.getElementById(SelectionColumn + ":" + row).style.backgroundColor = '#ddd9b5';
-    else if (row > currentRow)
-      document.getElementById(SelectionColumn + ":" + currentRow).style.backgroundColor = '#ffffff';
-    
-  } else
-    document.getElementById(SelectionColumn + ":" + row).style.backgroundColor = '#ddd9b5';
 
-    currentRow = row;
-*/
+  ColorRows(e);
+  /*
+     row = o.rowIndex +7;
+  //    alert(""+SelectionColumn + ":" + row);
+  if(InitialRow < currentRow){
+  if(row > currentRow)
+  document.getElementById(""+SelectionColumn + ":" + row).style.backgroundColor = '#ddd9b5';
+  else if (row < currentRow)
+  document.getElementById(""+SelectionColumn + ":" + currentRow).style.backgroundColor = '#ffffff';
+  // alert(row);
+  } else if(InitialRow > currentRow){
+  if(row < currentRow)
+  document.getElementById(SelectionColumn + ":" + row).style.backgroundColor = '#ddd9b5';
+  else if (row > currentRow)
+  document.getElementById(SelectionColumn + ":" + currentRow).style.backgroundColor = '#ffffff';
+
+  } else
+  document.getElementById(SelectionColumn + ":" + row).style.backgroundColor = '#ddd9b5';
+
+  currentRow = row;
+   */
 }
 
 
 
 function MouseOutRow(o)
 {
- // o.style.backgroundColor = '#ffffff';
+  // o.style.backgroundColor = '#ffffff';
 }
 
 
@@ -221,13 +252,13 @@ function intervalsToLayers(arrIn){
   rejected = new Array();
   greedyIntervalSchedule(arrIn,selected,rejected);
   res.push(selected)
-  while(rejected.length > 0){
-    temp = rejected;
-    rejected = new Array();
-    selected = new Array();
-    greedyIntervalSchedule(temp,selected,rejected);
-    res.push(selected)
-  }
+    while(rejected.length > 0){
+      temp = rejected;
+      rejected = new Array();
+      selected = new Array();
+      greedyIntervalSchedule(temp,selected,rejected);
+      res.push(selected)
+    }
   return res;
 
 }
@@ -237,10 +268,10 @@ function calculateCollisions( layers){
 
   for(i=0;i<layers.length;i++){
     for (j=0;j<layers[i].length;j++){
-     var x = layers[i][j];
-     x.collisions = i;
-     var k=i+1;
-     while(k<layers.length){
+      var x = layers[i][j];
+      x.collisions = i;
+      var k=i+1;
+      while(k<layers.length){
         var l=0;
         while(l < layers[k].length && layers[k][l].pend < x.pstart){
           l++;
@@ -252,8 +283,8 @@ function calculateCollisions( layers){
 
 
 
-       k++;
-     }
+        k++;
+      }
 
     }
   }
@@ -272,7 +303,7 @@ function greedyIntervalSchedule(arrIn,arrSelected,arrRejected){
       arrSelected.push(x);
       maxtime = x.pend;
     }else{
-     arrRejected.push(x); 
+      arrRejected.push(x); 
     }
   }
 
@@ -318,7 +349,6 @@ function doEvent(e)
     'z-index:  ' + (e.zIndex) + ';'+
     '" '+
     'onClick="setSelected(this)" '+
-    'onMouseOver="stopPropagation()" '+
     '> ' + 
     e.desc +
     '</div>';
@@ -331,7 +361,7 @@ function doEvent(e)
 // for n elements we have n+1 parts, so 2/n+1
 function initEvent(){
 
-  
+
   //TEMPLATE//
   addEvent(1,1,2,9,11,"חדו\"א 1מ - תרגול<br>קבוצה 20");
   addEvent(1,1,2,13,14,"חדו\"א 1מ - תרגול<br>קבוצה 20");
@@ -393,7 +423,7 @@ function quickSort_(array,L,R,compareFunc)
       array[m]=t;
     }
     if (compareFunc(array[L],array[R])>0) // Swap elements
-   {
+    {
       var t=array[L];
       array[L]=array[R];
       array[R]=t;
@@ -471,15 +501,15 @@ function insertionSort(array,compareFunc)
         // Not there yet--make room
         array[j+1]=array[j];
       else break;
-      // Now insert the original value
-      array[j+1]=t;
+    // Now insert the original value
+    array[j+1]=t;
   }
 }
 
 </script>
 
   </head>
-  <body onLoad='initEvent()' onClick='deselect(this)'>
+  <body onLoad='initEvent()' onClick='deselect(this)' onMouseMove="MouseOnMove(event)">
     <div align=center>
       <div align=center class='menu' >no menu yet...</div>
       <table border=1 rules=all >
@@ -534,7 +564,7 @@ function insertionSort(array,compareFunc)
               </div></td>   <td id="2:14" onMouseDown="cellMouseDown(this,event)" onMouseUp="cellMouseUp(this)"><div class='hourDiv' id='2-14:30' >
               </div></td>   <td id="1:14" onMouseDown="cellMouseDown(this,event)" onMouseUp="cellMouseUp(this)"><div class='hourDiv' id='1-14:30' >
           </div></td><td class=hour>14:30</td></tr> <tr onMouseOut='MouseOutRow(this,event)' onMouseOver='MouseOnRow(this,event)'>
-         <td id="5:15" onMouseDown="cellMouseDown(this,event)" onMouseUp="cellMouseUp(this)"><div class='hourDiv' id='5-15:30' >
+          <td id="5:15" onMouseDown="cellMouseDown(this,event)" onMouseUp="cellMouseUp(this)"><div class='hourDiv' id='5-15:30' >
               </div></td>   <td id="4:15" onMouseDown="cellMouseDown(this,event)" onMouseUp="cellMouseUp(this)"><div class='hourDiv' id='4-15:30' >
               </div></td>   <td id="3:15" onMouseDown="cellMouseDown(this,event)" onMouseUp="cellMouseUp(this)"><div class='hourDiv' id='3-15:30' >
               </div></td>   <td id="2:15" onMouseDown="cellMouseDown(this,event)" onMouseUp="cellMouseUp(this)"><div class='hourDiv' id='2-15:30' >
