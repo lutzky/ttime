@@ -245,6 +245,17 @@ namespace UDonkey.DB
 		/// results of the search</returns>
 		public CourseIDCollection SearchDBByParam(string courseName, string courseNum, string points, 
 			string faculty, string lecturerName, string[] days/*TODO:, string startingTime*/ )
+        {
+            return SearchDBByParamGeneral("and", courseName, courseNum, points, faculty, lecturerName, days);
+        }
+
+		public CourseIDCollection SearchDBByParamOr(string courseName, string courseNum, string points, 
+			string faculty, string lecturerName, string[] days/*TODO:, string startingTime*/ )
+        {
+            return SearchDBByParamGeneral("or", courseName, courseNum, points, faculty, lecturerName, days);
+        }
+		private CourseIDCollection SearchDBByParamGeneral(string op, string courseName, string courseNum, string points, 
+			string faculty, string lecturerName, string[] days/*TODO:, string startingTime*/ )
 		{
 			XmlNodeList nodeList = null;
 			XmlElement root = mXMLDataFile.DocumentElement;
@@ -271,7 +282,7 @@ namespace UDonkey.DB
 			if (courseNum != null)
 			{
 				if (flag) // If we also had a courseName add:  and contains(@number, "courseNum")
-					temp += " and contains (@number,\"" + courseNum + "\")";
+					temp += " " + op + " contains (@number,\"" + courseNum + "\")";
 				else // This is the first search param for course so we need to open the brackets
 				{
 					temp += "[contains(@number,\"" + courseNum + "\")"; // add: [contains(@number,"courseNum")
@@ -282,7 +293,7 @@ namespace UDonkey.DB
 			if (points != null) // Academic points is a param
 			{
 				if (flag) // If the bracket is already open
-					temp += " and @courseAcademicPoints=\"" + points + "\""; // add:  and @courseAcademicPoints="points"
+					temp += " " + op + " @courseAcademicPoints=\"" + points + "\""; // add:  and @courseAcademicPoints="points"
 				else // This is the first course param, we need to open the brackets
 				{
 					temp += "[@courseAcademicPoints=\"" + points + "\""; // add: [@courseAcademicPoints="points"
@@ -293,7 +304,7 @@ namespace UDonkey.DB
 			if (lecturerName != null) // Lecturer in charge is a param
 			{
 				if (flag) //  If the bracket is already open
-					temp += " and contains(@lecturerInCharge,\"" + lecturerName + "\")"; //add: and contains(@lecturerInCharge,"lecturerName")
+					temp += " " + op + " contains(@lecturerInCharge,\"" + lecturerName + "\")"; //add: and contains(@lecturerInCharge,"lecturerName")
 				else // This is the first course param, we need to open the brackets
 				{
 					temp += "[contains(@lecturerInCharge,\"" + lecturerName + "\")"; // add: [contains(@lecturerInCharge,"lecturerName")
@@ -307,25 +318,28 @@ namespace UDonkey.DB
 
 			flag = false; // Reset the flag to be used for the CourseEventOccurence params
 			temp = null;
-			if (days[0] != null) 
-			{
-				flag = true; // We will need to add the suffix later
-				temp = "/CourseEvent/PlaceTime[@EventDay=\"" + days[0] + "\""; // Add: /CourseEvent/PlaceTime[@EventDay="days[0]"
-			}
+            if (days != null)
+            {
+                if (days[0] != null) 
+                {
+                    flag = true; // We will need to add the suffix later
+                    temp = "/CourseEvent/PlaceTime[@EventDay=\"" + days[0] + "\""; // Add: /CourseEvent/PlaceTime[@EventDay="days[0]"
+                }
 
-			for (i=1;i<6;++i) // For each day
-			{
-				if (days[i] != null) // If that day is a param
-				{
-					if (flag) // If we already had some days before
-						temp += " or @EventDay=\"" + days[i] + "\""; // add: or @EventDay="days[i]"
-					else
-					{
-						flag = true; // We will need to add the suffix later
-						temp += "/CourseEvent/PlaceTime[@EventDay=\"" + days[i] + "\""; // Add: /CourseEvent/PlaceTime[@EventDay="days[i]"
-					}
-				}
-			}
+                for (i=1;i<6;++i) // For each day
+                {
+                    if (days[i] != null) // If that day is a param
+                    {
+                        if (flag) // If we already had some days before
+                            temp += " or @EventDay=\"" + days[i] + "\""; // add: or @EventDay="days[i]"
+                        else
+                        {
+                            flag = true; // We will need to add the suffix later
+                            temp += "/CourseEvent/PlaceTime[@EventDay=\"" + days[i] + "\""; // Add: /CourseEvent/PlaceTime[@EventDay="days[i]"
+                        }
+                    }
+                }
+            }
 
 			if (flag) // If we need to add the suffix to close the bracket and return to Course level
 				temp += "]/../.."; // Add: ]/../..  

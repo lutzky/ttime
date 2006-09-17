@@ -233,6 +233,12 @@ namespace UDonkey.GUI
 			get { return null; } // TODO
 		}
 
+        public string SearchString
+        {
+            get { return entrySearch.Text; }
+            set { entrySearch.Text = value; } 
+        }
+
 		public string SelectedPoints
 		{
 			get { return strSelectedPoints; }
@@ -533,7 +539,19 @@ namespace UDonkey.GUI
 			remove { btRemoveAll.Clicked -= value; }
 		}
 
-		public event EventHandler CourseNumberChanged;
+		public event EventHandler CourseNumberChanged; // unused
+
+        public event EventHandler QuickSearch
+        {
+            add {
+                btFind.Clicked += value;
+                entrySearch.Activated += value;
+            }
+            remove {
+                btFind.Clicked -= value;
+                entrySearch.Activated -= value;
+            }
+        }
 #endregion
 
 		// courseID renderers

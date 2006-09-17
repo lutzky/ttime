@@ -106,6 +106,22 @@ namespace UDonkey.GUI
 				mDBBrowser.Courses = courses;
 				mMainFormLogic.SetStatusBarLine(Resources.String(RESOURCES_GROUP, "CourseFoundMessage1" ) + courses.Count.ToString() + Resources.String(RESOURCES_GROUP, "CourseFoundMessage2" ));
 			}
+        }
+		private void QuickSearch(object sender, System.EventArgs e)
+		{
+			if ( mDBBrowser != null )
+			{
+				string arg = mDBBrowser.SearchString; 
+				CourseIDCollection courses =  mCourseDB.SearchDBByParamOr(
+					arg, //name
+					null, //number
+					null, // points
+					null, //faculty
+					null, //lecturer
+					null); //days 
+				mDBBrowser.Courses = courses;
+				mMainFormLogic.SetStatusBarLine(Resources.String(RESOURCES_GROUP, "CourseFoundMessage1" ) + courses.Count.ToString() + Resources.String(RESOURCES_GROUP, "CourseFoundMessage2" ));
+			}
 		}
 
 		private void SearchControl_Load(object sender, EventArgs e)
@@ -344,6 +360,7 @@ namespace UDonkey.GUI
 					mDBBrowser.DoneClick -= new System.EventHandler(this.btDone_Click);
 					mDBBrowser.RemoveAllClick -= new System.EventHandler(this.btRemoveAll_Click);
 					mDBBrowser.VisibleChanged -=new EventHandler(mDBBrowser_VisibleChanged);
+                    mDBBrowser.QuickSearch -= new EventHandler(QuickSearch);
 				}
 				mDBBrowser = value;
 				if ( mDBBrowser != null )
@@ -359,6 +376,7 @@ namespace UDonkey.GUI
 					mDBBrowser.DoneClick += new System.EventHandler(this.btDone_Click);
 					mDBBrowser.RemoveAllClick += new System.EventHandler(this.btRemoveAll_Click);
 					mDBBrowser.VisibleChanged +=new EventHandler(mDBBrowser_VisibleChanged);
+                    mDBBrowser.QuickSearch += new EventHandler(QuickSearch);
 					this.SearchControl = mDBBrowser.SearchControl;
 					
 				}
