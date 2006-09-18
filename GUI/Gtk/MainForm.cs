@@ -112,7 +112,11 @@ namespace UDonkey.GUI
 		}
 
 #region Properties
-		public ScheduleDataGrid Grid = new ScheduleDataGrid();
+		public ScheduleDataGrid Grid  
+		{
+			get { return mScheduleGrid; }
+		}
+
 
 		public DBbrowser DBBrowserControl 
 		{
