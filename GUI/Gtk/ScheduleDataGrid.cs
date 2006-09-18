@@ -198,14 +198,88 @@ namespace UDonkey.GUI
 
     public void Refresh()
     {
-//      StringBuilder filename = new StringBuilder("PrintXXXXXX");
-//      Mono.Unix.Native.Syscall.mkstemp(filename);
-//      UDonkey.IO.IOManager.ExportSchedToHtml(filename.ToString(), mSchedule);
-//
-//      mWebControl.LoadUrl("file://"+System.IO.Directory.GetCurrentDirectory()+"/HTML/empty.html");
+      //      StringBuilder filename = new StringBuilder("PrintXXXXXX");
+      //      Mono.Unix.Native.Syscall.mkstemp(filename);
+      //      UDonkey.IO.IOManager.ExportSchedToHtml(filename.ToString(), mSchedule);
+      //
+      //      mWebControl.LoadUrl("file://"+System.IO.Directory.GetCurrentDirectory()+"/HTML/empty.html");
+
+      if(mSchedule == null)
+        return;
+
+      Console.WriteLine("msched ok");
+      ArrayList al = new ArrayList();
+      DataTable mDataTable = mSchedule.FullDataTable;
+
+
+      foreach (DataColumn myCol in mDataTable.Columns)
+      {			
+        Console.WriteLine("loop");
+        //going throughout the rows (hour)
+        foreach(DataRow myRow in mDataTable.Rows)
+        {			
+          Console.WriteLine("   loop2");
+          IScheduleEntry entry =  myRow[myCol] as IScheduleEntry;
+          if ( !entry.IsEmpty )
+          {
+
+            foreach( System.Collections.DictionaryEntry de in  entry )
+            {
+              Console.WriteLine("       loop3");
+
+              IScheduleObject iso = (IScheduleObject) de.Value;
+              //start ScheduleObject
+              
+              /*
+             * format: " addEvent(course_index,type,day,start,end,desc);\n"
+             * course_index - an inumeration of the courses.
+             * type - tirgul or lecture. for now ignored
+             * day - 1..5
+             * start - 8 for 8:30, 16 for 16:30
+             * end - 8 for 8:30, 16 for 16:30
+             * desc - the string that will be displayed for this
+             */
+            if(iso!=null){
+              al.Add("addEvent(1,'tirgul',"+(int)(iso.DayOfWeek)+","+iso.StartHour+","
+                  +(iso.Duration+iso.StartHour - 1)+","+iso.ToString()+");\n");
+              Console.WriteLine("event added");
+            }
+
+            }												
+          }
+        }
+      }
+      foreach ( DayOfWeek day in Enum.GetValues( typeof(DayOfWeek) ) ){
+        //FIXME magic number
+        int i;
+        for(i=8;i<=20;i++){
+          IScheduleEntry ise = mSchedule.FullDataTable.Rows[i][(int)day] as IScheduleEntry;
+          foreach (IScheduleObject iso in ise){
+            /*
+             * format: " addEvent(course_index,type,day,start,end,desc);\n"
+             * course_index - an inumeration of the courses.
+             * type - tirgul or lecture. for now ignored
+             * day - 1..5
+             * start - 8 for 8:30, 16 for 16:30
+             * end - 8 for 8:30, 16 for 16:30
+             * desc - the string that will be displayed for this
+             */
+            if(iso!=null){
+              al.Add("addEvent(1,'tirgul',"+(int)(iso.DayOfWeek)+","+iso.StartHour+","
+                  +(iso.Duration+iso.StartHour - 1)+","+iso.ToString()+");\n");
+              Console.WriteLine("event added");
+            }
+          }
+        }
+      }
+      Console.WriteLine("no more look");
+
       TextReader htmlFile = new StreamReader("HTML/SchedTable.html");
       mWebControl.OpenStream("file://"+System.IO.Directory.GetCurrentDirectory(),"text/html");
       String html = htmlFile.ReadToEnd();
+      foreach(String ev in al){
+        html = html.Replace("//TEMPLATE//","//TEMPLATE//\n"+ev); 
+      }
       StreamWriter w =  File.CreateText( "TemporarySchedule.html" );
       w.Write(html);
       w.Close();
@@ -213,9 +287,9 @@ namespace UDonkey.GUI
       mWebControl.LoadUrl("file://"+System.IO.Directory.GetCurrentDirectory()+"/TemporarySchedule.html");
 
 
-//      mWebControl.AppendData(html);
-//      Console.WriteLine(html);
-//      mWebControl.CloseStream();
+      //      mWebControl.AppendData(html);
+      //      Console.WriteLine(html);
+      //      mWebControl.CloseStream();
 
 
 
