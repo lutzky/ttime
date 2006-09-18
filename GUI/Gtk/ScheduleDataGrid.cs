@@ -198,14 +198,30 @@ namespace UDonkey.GUI
 
     public void Refresh()
     {
-      StringBuilder filename = new StringBuilder("PrintXXXXXX");
-      Mono.Unix.Native.Syscall.mkstemp(filename);
-      UDonkey.IO.IOManager.ExportSchedToHtml(filename.ToString(), mSchedule);
+//      StringBuilder filename = new StringBuilder("PrintXXXXXX");
+//      Mono.Unix.Native.Syscall.mkstemp(filename);
+//      UDonkey.IO.IOManager.ExportSchedToHtml(filename.ToString(), mSchedule);
+//
+//      mWebControl.LoadUrl("file://"+System.IO.Directory.GetCurrentDirectory()+"/HTML/empty.html");
+      TextReader htmlFile = new StreamReader("HTML/SchedTable.html");
+      mWebControl.OpenStream("file://"+System.IO.Directory.GetCurrentDirectory(),"text/html");
+      String html = htmlFile.ReadToEnd();
+      StreamWriter w =  File.CreateText( "TemporarySchedule.html" );
+      w.Write(html);
+      w.Close();
+
+      mWebControl.LoadUrl("file://"+System.IO.Directory.GetCurrentDirectory()+"/TemporarySchedule.html");
+
+
+//      mWebControl.AppendData(html);
+//      Console.WriteLine(html);
+//      mWebControl.CloseStream();
+
+
 
       //FileStream fstream = new FileStream(filename.ToString(), FileMode.Open, FileAccess.Read);
       //
 
-      mWebControl.LoadUrl(System.IO.Path.GetFullPath(filename.ToString()));
       //mWebControl.LoadUrl("http://www.google.com");
     }
 
