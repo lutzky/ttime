@@ -185,7 +185,14 @@ namespace UDonkey.Logic
     {   
       if( mScheduler.Courses.Count == 0 )
       {   
-        System.Windows.Forms.MessageBox.Show("נא לבחור קורס אחד לפחות על מנת לסדר מערכות");
+	// FIXME: This is WinForms specific
+	try {
+	  System.Windows.Forms.MessageBox.Show("נא לבחור קורס אחד לפחות על מנת לסדר מערכות");
+	}
+	catch {
+	  Console.WriteLine("You haven't chosen any courses, and the GTK version of this error isn't yet implemented.");
+	  // Should be a fairly obvious FIXME...
+	}
         return;
       }
       mMainForm.SelectedTab = MainForm.TabIndices.ScheduleGrid;
