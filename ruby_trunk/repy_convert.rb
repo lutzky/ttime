@@ -1,9 +1,7 @@
 require 'iconv'
 require 'gtk2'
 
-Course = Struct.new(:number, :name, :academic_points, :lecture_hours, :tutorial_hours, :lecturer_in_charge, :first_test_date, :second_test_date, :groups)
-
-Group = Struct.new(:day, :start_time, :end_time, :room, :lecturer)
+require 'course'
 
 def gtk_debug_output(msg)
   $tb_dest.text = $tb_dest.text + msg.to_s + "\n"
