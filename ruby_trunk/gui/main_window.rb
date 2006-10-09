@@ -2,7 +2,7 @@ require 'libglade2'
 
 class MainWindow
   def initialize
-    @glade = GladeXML.new("ttime.glade") { |handler| method(handler) }
+    @glade = GladeXML.new("ttime.glade", "MainWindow") { |handler| method(handler) }
 
     @main_window = @glade["MainWindow"]
   end
