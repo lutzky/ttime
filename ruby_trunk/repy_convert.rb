@@ -3,6 +3,8 @@ require 'gtk2'
 
 require 'course'
 
+RawCourse= Struct.new(:header,:body)
+
 def gtk_debug_output(msg)
   $tb_dest.text = $tb_dest.text + msg.to_s + "\n"
 end
@@ -23,7 +25,9 @@ class Repy
     @hash = []
 
     each_raw_faculty do |name, contents|
-      gtk_debug_output name
+      each_raw_course(contents) do |course|
+        gtk_debug_output course.header
+      end
     end
 
     @hashed = true
@@ -65,6 +69,19 @@ class Repy
 
     puts raw_faculties.size
   end
+end
+
+def each_raw_course(faculty)
+  courses = faculty.split('+------------------------------------------+')
+
+  1.upto(courses.size/2) do |i|
+    i*=2
+    c = RawCourse.new
+    c.header = courses[i-1]
+    c.body = courses[i]
+    yield c
+  end
+
 end
 
 def get_faculty(repy_text)

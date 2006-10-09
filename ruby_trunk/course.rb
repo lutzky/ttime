@@ -60,5 +60,11 @@ class Course
   def group_types
     [:lecture,:tutorial,:lab]
   end
+
+def initialize(x)
+# do something here!
+
+end
+
 end
 
