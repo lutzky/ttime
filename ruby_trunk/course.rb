@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
 
+require 'group'
 class Array
 
   def one_member_of_each_member
@@ -31,8 +32,8 @@ class Array
 end
 
 class Course
-  attr_reader :number, :name, :academic_points, :lecture_hours, :tutorial_hours, :lecturer_in_charge, :first_test_date, :second_test_date, :groups
-  attr_writer :number, :name, :academic_points, :lecture_hours, :tutorial_hours, :lecturer_in_charge, :first_test_date, :second_test_date, :groups
+  attr_reader :number, :name, :academic_points, :hours, :lecturer_in_charge, :first_test_date, :second_test_date, :groups
+  attr_writer :number, :name, :academic_points, :hours, :lecturer_in_charge, :first_test_date, :second_test_date, :groups
 
 
   def each_group_selection
@@ -61,10 +62,76 @@ class Course
     [:lecture,:tutorial,:lab]
   end
 
-def initialize(x)
-# do something here!
+  def initialize(x)
+    if not x.is_a? RawCourse
+      throw :not_a_raw_course
+    end
+    @groups = []
+    grp = nil
+    ## sorry for the perl
+    arr = /\|\s(\d\d\d\d\d\d) ([א-תףץךןם0-9()\/+#,.\-"' ]+?) *\|\n\| שעות הוראה בשבוע\:( *[א-ת].+?[0-9]+)+ +נק: (\d\.?\d) ?\|/.match(x.header)
+    begin
+      #puts "course num: #{arr[1]}\n course name #{arr[2]}\n course hrs: #{arr[3]} | points: #{arr[arr.size-1]}\n----------\n"
+      @number = arr[1].reverse
+      @name = arr[2]
+      @academic_points = arr[arr.size-1].reverse.to_f
+      @hours = []
+      4.upto(arr.size-2) do |i|
+        hours << arr[i]
+      end
+    rescue
+      #puts x.header
+      raise
+    end
+    #  states:
+    #  0: start
+    #  1: thing
+    #  2: details
+    state = 0
+    #puts x.body
+    x.body.each do |line|
+      case state
+      when 0:
+        if line[3] != '-'
+          if m=/\| מורה  אחראי :(.*?) *\|/.match(line)
+            @lecturer_in_charge = m[1]
+          elsif m=/\| מועד ראשון :(.*?) *\|/.match(line)
+            @first_test_date = m[1]
+          elsif m = /\| מועד שני   :(.*?) *\|/.match(line)
+            @second_test_date = m[1]
+          elsif line =~ /\|רישום +\|/ or line =~ /\| +\|/
+            state = 1
 
+          end
+        end
+      when 1:
+        if line =~ /----/
+          #this should not happen
+        elsif m=/\| *([0-9]*) *([א-ת]+) ?: ?(.*?) *\|/.match(line)
+          grp = Group.new
+          grp.heb_type =  m[2]
+          grp.number = m[1].to_i
+          puts "adding #{m[3]} for #{m[2]} \n"
+          grp.add_hours(m[3])
+          state = 2
+        end
+      when 2:
+        if line !~ /:/
+          if line =~ /\| +\|/ || line =~ /\+\+\+\+\+\+/ || line =~ /----/
+            @groups << grp
+            state = 1
+          else
+            m=/\| +(.*?) +\|/.match(line)
+            grp.add_hours(m[1]) if m
+          end
+        else
+          (property,value) = /\| +(.*?) +\|/.match(line)[1].split(/:/)
+          grp.set_from_heb(property,value)
+        end
+      end
+    end
+    if state==2
+      @groups << grp
+    end
+  end
 end
-
-end
-

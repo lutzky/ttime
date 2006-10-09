@@ -1,17 +1,19 @@
 require 'iconv'
-require 'gtk2'
+#require 'gtk2'
+require 'yaml'
 
 require 'course'
 
 RawCourse= Struct.new(:header,:body)
 
 def gtk_debug_output(msg)
-  $tb_dest.text = $tb_dest.text + msg.to_s + "\n"
+  $tb_dest = $tb_dest + msg.to_s + "\n"
 end
 
 class Repy
   attr_reader :raw
   attr_reader :unicode
+  attr_reader :hash
 
   def initialize(_raw)
     @hashed = false
@@ -19,14 +21,15 @@ class Repy
     convert_to_unicode
   end
 
-  def hash
+  def load_to_ruby
     return @hash if @hashed
 
     @hash = []
 
     each_raw_faculty do |name, contents|
       each_raw_course(contents) do |course|
-        gtk_debug_output course.header
+        #gtk_debug_output course.header
+        @hash << Course.new(course)
       end
     end
 
@@ -87,38 +90,44 @@ end
 def get_faculty(repy_text)
 end
 
-Gtk.init
+#Gtk.init
 
-w = Gtk::Window.new
+#w = Gtk::Window.new
 
 
-$tb_dest = Gtk::TextBuffer.new
-tv_dest = Gtk::TextView.new $tb_dest
-sw_dest = Gtk::ScrolledWindow.new nil, nil
-sw_dest.set_policy Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC
-sw_dest.shadow_type = Gtk::SHADOW_IN
-sw_dest.add tv_dest
+$tb_dest = ""
+#tv_dest = Gtk::TextView.new $tb_dest
+#sw_dest = Gtk::ScrolledWindow.new nil, nil
+#sw_dest.set_policy Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC
+#sw_dest.shadow_type = Gtk::SHADOW_IN
+#sw_dest.add tv_dest
 
 my_text = open("REPY") { |f| f.read }
 
 my_repy = Repy.new(my_text)
 
-$tb_dest.text = ""
 
-my_repy.hash
+my_repy.load_to_ruby
 
-w.border_width = 5
+y my_repy.hash
+#puts my_repy.unicode
 
-w.title = 'ICQ Hebrew Fixer'
 
-w.add sw_dest
+#w.border_width = 5
 
-w.signal_connect('remove') do
-  Gtk.main_quit
-end
+#w.title = 'ICQ Hebrew Fixer'
 
-w.set_default_size 600, 300
+#w.add sw_dest
 
-w.show_all
+#w.signal_connect('remove') do
+#  Gtk.main_quit
+#end
 
-Gtk.main
+#w.set_default_size 600, 300
+
+#w.show_all
+
+#Gtk.main
+
+#puts $tb_dest
+
