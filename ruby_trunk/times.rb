@@ -18,6 +18,7 @@ class Day
     if x.is_a? Integer
       @day = x;
     else
+      puts "its #{x} day\n"
       @day = @@name_to_day[x]
     end
   end
@@ -28,7 +29,7 @@ class Hour
     if _hour.is_a? Integer
       @hour = _hour
     else
-      @hour = /(\d\d?):\d\d/.match(_hour)[1]
+      @hour = /(\d\d?)(:|\.)\d\d/.match(_hour)[1]
     end
   end
 end
