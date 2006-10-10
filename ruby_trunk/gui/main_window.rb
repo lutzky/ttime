@@ -18,7 +18,7 @@ module TTime
       def load_data
         @data = TTime::Data.load
 
-        y @data
+        p @data.size
       end
 
       def on_quit_activate

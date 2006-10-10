@@ -7,7 +7,7 @@ module TTime
 
     def self.load
       if File::exists?(YAML_File)
-        File.open(YAML_File) { |yf| YAML::load yf }
+        File.open(YAML_File) { |yf| YAML::load(yf.read) }
       elsif File::exists?(REPY_File)
         self.update_yaml
       else
