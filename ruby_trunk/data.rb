@@ -6,7 +6,7 @@ module TTime
     YAML_File = "data/technion.yml"
 
     def self.load
-      if File::exists?(YAML_File)
+      if false # File::exists?(YAML_File) # But YAML file doesn't seem to work
         File.open(YAML_File) { |yf| YAML::load(yf.read) }
       elsif File::exists?(REPY_File)
         self.update_yaml

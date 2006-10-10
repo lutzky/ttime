@@ -1,3 +1,4 @@
+require 'logic/course'
 require 'libglade2'
 require 'data'
 
@@ -8,17 +9,18 @@ module TTime
       def initialize
         @glade = GladeXML.new(GLADE_FILE) { |handler| method(handler) }
 
-        @data = {}
+        @tree_available_courses = Gtk::TreeStore.new String, String,
+          Logic::Course
+        @list_selected_courses = Gtk::ListStore.new String, String,
+          Logic::Course
 
-        @main_window = @glade["MainWindow"]
+        init_course_tree_views
 
-        load_data
-      end
-
-      def load_data
-        @data = TTime::Data.load
-
-        p @data.size
+        @glade["statusbar"].push(@glade["statusbar"].get_context_id('status'),'Hi there. Another thread is loading the REPY file. This would be more elegant with a modal progress bar.')
+        Thread.new do
+          load_data
+          @glade["statusbar"].pop(@glade["statusbar"].get_context_id('status'))
+        end
       end
 
       def on_quit_activate
@@ -27,6 +29,56 @@ module TTime
 
       def on_about_activate
         @glade["AboutDialog"].run
+      end
+
+      private
+      def load_data
+        @data = TTime::Data.load
+
+        @data.each do |faculty|
+          iter = @tree_available_courses.append(nil)
+          iter[0] = faculty.name
+
+          faculty.courses.each do |course|
+            child = @tree_available_courses.append(iter)
+            child[0] = course.number
+            child[1] = course.name
+            child[2] = course
+          end
+        end
+
+        p @data.size
+      end
+
+      def init_course_tree_views
+        available_courses_view = @glade["treeview_available_courses"]
+        available_courses_view.model = @tree_available_courses
+
+        selected_courses_view = @glade["treeview_selected_courses"]
+        selected_courses_view.model = @list_selected_courses
+        
+        columns = []
+
+        [ "Course No.", "Course Name" ].each_with_index do |label, i|
+          columns[i] = Gtk::TreeViewColumn.new label, Gtk::CellRendererText.new,
+            :text => i
+        end
+
+        columns.each do |c|
+          available_courses_view.append_column c
+        end
+
+        # This actually has to be done twice, because we need different
+        # copies of the columns for each of the views
+
+        [ "Course No.", "Course Name" ].each_with_index do |label, i|
+          columns[i] = Gtk::TreeViewColumn.new label, Gtk::CellRendererText.new,
+            :text => i
+        end
+
+        columns.each do |c|
+          selected_courses_view.append_column c
+        end
       end
     end
   end
