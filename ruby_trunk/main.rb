@@ -1,5 +1,10 @@
-require 'data'
+require 'gui/main_window'
 
 $DEBUG = false
 
-y TTime::Data.load
+#Gtk.init
+#a = TTime::GUI::MainWindow.new
+#Gtk.main
+#
+
+TTime::Data.update_yaml

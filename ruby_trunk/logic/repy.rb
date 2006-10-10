@@ -1,7 +1,7 @@
 require 'iconv'
 require 'yaml'
 
-require 'logic/course'
+require 'logic/faculty'
 
 module TTime
   module Logic
@@ -23,9 +23,7 @@ module TTime
         @hash = []
 
         each_raw_faculty do |name, contents|
-          each_raw_course(contents) do |course|
-            @hash << Course.new(course)
-          end
+          @hash << Faculty.new(name, contents)
         end
 
         @hashed = true
@@ -65,18 +63,6 @@ module TTime
             name = FACULTY_BANNER_REGEX.match(banner)[1]
             yield name, raw_faculty
           end
-        end
-      end
-
-      def each_raw_course(faculty)
-        courses = faculty.split('+------------------------------------------+')
-
-        1.upto(courses.size/2) do |i|
-          i*=2
-          c = RawCourse.new
-          c.header = courses[i-1]
-          c.body = courses[i]
-          yield c
         end
       end
     end
