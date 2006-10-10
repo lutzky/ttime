@@ -32,9 +32,8 @@ class Array
 end
 
 class Course
-  attr_reader :number, :name, :academic_points, :hours, :lecturer_in_charge, :first_test_date, :second_test_date, :groups
-  attr_writer :number, :name, :academic_points, :hours, :lecturer_in_charge, :first_test_date, :second_test_date, :groups
-
+  attr_accessor :number, :name, :academic_points, :hours, :lecturer_in_charge,
+    :first_test_date, :second_test_date, :groups
 
   def each_group_selection
     groups_by_type = []
@@ -53,7 +52,6 @@ class Course
       ret << group if group.type_is? type
     end
     return ret
-
   end
 
   # the group type constants
@@ -83,15 +81,11 @@ class Course
       #puts x.header
       raise
     end
-    #  states:
-    #  0: start
-    #  1: thing
-    #  2: details
-    state = 0
+    state = :start
     #puts x.body
     x.body.each do |line|
       case state
-      when 0:
+      when :start:
         if line[3] != '-'
           if m=/\| מורה  אחראי :(.*?) *\|/.match(line)
             @lecturer_in_charge = m[1]
@@ -100,11 +94,10 @@ class Course
           elsif m = /\| מועד שני   :(.*?) *\|/.match(line)
             @second_test_date = m[1]
           elsif line =~ /\|רישום +\|/ or line =~ /\| +\|/
-            state = 1
-
+            state = :thing
           end
         end
-      when 1:
+      when :thing:
         if line =~ /----/
           #this should not happen
         elsif m=/\| *([0-9]*) *([א-ת]+) ?: ?(.*?) *\|/.match(line)
@@ -113,13 +106,13 @@ class Course
           grp.number = m[1].to_i
           puts "adding #{m[3]} for #{m[2]} \n"
           grp.add_hours(m[3])
-          state = 2
+          state = :details
         end
-      when 2:
+      when :details:
         if line !~ /:/
           if line =~ /\| +\|/ || line =~ /\+\+\+\+\+\+/ || line =~ /----/
             @groups << grp
-            state = 1
+            state = :thing
           else
             m=/\| +(.*?) +\|/.match(line)
             grp.add_hours(m[1]) if m
@@ -130,7 +123,7 @@ class Course
         end
       end
     end
-    if state==2
+    if state == :details
       @groups << grp
     end
   end

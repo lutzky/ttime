@@ -1,14 +1,8 @@
 require 'iconv'
-#require 'gtk2'
 require 'yaml'
+require 'logic/course'
 
-require 'course'
-
-RawCourse= Struct.new(:header,:body)
-
-def gtk_debug_output(msg)
-  $tb_dest = $tb_dest + msg.to_s + "\n"
-end
+RawCourse = Struct.new(:header,:body)
 
 class Repy
   attr_reader :raw
@@ -28,7 +22,6 @@ class Repy
 
     each_raw_faculty do |name, contents|
       each_raw_course(contents) do |course|
-        #gtk_debug_output course.header
         @hash << Course.new(course)
       end
     end
@@ -84,50 +77,4 @@ def each_raw_course(faculty)
     c.body = courses[i]
     yield c
   end
-
 end
-
-def get_faculty(repy_text)
-end
-
-#Gtk.init
-
-#w = Gtk::Window.new
-
-
-$tb_dest = ""
-#tv_dest = Gtk::TextView.new $tb_dest
-#sw_dest = Gtk::ScrolledWindow.new nil, nil
-#sw_dest.set_policy Gtk::POLICY_AUTOMATIC, Gtk::POLICY_AUTOMATIC
-#sw_dest.shadow_type = Gtk::SHADOW_IN
-#sw_dest.add tv_dest
-
-my_text = open("REPY") { |f| f.read }
-
-my_repy = Repy.new(my_text)
-
-
-my_repy.load_to_ruby
-
-y my_repy.hash
-#puts my_repy.unicode
-
-
-#w.border_width = 5
-
-#w.title = 'ICQ Hebrew Fixer'
-
-#w.add sw_dest
-
-#w.signal_connect('remove') do
-#  Gtk.main_quit
-#end
-
-#w.set_default_size 600, 300
-
-#w.show_all
-
-#Gtk.main
-
-#puts $tb_dest
-
