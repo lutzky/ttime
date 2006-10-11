@@ -13,10 +13,10 @@ module TTime
       status_report_proc = proc {} if status_report_proc.nil?
 
       if USE_YAML && File::exists?(YAML_File)
-        status_report_proc.call("Loading data from YAML",0,1)
+        status_report_proc.call("Loading technion data from YAML",0,1)
         File.open(YAML_File) { |yf| YAML::load(yf.read) }
       elsif File::exists?(MARSHAL_File)
-        status_report_proc.call("Loading data from Marshal",0,1)
+        status_report_proc.call("Loading technion data",0,1)
         File.open(MARSHAL_File) { |mf| Marshal.load(mf.read) }
       elsif File::exists?(REPY_File)
         status_report_proc.call("Loading data from REPY",0,1)

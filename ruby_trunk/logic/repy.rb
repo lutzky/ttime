@@ -57,7 +57,7 @@ module TTime
         raw_faculties = @unicode.split(/\n\n/)
 
         raw_faculties.each_with_index do |raw_faculty,i|
-          @status_report_proc.call("Processing faculties", i, raw_faculties.size)
+          @status_report_proc.call("Loading REPY file...", i, raw_faculties.size)
 
           raw_faculty.lstrip!
           banner = raw_faculty.slice!(FACULTY_BANNER_REGEX)

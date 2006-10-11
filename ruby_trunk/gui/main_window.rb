@@ -1,4 +1,5 @@
 require 'logic/course'
+require 'gui/progress_dialog'
 require 'libglade2'
 require 'data'
 
@@ -18,11 +19,7 @@ module TTime
 
         init_course_tree_views
 
-        @glade["statusbar"].push(@glade["statusbar"].get_context_id('status'),'Hi there. Another thread is loading the REPY file. This would be more elegant with a modal progress bar.')
-        Thread.new do
-          load_data
-          @glade["statusbar"].pop(@glade["statusbar"].get_context_id('status'))
-        end
+        load_data
       end
 
       def on_quit_activate
@@ -111,20 +108,39 @@ module TTime
       end
 
       def load_data
-        @data = TTime::Data.load do |s,a,b|
-          puts "#{s}, #{a} out of #{b}"
+        progress_dialog = ProgressDialog.new
+
+        Thread.new do
+          @data = TTime::Data.load(&progress_dialog.get_status_proc)
+
+          progress_dialog.dispose
+
+          update_available_courses_tree
         end
+      end
 
-        @data.each do |faculty|
-          iter = @tree_available_courses.append(nil)
-          iter[0] = faculty.name
+      def update_available_courses_tree
+        @tree_available_courses.clear
 
-          faculty.courses.each do |course|
-            child = @tree_available_courses.append(iter)
-            child[0] = course.number
-            child[1] = course.name
-            child[2] = course
+        progress_dialog = ProgressDialog.new
+        progress_dialog.text = 'Populating available courses'
+
+        Thread.new do
+          @data.each_with_index do |faculty,i|
+            progress_dialog.fraction = i.to_f / @data.size.to_f
+
+            iter = @tree_available_courses.append(nil)
+            iter[0] = faculty.name
+
+            faculty.courses.each do |course|
+              child = @tree_available_courses.append(iter)
+              child[0] = course.number
+              child[1] = course.name
+              child[2] = course
+            end
           end
+          
+          progress_dialog.dispose
         end
       end
 
@@ -134,7 +150,7 @@ module TTime
 
         selected_courses_view = @glade["treeview_selected_courses"]
         selected_courses_view.model = @list_selected_courses
-        
+
         columns = []
 
         [ "Course No.", "Course Name" ].each_with_index do |label, i|
