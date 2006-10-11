@@ -1,0 +1,29 @@
+require 'data'
+
+include TTime
+
+class File
+  class << self
+    def try_unlink(file_name)
+      begin
+        File.unlink file_name
+      rescue Errno::ENOENT
+      end
+    end
+  end
+end
+
+task :default => [:run] do
+end
+
+task :run do
+  require 'main'
+end
+
+task :cleanrun => [:clean, :run] do
+end
+
+task :clean do
+  File.try_unlink TTime::Data::YAML_File
+  File.try_unlink TTime::Data::MARSHAL_File
+end
