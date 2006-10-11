@@ -1,6 +1,4 @@
 require 'iconv'
-require 'yaml'
-
 require 'logic/faculty'
 
 module TTime

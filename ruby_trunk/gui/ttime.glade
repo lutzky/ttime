@@ -323,6 +323,7 @@ But we don't like C#</property>
 				      <property name="fixed_height_mode">False</property>
 				      <property name="hover_selection">False</property>
 				      <property name="hover_expand">False</property>
+				      <signal name="cursor_changed" handler="on_available_course_selection" last_modification_time="Wed, 11 Oct 2006 11:44:51 GMT"/>
 				    </widget>
 				  </child>
 				</widget>
@@ -336,6 +337,7 @@ But we don't like C#</property>
 			      <child>
 				<widget class="GtkButton" id="btn_add_course">
 				  <property name="visible">True</property>
+				  <property name="sensitive">False</property>
 				  <property name="can_focus">True</property>
 				  <property name="label">gtk-add</property>
 				  <property name="use_stock">True</property>
@@ -429,6 +431,7 @@ But we don't like C#</property>
 				      <property name="fixed_height_mode">False</property>
 				      <property name="hover_selection">False</property>
 				      <property name="hover_expand">False</property>
+				      <signal name="cursor_changed" handler="on_selected_course_selection" last_modification_time="Wed, 11 Oct 2006 11:52:10 GMT"/>
 				    </widget>
 				  </child>
 				</widget>
@@ -442,11 +445,13 @@ But we don't like C#</property>
 			      <child>
 				<widget class="GtkButton" id="btn_remove_course">
 				  <property name="visible">True</property>
+				  <property name="sensitive">False</property>
 				  <property name="can_focus">True</property>
 				  <property name="label">gtk-remove</property>
 				  <property name="use_stock">True</property>
 				  <property name="relief">GTK_RELIEF_NORMAL</property>
 				  <property name="focus_on_click">True</property>
+				  <signal name="clicked" handler="on_remove_course" last_modification_time="Wed, 11 Oct 2006 08:57:00 GMT"/>
 				</widget>
 				<packing>
 				  <property name="padding">0</property>

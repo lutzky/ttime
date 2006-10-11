@@ -1,5 +1,9 @@
 require 'gui/main_window'
 
+require 'jcode'
+
+$KCODE = 'u'
+
 $DEBUG = false
 
 Gtk.init

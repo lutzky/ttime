@@ -19,10 +19,10 @@ module TTime
         init_course_tree_views
 
         @glade["statusbar"].push(@glade["statusbar"].get_context_id('status'),'Hi there. Another thread is loading the REPY file. This would be more elegant with a modal progress bar.')
-        Thread.new do
+#        Thread.new do
           load_data
-          @glade["statusbar"].pop(@glade["statusbar"].get_context_id('status'))
-        end
+#          @glade["statusbar"].pop(@glade["statusbar"].get_context_id('status'))
+#        end
       end
 
       def on_quit_activate
@@ -34,27 +34,66 @@ module TTime
       end
 
       def on_add_course
-        available_courses_view = @glade["treeview_available_courses"]
+        course = currently_addable_course
 
-        selected_iter = available_courses_view.selection.selected
-
-        return unless selected_iter && selected_iter[2]
-
-        course = selected_iter[2]
-
-        unless @selected_courses.include? course
+        if course
           @selected_courses << course
-
-          p @selected_courses
 
           iter = @list_selected_courses.append
           iter[0] = course.number
           iter[1] = course.name
           iter[2] = course
+
+          on_available_course_selection
+          on_selected_course_selection
         end
       end
 
+      def on_remove_course
+        iter = currently_removable_course_iter
+
+        if iter
+          @selected_courses.delete iter[2]
+          @list_selected_courses.remove iter
+
+          on_available_course_selection
+          on_selected_course_selection
+        end
+      end
+
+      def on_available_course_selection
+        @glade["btn_add_course"].sensitive = 
+          currently_addable_course ? true : false
+      end
+
+      def on_selected_course_selection
+        @glade["btn_remove_course"].sensitive =
+          currently_removable_course_iter ? true : false
+      end
+
       private
+      def currently_addable_course
+        available_courses_view = @glade["treeview_available_courses"]
+
+        selected_iter = available_courses_view.selection.selected
+
+        return false unless selected_iter
+
+        return false if @selected_courses.include? selected_iter[2]
+
+        selected_iter[2]
+      end
+
+      def currently_removable_course_iter
+        selected_courses_view = @glade["treeview_selected_courses"]
+
+        selected_iter = selected_courses_view.selection.selected
+
+        return false unless selected_iter
+
+        selected_iter
+      end
+
       def load_data
         @data = TTime::Data.load
 
