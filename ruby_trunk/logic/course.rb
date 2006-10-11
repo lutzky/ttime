@@ -79,10 +79,9 @@ module TTime
         [:lecture,:tutorial,:lab]
       end
 
-      def initialize(x)
-        if not x.is_a? RawCourse
-          throw :not_a_raw_course
-        end
+      def initialize(x = nil)
+        return unless x.is_a? RawCourse
+
         @groups = []
         grp = nil
         ## sorry for the perl

@@ -244,6 +244,7 @@ But we don't like C#</property>
 	      <property name="visible_horizontal">True</property>
 	      <property name="visible_vertical">True</property>
 	      <property name="is_important">False</property>
+	      <signal name="clicked" handler="find_schedules" last_modification_time="Wed, 11 Oct 2006 21:30:17 GMT"/>
 	    </widget>
 	    <packing>
 	      <property name="expand">False</property>

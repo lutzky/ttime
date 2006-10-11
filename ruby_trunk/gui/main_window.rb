@@ -1,9 +1,11 @@
-require 'logic/course'
-require 'gui/progress_dialog'
 require 'libglade2'
 require 'data'
 require 'gtkmozembed'
 require 'tempfile'
+
+require 'logic/course'
+require 'logic/scheduler'
+require 'gui/progress_dialog'
 
 module TTime
   module GUI
@@ -31,6 +33,11 @@ module TTime
 
       def on_about_activate
         @glade["AboutDialog"].run
+      end
+
+      def find_schedules
+        s = Logic::Scheduler.new(@selected_courses, [])
+        puts s.ok_schedules[0].to_javascript
       end
 
       def on_add_course

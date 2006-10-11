@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-require 'scheduler'
+require 'logic/scheduler'
 require 'test/unit'
 
 
@@ -29,6 +29,8 @@ end
 
 
 class TestSchedule < Test::Unit::TestCase
+  include TTime::Logic
+
   def test_size
     c = Course.new
     c.number = 236350

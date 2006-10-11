@@ -15,6 +15,10 @@ class File
   end
 end
 
+task :test do
+  require 'tests/test_schedule'
+end
+
 task :default => [:run] do
 end
 

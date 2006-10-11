@@ -6,18 +6,37 @@ require 'logic/times'
 
 module TTime
   module Logic
+    class Schedule
+      def initialize(group_arr)
+        @group_arr = group_arr
+      end
+
+      def to_javascript
+        puts 'converting to javascript'
+        p @group_arr
+        puts 'we are converting that'
+        events_js = []
+        @group_arr.each do |group|
+          puts 'there is a group:'
+          p group
+        end
+      end
+    end
+
     class Scheduler
+      attr_reader :ok_schedules
 
       def initialize(courses,constraints)
         @courses = courses
         @constraints = constraints
+        @ok_schedules = []
+        generate_ok_schedules
       end
 
-      def each_ok_schedule
-        each_schedule_recusively(@courses,[]) do |i|
-          yield i
+      def generate_ok_schedules
+        each_schedule_recusively(@courses,[]) do |groups|
+          @ok_schedules << Schedule.new(groups[0])
         end
-
       end
 
       private
