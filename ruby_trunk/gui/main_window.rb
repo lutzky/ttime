@@ -62,16 +62,32 @@ module TTime
       end
 
       def on_available_course_selection
+        course = currently_addable_course
+
         @glade["btn_add_course"].sensitive = 
-          currently_addable_course ? true : false
+          course ? true : false
+
+        if course
+          set_course_info course.text
+        end
       end
 
       def on_selected_course_selection
+        course_iter = currently_removable_course_iter
         @glade["btn_remove_course"].sensitive =
-          currently_removable_course_iter ? true : false
+          course_iter ? true : false
+
+        if course_iter
+          set_course_info course_iter[2].text
+        end
       end
 
       private
+
+      def set_course_info(info)
+        @glade["text_course_info"].buffer.text = info
+      end
+
       def currently_addable_course
         available_courses_view = @glade["treeview_available_courses"]
 

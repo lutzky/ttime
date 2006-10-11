@@ -35,6 +35,25 @@ module TTime
       attr_accessor :number, :name, :academic_points, :hours, :lecturer_in_charge,
         :first_test_date, :second_test_date, :groups
 
+      def markup
+        <<-EOF
+#@number - <b>#@name</b>
+#@lecturer_in_charge
+        EOF
+      end
+
+      def text
+        <<-EOF
+#@number - #@name
+מרצה אחראי: #@lecturer_in_charge
+נק' אקדמיות: #@academic_points
+
+מועד א': #@first_test_date
+מועד ב': #@second_test_date
+
+        EOF
+      end
+
       def each_group_selection
         groups_by_type = []
         group_types.each do |type|

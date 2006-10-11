@@ -4,10 +4,12 @@ include TTime
 
 class File
   class << self
-    def try_unlink(file_name)
-      begin
-        File.unlink file_name
-      rescue Errno::ENOENT
+    def try_unlink(*files)
+      files.each do |file_name|
+        begin
+          File.unlink file_name
+        rescue Errno::ENOENT
+        end
       end
     end
   end
@@ -24,6 +26,6 @@ task :cleanrun => [:clean, :run] do
 end
 
 task :clean do
-  File.try_unlink TTime::Data::YAML_File
-  File.try_unlink TTime::Data::MARSHAL_File
+  File.try_unlink TTime::Data::YAML_File, TTime::Data::MARSHAL_File,
+    'gui/ttime.gladep', 'gui/ttime.gladep.bak', 'gui/ttime.glade.bak'
 end
