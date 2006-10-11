@@ -37,7 +37,9 @@ module TTime
 
       def find_schedules
         s = Logic::Scheduler.new(@selected_courses, [])
-        puts s.ok_schedules[0].to_javascript
+        s.ok_schedules[0].events.each do |event|
+          puts event.to_javascript
+        end
       end
 
       def on_add_course
@@ -47,8 +49,8 @@ module TTime
           @selected_courses << course
 
           iter = @list_selected_courses.append
-          iter[0] = course.number
-          iter[1] = course.name
+          iter[0] = course.name
+          iter[1] = course.number
           iter[2] = course
 
           on_available_course_selection
@@ -179,12 +181,12 @@ module TTime
 
             faculty.courses.each do |course|
               child = @tree_available_courses.append(iter)
-              child[0] = course.number
-              child[1] = course.name
+              child[0] = course.name
+              child[1] = course.number
               child[2] = course
             end
           end
-          
+
           progress_dialog.dispose
         end
       end
@@ -198,9 +200,10 @@ module TTime
 
         columns = []
 
-        [ "Course No.", "Course Name" ].each_with_index do |label, i|
+        [ "Course", "Number" ].each_with_index do |label, i|
           columns[i] = Gtk::TreeViewColumn.new label, Gtk::CellRendererText.new,
             :text => i
+          columns[i].resizable = true
         end
 
         columns.each do |c|

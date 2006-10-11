@@ -1,6 +1,10 @@
 module TTime
   module Logic
     class Day 
+      def to_i
+        @day
+      end
+
       @@name_to_day = {
         'sun' => 1,
         'mon' => 2,
@@ -27,6 +31,10 @@ module TTime
     end
 
     class Hour
+      def to_i
+        @hour
+      end
+
       def initialize(_hour)
         if _hour.is_a? Integer
           @hour = _hour

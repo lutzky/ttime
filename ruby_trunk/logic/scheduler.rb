@@ -11,15 +11,14 @@ module TTime
         @group_arr = group_arr
       end
 
-      def to_javascript
-        puts 'converting to javascript'
-        p @group_arr
-        puts 'we are converting that'
-        events_js = []
+      def events
+        events = []
         @group_arr.each do |group|
-          puts 'there is a group:'
-          p group
+          group.events.each do |event|
+            events << event
+          end
         end
+        events
       end
     end
 
@@ -35,6 +34,8 @@ module TTime
 
       def generate_ok_schedules
         each_schedule_recusively(@courses,[]) do |groups|
+          # FIXME: Why am I getting an array of arrays of groups?
+          # I should be getting an array of groups.
           @ok_schedules << Schedule.new(groups[0])
         end
       end
