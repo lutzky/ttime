@@ -2,6 +2,7 @@ require 'logic/course'
 require 'gui/progress_dialog'
 require 'libglade2'
 require 'data'
+require 'gtkmozembed'
 
 module TTime
   module GUI
@@ -18,6 +19,7 @@ module TTime
           Logic::Course
 
         init_course_tree_views
+        init_schedule_view
 
         load_data
       end
@@ -80,6 +82,16 @@ module TTime
       end
 
       private
+
+      def init_schedule_view
+        notebook = @glade["notebook"]
+        @mozembed = Gtk::MozEmbed.new
+        notebook.append_page @mozembed, Gtk::Label.new("Schedule")
+
+        notebook.show_all
+
+        @mozembed.location = 'http://yasmin.technion.ac.il'
+      end
 
       def set_course_info(info)
         @glade["text_course_info"].buffer.text = info
