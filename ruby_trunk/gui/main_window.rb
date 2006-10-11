@@ -9,6 +9,8 @@ module TTime
       def initialize
         @glade = GladeXML.new(GLADE_FILE) { |handler| method(handler) }
 
+        @selected_courses = []
+
         @tree_available_courses = Gtk::TreeStore.new String, String,
           Logic::Course
         @list_selected_courses = Gtk::ListStore.new String, String,
@@ -29,6 +31,27 @@ module TTime
 
       def on_about_activate
         @glade["AboutDialog"].run
+      end
+
+      def on_add_course
+        available_courses_view = @glade["treeview_available_courses"]
+
+        selected_iter = available_courses_view.selection.selected
+
+        return unless selected_iter && selected_iter[2]
+
+        course = selected_iter[2]
+
+        unless @selected_courses.include? course
+          @selected_courses << course
+
+          p @selected_courses
+
+          iter = @list_selected_courses.append
+          iter[0] = course.number
+          iter[1] = course.name
+          iter[2] = course
+        end
       end
 
       private
