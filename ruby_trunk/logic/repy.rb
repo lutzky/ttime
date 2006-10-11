@@ -9,9 +9,12 @@ module TTime
       attr_reader :raw
       attr_reader :unicode
 
-      def initialize(_raw)
+      def initialize(_raw, &status_report_proc)
         @hashed = false
         @raw = _raw
+
+        @status_report_proc = status_report_proc
+        @status_report_proc = proc {} if @status_report_proc.nil?
         convert_to_unicode
       end
 
@@ -53,7 +56,9 @@ module TTime
       def each_raw_faculty #:yields: name, raw_faculty
         raw_faculties = @unicode.split(/\n\n/)
 
-        raw_faculties.each do |raw_faculty|
+        raw_faculties.each_with_index do |raw_faculty,i|
+          @status_report_proc.call("Processing faculties", i, raw_faculties.size)
+
           raw_faculty.lstrip!
           banner = raw_faculty.slice!(FACULTY_BANNER_REGEX)
 

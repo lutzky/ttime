@@ -19,10 +19,10 @@ module TTime
         init_course_tree_views
 
         @glade["statusbar"].push(@glade["statusbar"].get_context_id('status'),'Hi there. Another thread is loading the REPY file. This would be more elegant with a modal progress bar.')
-#        Thread.new do
+        Thread.new do
           load_data
-#          @glade["statusbar"].pop(@glade["statusbar"].get_context_id('status'))
-#        end
+          @glade["statusbar"].pop(@glade["statusbar"].get_context_id('status'))
+        end
       end
 
       def on_quit_activate
@@ -95,7 +95,9 @@ module TTime
       end
 
       def load_data
-        @data = TTime::Data.load
+        @data = TTime::Data.load do |s,a,b|
+          puts "#{s}, #{a} out of #{b}"
+        end
 
         @data.each do |faculty|
           iter = @tree_available_courses.append(nil)
@@ -108,8 +110,6 @@ module TTime
             child[2] = course
           end
         end
-
-        p @data.size
       end
 
       def init_course_tree_views
