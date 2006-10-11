@@ -60,7 +60,7 @@ module TTime
           banner = raw_faculty.slice!(FACULTY_BANNER_REGEX)
 
           if banner
-            name = FACULTY_BANNER_REGEX.match(banner)[1]
+            name = FACULTY_BANNER_REGEX.match(banner)[1].strip
             yield name, raw_faculty
           end
         end

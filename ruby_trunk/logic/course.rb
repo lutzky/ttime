@@ -71,7 +71,7 @@ module TTime
         begin
           #puts "course num: #{arr[1]}\n course name #{arr[2]}\n course hrs: #{arr[3]} | points: #{arr[arr.size-1]}\n----------\n"
           @number = arr[1].reverse
-          @name = arr[2]
+          @name = arr[2].strip
           @academic_points = arr[arr.size-1].reverse.to_f
           @hours = []
           4.upto(arr.size-2) do |i|
