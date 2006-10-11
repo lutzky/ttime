@@ -3,6 +3,7 @@ require 'gui/progress_dialog'
 require 'libglade2'
 require 'data'
 require 'gtkmozembed'
+require 'tempfile'
 
 module TTime
   module GUI
@@ -90,7 +91,32 @@ module TTime
 
         notebook.show_all
 
-        @mozembed.location = 'http://yasmin.technion.ac.il'
+#        @mozembed.location = 'http://yasmin.technion.ac.il'
+
+        set_current_schedule(nil)
+      end
+
+      def set_current_schedule(schedule)
+        # FIXME: This should get a schedule and display it
+        @sched_html_file.unlink if @sched_html_file
+
+        @sched_html_file = Tempfile.new("schedule")
+
+        File.open("gui/html/SchedTable_pre.html") do |f|
+          @sched_html_file.write f.read
+        end
+
+        File.open("gui/html/example.js") do |f|
+          @sched_html_file.write f.read
+        end
+
+        File.open("gui/html/SchedTable_post.html") do |f|
+          @sched_html_file.write f.read
+        end
+
+        @sched_html_file.close
+
+        @mozembed.location = 'file://' + @sched_html_file.path
       end
 
       def set_course_info(info)
