@@ -1,49 +1,86 @@
 require 'logic/repy'
+require 'open-uri'
+require 'pathname'
 #require 'yaml'
 
 module TTime
-  module Data
+  class Data
+    attr_reader :data
+
     USE_YAML = false
 
-    REPY_File = "data/REPY"
-    YAML_File = "data/technion.yml"
-    MARSHAL_File = "data/technion.mrshl"
+    DATA_DIR = Pathname.new "data/"
 
-    def self.load(&status_report_proc)
-      status_report_proc = proc {} if status_report_proc.nil?
+    REPY_Zip_filename = "REPFILE.zip"
+    REPY_Zip = DATA_DIR + REPY_Zip_filename
+    REPY_File = DATA_DIR + "REPY"
+    REPY_URI = "http://ug.technion.ac.il/rep/REPFILE.zip"
+    YAML_File = DATA_DIR + "technion.yml"
+    MARSHAL_File = DATA_DIR + "technion.mrshl"
+
+    def initialize(&status_report_proc)
+      @status_report_proc = status_report_proc
+      @status_report_proc = proc {} if @status_report_proc.nil?
 
       if USE_YAML && File::exists?(YAML_File)
-        status_report_proc.call("Loading technion data from YAML",0,1)
-        File.open(YAML_File) { |yf| YAML::load(yf.read) }
+        report "Loading technion data from YAML"
+        @data = File.open(YAML_File) { |yf| YAML::load(yf.read) }
       elsif File::exists?(MARSHAL_File)
-        status_report_proc.call("Loading technion data",0,1)
-        File.open(MARSHAL_File) { |mf| Marshal.load(mf.read) }
+        report "Loading technion data"
+        @data = File.open(MARSHAL_File) { |mf| Marshal.load(mf.read) }
       elsif File::exists?(REPY_File)
-        status_report_proc.call("Loading data from REPY",0,1)
-        if USE_YAML
-          self.update_yaml(&status_report_proc)
-        else
-          self.update_marshal(&status_report_proc)
-        end
+        @data = convert_repy
       else
-        raise Errno::ENOENT # FIXME Try downloading, with notification
+        @data = download_repy
       end
     end
 
-    def self.load_repy(&status_report_proc)
-      Logic::Repy.new(open(REPY_File) { |f| f.read }, &status_report_proc)
+    def convert_repy
+      report "Loading data from REPY"
+      if USE_YAML
+        update_yaml
+      else
+        update_marshal
+      end
     end
 
-    def self.update_yaml(&status_report_proc)
-      _repy = load_repy(&status_report_proc)
+    def download_repy
+      report "Downloading REPY file from Technion"
+
+      open(REPY_URI) do |in_file|
+        open(REPY_Zip,"w") do |out_file|
+          out_file.write in_file.read
+        end
+      end
+
+      report "Extracting REPY file", 0.5
+
+      # FIXME: This kinda won't work on anything non-UNIX
+      `bash -c 'cd #{DATA_DIR} && unzip #{REPY_Zip_filename} && rm #{REPY_Zip_filename}'`
+
+      convert_repy
+    end
+
+    def load_repy
+      Logic::Repy.new(open(REPY_File) { |f| f.read }, &@status_report_proc)
+    end
+
+    def update_yaml
+      _repy = load_repy
       open(YAML_File,"w") { |f| f.write YAML::dump(_repy.hash) }
       _repy.hash
     end
 
-    def self.update_marshal(&status_report_proc)
-      _repy = load_repy(&status_report_proc)
+    def update_marshal
+      _repy = load_repy
       open(MARSHAL_File,"w") { |f| f.write Marshal.dump(_repy.hash) }
       _repy.hash
+    end
+
+    private
+
+    def report(text,frac = 0)
+      @status_report_proc.call(text,frac)
     end
   end
 end

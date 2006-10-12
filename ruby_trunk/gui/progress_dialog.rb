@@ -17,9 +17,9 @@ module TTime
       end
 
       def get_status_proc
-        Proc.new do |s,a,b|
-          self.text = s
-          self.fraction = a.to_f / b.to_f
+        Proc.new do |text,fraction|
+          self.text = text
+          self.fraction = fraction
         end
       end
 

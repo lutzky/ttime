@@ -158,7 +158,7 @@ module TTime
         progress_dialog = ProgressDialog.new
 
         Thread.new do
-          @data = TTime::Data.load(&progress_dialog.get_status_proc)
+          @data = TTime::Data.new(&progress_dialog.get_status_proc).data
 
           progress_dialog.dispose
 

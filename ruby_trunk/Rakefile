@@ -31,6 +31,10 @@ task :debug => [:clean] do
   require 'main'
 end
 
+task :distclean => [:clean] do
+  File.try_unlink TTime::Data::REPY_File
+end
+
 task :cleanrun => [:clean, :run] do
 end
 
