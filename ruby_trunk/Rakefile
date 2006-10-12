@@ -15,6 +15,10 @@ class File
   end
 end
 
+task :fixme do
+  puts `grep -r FIXME * | grep -v '.svn'`
+end
+
 task :test do
   require 'tests/test_schedule'
 end
