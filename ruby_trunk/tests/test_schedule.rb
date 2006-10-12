@@ -6,6 +6,7 @@ require 'test/unit'
 require 'pathname'
 
 require 'logic/scheduler'
+require 'tests/fixtures'
 
 class TrueCon
   def accepts?(x)
@@ -36,30 +37,6 @@ class Array
       c += 1 if yield a
     end
     c
-  end
-end
-
-class Test::Unit::TestCase
-  FIXTURES_PATH = Pathname.new "tests/fixtures"
-
-  class << self
-    def fixture(fixture_sym)
-      class_eval do
-        @@fixtures ||= []
-        @@fixtures << fixture_sym
-        define_method (:setup) do
-          @@fixtures.each do
-            y = (FIXTURES_PATH + "#{fixture_sym.to_s}.yml").open do |yf|
-              YAML.load yf
-            end
-
-            y.each do |k,v|
-              instance_variable_set "@#{k}", v
-            end
-          end
-        end
-      end
-    end
   end
 end
 
@@ -109,12 +86,12 @@ class TestSchedule < Test::Unit::TestCase
   end
 
   def test_scheduling
-    lec_groups = @fake_calculus.groups.count { |g| g.type == :lecture }
-    tut_groups = @fake_calculus.groups.count { |g| g.type == :tutorial }
+    lec_groups = courses(:fake_calculus).groups.count { |g| g.type == :lecture }
+    tut_groups = courses(:fake_calculus).groups.count { |g| g.type == :tutorial }
 
     combinations = lec_groups * tut_groups
 
-    scheduler = Scheduler.new([@fake_calculus],[])
+    scheduler = Scheduler.new([courses(:fake_calculus)],[])
 
     assert_equal combinations, scheduler.ok_schedules.size
 
