@@ -1,0 +1,140 @@
+fake_calculus: !ruby/object:TTime::Logic::Course 
+  academic_points: 5.0
+  first_test_date: "19/20/07"
+  second_test_date: "22/03/07"
+  lecturer_in_charge: "Some mathematician, probably"
+  name: "Fake calculus"
+  number: "666666"
+  groups: 
+  - !ruby/object:TTime::Logic::Group 
+    events: 
+    - !ruby/object:TTime::Logic::Event 
+      day: !ruby/object:TTime::Logic::Day 
+        day: 1
+      end: !ruby/object:TTime::Logic::Hour 
+        hour: "14"
+      place: "Ulman 307"
+      start: !ruby/object:TTime::Logic::Hour 
+        hour: "12"
+    - !ruby/object:TTime::Logic::Event 
+      day: !ruby/object:TTime::Logic::Day 
+        day: 4
+      end: !ruby/object:TTime::Logic::Hour 
+        hour: "12"
+      place: "Ulman 304"
+      start: !ruby/object:TTime::Logic::Hour 
+        hour: "10"
+    number: 0
+    type: :lecture
+  - !ruby/object:TTime::Logic::Group 
+    events: 
+    - !ruby/object:TTime::Logic::Event 
+      day: !ruby/object:TTime::Logic::Day 
+        day: 2
+      end: !ruby/object:TTime::Logic::Hour 
+        hour: "11"
+      place: "Ulman 709"
+      start: !ruby/object:TTime::Logic::Hour 
+        hour: "9"
+    number: 11
+    type: :tutorial
+  - !ruby/object:TTime::Logic::Group 
+    events: 
+    - !ruby/object:TTime::Logic::Event 
+      day: !ruby/object:TTime::Logic::Day 
+        day: 3
+      end: !ruby/object:TTime::Logic::Hour 
+        hour: "16"
+      place: "Ulman 451"
+      start: !ruby/object:TTime::Logic::Hour 
+        hour: "14"
+    number: 12
+    type: :tutorial
+  - !ruby/object:TTime::Logic::Group 
+    events: 
+    - !ruby/object:TTime::Logic::Event 
+      day: !ruby/object:TTime::Logic::Day 
+        day: 1
+      end: !ruby/object:TTime::Logic::Hour 
+        hour: "14"
+      place: "Ulman 309"
+      start: !ruby/object:TTime::Logic::Hour 
+        hour: "12"
+    - !ruby/object:TTime::Logic::Event 
+      day: !ruby/object:TTime::Logic::Day 
+        day: 4
+      end: !ruby/object:TTime::Logic::Hour 
+        hour: "12"
+      place: "Ulman 309"
+      start: !ruby/object:TTime::Logic::Hour 
+        hour: "10"
+    number: 20
+    type: :lecture
+  - !ruby/object:TTime::Logic::Group 
+    events: 
+    - !ruby/object:TTime::Logic::Event 
+      day: !ruby/object:TTime::Logic::Day 
+        day: 2
+      end: !ruby/object:TTime::Logic::Hour 
+        hour: "11"
+      place: "Ulman 305"
+      start: !ruby/object:TTime::Logic::Hour 
+        hour: "9"
+    number: 21
+    type: :tutorial
+  - !ruby/object:TTime::Logic::Group 
+    events: 
+    - !ruby/object:TTime::Logic::Event 
+      day: !ruby/object:TTime::Logic::Day 
+        day: 3
+      end: !ruby/object:TTime::Logic::Hour 
+        hour: "16"
+      place: "Ulman 707"
+      start: !ruby/object:TTime::Logic::Hour 
+        hour: "14"
+    number: 22
+    type: :tutorial
+  - !ruby/object:TTime::Logic::Group 
+    events: 
+    - !ruby/object:TTime::Logic::Event 
+      day: !ruby/object:TTime::Logic::Day 
+        day: 3
+      end: !ruby/object:TTime::Logic::Hour 
+        hour: "10"
+      place: "Ulman 107"
+      start: !ruby/object:TTime::Logic::Hour 
+        hour: "8"
+    - !ruby/object:TTime::Logic::Event 
+      day: !ruby/object:TTime::Logic::Day 
+        day: 5
+      end: !ruby/object:TTime::Logic::Hour 
+        hour: "12"
+      place: "Ulman 707"
+      start: !ruby/object:TTime::Logic::Hour 
+        hour: "10"
+    number: 30
+    type: :lecture
+  - !ruby/object:TTime::Logic::Group 
+    events: 
+    - !ruby/object:TTime::Logic::Event 
+      day: !ruby/object:TTime::Logic::Day 
+        day: 2
+      end: !ruby/object:TTime::Logic::Hour 
+        hour: "10"
+      place: "Ulman 704"
+      start: !ruby/object:TTime::Logic::Hour 
+        hour: "8"
+    number: 31
+    type: :tutorial
+  - !ruby/object:TTime::Logic::Group 
+    events: 
+    - !ruby/object:TTime::Logic::Event 
+      day: !ruby/object:TTime::Logic::Day 
+        day: 2
+      end: !ruby/object:TTime::Logic::Hour 
+        hour: "14"
+      place: "Ulman 202"
+      start: !ruby/object:TTime::Logic::Hour 
+        hour: "12"
+    number: 32
+    type: :tutorial

@@ -13,6 +13,14 @@ module TTime
         end
       end
 
+      def get_course(course_number)
+        @courses.each do |course|
+          return course if course.number.to_i == course_number.to_i
+        end
+        nil
+      end
+
+      private
       def each_raw_course(contents)
         courses = contents.split('+------------------------------------------+')
 

@@ -7,13 +7,15 @@ require 'logic/times'
 module TTime
   module Logic
     class Schedule
-      def initialize(group_arr)
-        @group_arr = group_arr
+      attr_reader :groups
+
+      def initialize(groups)
+        @groups = groups
       end
 
       def events
         events = []
-        @group_arr.each do |group|
+        @groups.each do |group|
           group.events.each do |event|
             events << event
           end
