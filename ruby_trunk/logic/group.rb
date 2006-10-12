@@ -9,13 +9,21 @@ module TTime
 
       def initialize(line)
         begin
-          m=/(..)'(\d\d\.\d\d)-(\d\d\.\d\d) (.*)/.match(line)
+          m=/(.+)'(\d+.\d+) ?-(\d+.\d+) *(.*)/.match(line)
           @day = Day.new(m[1])
           @start = Hour.new(m[3].reverse)
           puts "at #{m[3]}" if $DEBUG
           @place = m[4] # FIXME reversed rooms
           @end = Hour.new(m[2].reverse)
         rescue
+          if $DEBUG
+            $stderr.puts '-----------------------------------------------------'
+            $stderr.puts 'Parse error! Could not figure out the following line:'
+            $stderr.puts line
+            $stderr.puts 'Match object:'
+            $stderr.puts m.inspect
+            $stderr.puts '-----------------------------------------------------'
+          end
         end
       end
 
@@ -43,7 +51,9 @@ module TTime
   
       def add_hours(x)
         @events = @events.to_a
-        @events << Event.new(x) # FIXME: parse
+        unless x =~ /^ *- *$/
+          @events << Event.new(x) # FIXME: parse
+        end
       end
   
       def set_from_heb(x,y)

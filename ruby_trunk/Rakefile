@@ -26,6 +26,11 @@ task :run do
   require 'main'
 end
 
+task :debug => [:clean] do
+  $DEBUG = true
+  require 'main'
+end
+
 task :cleanrun => [:clean, :run] do
 end
 

@@ -35,7 +35,7 @@ module TTime
     end
 
     def self.update_yaml(&status_report_proc)
-      _repy = load_repy(status_report_proc)
+      _repy = load_repy(&status_report_proc)
       open(YAML_File,"w") { |f| f.write YAML::dump(_repy.hash) }
       _repy.hash
     end
