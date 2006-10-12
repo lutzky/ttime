@@ -44,6 +44,7 @@ class TestSchedule < Test::Unit::TestCase
   include TTime::Logic
 
   fixture :courses
+  fixture :arrays
 
   def assert_group_equality(arr1, arr2)
     arr1.each do |m|
@@ -55,34 +56,13 @@ class TestSchedule < Test::Unit::TestCase
   end
 
   def test_one_member_of_each_member
-    orig_array = [[1,2,3],[4,5,6],[7,8,9]]
-    expected_array = [
-      [1,4,7],[1,4,8],[1,4,9],
-      [1,5,7],[1,5,8],[1,5,9],
-      [1,6,7],[1,6,8],[1,6,9],
-      [1,4,7],[1,4,8],[1,4,9],
-      [1,5,7],[1,5,8],[1,5,9],
-      [1,6,7],[1,6,8],[1,6,9],
-      [2,4,7],[2,4,8],[2,4,9],
-      [2,5,7],[2,5,8],[2,5,9],
-      [2,6,7],[2,6,8],[2,6,9],
-      [2,4,7],[2,4,8],[2,4,9],
-      [2,5,7],[2,5,8],[2,5,9],
-      [2,6,7],[2,6,8],[2,6,9],
-      [3,4,7],[3,4,8],[3,4,9],
-      [3,5,7],[3,5,8],[3,5,9],
-      [3,6,7],[3,6,8],[3,6,9],
-      [3,4,7],[3,4,8],[3,4,9],
-      [3,5,7],[3,5,8],[3,5,9],
-      [3,6,7],[3,6,8],[3,6,9]
-    ]
     tgt_array = []
 
-    orig_array.one_member_of_each_member do |m|
+    arrays(:orig_array).one_member_of_each_member do |m|
       tgt_array << m
     end
 
-    assert_group_equality expected_array, tgt_array
+    assert_group_equality arrays(:expected_array), tgt_array
   end
 
   def test_scheduling
