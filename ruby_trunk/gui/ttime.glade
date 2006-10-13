@@ -6,16 +6,17 @@
 <widget class="GtkAboutDialog" id="AboutDialog">
   <property name="destroy_with_parent">False</property>
   <property name="name" translatable="yes">TTime</property>
-  <property name="comments" translatable="yes">Inspired by Udonkey and Marprog
+  <property name="comments" translatable="yes">Inspired by UDonkey and Marprog
 
 But we don't like C#</property>
   <property name="wrap_license">False</property>
   <property name="translator_credits" translatable="yes" comments="TRANSLATORS: Replace this string with your names, one name per line.">translator-credits</property>
+  <property name="logo">graphics/ttime.svg</property>
 </widget>
 
 <widget class="GtkWindow" id="MainWindow">
   <property name="visible">True</property>
-  <property name="title" translatable="yes">UDonkey</property>
+  <property name="title" translatable="yes">TTime</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
   <property name="window_position">GTK_WIN_POS_NONE</property>
   <property name="modal">False</property>
