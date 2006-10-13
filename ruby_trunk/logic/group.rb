@@ -73,6 +73,10 @@ module TTime
       end
   
       def set_from_heb(x,y)
+        case x.strip
+        when 'מרצה'
+          self.lecturer = y.strip
+        end
       end
     end
   end

@@ -8,6 +8,12 @@ require 'pathname'
 require 'logic/repy'
 require 'tests/fixtures'
 
+class Date
+  def inspect
+    "#<Date: #{to_s}>"
+  end
+end
+
 class TestSchedule < Test::Unit::TestCase
   include TTime::Logic
 

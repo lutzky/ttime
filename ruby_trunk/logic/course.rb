@@ -111,14 +111,15 @@ module TTime
               if m=/\| מורה  אחראי :(.*?) *\|/.match(line)
                 @lecturer_in_charge = m[1].strip
               elsif m=/\| מועד ראשון :(.*?) *\|/.match(line)
-                @first_test_date = m[1]
+                @first_test_date = convert_test_date(m[1])
               elsif m = /\| מועד שני   :(.*?) *\|/.match(line)
-                @second_test_date = m[1]
+                @second_test_date = convert_test_date(m[1])
               elsif line =~ /\|רישום +\|/ or line =~ /\| +\|/
                 state = :thing
               end
             end
           when :thing:
+            line.strip!
             if line =~ /----/
               #this should not happen
             elsif m=/\| *([0-9]*) *([א-ת]+) ?: ?(.*?) *\|/.match(line)
@@ -153,6 +154,18 @@ module TTime
         if state == :details
           @groups << grp
         end
+      end
+
+      private
+
+      def convert_test_date(s)
+        israeli_date = s.split(' ')[2].reverse
+
+        american_date = israeli_date.gsub(/^(\d\d)\/(\d\d)\/(\d\d)/,'\2/\1/\3')
+
+        # TODO: This will only work until 2068, as years are given in two
+        # digits. Let's hope REPY doesn't survive until then.
+        Date.parse(american_date, true)
       end
     end
   end
