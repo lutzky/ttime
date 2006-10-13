@@ -43,8 +43,7 @@ end
 class TestSchedule < Test::Unit::TestCase
   include TTime::Logic
 
-  fixture :courses
-  fixture :arrays
+  fixture :courses, :arrays
 
   def assert_group_equality(arr1, arr2)
     arr1.each do |m|

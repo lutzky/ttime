@@ -1,4 +1,5 @@
 require 'data'
+require 'rake/rdoctask'
 
 include TTime
 
@@ -13,6 +14,10 @@ class File
       end
     end
   end
+end
+
+Rake::RDocTask.new("doc") do |rd|
+  rd.rdoc_dir = "doc"
 end
 
 task :fixme do

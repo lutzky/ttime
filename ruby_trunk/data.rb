@@ -7,17 +7,6 @@ module TTime
   class Data
     attr_reader :data
 
-    USE_YAML = false
-
-    DATA_DIR = Pathname.new "data/"
-
-    REPY_Zip_filename = "REPFILE.zip"
-    REPY_Zip = DATA_DIR + REPY_Zip_filename
-    REPY_File = DATA_DIR + "REPY"
-    REPY_URI = "http://ug.technion.ac.il/rep/REPFILE.zip"
-    YAML_File = DATA_DIR + "technion.yml"
-    MARSHAL_File = DATA_DIR + "technion.mrshl"
-
     def initialize(&status_report_proc)
       @status_report_proc = status_report_proc
       @status_report_proc = proc {} if @status_report_proc.nil?
@@ -34,6 +23,19 @@ module TTime
         @data = download_repy
       end
     end
+    
+    private
+
+    USE_YAML = false
+
+    DATA_DIR = Pathname.new "data/"
+
+    REPY_Zip_filename = "REPFILE.zip"
+    REPY_Zip = DATA_DIR + REPY_Zip_filename
+    REPY_File = DATA_DIR + "REPY"
+    REPY_URI = "http://ug.technion.ac.il/rep/REPFILE.zip"
+    YAML_File = DATA_DIR + "technion.yml"
+    MARSHAL_File = DATA_DIR + "technion.mrshl"
 
     def convert_repy
       report "Loading data from REPY"
@@ -76,8 +78,6 @@ module TTime
       open(MARSHAL_File,"w") { |f| f.write Marshal.dump(_repy.hash) }
       _repy.hash
     end
-
-    private
 
     def report(text,frac = 0)
       @status_report_proc.call(text,frac)
