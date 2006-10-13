@@ -124,7 +124,7 @@ module TTime
             elsif m=/\| *([0-9]*) *([א-ת]+) ?: ?(.*?) *\|/.match(line)
               grp = Group.new
               grp.heb_type =  m[2]
-              grp.number = m[1].to_i
+              grp.number = m[1].reverse.to_i
 
               if grp.number == 0
                 grp.number = 10 * current_lecture_group_number
