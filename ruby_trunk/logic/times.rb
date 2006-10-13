@@ -31,16 +31,14 @@ module TTime
     end
 
     class Hour
-      def to_i
-        @hour
+      def to_military
+        @hour * 100 + @minutes
       end
 
       def initialize(_hour)
-        if _hour.is_a? Integer
-          @hour = _hour
-        else
-          @hour = /(\d\d?)(:|\.)\d\d/.match(_hour)[1]
-        end
+        split = /(\d\d?)(:|\.)(\d\d)/.match(_hour)
+        @hour = split[1].to_i
+        @minutes = split[3].to_i
       end
     end
   end
