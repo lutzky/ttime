@@ -99,6 +99,9 @@ module TTime
           #puts x.header
           raise
         end
+
+        current_lecture_group_number = 1
+
         state = :start
         #puts x.body
         x.body.each do |line|
@@ -106,7 +109,7 @@ module TTime
           when :start:
             if line[3] != '-'
               if m=/\| מורה  אחראי :(.*?) *\|/.match(line)
-                @lecturer_in_charge = m[1]
+                @lecturer_in_charge = m[1].strip
               elsif m=/\| מועד ראשון :(.*?) *\|/.match(line)
                 @first_test_date = m[1]
               elsif m = /\| מועד שני   :(.*?) *\|/.match(line)
@@ -122,6 +125,12 @@ module TTime
               grp = Group.new
               grp.heb_type =  m[2]
               grp.number = m[1].to_i
+
+              if grp.number == 0
+                grp.number = 10 * current_lecture_group_number
+                current_lecture_group_number += 1
+              end
+
               puts "adding #{m[3]} for #{m[2]} \n" if $DEBUG
               grp.add_hours(m[3])
               state = :details
