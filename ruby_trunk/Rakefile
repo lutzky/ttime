@@ -26,6 +26,7 @@ end
 
 task :test do
   require 'tests/test_schedule'
+  require 'tests/test_repy'
 end
 
 task :default => [:run] do

@@ -1,0 +1,106 @@
+calculus_2m:
+  raw: !ruby/struct:TTime::Logic::RawCourse
+    header: |-
+      | 110401  חשבון דיפרנציאלי ואינטגרלי 2מ'   |
+      | שעות הוראה בשבוע:ה-4 ת-2          נק: 0.5|
+    body: |-
+      | מורה  אחראי : פרופ.  מ.צוויקל            |
+      | -----------                              |
+      | מועד ראשון :יום  א' 70/20/81             |
+      | -----------                              |
+      | מועד שני   :יום  ג' 70/30/02             |
+      | -----------                              |
+      | 1.הנך מתבקש/ת  ללכת לקבוצה אליה נרשמת.   |
+      |   לידיעתך, יינתנו מטלות ממוחשבות לכל     |
+      |   קבוצת תרגול בנפרד.                     |
+      |מס.                  ++++++               |
+      |רישום                                     |
+      |      הרצאה: א'03.41-03.21  503 אולמן     |
+      |             ג'03.41-03.21  503 אולמן     |
+      |                                          |
+      |  11  תרגיל: ד'03.21-03.01  206 אולמן     |
+      |                                          |
+      |  21  תרגיל: ב'03.21-03.01  305 אולמן     |
+      |מס.                  ++++++               |
+      |רישום                                     |
+      |      הרצאה: ב'03.21-03.01  502 אולמן     |
+      |             ד'03.21-03.01  503 אולמן     |
+      |      מרצה : פרופ.  מ.צוויקל              |
+      |      -----                               |
+      |                                          |
+      |  12  תרגיל: א'03.41-03.21  603 אולמן     |
+      |                                          |
+      |  22  תרגיל: ה'03.01-03.8   303 אולמן     |
+  parsed: !ruby/object:TTime::Logic::Course 
+    academic_points: 5.0
+    first_test_date: "יום  א' 70/20/81"
+    second_test_date: "יום  ג' 70/30/02"
+    lecturer_in_charge: "פרופ.  מ.צוויקל"
+    name: "חשבון דיפרנציאלי ואינטגרלי 2מ'"
+    number: "104011"
+    groups: 
+    - !ruby/object:TTime::Logic::Group
+      number: 10
+      type: :lecture
+      events: 
+      - !ruby/object:TTime::Logic::Event 
+        day: 1
+        start: 1230
+        end: 1430
+        place: "אולמן 305"
+      - !ruby/object:TTime::Logic::Event 
+        day: 3
+        start: 1230
+        end: 1430
+        place: "אולמן 305"
+    - !ruby/object:TTime::Logic::Group
+      number: 11
+      type: :tutorial
+      events:
+      - !ruby/object:TTime::Logic::Event
+        day: 4
+        start: 1030
+        end: 1230
+        place: "אולמן 602"
+    - !ruby/object:TTime::Logic::Group
+      number: 12
+      type: :tutorial
+      events:
+      - !ruby/object:TTime::Logic::Event
+        day: 2
+        start: 1030
+        end: 1230
+        place: "אולמן 503"
+    - !ruby/object:TTime::Logic::Group
+      number: 20
+      type: :lecture
+      lecturer: "פרופ.  מ.צוויקל"
+      events:
+      - !ruby/object:TTime::Logic::Event
+        day: 2
+        start: 1030
+        end: 1230
+        place: "אולמן 205"
+      - !ruby/object:TTime::Logic::Event
+        day: 4
+        start: 1030
+        end: 1230
+        place: "אולמן 305"
+    - !ruby/object:TTime::Logic::Group
+      number: 21
+      type: :tutorial
+      events:
+      - !ruby/object:TTime::Logic::Event
+        day: 1
+        start: 1230
+        end: 1430
+        place: "אולמן 306"
+    - !ruby/object:TTime::Logic::Group
+      number: 22
+      type: :tutorial
+      events:
+      - !ruby/object:TTime::Logic::Event
+        day: 5
+        start: 830
+        end: 1030
+        place: "אולמן 303"
