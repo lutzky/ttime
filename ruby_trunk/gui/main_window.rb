@@ -37,9 +37,7 @@ module TTime
 
       def find_schedules
         s = Logic::Scheduler.new(@selected_courses, [])
-        s.ok_schedules[0].events.each do |event|
-          puts event.to_javascript
-        end
+        draw_schedule s.ok_schedules[0]
       end
 
       def on_add_course
@@ -99,14 +97,9 @@ module TTime
         notebook.append_page @mozembed, Gtk::Label.new("Schedule")
 
         notebook.show_all
-
-#        @mozembed.location = 'http://yasmin.technion.ac.il'
-
-        set_current_schedule(nil)
       end
 
-      def set_current_schedule(schedule)
-        # FIXME: This should get a schedule and display it
+      def draw_schedule(schedule)
         @sched_html_file.unlink if @sched_html_file
 
         @sched_html_file = Tempfile.new("schedule")
@@ -115,8 +108,12 @@ module TTime
           @sched_html_file.write f.read
         end
 
-        File.open("gui/html/example.js") do |f|
-          @sched_html_file.write f.read
+        #File.open("gui/html/example.js") do |f|
+        #  @sched_html_file.write f.read
+        #end
+
+        schedule.events.each do |ev|
+          @sched_html_file.write ev.to_javascript + "\n"
         end
 
         File.open("gui/html/SchedTable_post.html") do |f|

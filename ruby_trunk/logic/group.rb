@@ -28,7 +28,18 @@ module TTime
       end
 
       def to_javascript
-        "#{@day.to_i}, #{@start.to_i}-#{@end.to_i}"
+        # FIXME: Which course am I really? And what type?
+
+        # FIXME: Currently only works with whole hours
+
+        start_box = (@start - 30) / 100
+        end_box = (@end - 30) / 100
+
+        course_index = 666
+        type = 1
+        desc = "משבר זהות ב-#@place"
+
+        "addEvent(#{course_index},#{type},#@day,#{start_box},#{end_box},\"#{desc}\");"
       end
 
       private

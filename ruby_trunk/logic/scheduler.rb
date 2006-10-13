@@ -9,8 +9,12 @@ module TTime
     class Schedule
       attr_reader :groups
 
-      def initialize(groups)
-        @groups = groups
+      def initialize(course_groups_arr)
+        @groups = []
+
+        course_groups_arr.each do |course|
+          @groups.concat course
+        end
       end
 
       def events
@@ -36,9 +40,7 @@ module TTime
 
       def generate_ok_schedules
         each_schedule_recusively(@courses,[]) do |groups|
-          # FIXME: Why am I getting an array of arrays of groups?
-          # I should be getting an array of groups.
-          @ok_schedules << Schedule.new(groups[0])
+          @ok_schedules << Schedule.new(groups)
         end
       end
 
