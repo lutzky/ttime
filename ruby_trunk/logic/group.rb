@@ -13,7 +13,7 @@ module TTime
           @day = Day.new(m[1]).to_i
           @start = Hour.new(m[3].reverse).to_military
           puts "at #{m[3]}" if $DEBUG
-          @place = m[4] # FIXME reversed rooms
+          @place = place_convert(m[4])
           @end = Hour.new(m[2].reverse).to_military
         rescue
           if $DEBUG
@@ -29,6 +29,22 @@ module TTime
 
       def to_javascript
         "#{@day.to_i}, #{@start.to_i}-#{@end.to_i}"
+      end
+
+      private
+
+      def place_convert(s)
+        # TODO This relies on a very fragile assumption that places in the REPY
+        # file consist of two words - a building and a room, and the room is
+        # sometimes numeric
+        
+        s = s.strip
+
+        room, building = s.split(' ')
+
+        return s if room.to_i == 0 # Room isn't a number - do not touch
+
+        [ building, room.reverse ].join(' ')
       end
     end
   
