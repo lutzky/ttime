@@ -5,9 +5,10 @@ require 'logic/times'
 module TTime
   module Logic
     class Event
-      attr_accessor :day, :start, :end, :place
+      attr_accessor :day, :start, :end, :place, :group
 
-      def initialize(line)
+      def initialize(line,group)
+        @group = group
         begin
           m=/(.+)'(\d+.\d+) ?-(\d+.\d+) *(.*)/.match(line)
           @day = Day.new(m[1]).to_i
@@ -28,18 +29,14 @@ module TTime
       end
 
       def to_javascript
-        # FIXME: Which course am I really? And what type?
-
-        # FIXME: Currently only works with whole hours
-
         start_box = (@start - 30) / 100
         end_box = (@end - 30) / 100
 
         course_index = 666
-        type = 1
-        desc = "משבר זהות ב-#@place"
+        type = Course::GROUP_TYPES.index(@group.type)
+        desc = "#{@group.course.name}<br />קבוצה #{@group.number}<br />#@place"
 
-        "addEvent(#{course_index},#{type},#@day,#{start_box},#{end_box},\"#{desc}\");"
+        "addEvent(#{@group.course.number},#{type},#@day,#{start_box},#{end_box},\"#{desc}\");"
       end
 
       private
@@ -60,7 +57,7 @@ module TTime
     end
   
     class Group
-      attr_accessor :number, :lecturer, :type, :events
+      attr_accessor :number, :lecturer, :type, :events, :course
       HebToType = {
         "הרצאה" => :lecture,
         "מעבדה" => :lab,
@@ -79,7 +76,7 @@ module TTime
       def add_hours(x)
         @events = @events.to_a
         unless x =~ /^ *- *$/
-          @events << Event.new(x) # FIXME: parse
+          @events << Event.new(x,self) # FIXME: parse
         end
       end
   

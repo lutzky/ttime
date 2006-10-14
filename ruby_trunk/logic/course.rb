@@ -34,6 +34,8 @@ end
 module TTime
   module Logic
     class Course
+      GROUP_TYPES = [:lecture,:tutorial,:lab]
+
       attr_accessor :number, :name, :academic_points, :hours, :lecturer_in_charge,
         :first_test_date, :second_test_date, :groups
 
@@ -58,7 +60,7 @@ module TTime
 
       def each_group_selection
         groups_by_type = []
-        group_types.each do |type|
+        GROUP_TYPES.each do |type|
           g = groups_of_type(type)
           groups_by_type << g if not g.empty?
         end
@@ -73,12 +75,6 @@ module TTime
           ret << group if group.type_is? type
         end
         return ret
-      end
-
-      # the group type constants
-      # FIXME: move me!
-      def group_types
-        [:lecture,:tutorial,:lab]
       end
 
       def initialize(x = nil)
@@ -126,6 +122,7 @@ module TTime
               #this should not happen
             elsif m=/\| *([0-9]*) *([א-ת]+) ?: ?(.*?) *\|/.match(line)
               grp = Group.new
+              grp.course = self
               grp.heb_type =  m[2]
               grp.number = m[1].reverse.to_i
 
