@@ -39,15 +39,8 @@ module TTime
       attr_accessor :number, :name, :academic_points, :hours, :lecturer_in_charge,
         :first_test_date, :second_test_date, :groups
 
-      def markup
-        <<-EOF
-#@number - <b>#@name</b>
-#@lecturer_in_charge
-        EOF
-      end
-
       def text
-        <<-EOF
+        base = <<-EOF
 #@number - #@name
 מרצה אחראי: #@lecturer_in_charge
 נק' אקדמיות: #@academic_points
@@ -56,6 +49,13 @@ module TTime
 מועד ב': #@second_test_date
 
         EOF
+
+        base + self.groups.collect do |g|
+          "קבוצה #{g.number}:\nמרצה: #{g.lecturer}\n" +
+            g.events.collect do |e|
+              "יום #{e.day}, #{e.start}-#{e.end}"
+            end.join("\n")
+        end.join("\n\n")
       end
 
       def each_group_selection

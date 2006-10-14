@@ -210,9 +210,10 @@ module TTime
         # This actually has to be done twice, because we need different
         # copies of the columns for each of the views
 
-        [ "Course No.", "Course Name" ].each_with_index do |label, i|
+        [ "Course Name", "Course Number" ].each_with_index do |label, i|
           columns[i] = Gtk::TreeViewColumn.new label, Gtk::CellRendererText.new,
             :text => i
+          columns[i].resizable = true
         end
 
         columns.each do |c|

@@ -328,6 +328,7 @@ But we don't like C#</property>
 				      <property name="hover_selection">False</property>
 				      <property name="hover_expand">False</property>
 				      <signal name="cursor_changed" handler="on_available_course_selection" last_modification_time="Wed, 11 Oct 2006 11:44:51 GMT"/>
+				      <signal name="row_activated" handler="on_add_course" last_modification_time="Wed, 11 Oct 2006 08:57:00 GMT"/>
 				    </widget>
 				  </child>
 				</widget>
