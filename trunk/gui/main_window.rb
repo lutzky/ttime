@@ -192,6 +192,14 @@ module TTime
         available_courses_view = @glade["treeview_available_courses"]
         available_courses_view.model = @tree_available_courses
 
+        available_courses_view.set_search_equal_func do |m,c,key,iter|
+          if key.to_i.to_s == key # Key is numeric
+            not (iter[1] =~ /^#{key}/)
+          else
+            not (iter[0] =~ /#{key}/)
+          end
+        end
+
         selected_courses_view = @glade["treeview_selected_courses"]
         selected_courses_view.model = @list_selected_courses
 
