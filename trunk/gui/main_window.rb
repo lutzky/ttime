@@ -131,6 +131,12 @@ module TTime
         notebook.append_page @mozembed, Gtk::Label.new("Schedule")
 
         notebook.show_all
+
+        # Quick hack around a bug - it seems that MozEmbed gets a little
+        # shy when in a notebook, and only displays on the second time
+        # we view it.
+        notebook.page = 1
+        notebook.page = 0
       end
 
       def scheduler_ready?
