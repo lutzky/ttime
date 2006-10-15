@@ -73,8 +73,10 @@ module TTime
         i = 0
         each_schedule_recusively(@courses,[]) do |groups|
           i += 1
-          @status_report_proc.call "Generating schedules", 
-                                   i.to_f / @expected_schedule_count.to_f
+          if i % 1000 == 0 # Only report every once in a while, for speed
+            @status_report_proc.call "Generating schedules", 
+              i.to_f / @expected_schedule_count.to_f
+          end
           @ok_schedules << Schedule.new(groups)
         end
       end
