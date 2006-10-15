@@ -4,6 +4,24 @@ require 'logic/course'
 require 'logic/group'
 require 'logic/times'
 
+class Array
+  def count
+    c = 0
+    self.each do |a|
+      c += 1 if yield a
+    end
+    c
+  end
+
+  def zero_is_one_product
+    c = 1
+    self.each do |a|
+      c *= a unless a == 0
+    end
+    c
+  end
+end
+
 module TTime
   module Logic
     class Schedule
@@ -31,15 +49,32 @@ module TTime
     class Scheduler
       attr_reader :ok_schedules
 
-      def initialize(courses,constraints)
+      def initialize(courses,constraints,&status_report_proc)
         @courses = courses
         @constraints = constraints
         @ok_schedules = []
+
+        @status_report_proc = status_report_proc || proc {}
+
+        num_types_arr = []
+
+        @expected_schedule_count = 1
+        courses.each do |course|
+          Course::GROUP_TYPES.each_with_index do |type, i|
+            num_types_arr[i] = course.groups.count { |g| g.type == type }
+          end
+          @expected_schedule_count *= num_types_arr.zero_is_one_product
+        end
+
         generate_ok_schedules
       end
 
       def generate_ok_schedules
+        i = 0
         each_schedule_recusively(@courses,[]) do |groups|
+          i += 1
+          @status_report_proc.call "Generating schedules", 
+                                   i.to_f / @expected_schedule_count.to_f
           @ok_schedules << Schedule.new(groups)
         end
       end

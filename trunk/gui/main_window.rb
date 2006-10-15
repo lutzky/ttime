@@ -36,14 +36,20 @@ module TTime
       end
 
       def find_schedules
-        @scheduler = Logic::Scheduler.new(@selected_courses, [])
+        progress_dialog = ProgressDialog.new
 
-        set_num_schedules @scheduler.ok_schedules.size
+        Thread.new do
+          @scheduler = Logic::Scheduler.new(@selected_courses, [],
+                                            &progress_dialog.get_status_proc)
+          progress_dialog.dispose
 
-        self.current_schedule = 0
-         
-        draw_current_schedule
-      end
+          set_num_schedules @scheduler.ok_schedules.size
+
+          self.current_schedule = 0
+
+          draw_current_schedule
+        end
+     end
 
       def on_add_course
         course = currently_addable_course
