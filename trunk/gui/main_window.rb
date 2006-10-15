@@ -36,8 +36,13 @@ module TTime
       end
 
       def find_schedules
-        s = Logic::Scheduler.new(@selected_courses, [])
-        draw_schedule s.ok_schedules[0]
+        @scheduler = Logic::Scheduler.new(@selected_courses, [])
+
+        set_num_schedules @scheduler.ok_schedules.size
+
+        self.current_schedule = 0
+         
+        draw_current_schedule
       end
 
       def on_add_course
@@ -89,7 +94,30 @@ module TTime
         end
       end
 
+      def on_change_current_schedule
+        self.current_schedule =
+          @glade["spin_current_schedule"].adjustment.value - 1
+        draw_current_schedule
+      end
+
       private
+
+      attr_reader :current_schedule
+
+      def current_schedule=(n)
+        @current_schedule = n
+
+        spinner = @glade["spin_current_schedule"]
+
+        spinner.sensitive = true
+        spinner.adjustment.lower = 1
+        spinner.adjustment.value = n + 1
+      end
+
+      def set_num_schedules(n)
+        @glade["spin_current_schedule"].adjustment.upper = n
+        @glade["lbl_num_schedules"].text = " of #{n}"
+      end
 
       def init_schedule_view
         notebook = @glade["notebook"]
@@ -99,7 +127,16 @@ module TTime
         notebook.show_all
       end
 
-      def draw_schedule(schedule)
+      def scheduler_ready?
+        return false unless @scheduler.is_a? TTime::Logic::Scheduler
+        return false unless @scheduler.ok_schedules.size > @current_schedule
+        true
+      end
+
+      def draw_current_schedule
+        return unless scheduler_ready?
+        schedule = @scheduler.ok_schedules[@current_schedule]
+
         @sched_html_file.unlink if @sched_html_file
 
         @sched_html_file = Tempfile.new("schedule")
