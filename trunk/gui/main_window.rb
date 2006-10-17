@@ -7,6 +7,9 @@ require 'logic/course'
 require 'logic/scheduler'
 require 'gui/progress_dialog'
 
+# FIXME
+require 'constraints/no_clashes'
+
 module TTime
   module GUI
     class MainWindow
@@ -39,7 +42,8 @@ module TTime
         progress_dialog = ProgressDialog.new
 
         Thread.new do
-          @scheduler = Logic::Scheduler.new(@selected_courses, [],
+# FIXME
+          @scheduler = Logic::Scheduler.new(@selected_courses, [NoClashes.new],
                                             &progress_dialog.get_status_proc)
           progress_dialog.dispose
 

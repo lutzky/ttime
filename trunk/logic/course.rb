@@ -53,7 +53,10 @@ module TTime
         base + self.groups.collect do |g|
           "קבוצה #{g.number}:\nמרצה: #{g.lecturer}\n" +
             g.events.collect do |e|
-              "יום #{e.day}, #{e.start}-#{e.end}"
+              human_day = Day::numeric_to_human(e.day)
+              human_start = Hour::military_to_human(e.start)
+              human_end = Hour::military_to_human(e.end)
+              "יום #{human_day}, #{human_start}-#{human_end}"
             end.join("\n")
         end.join("\n\n")
       end
