@@ -39,6 +39,11 @@ module TTime
       end
 
       def find_schedules
+        if @selected_courses.empty?
+          error_dialog('Please select some courses first.')
+          return
+        end
+
         progress_dialog = ProgressDialog.new
 
         Thread.new do
@@ -280,6 +285,14 @@ module TTime
         columns.each do |c|
           selected_courses_view.append_column c
         end
+      end
+
+      def error_dialog(msg)
+        dialog = Gtk::MessageDialog.new nil,
+          Gtk::Dialog::MODAL | Gtk::Dialog::DESTROY_WITH_PARENT,
+          Gtk::MessageDialog::ERROR, Gtk::MessageDialog::BUTTONS_OK, msg
+        dialog.run
+        dialog.destroy
       end
     end
   end
