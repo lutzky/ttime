@@ -259,7 +259,7 @@ module TTime
         available_courses_view.model = @tree_available_courses
 
         available_courses_view.set_search_equal_func do |m,c,key,iter|
-          if key.to_i.to_s == key # Key is numeric
+          if ('0'..'9').include? key[0..0] # Key is numeric
             not (iter[1] =~ /^#{key}/)
           else
             not (iter[0] =~ /#{key}/)
