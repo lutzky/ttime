@@ -15,7 +15,8 @@ class NoClashes < TTime::Constraint
       earliest_start = start_time if start_time < earliest_start
       latest_finish = end_time if end_time > latest_finish
 
-      start_time.upto(end_time) do |i|
+      # Ending at xx:30 means ending at xx:20, last box isn't taken
+      start_time.upto(end_time - 1) do |i|
         return false if event_grid[ev.day][i]
         event_grid[ev.day][i] = true
       end

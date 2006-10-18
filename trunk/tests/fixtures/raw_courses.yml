@@ -104,3 +104,46 @@ calculus_2m:
         start: 830
         end: 1030
         place: "אולמן 303"
+multi_agent_systems:
+  raw: !ruby/struct:TTime::Logic::RawCourse
+    header: |-
+      | 722690  מערכות מרובות סוכנים             |
+      | שעות הוראה בשבוע:ה-3 ת-1          נק: 5.3|
+    body: |-
+      | מועד ראשון :יום  ב' 70/20/21             |
+      | -----------                              |
+      | מועד שני   :יום  ה' 70/30/51             |
+      | -----------                              |
+      |מס.                  ++++++               |
+      |רישום                                     |
+      |      הרצאה: ד'03.61-03.31  424 בלומפילד  |
+      |      מרצה : פרופ.  מ.טננהולץ             |
+      |      -----                               |
+      |                                          |
+      |  11  תרגיל: ד'03.71-03.61  013 בלומפילד  |
+  parsed: !ruby/object:TTime::Logic::Course 
+    academic_points: 3.5
+    first_test_date: 2007-02-12
+    second_test_date: 2007-03-15
+    name: "מערכות מרובות סוכנים"
+    number: "096227"
+    groups: 
+    - !ruby/object:TTime::Logic::Group
+      number: 10
+      type: :lecture
+      lecturer: "פרופ.  מ.טננהולץ"
+      events: 
+      - !ruby/object:TTime::Logic::Event 
+        day: 4
+        start: 1330
+        end: 1630
+        place: "בלומפילד 424"
+    - !ruby/object:TTime::Logic::Group
+      number: 11
+      type: :tutorial
+      events:
+      - !ruby/object:TTime::Logic::Event
+        day: 4
+        start: 1630
+        end: 1730
+        place: "בלומפילד 310"

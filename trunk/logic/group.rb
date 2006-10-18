@@ -30,7 +30,8 @@ module TTime
 
       def to_javascript
         start_box = (@start - 30) / 100
-        end_box = (@end - 30) / 100
+        # Ending at xx:30 means ending at xx:20, last box isn't taken
+        end_box = (@end - 30) / 100 - 1
 
         course_index = 666
         type = Course::GROUP_TYPES.index(@group.type)

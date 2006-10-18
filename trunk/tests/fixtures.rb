@@ -39,17 +39,22 @@ class Test::Unit::TestCase
           @@fixtures ||= []
           @@fixtures << fixture_sym
 
-          define_method(fixture_sym) do |key_sym|
-            var = instance_variable_get("@#{fixture_sym}")
-            return var[key_sym.to_s] if var
+          define_method(fixture_sym) do |*args|
+            if instance_variable_get("@#{fixture_sym}").nil?
+              y = (FIXTURES_PATH + "#{fixture_sym.to_s}.yml").open do |yf|
+                YAML.load yf
+              end
 
-            y = (FIXTURES_PATH + "#{fixture_sym.to_s}.yml").open do |yf|
-              YAML.load yf
+              instance_variable_set("@#{fixture_sym}", y)
             end
 
-            instance_variable_set("@#{fixture_sym}", y)
+            var = instance_variable_get("@#{fixture_sym}")
 
-            method(fixture_sym).call(key_sym)
+            if args.empty?
+              var
+            else
+              var[args[0].to_s]
+            end
           end
 
           define_method(:setup) do
