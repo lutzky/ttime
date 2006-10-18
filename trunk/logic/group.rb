@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 
 require 'logic/times'
+require 'logic/shared'
 
 module TTime
   module Logic
@@ -47,7 +48,7 @@ module TTime
         # file consist of two words - a building and a room, and the room is
         # sometimes numeric
         
-        s = s.strip
+        s = s.strip.single_space
 
         room, building = s.split(' ')
 
@@ -84,7 +85,7 @@ module TTime
       def set_from_heb(x,y)
         case x.strip
         when 'מרצה'
-          self.lecturer = y.strip
+          self.lecturer = y.strip.single_space
         end
       end
     end

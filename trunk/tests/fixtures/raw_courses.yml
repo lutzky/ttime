@@ -35,7 +35,7 @@ calculus_2m:
     academic_points: 5.0
     first_test_date: 2007-02-18
     second_test_date: 2007-03-20
-    lecturer_in_charge: "פרופ.  מ.צוויקל"
+    lecturer_in_charge: "פרופ. מ.צוויקל"
     name: "חשבון דיפרנציאלי ואינטגרלי 2מ'"
     number: "104011"
     groups: 
@@ -74,7 +74,7 @@ calculus_2m:
     - !ruby/object:TTime::Logic::Group
       number: 20
       type: :lecture
-      lecturer: "פרופ.  מ.צוויקל"
+      lecturer: "פרופ. מ.צוויקל"
       events:
       - !ruby/object:TTime::Logic::Event
         day: 2
@@ -131,7 +131,7 @@ multi_agent_systems:
     - !ruby/object:TTime::Logic::Group
       number: 10
       type: :lecture
-      lecturer: "פרופ.  מ.טננהולץ"
+      lecturer: "פרופ. מ.טננהולץ"
       events: 
       - !ruby/object:TTime::Logic::Event 
         day: 4

@@ -1,5 +1,7 @@
 require 'iconv'
+
 require 'logic/faculty'
+require 'logic/shared'
 
 module TTime
   module Logic
@@ -63,7 +65,7 @@ module TTime
           banner = raw_faculty.slice!(FACULTY_BANNER_REGEX)
 
           if banner
-            name = FACULTY_BANNER_REGEX.match(banner)[1].strip
+            name = FACULTY_BANNER_REGEX.match(banner)[1].strip.single_space
             yield name, raw_faculty
           end
         end

@@ -1,6 +1,7 @@
 require 'date'
 
 require 'logic/group'
+require 'logic/shared'
 
 class Array
   def one_member_of_each_member
@@ -90,7 +91,7 @@ module TTime
         begin
           #puts "course num: #{arr[1]}\n course name #{arr[2]}\n course hrs: #{arr[3]} | points: #{arr[arr.size-1]}\n----------\n"
           @number = arr[1].reverse
-          @name = arr[2].strip
+          @name = arr[2].strip.single_space
           @academic_points = arr[arr.size-1].reverse.to_f
           @hours = []
           4.upto(arr.size-2) do |i|
@@ -110,7 +111,7 @@ module TTime
           when :start:
             if line[3] != '-'
               if m=/\| מורה  אחראי :(.*?) *\|/.match(line)
-                @lecturer_in_charge = m[1].strip
+                @lecturer_in_charge = m[1].strip.single_space
               elsif m=/\| מועד ראשון :(.*?) *\|/.match(line)
                 @first_test_date = convert_test_date(m[1])
               elsif m = /\| מועד שני   :(.*?) *\|/.match(line)
