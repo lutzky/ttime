@@ -7,7 +7,6 @@ require 'constraints'
 require 'logic/course'
 require 'logic/scheduler'
 require 'gui/progress_dialog'
-require 'gui/preferences_dialog'
 
 module TTime
   module GUI
@@ -33,8 +32,6 @@ module TTime
       end
 
       def show_preferences
-        preferences = PreferencesDialog.new(@constraints)
-        preferences.show_all
       end
 
       GLADE_FILE = "gui/ttime.glade"
@@ -51,9 +48,9 @@ module TTime
         @list_selected_courses = Gtk::ListStore.new String, String,
           Logic::Course
 
-        init_constraints
         init_course_tree_views
         init_schedule_view
+        init_constraints
 
         load_data
       end
@@ -331,6 +328,21 @@ module TTime
       def init_constraints
         Constraints.initialize
         @constraints = Constraints.get_constraints
+
+        constraints_notebook = Gtk::Notebook.new
+
+        @constraints.each do |c|
+          constraints_notebook.append_page c.preferences_panel,
+            Gtk::Label.new(c.name)
+        end
+
+        constraints_notebook.tab_pos = 0
+        constraints_notebook.border_width = 5
+
+        notebook = @glade["notebook"]
+        notebook.append_page constraints_notebook, Gtk::Label.new("Constraints")
+        notebook.show_all
+        puts 'done'
       end
 
       def error_dialog(msg)
