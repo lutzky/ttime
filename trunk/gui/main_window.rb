@@ -53,13 +53,11 @@ module TTime
           progress_dialog.dispose
 
           if @scheduler.ok_schedules.empty?
-            puts 'no possible schedules!'
-
-            # FIXME: This dialog fails to show properly because
+            # FIXME: This dialog sometimes fails to show properly because
             # of thread issues
 
-            #error_dialog "Sorry, but no schedules are possible with " +
-            #  "the selected courses and constraints."
+            error_dialog "Sorry, but no schedules are possible with " +
+              "the selected courses and constraints."
           else
             set_num_schedules @scheduler.ok_schedules.size
             self.current_schedule = 0
