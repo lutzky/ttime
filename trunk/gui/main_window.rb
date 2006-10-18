@@ -67,7 +67,7 @@ module TTime
      end
 
       def on_add_course
-        course = currently_addable_course
+        course = currently_addable_course(:expand => true)
 
         if course
           @selected_courses << course
@@ -193,7 +193,7 @@ module TTime
         @glade["text_course_info"].buffer.text = info
       end
 
-      def currently_addable_course
+      def currently_addable_course(params = {})
         available_courses_view = @glade["treeview_available_courses"]
 
         selected_iter = available_courses_view.selection.selected
@@ -201,6 +201,10 @@ module TTime
         return false unless selected_iter
 
         return false if @selected_courses.include? selected_iter[2]
+
+        if params[:expand] and (not selected_iter[2])
+          available_courses_view.expand_row(selected_iter.path, false)
+        end
 
         selected_iter[2]
       end
@@ -257,10 +261,14 @@ module TTime
         available_courses_view.model = @tree_available_courses
 
         available_courses_view.set_search_equal_func do |m,c,key,iter|
-          if ('0'..'9').include? key[0..0] # Key is numeric
-            not (iter[1] =~ /^#{key}/)
-          else
-            not (iter[0] =~ /#{key}/)
+          begin
+            if ('0'..'9').include? key[0..0] # Key is numeric
+              not (iter[1] =~ /^#{key}/)
+            else
+              not (iter[0] =~ /#{key}/)
+            end
+          rescue
+            true
           end
         end
 
