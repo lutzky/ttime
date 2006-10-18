@@ -49,6 +49,8 @@ module TTime
     class Scheduler
       attr_reader :ok_schedules
 
+      REPORT_FREQUENCY = 100
+
       def initialize(courses,constraints,&status_report_proc)
         @courses = courses
         @constraints = constraints
@@ -73,9 +75,8 @@ module TTime
         i = 0
         each_schedule_recusively(@courses,[]) do |groups|
           i += 1
-          if i % 1000 == 0 # Only report every once in a while, for speed
-            @status_report_proc.call "Generating schedules", 
-              i.to_f / @expected_schedule_count.to_f
+          if i % REPORT_FREQUENCY == 0
+            @status_report_proc.call "Generating schedules"
           end
           @ok_schedules << Schedule.new(groups)
         end

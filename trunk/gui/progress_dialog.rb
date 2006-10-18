@@ -16,15 +16,26 @@ module TTime
         show_all
       end
 
-      def get_status_proc
-        Proc.new do |text,fraction|
-          self.text = text
-          self.fraction = fraction
+      def get_status_proc(args = {})
+        if args[:pulsating]
+          Proc.new do |text|
+            self.text = text
+            self.pulse
+          end
+        else
+          Proc.new do |text,fraction|
+            self.text = text
+            self.fraction = fraction
+          end
         end
       end
 
       def fraction
         @progressbar.fraction
+      end
+
+      def pulse
+        @progressbar.pulse
       end
 
       def fraction= fraction

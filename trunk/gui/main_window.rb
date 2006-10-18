@@ -48,15 +48,23 @@ module TTime
 
         Thread.new do
 # FIXME
-          @scheduler = Logic::Scheduler.new(@selected_courses, [NoClashes.new],
-                                            &progress_dialog.get_status_proc)
+          @scheduler = Logic::Scheduler.new(@selected_courses, [NoClashes.new], &progress_dialog.get_status_proc(:pulsating => true))
+
           progress_dialog.dispose
 
-          set_num_schedules @scheduler.ok_schedules.size
+          if @scheduler.ok_schedules.empty?
+            puts 'no possible schedules!'
 
-          self.current_schedule = 0
+            # FIXME: This dialog fails to show properly because
+            # of thread issues
 
-          draw_current_schedule
+            #error_dialog "Sorry, but no schedules are possible with " +
+            #  "the selected courses and constraints."
+          else
+            set_num_schedules @scheduler.ok_schedules.size
+            self.current_schedule = 0
+            draw_current_schedule
+          end
         end
      end
 
