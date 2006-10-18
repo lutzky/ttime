@@ -122,7 +122,7 @@ But we don't like C#</property>
 		      <accelerator key="G" modifiers="GDK_CONTROL_MASK" signal="activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image16">
+			<widget class="GtkImage" id="image24">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-convert</property>
 			  <property name="icon_size">1</property>
@@ -150,7 +150,7 @@ But we don't like C#</property>
 		      <accelerator key="Page_Down" modifiers="GDK_SHIFT_MASK" signal="activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image17">
+			<widget class="GtkImage" id="image25">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-media-rewind</property>
 			  <property name="icon_size">1</property>
@@ -172,7 +172,7 @@ But we don't like C#</property>
 		      <accelerator key="Page_Down" modifiers="0" signal="activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image18">
+			<widget class="GtkImage" id="image26">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-media-previous</property>
 			  <property name="icon_size">1</property>
@@ -194,7 +194,7 @@ But we don't like C#</property>
 		      <accelerator key="Page_Up" modifiers="0" signal="activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image19">
+			<widget class="GtkImage" id="image27">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-media-next</property>
 			  <property name="icon_size">1</property>
@@ -216,7 +216,7 @@ But we don't like C#</property>
 		      <accelerator key="Page_Up" modifiers="GDK_SHIFT_MASK" signal="activate"/>
 
 		      <child internal-child="image">
-			<widget class="GtkImage" id="image20">
+			<widget class="GtkImage" id="image28">
 			  <property name="visible">True</property>
 			  <property name="stock">gtk-media-forward</property>
 			  <property name="icon_size">1</property>
@@ -262,6 +262,7 @@ But we don't like C#</property>
 		      <property name="visible">True</property>
 		      <property name="label">gtk-preferences</property>
 		      <property name="use_stock">True</property>
+		      <signal name="activate" handler="show_preferences" last_modification_time="Wed, 18 Oct 2006 17:35:27 GMT"/>
 		    </widget>
 		  </child>
 		</widget>

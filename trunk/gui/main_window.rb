@@ -3,12 +3,11 @@ require 'data'
 require 'gtkmozembed'
 require 'tempfile'
 
+require 'constraints'
 require 'logic/course'
 require 'logic/scheduler'
 require 'gui/progress_dialog'
-
-# FIXME
-require 'constraints/no_clashes'
+require 'gui/preferences_dialog'
 
 module TTime
   module GUI
@@ -33,16 +32,18 @@ module TTime
         on_change_current_schedule
       end
 
+      def show_preferences
+        preferences = PreferencesDialog.new(@constraints)
+        preferences.show_all
+      end
+
       GLADE_FILE = "gui/ttime.glade"
       def initialize
-        #FIXME
-        @no_clashes = NoClashes.new
-
         @glade = GladeXML.new(GLADE_FILE) { |handler| method(handler) }
 
         notebook = @glade["notebook"]
-#        notebook.append_page(@no_clashes.preferences_panel, Gtk::Label.new('No clashes'))
 
+        @constraints = []
         @selected_courses = []
 
         @tree_available_courses = Gtk::TreeStore.new String, String,
@@ -50,6 +51,7 @@ module TTime
         @list_selected_courses = Gtk::ListStore.new String, String,
           Logic::Course
 
+        init_constraints
         init_course_tree_views
         init_schedule_view
 
@@ -73,15 +75,11 @@ module TTime
         progress_dialog = ProgressDialog.new
 
         Thread.new do
-          # FIXME
-          @scheduler = Logic::Scheduler.new(@selected_courses, [@no_clashes], &progress_dialog.get_status_proc(:pulsating => true, :show_cancel_button => true))
+          @scheduler = Logic::Scheduler.new(@selected_courses, @constraints, &progress_dialog.get_status_proc(:pulsating => true, :show_cancel_button => true))
 
           progress_dialog.dispose
 
           if @scheduler.ok_schedules.empty?
-            # FIXME: This dialog sometimes fails to show properly because
-            # of thread issues
-
             error_dialog "Sorry, but no schedules are possible with " +
               "the selected courses and constraints."
           else
@@ -328,6 +326,11 @@ module TTime
         columns.each do |c|
           selected_courses_view.append_column c
         end
+      end
+
+      def init_constraints
+        Constraints.initialize
+        @constraints = Constraints.get_constraints
       end
 
       def error_dialog(msg)

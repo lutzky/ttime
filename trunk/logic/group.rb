@@ -78,7 +78,7 @@ module TTime
       def add_hours(x)
         @events = @events.to_a
         unless x =~ /^ *- *$/
-          @events << Event.new(x,self) # FIXME: parse
+          @events << Event.new(x,self)
         end
       end
   
