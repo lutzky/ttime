@@ -25,7 +25,6 @@ module TTime
 
       def get_status_proc(args = {})
         if args[:show_cancel_button]
-          puts 'hello'
           btn_cancel = Gtk::Button.new(Gtk::Stock::STOP)
           btn_cancel.signal_connect('clicked') { @canceled = true }
           action_area.pack_end btn_cancel, false, false

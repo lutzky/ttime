@@ -13,9 +13,35 @@ require 'constraints/no_clashes'
 module TTime
   module GUI
     class MainWindow
+      def on_next_activate
+        self.current_schedule += 1
+        on_change_current_schedule
+      end
+
+      def on_previous_activate
+        self.current_schedule -= 1
+        on_change_current_schedule
+      end
+
+      def on_jump_forward_activate
+        self.current_schedule += 10
+        on_change_current_schedule
+      end
+
+      def on_jump_back_activate
+        self.current_schedule -= 10
+        on_change_current_schedule
+      end
+
       GLADE_FILE = "gui/ttime.glade"
       def initialize
+        #FIXME
+        @no_clashes = NoClashes.new
+
         @glade = GladeXML.new(GLADE_FILE) { |handler| method(handler) }
+
+        notebook = @glade["notebook"]
+#        notebook.append_page(@no_clashes.preferences_panel, Gtk::Label.new('No clashes'))
 
         @selected_courses = []
 
@@ -48,7 +74,7 @@ module TTime
 
         Thread.new do
           # FIXME
-          @scheduler = Logic::Scheduler.new(@selected_courses, [NoClashes.new], &progress_dialog.get_status_proc(:pulsating => true, :show_cancel_button => true))
+          @scheduler = Logic::Scheduler.new(@selected_courses, [@no_clashes], &progress_dialog.get_status_proc(:pulsating => true, :show_cancel_button => true))
 
           progress_dialog.dispose
 
@@ -61,7 +87,7 @@ module TTime
           else
             set_num_schedules @scheduler.ok_schedules.size
             self.current_schedule = 0
-            draw_current_schedule
+            on_change_current_schedule
           end
         end
       end
@@ -119,6 +145,7 @@ module TTime
         self.current_schedule =
           @glade["spin_current_schedule"].adjustment.value - 1
         draw_current_schedule
+        @glade["notebook"].page = 1
       end
 
       private

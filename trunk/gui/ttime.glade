@@ -11,7 +11,6 @@
 But we don't like C#</property>
   <property name="wrap_license">False</property>
   <property name="translator_credits" translatable="yes" comments="TRANSLATORS: Replace this string with your names, one name per line.">translator-credits</property>
-  <property name="logo">graphics/ttime.svg</property>
 </widget>
 
 <widget class="GtkWindow" id="MainWindow">
@@ -98,6 +97,135 @@ But we don't like C#</property>
 		      <property name="label">gtk-quit</property>
 		      <property name="use_stock">True</property>
 		      <signal name="activate" handler="on_quit_activate" last_modification_time="Fri, 04 Aug 2006 17:30:10 GMT"/>
+		    </widget>
+		  </child>
+		</widget>
+	      </child>
+	    </widget>
+	  </child>
+
+	  <child>
+	    <widget class="GtkMenuItem" id="schedules">
+	      <property name="visible">True</property>
+	      <property name="label" translatable="yes">_Schedules</property>
+	      <property name="use_underline">True</property>
+
+	      <child>
+		<widget class="GtkMenu" id="schedules_menu">
+
+		  <child>
+		    <widget class="GtkImageMenuItem" id="find_schedules">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">Find schedules</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="find_schedules" last_modification_time="Wed, 18 Oct 2006 17:05:52 GMT"/>
+		      <accelerator key="G" modifiers="GDK_CONTROL_MASK" signal="activate"/>
+
+		      <child internal-child="image">
+			<widget class="GtkImage" id="image16">
+			  <property name="visible">True</property>
+			  <property name="stock">gtk-convert</property>
+			  <property name="icon_size">1</property>
+			  <property name="xalign">0.5</property>
+			  <property name="yalign">0.5</property>
+			  <property name="xpad">0</property>
+			  <property name="ypad">0</property>
+			</widget>
+		      </child>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkSeparatorMenuItem" id="separator2">
+		      <property name="visible">True</property>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkImageMenuItem" id="jump_back">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">Jump 10 back</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="on_jump_back_activate" last_modification_time="Wed, 18 Oct 2006 17:03:44 GMT"/>
+		      <accelerator key="Page_Down" modifiers="GDK_SHIFT_MASK" signal="activate"/>
+
+		      <child internal-child="image">
+			<widget class="GtkImage" id="image17">
+			  <property name="visible">True</property>
+			  <property name="stock">gtk-media-rewind</property>
+			  <property name="icon_size">1</property>
+			  <property name="xalign">0.5</property>
+			  <property name="yalign">0.5</property>
+			  <property name="xpad">0</property>
+			  <property name="ypad">0</property>
+			</widget>
+		      </child>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkImageMenuItem" id="previous">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">Previous</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="on_previous_activate" last_modification_time="Wed, 18 Oct 2006 17:03:44 GMT"/>
+		      <accelerator key="Page_Down" modifiers="0" signal="activate"/>
+
+		      <child internal-child="image">
+			<widget class="GtkImage" id="image18">
+			  <property name="visible">True</property>
+			  <property name="stock">gtk-media-previous</property>
+			  <property name="icon_size">1</property>
+			  <property name="xalign">0.5</property>
+			  <property name="yalign">0.5</property>
+			  <property name="xpad">0</property>
+			  <property name="ypad">0</property>
+			</widget>
+		      </child>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkImageMenuItem" id="next">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">Next</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="on_next_activate" last_modification_time="Wed, 18 Oct 2006 16:54:28 GMT"/>
+		      <accelerator key="Page_Up" modifiers="0" signal="activate"/>
+
+		      <child internal-child="image">
+			<widget class="GtkImage" id="image19">
+			  <property name="visible">True</property>
+			  <property name="stock">gtk-media-next</property>
+			  <property name="icon_size">1</property>
+			  <property name="xalign">0.5</property>
+			  <property name="yalign">0.5</property>
+			  <property name="xpad">0</property>
+			  <property name="ypad">0</property>
+			</widget>
+		      </child>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkImageMenuItem" id="jump_forward">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">Jump 10 forward</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="on_jump_forward_activate" last_modification_time="Wed, 18 Oct 2006 17:03:44 GMT"/>
+		      <accelerator key="Page_Up" modifiers="GDK_SHIFT_MASK" signal="activate"/>
+
+		      <child internal-child="image">
+			<widget class="GtkImage" id="image20">
+			  <property name="visible">True</property>
+			  <property name="stock">gtk-media-forward</property>
+			  <property name="icon_size">1</property>
+			  <property name="xalign">0.5</property>
+			  <property name="yalign">0.5</property>
+			  <property name="xpad">0</property>
+			  <property name="ypad">0</property>
+			</widget>
+		      </child>
 		    </widget>
 		  </child>
 		</widget>
@@ -246,6 +374,7 @@ But we don't like C#</property>
 	      <property name="visible_vertical">True</property>
 	      <property name="is_important">False</property>
 	      <signal name="clicked" handler="find_schedules" last_modification_time="Wed, 11 Oct 2006 21:30:17 GMT"/>
+	      <accelerator key="G" modifiers="GDK_CONTROL_MASK" signal="clicked"/>
 	    </widget>
 	    <packing>
 	      <property name="expand">False</property>

@@ -24,6 +24,17 @@ class NoClashes < TTime::Constraint
     true
   end
 
+  def preferences_panel
+    vbox = Gtk::VBox.new
+
+    btn_enabled = Gtk::CheckButton.new('Enable')
+    btn_enabled.active = true
+
+    vbox.pack_start btn_enabled, false, false
+
+    vbox
+  end
+
   def print_event_grid(event_grid)
     puts '-start------------'
     earliest_start.upto(latest_finish) do |h|
