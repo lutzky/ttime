@@ -47,8 +47,8 @@ module TTime
         progress_dialog = ProgressDialog.new
 
         Thread.new do
-# FIXME
-          @scheduler = Logic::Scheduler.new(@selected_courses, [NoClashes.new], &progress_dialog.get_status_proc(:pulsating => true))
+          # FIXME
+          @scheduler = Logic::Scheduler.new(@selected_courses, [NoClashes.new], &progress_dialog.get_status_proc(:pulsating => true, :show_cancel_button => true))
 
           progress_dialog.dispose
 
@@ -64,7 +64,7 @@ module TTime
             draw_current_schedule
           end
         end
-     end
+      end
 
       def on_add_course
         course = currently_addable_course(:expand => true)
@@ -253,6 +253,8 @@ module TTime
           end
 
           progress_dialog.dispose
+
+          @glade["treeview_available_courses"].expand_all
         end
       end
 
@@ -305,8 +307,8 @@ module TTime
         dialog = Gtk::MessageDialog.new nil,
           Gtk::Dialog::MODAL | Gtk::Dialog::DESTROY_WITH_PARENT,
           Gtk::MessageDialog::ERROR, Gtk::MessageDialog::BUTTONS_OK, msg
-        dialog.run
-        dialog.destroy
+        dialog.show
+        dialog.signal_connect('response') { dialog.destroy }
       end
     end
   end

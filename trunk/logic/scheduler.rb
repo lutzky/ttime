@@ -73,12 +73,14 @@ module TTime
 
       def generate_ok_schedules
         i = 0
-        each_schedule_recusively(@courses,[]) do |groups|
-          i += 1
-          if i % REPORT_FREQUENCY == 0
-            @status_report_proc.call "Generating schedules"
+        catch(:cancel) do
+          each_schedule_recusively(@courses,[]) do |groups|
+            i += 1
+            if i % REPORT_FREQUENCY == 0
+              @status_report_proc.call "Generating schedules (#{i} so far)"
+            end
+            @ok_schedules << Schedule.new(groups)
           end
-          @ok_schedules << Schedule.new(groups)
         end
       end
 
