@@ -1,4 +1,5 @@
 require 'iconv'
+require 'gettext'
 
 require 'logic/faculty'
 require 'logic/shared'
@@ -8,6 +9,7 @@ module TTime
     RawCourse = Struct.new(:header,:body)
 
     class Repy
+      include GetText
       attr_reader :raw
       attr_reader :unicode
 
@@ -59,7 +61,7 @@ module TTime
         raw_faculties = @unicode.split(/\n\n/)
 
         raw_faculties.each_with_index do |raw_faculty,i|
-          @status_report_proc.call("Loading REPY file...", i.to_f / raw_faculties.size.to_f)
+          @status_report_proc.call(_("Loading REPY file..."), i.to_f / raw_faculties.size.to_f)
 
           raw_faculty.lstrip!
           banner = raw_faculty.slice!(FACULTY_BANNER_REGEX)

@@ -1,0 +1,168 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: ttime 0.x.x\n"
+"POT-Creation-Date: 2006-10-19 12:23+0200\n"
+"PO-Revision-Date: 2006-10-19 11:53+0200\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: gui/progress_dialog.rb:11
+msgid "Progress"
+msgstr ""
+
+#: gui/main_window.rb:71
+msgid "Please select some courses first."
+msgstr ""
+
+#: gui/main_window.rb:83
+msgid ""
+"Sorry, but no schedules are possible with the selected courses and "
+"constraints."
+msgstr ""
+
+#: gui/main_window.rb:170
+msgid "Schedule"
+msgstr ""
+
+#: gui/main_window.rb:262
+msgid "Populating available courses"
+msgstr ""
+
+#: gui/main_window.rb:306 gui/main_window.rb:319
+msgid "Course Name"
+msgstr ""
+
+#: gui/main_window.rb:306 gui/main_window.rb:319
+msgid "Course Number"
+msgstr ""
+
+#: gui/main_window.rb:346
+msgid "Constraints"
+msgstr ""
+
+#: logic/scheduler.rb:86 logic/scheduler.rb:87
+msgid "Generating schedules (%d so far)"
+msgstr ""
+
+#: logic/repy.rb:64
+msgid "Loading REPY file..."
+msgstr ""
+
+#: constraints/no_clashes.rb:38
+msgid "No clashes"
+msgstr ""
+
+#: constraints/no_clashes.rb:53
+msgid ""
+"WARNING! Disabling the 'no clashes' constraint will make scheduling take\n"
+"MUCH longer! You probably want to leave this on. (Coming soon: allow\n"
+"clashes only for specific courses)\n"
+msgstr ""
+
+#: constraints/one_free_day.rb:27
+msgid "One free day"
+msgstr ""
+
+#: constraints/one_free_day.rb:42
+msgid ""
+"Written mostly as proof of a concept - UDonkey's documentation says they\n"
+"can only check this condition after a schedule is built, to which I say "
+"\"WTF?\"\n"
+msgstr ""
+
+#: gui/ttime.glade:8 gui/ttime.glade:787
+msgid "TTime"
+msgstr ""
+
+#: gui/ttime.glade:41
+msgid "_File"
+msgstr ""
+
+#: gui/ttime.glade:101
+msgid "_Schedules"
+msgstr ""
+
+#: gui/ttime.glade:110
+msgid "Find schedules"
+msgstr ""
+
+#: gui/ttime.glade:138
+msgid "Jump 10 back"
+msgstr ""
+
+#: gui/ttime.glade:160
+msgid "Previous"
+msgstr ""
+
+#: gui/ttime.glade:182
+msgid "Next"
+msgstr ""
+
+#: gui/ttime.glade:204
+msgid "Jump 10 forward"
+msgstr ""
+
+#: gui/ttime.glade:230
+msgid "_Tools"
+msgstr ""
+
+#: gui/ttime.glade:239
+msgid "Auto _Update"
+msgstr ""
+
+#: gui/ttime.glade:267
+msgid "_Help"
+msgstr ""
+
+#: gui/ttime.glade:304
+msgid "New File"
+msgstr ""
+
+#: gui/ttime.glade:319
+msgid "Open File"
+msgstr ""
+
+#: gui/ttime.glade:334
+msgid "Save File"
+msgstr ""
+
+#: gui/ttime.glade:362
+msgid "Find Schedules"
+msgstr ""
+
+#: gui/ttime.glade:414
+msgid " of 0"
+msgstr ""
+
+#: gui/ttime.glade:555
+msgid "Available Courses"
+msgstr ""
+
+#: gui/ttime.glade:663
+msgid "Selected Courses"
+msgstr ""
+
+#: gui/ttime.glade:743
+msgid "Course List"
+msgstr ""
+
+#: gui/ttime.glade:788
+msgid ""
+"Inspired by UDonkey and Marprog\n"
+"\n"
+"But we don't like C#"
+msgstr ""
+
+#: gui/ttime.glade:793
+msgid "TTime Trac"
+msgstr ""

@@ -30,7 +30,6 @@ module TTime
         if x.is_a? Integer
           @day = x;
         else
-          puts "its #{x} day\n" if $DEBUG
           @day = @@name_to_day[x]
         end
       end

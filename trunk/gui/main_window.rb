@@ -2,6 +2,7 @@ require 'libglade2'
 require 'data'
 require 'gtkmozembed'
 require 'tempfile'
+require 'gettext'
 
 require 'constraints'
 require 'logic/course'
@@ -11,6 +12,8 @@ require 'gui/progress_dialog'
 module TTime
   module GUI
     class MainWindow
+      include GetText
+
       def on_next_activate
         self.current_schedule += 1
         on_change_current_schedule
@@ -65,7 +68,7 @@ module TTime
 
       def find_schedules
         if @selected_courses.empty?
-          error_dialog('Please select some courses first.')
+          error_dialog(_('Please select some courses first.'))
           return
         end
 
@@ -77,8 +80,7 @@ module TTime
           progress_dialog.dispose
 
           if @scheduler.ok_schedules.empty?
-            error_dialog "Sorry, but no schedules are possible with " +
-              "the selected courses and constraints."
+            error_dialog _("Sorry, but no schedules are possible with the selected courses and constraints.")
           else
             set_num_schedules @scheduler.ok_schedules.size
             self.current_schedule = 0
@@ -165,7 +167,7 @@ module TTime
       def init_schedule_view
         notebook = @glade["notebook"]
         @mozembed = Gtk::MozEmbed.new
-        notebook.append_page @mozembed, Gtk::Label.new("Schedule")
+        notebook.append_page @mozembed, Gtk::Label.new(_("Schedule"))
 
         notebook.show_all
 
@@ -257,7 +259,7 @@ module TTime
         @tree_available_courses.clear
 
         progress_dialog = ProgressDialog.new
-        progress_dialog.text = 'Populating available courses'
+        progress_dialog.text = _('Populating available courses')
 
         Thread.new do
           @data.each_with_index do |faculty,i|
@@ -301,7 +303,7 @@ module TTime
 
         columns = []
 
-        [ "Course", "Number" ].each_with_index do |label, i|
+        [ _("Course Name"), _("Course Number") ].each_with_index do |label, i|
           columns[i] = Gtk::TreeViewColumn.new label, Gtk::CellRendererText.new,
             :text => i
           columns[i].resizable = true
@@ -314,7 +316,7 @@ module TTime
         # This actually has to be done twice, because we need different
         # copies of the columns for each of the views
 
-        [ "Course Name", "Course Number" ].each_with_index do |label, i|
+        [ _("Course Name"), _("Course Number") ].each_with_index do |label, i|
           columns[i] = Gtk::TreeViewColumn.new label, Gtk::CellRendererText.new,
             :text => i
           columns[i].resizable = true
@@ -340,9 +342,9 @@ module TTime
         constraints_notebook.border_width = 5
 
         notebook = @glade["notebook"]
-        notebook.append_page constraints_notebook, Gtk::Label.new("Constraints")
+        notebook.append_page constraints_notebook, 
+          Gtk::Label.new(_("Constraints"))
         notebook.show_all
-        puts 'done'
       end
 
       def error_dialog(msg)

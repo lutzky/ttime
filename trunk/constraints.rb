@@ -1,8 +1,11 @@
 require 'pp'
+require 'gettext'
 
 module TTime
   module Constraints
     class AbstractConstraint
+      include GetText
+
       attr_reader :schedule
 
       def event_list

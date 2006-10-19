@@ -35,7 +35,7 @@ module TTime
       end
 
       def name
-        'No clashes'
+        _('No clashes')
       end
 
       def preferences_panel
@@ -50,12 +50,12 @@ module TTime
 
         vbox.pack_start btn_enabled, false, false
         vbox.pack_start Gtk::Label.new(
-        <<-EOF
+        _(<<-EOF
 WARNING! Disabling the 'no clashes' constraint will make scheduling take
 MUCH longer! You probably want to leave this on. (Coming soon: allow
 clashes only for specific courses)
         EOF
-        )
+        ))
 
         vbox
       end

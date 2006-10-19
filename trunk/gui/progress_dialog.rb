@@ -3,10 +3,12 @@ require 'gtk2'
 module TTime
   module GUI
     class ProgressDialog < Gtk::Dialog
+      include GetText
+
       def initialize
         super
 
-        self.title = "Progress"
+        self.title = _("Progress")
 
         @progressbar = Gtk::ProgressBar.new
         @label = Gtk::Label.new ''

@@ -14,7 +14,6 @@ module TTime
           m=/(.+)'(\d+.\d+) ?-(\d+.\d+) *(.*)/.match(line)
           @day = Day.new(m[1]).to_i
           @start = Hour.new(m[3].reverse).to_military
-          puts "at #{m[3]}" if $DEBUG
           @place = place_convert(m[4])
           @end = Hour.new(m[2].reverse).to_military
         rescue

@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 
+require 'gettext'
+
 require 'logic/course'
 require 'logic/group'
 require 'logic/times'
@@ -25,6 +27,8 @@ end
 module TTime
   module Logic
     class Schedule
+      include GetText
+
       attr_reader :groups
 
       def initialize(course_groups_arr)
@@ -47,6 +51,8 @@ module TTime
     end
 
     class Scheduler
+      include GetText
+
       attr_reader :ok_schedules
 
       REPORT_FREQUENCY = 100
@@ -77,7 +83,8 @@ module TTime
           each_schedule_recusively(@courses,[]) do |groups|
             i += 1
             if i % REPORT_FREQUENCY == 0
-              @status_report_proc.call "Generating schedules (#{i} so far)"
+              puts sprintf(_("Generating schedules (%d so far)"),i)
+              @status_report_proc.call sprintf(_("Generating schedules (%d so far)"),i)
             end
             @ok_schedules << Schedule.new(groups)
           end

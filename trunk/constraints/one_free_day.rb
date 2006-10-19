@@ -24,7 +24,7 @@ module TTime
       end
 
       def name
-        'One free day'
+        _('One free day')
       end
 
       def preferences_panel
@@ -39,11 +39,11 @@ module TTime
 
         vbox.pack_start btn_enabled, false, false
         vbox.pack_start Gtk::Label.new(
-        <<-EOF
+        _(<<-EOF
 Written mostly as proof of a concept - UDonkey's documentation says they
 can only check this condition after a schedule is built, to which I say "WTF?"
         EOF
-        )
+        ))
 
         vbox
       end

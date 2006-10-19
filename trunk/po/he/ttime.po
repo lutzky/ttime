@@ -1,0 +1,175 @@
+# Hebrew translations for PACKAGE package.
+# Copyright (C) 2006 THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# Ohad Lutzky <lutzky@gmail.com>, 2006.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ttime 0.x.x\n"
+"POT-Creation-Date: 2006-10-19 12:23+0200\n"
+"PO-Revision-Date: 2006-10-19 12:01+0200\n"
+"Last-Translator: Ohad Lutzky <lutzky@gmail.com>\n"
+"Language-Team: Hebrew <eliz@gnu.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: gui/progress_dialog.rb:11
+msgid "Progress"
+msgstr "התקדמות"
+
+#: gui/main_window.rb:71
+msgid "Please select some courses first."
+msgstr "אנא בחר קורסים קודם."
+
+#: gui/main_window.rb:83
+msgid ""
+"Sorry, but no schedules are possible with the selected courses and "
+"constraints."
+msgstr "אנחנו מצטערים, אך אין מערכות אפשריות עבור הקורסים וההגבלות שנבחרו."
+
+#: gui/main_window.rb:170
+msgid "Schedule"
+msgstr "מערכת שעות"
+
+#: gui/main_window.rb:262
+msgid "Populating available courses"
+msgstr "ממלא את רשימת הקורסים הזמינים"
+
+#: gui/main_window.rb:306 gui/main_window.rb:319
+msgid "Course Name"
+msgstr "שם קורס"
+
+#: gui/main_window.rb:306 gui/main_window.rb:319
+msgid "Course Number"
+msgstr "מספר קורס"
+
+#: gui/main_window.rb:346
+msgid "Constraints"
+msgstr "הגבלות"
+
+#: logic/scheduler.rb:86 logic/scheduler.rb:87
+msgid "Generating schedules (%d so far)"
+msgstr "מייצר מערכות (%d עד כה)"
+
+#: logic/repy.rb:64
+msgid "Loading REPY file..."
+msgstr "טוען קובץ REPY..."
+
+#: constraints/no_clashes.rb:38
+msgid "No clashes"
+msgstr "ללא התנגשויות"
+
+#: constraints/no_clashes.rb:53
+msgid ""
+"WARNING! Disabling the 'no clashes' constraint will make scheduling take\n"
+"MUCH longer! You probably want to leave this on. (Coming soon: allow\n"
+"clashes only for specific courses)\n"
+msgstr ""
+"אזהרה! ביטול הגבלת ה-'ללא התנגשויות' יגרום למציאת המערכות לקחת הרבה יותר "
+"זמן! אתם כנראה רוצים להשאיר את זה דולק. (בקרוב נאפשר לבחור לאיזה קורסים "
+"לאפשר התנגשויות)"
+
+#: constraints/one_free_day.rb:27
+msgid "One free day"
+msgstr "יום חופשי כלשהו"
+
+#: constraints/one_free_day.rb:42
+msgid ""
+"Written mostly as proof of a concept - UDonkey's documentation says they\n"
+"can only check this condition after a schedule is built, to which I say "
+"\"WTF?\"\n"
+msgstr ""
+"נכתב ברובו כהוכחת קונצפט - בתיעוד של UDonkey כתוב שניתן לבדוק זאת רק לאחר "
+"שמערכת נבנית, ולא ברור למה."
+
+#: gui/ttime.glade:8 gui/ttime.glade:787
+msgid "TTime"
+msgstr "TTime"
+
+#: gui/ttime.glade:41
+msgid "_File"
+msgstr "_קובץ"
+
+#: gui/ttime.glade:101
+msgid "_Schedules"
+msgstr "מערכות שעות"
+
+#: gui/ttime.glade:110
+msgid "Find schedules"
+msgstr "בנה מערכת שעות"
+
+#: gui/ttime.glade:138
+msgid "Jump 10 back"
+msgstr "קפוץ 10 אחורה"
+
+#: gui/ttime.glade:160
+msgid "Previous"
+msgstr "קודמת"
+
+#: gui/ttime.glade:182
+msgid "Next"
+msgstr "באה"
+
+#: gui/ttime.glade:204
+msgid "Jump 10 forward"
+msgstr "קפוץ 10 קדימה"
+
+#: gui/ttime.glade:230
+msgid "_Tools"
+msgstr "_כלים"
+
+#: gui/ttime.glade:239
+msgid "Auto _Update"
+msgstr "_עדכון אוטומטי"
+
+#: gui/ttime.glade:267
+msgid "_Help"
+msgstr "_עזרה"
+
+#: gui/ttime.glade:304
+msgid "New File"
+msgstr "קובץ חדש"
+
+#: gui/ttime.glade:319
+msgid "Open File"
+msgstr "פתח קובץ"
+
+#: gui/ttime.glade:334
+msgid "Save File"
+msgstr "שמור קובץ"
+
+#: gui/ttime.glade:362
+msgid "Find Schedules"
+msgstr "מצא מערכות שעות"
+
+#: gui/ttime.glade:414
+msgid " of 0"
+msgstr " מתוך 0"
+
+#: gui/ttime.glade:555
+msgid "Available Courses"
+msgstr "קורסים זמינים"
+
+#: gui/ttime.glade:663
+msgid "Selected Courses"
+msgstr "קורסים שנבחרו"
+
+#: gui/ttime.glade:743
+msgid "Course List"
+msgstr "רשימת קורסים"
+
+#: gui/ttime.glade:788
+msgid ""
+"Inspired by UDonkey and Marprog\n"
+"\n"
+"But we don't like C#"
+msgstr ""
+"בהשראת UDonkey"
+"\n"
+"אבל אנחנו לא אוהבים #C"
+
+#: gui/ttime.glade:793
+msgid "TTime Trac"
+msgstr "TTime Trac"

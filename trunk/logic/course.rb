@@ -135,7 +135,6 @@ module TTime
                 current_lecture_group_number += 1
               end
 
-              puts "adding #{m[3]} for #{m[2]} \n" if $DEBUG
               grp.add_hours(m[3])
               state = :details
             end

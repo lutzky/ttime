@@ -20,40 +20,65 @@ Rake::RDocTask.new("doc") do |rd|
   rd.rdoc_dir = "doc"
 end
 
+desc "Find all FIXME comments"
 task :fixme do
   puts `grep -r FIXME * | grep -v '.svn'`
 end
 
+desc "Run all tests"
 task :test do
-  require 'tests/test_schedule'
-  require 'tests/test_repy'
+  Dir.glob('tests/*.rb') do |test|
+    require test
+  end
 end
 
 task :default => [:run] do
 end
 
+desc "Run the application"
 task :run do
   require 'main'
 end
 
+desc "Run the application with $DEBUG set to true"
 task :debug => [:clean] do
   $DEBUG = true
   require 'main'
 end
 
+desc "Delete all data including the REPY file"
 task :distclean => [:clean] do
   File.try_unlink TTime::Data::REPY_File
 end
 
+desc "Same as clean and run"
 task :cleanrun => [:clean, :run] do
 end
 
+desc "Create a UTF-8 encoded version of the REPY file"
 task :recode_repy do
   repy = open(TTime::Data::REPY_File) { |f| TTime::Logic::Repy.new(f.read) }
   open('data/REPY.utf-8','w') { |f| f.write repy.unicode }
 end
 
+desc "Delete all data except for the REPY file"
 task :clean do
   File.try_unlink TTime::Data::YAML_File, TTime::Data::MARSHAL_File,
     'gui/ttime.gladep', 'gui/ttime.gladep.bak', 'gui/ttime.glade.bak'
+end
+
+desc "Create mo-files for L10n"
+task :makemo do
+  require 'gettext/utils'
+  GetText.create_mofiles(true, "po", "locale")
+end
+
+desc "Update pot/po files to match new version"
+task :updatepo do
+  require 'gettext/utils'
+  GetText.update_pofiles("ttime",
+                         Dir.glob("*.rb") + 
+                         Dir.glob("{gui,logic,constraints}/*.rb") +
+                         [ "gui/ttime.glade" ],
+                         "ttime 0.x.x")
 end
