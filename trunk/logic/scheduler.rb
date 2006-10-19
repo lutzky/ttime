@@ -6,6 +6,8 @@ require 'logic/course'
 require 'logic/group'
 require 'logic/times'
 
+GetText::bindtextdomain("ttime", "locale", nil, "utf-8")
+
 class Array
   def count
     c = 0

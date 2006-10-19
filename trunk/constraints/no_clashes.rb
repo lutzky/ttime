@@ -1,6 +1,8 @@
 require 'constraints'
 require 'logic/times'
 
+GetText::bindtextdomain("ttime", "locale", nil, "utf-8")
+
 module TTime
   module Constraints
     class NoClashes < AbstractConstraint
@@ -41,7 +43,7 @@ module TTime
       def preferences_panel
         vbox = Gtk::VBox.new
 
-        btn_enabled = Gtk::CheckButton.new('Enable')
+        btn_enabled = Gtk::CheckButton.new(_('Enable'))
         btn_enabled.active = @enabled
 
         btn_enabled.signal_connect('toggled') do

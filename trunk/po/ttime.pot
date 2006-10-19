@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ttime 0.x.x\n"
-"POT-Creation-Date: 2006-10-19 12:23+0200\n"
+"POT-Creation-Date: 2006-10-19 12:59+0200\n"
 "PO-Revision-Date: 2006-10-19 11:53+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,64 +16,88 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: gui/progress_dialog.rb:11
+#: data.rb:21
+msgid "Loading technion data from YAML"
+msgstr ""
+
+#: data.rb:24
+msgid "Loading technion data"
+msgstr ""
+
+#: data.rb:47
+msgid "Loading data from REPY"
+msgstr ""
+
+#: data.rb:56
+msgid "Downloading REPY file from Technion"
+msgstr ""
+
+#: data.rb:64
+msgid "Extracting REPY file"
+msgstr ""
+
+#: gui/progress_dialog.rb:13
 msgid "Progress"
 msgstr ""
 
-#: gui/main_window.rb:71
+#: gui/main_window.rb:75
 msgid "Please select some courses first."
 msgstr ""
 
-#: gui/main_window.rb:83
+#: gui/main_window.rb:87
 msgid ""
 "Sorry, but no schedules are possible with the selected courses and "
 "constraints."
 msgstr ""
 
-#: gui/main_window.rb:170
+#: gui/main_window.rb:174
 msgid "Schedule"
 msgstr ""
 
-#: gui/main_window.rb:262
+#: gui/main_window.rb:266
 msgid "Populating available courses"
 msgstr ""
 
-#: gui/main_window.rb:306 gui/main_window.rb:319
+#: gui/main_window.rb:310 gui/main_window.rb:323
 msgid "Course Name"
 msgstr ""
 
-#: gui/main_window.rb:306 gui/main_window.rb:319
+#: gui/main_window.rb:310 gui/main_window.rb:323
 msgid "Course Number"
 msgstr ""
 
-#: gui/main_window.rb:346
+#: gui/main_window.rb:350
 msgid "Constraints"
 msgstr ""
 
-#: logic/scheduler.rb:86 logic/scheduler.rb:87
+#: logic/scheduler.rb:88 logic/scheduler.rb:89
 msgid "Generating schedules (%d so far)"
 msgstr ""
 
-#: logic/repy.rb:64
+#: logic/repy.rb:66
 msgid "Loading REPY file..."
 msgstr ""
 
-#: constraints/no_clashes.rb:38
+#: constraints/no_clashes.rb:40
 msgid "No clashes"
 msgstr ""
 
-#: constraints/no_clashes.rb:53
+#: constraints/no_clashes.rb:46 constraints/one_free_day.rb:35
+msgid "Enable"
+msgstr ""
+
+#: constraints/no_clashes.rb:55
 msgid ""
 "WARNING! Disabling the 'no clashes' constraint will make scheduling take\n"
 "MUCH longer! You probably want to leave this on. (Coming soon: allow\n"
 "clashes only for specific courses)\n"
 msgstr ""
 
-#: constraints/one_free_day.rb:27
+#: constraints/one_free_day.rb:29
 msgid "One free day"
 msgstr ""
 
-#: constraints/one_free_day.rb:42
+#: constraints/one_free_day.rb:44
 msgid ""
 "Written mostly as proof of a concept - UDonkey's documentation says they\n"
 "can only check this condition after a schedule is built, to which I say "

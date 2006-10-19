@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ttime 0.x.x\n"
-"POT-Creation-Date: 2006-10-19 12:23+0200\n"
+"POT-Creation-Date: 2006-10-19 12:59+0200\n"
 "PO-Revision-Date: 2006-10-19 12:01+0200\n"
 "Last-Translator: Ohad Lutzky <lutzky@gmail.com>\n"
 "Language-Team: Hebrew <eliz@gnu.org>\n"
@@ -15,53 +15,77 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: gui/progress_dialog.rb:11
+#: data.rb:21
+msgid "Loading technion data from YAML"
+msgstr "טוען מידע טכניוני מקובץ ה-YAML"
+
+#: data.rb:24
+msgid "Loading technion data"
+msgstr "טוען מידע טכניוני"
+
+#: data.rb:47
+msgid "Loading data from REPY"
+msgstr "טוען מידע מקובץ ה-REPY"
+
+#: data.rb:56
+msgid "Downloading REPY file from Technion"
+msgstr "מוריד קובץ REPY מהטכניון"
+
+#: data.rb:64
+msgid "Extracting REPY file"
+msgstr "מחלץ קובץ REPY..."
+
+#: gui/progress_dialog.rb:13
 msgid "Progress"
 msgstr "התקדמות"
 
-#: gui/main_window.rb:71
+#: gui/main_window.rb:75
 msgid "Please select some courses first."
 msgstr "אנא בחר קורסים קודם."
 
-#: gui/main_window.rb:83
+#: gui/main_window.rb:87
 msgid ""
 "Sorry, but no schedules are possible with the selected courses and "
 "constraints."
 msgstr "אנחנו מצטערים, אך אין מערכות אפשריות עבור הקורסים וההגבלות שנבחרו."
 
-#: gui/main_window.rb:170
+#: gui/main_window.rb:174
 msgid "Schedule"
 msgstr "מערכת שעות"
 
-#: gui/main_window.rb:262
+#: gui/main_window.rb:266
 msgid "Populating available courses"
 msgstr "ממלא את רשימת הקורסים הזמינים"
 
-#: gui/main_window.rb:306 gui/main_window.rb:319
+#: gui/main_window.rb:310 gui/main_window.rb:323
 msgid "Course Name"
 msgstr "שם קורס"
 
-#: gui/main_window.rb:306 gui/main_window.rb:319
+#: gui/main_window.rb:310 gui/main_window.rb:323
 msgid "Course Number"
 msgstr "מספר קורס"
 
-#: gui/main_window.rb:346
+#: gui/main_window.rb:350
 msgid "Constraints"
 msgstr "הגבלות"
 
-#: logic/scheduler.rb:86 logic/scheduler.rb:87
+#: logic/scheduler.rb:88 logic/scheduler.rb:89
 msgid "Generating schedules (%d so far)"
 msgstr "מייצר מערכות (%d עד כה)"
 
-#: logic/repy.rb:64
+#: logic/repy.rb:66
 msgid "Loading REPY file..."
 msgstr "טוען קובץ REPY..."
 
-#: constraints/no_clashes.rb:38
+#: constraints/no_clashes.rb:40
 msgid "No clashes"
 msgstr "ללא התנגשויות"
 
-#: constraints/no_clashes.rb:53
+#: constraints/no_clashes.rb:46 constraints/one_free_day.rb:35
+msgid "Enable"
+msgstr "הפעל"
+
+#: constraints/no_clashes.rb:55
 msgid ""
 "WARNING! Disabling the 'no clashes' constraint will make scheduling take\n"
 "MUCH longer! You probably want to leave this on. (Coming soon: allow\n"
@@ -71,11 +95,11 @@ msgstr ""
 "זמן! אתם כנראה רוצים להשאיר את זה דולק. (בקרוב נאפשר לבחור לאיזה קורסים "
 "לאפשר התנגשויות)"
 
-#: constraints/one_free_day.rb:27
+#: constraints/one_free_day.rb:29
 msgid "One free day"
 msgstr "יום חופשי כלשהו"
 
-#: constraints/one_free_day.rb:42
+#: constraints/one_free_day.rb:44
 msgid ""
 "Written mostly as proof of a concept - UDonkey's documentation says they\n"
 "can only check this condition after a schedule is built, to which I say "
@@ -166,10 +190,12 @@ msgid ""
 "\n"
 "But we don't like C#"
 msgstr ""
-"בהשראת UDonkey"
-"\n"
+"בהשראת UDonkey\n"
 "אבל אנחנו לא אוהבים #C"
 
 #: gui/ttime.glade:793
 msgid "TTime Trac"
 msgstr "TTime Trac"
+
+#~ msgid "Test"
+#~ msgstr "בדיקה"

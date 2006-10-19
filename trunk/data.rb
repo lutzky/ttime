@@ -1,10 +1,16 @@
 require 'logic/repy'
 require 'open-uri'
 require 'pathname'
+require 'gettext'
+
 #require 'yaml'
+
+GetText::bindtextdomain("ttime", "locale", nil, "utf-8")
 
 module TTime
   class Data
+    include GetText
+
     attr_reader :data
 
     def initialize(&status_report_proc)
@@ -12,10 +18,10 @@ module TTime
       @status_report_proc = proc {} if @status_report_proc.nil?
 
       if USE_YAML && File::exists?(YAML_File)
-        report "Loading technion data from YAML"
+        report _("Loading technion data from YAML")
         @data = File.open(YAML_File) { |yf| YAML::load(yf.read) }
       elsif File::exists?(MARSHAL_File)
-        report "Loading technion data"
+        report _("Loading technion data")
         @data = File.open(MARSHAL_File) { |mf| Marshal.load(mf.read) }
       elsif File::exists?(REPY_File)
         @data = convert_repy
@@ -38,7 +44,7 @@ module TTime
     MARSHAL_File = DATA_DIR + "technion.mrshl"
 
     def convert_repy
-      report "Loading data from REPY"
+      report _("Loading data from REPY")
       if USE_YAML
         update_yaml
       else
@@ -47,7 +53,7 @@ module TTime
     end
 
     def download_repy
-      report "Downloading REPY file from Technion"
+      report _("Downloading REPY file from Technion")
 
       open(REPY_URI) do |in_file|
         open(REPY_Zip,"w") do |out_file|
@@ -55,7 +61,7 @@ module TTime
         end
       end
 
-      report "Extracting REPY file", 0.5
+      report _("Extracting REPY file"), 0.5
 
       # FIXME: This kinda won't work on anything non-UNIX
       `bash -c 'cd #{DATA_DIR} && unzip #{REPY_Zip_filename} && rm #{REPY_Zip_filename}'`

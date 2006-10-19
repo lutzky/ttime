@@ -1,5 +1,7 @@
 require 'gtk2'
 
+GetText::bindtextdomain("ttime", "locale", nil, "utf-8")
+
 module TTime
   module GUI
     class ProgressDialog < Gtk::Dialog

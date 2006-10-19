@@ -9,6 +9,8 @@ require 'logic/course'
 require 'logic/scheduler'
 require 'gui/progress_dialog'
 
+GetText::bindtextdomain("ttime", "locale", nil, "utf-8")
+
 module TTime
   module GUI
     class MainWindow
@@ -39,7 +41,9 @@ module TTime
 
       GLADE_FILE = "gui/ttime.glade"
       def initialize
-        @glade = GladeXML.new(GLADE_FILE) { |handler| method(handler) }
+        @glade = GladeXML.new(GLADE_FILE,nil,"ttime","locale") do |handler|
+          method(handler) 
+        end
 
         notebook = @glade["notebook"]
 

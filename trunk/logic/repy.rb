@@ -4,6 +4,8 @@ require 'gettext'
 require 'logic/faculty'
 require 'logic/shared'
 
+GetText::bindtextdomain("ttime", "locale", nil, "utf-8")
+
 module TTime
   module Logic
     RawCourse = Struct.new(:header,:body)
