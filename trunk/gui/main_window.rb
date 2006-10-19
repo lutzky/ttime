@@ -5,6 +5,7 @@ require 'tempfile'
 require 'gettext'
 
 require 'constraints'
+require 'settings'
 require 'logic/course'
 require 'logic/scheduler'
 require 'gui/progress_dialog'
@@ -63,6 +64,7 @@ module TTime
       end
 
       def on_quit_activate
+        save_settings
         Gtk.main_quit
       end
 
@@ -97,12 +99,7 @@ module TTime
         course = currently_addable_course(:expand => true)
 
         if course
-          @selected_courses << course
-
-          iter = @list_selected_courses.append
-          iter[0] = course.name
-          iter[1] = course.number
-          iter[2] = course
+          add_selected_course course
 
           on_available_course_selection
           on_selected_course_selection
@@ -152,6 +149,30 @@ module TTime
       private
 
       attr_reader :current_schedule
+
+      def save_settings
+        @settings['selected_courses'] = @selected_courses.collect do |course|
+          course.number
+        end
+        @settings.save
+      end
+
+      def load_settings
+        @settings = Settings.new
+
+        @settings['selected_courses'].each do |course_num|
+          add_selected_course @data.find_course_by_num(course_num)
+        end
+      end
+
+      def add_selected_course(course)
+        @selected_courses << course
+
+        iter = @list_selected_courses.append
+        iter[0] = course.name
+        iter[1] = course.number
+        iter[2] = course
+      end
 
       def current_schedule=(n)
         @current_schedule = n
@@ -251,11 +272,13 @@ module TTime
         progress_dialog = ProgressDialog.new
 
         Thread.new do
-          @data = TTime::Data.new(&progress_dialog.get_status_proc).data
+          @data = TTime::Data.new(&progress_dialog.get_status_proc)
 
           progress_dialog.dispose
 
           update_available_courses_tree
+
+          load_settings
         end
       end
 

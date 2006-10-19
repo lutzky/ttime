@@ -13,6 +13,9 @@ module TTime
 
     attr_reader :data
 
+    class << self
+    end
+
     def initialize(&status_report_proc)
       @status_report_proc = status_report_proc
       @status_report_proc = proc {} if @status_report_proc.nil?
@@ -28,6 +31,34 @@ module TTime
       else
         @data = download_repy
       end
+    end
+
+    def find_course_by_num(course_num)
+      data.each do |faculty|
+        faculty.courses.each do |course|
+          return course if course.number.to_s == course_num.to_s
+        end
+      end
+    end
+
+    def [](*args)
+      data.[](*args)
+    end
+
+    def []=(*args)
+      data.[]=(*args)
+    end
+
+    def each(*args, &block)
+      data.each(*args, &block)
+    end
+
+    def each_with_index(*args, &block)
+      data.each_with_index(*args, &block)
+    end
+
+    def size
+      data.size
     end
     
     private
