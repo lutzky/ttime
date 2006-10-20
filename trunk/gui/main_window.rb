@@ -18,23 +18,31 @@ module TTime
       include GetText
 
       def on_next_activate
-        self.current_schedule += 1
-        on_change_current_schedule
+        if self.current_schedule
+          self.current_schedule += 1
+          on_change_current_schedule
+        end
       end
 
       def on_previous_activate
-        self.current_schedule -= 1
-        on_change_current_schedule
+        if self.current_schedule
+          self.current_schedule -= 1
+          on_change_current_schedule
+        end
       end
 
       def on_jump_forward_activate
-        self.current_schedule += 10
-        on_change_current_schedule
+        if self.current_schedule
+          self.current_schedule += 10
+          on_change_current_schedule
+        end
       end
 
       def on_jump_back_activate
-        self.current_schedule -= 10
-        on_change_current_schedule
+        if self.current_schedule
+          self.current_schedule -= 10
+          on_change_current_schedule
+        end
       end
 
       def show_preferences
@@ -152,9 +160,19 @@ module TTime
         @glade["notebook"].page = 1
       end
 
-      private
+      def current_schedule=(n)
+        @current_schedule = n
+
+        spinner = @glade["spin_current_schedule"]
+
+        spinner.sensitive = true
+        spinner.adjustment.lower = 1
+        spinner.adjustment.value = n + 1
+      end
 
       attr_reader :current_schedule
+
+      private
 
       def save_settings
         @settings['selected_courses'] = @selected_courses.collect do |course|
@@ -166,7 +184,7 @@ module TTime
       def load_settings
         @settings = Settings.new
 
-        @settings['selected_courses'].each do |course_num|
+        @settings.selected_courses.each do |course_num|
           add_selected_course @data.find_course_by_num(course_num)
         end
       end
@@ -178,16 +196,6 @@ module TTime
         iter[0] = course.name
         iter[1] = course.number
         iter[2] = course
-      end
-
-      def current_schedule=(n)
-        @current_schedule = n
-
-        spinner = @glade["spin_current_schedule"]
-
-        spinner.sensitive = true
-        spinner.adjustment.lower = 1
-        spinner.adjustment.value = n + 1
       end
 
       def set_num_schedules(n)

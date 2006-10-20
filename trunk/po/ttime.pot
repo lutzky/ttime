@@ -1,13 +1,13 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# TTime translation
+# Copyright (C) 2006 Ohad Lutzky, Boaz Goldstein, Haggai Eran
+# This file is distributed under the same license as the ttime package.
+# Ohad Lutzky <lutzky@gmail.com>, 2006.
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: ttime 0.x.x\n"
-"POT-Creation-Date: 2006-10-19 12:59+0200\n"
+"POT-Creation-Date: 2006-10-19 15:39+0200\n"
 "PO-Revision-Date: 2006-10-19 11:53+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,66 +16,66 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: data.rb:21
+#: data.rb:24
 msgid "Loading technion data from YAML"
 msgstr ""
 
-#: data.rb:24
+#: data.rb:27
 msgid "Loading technion data"
 msgstr ""
 
-#: data.rb:47
+#: data.rb:78
 msgid "Loading data from REPY"
 msgstr ""
 
-#: data.rb:56
+#: data.rb:87
 msgid "Downloading REPY file from Technion"
 msgstr ""
 
-#: data.rb:64
+#: data.rb:95
 msgid "Extracting REPY file"
+msgstr ""
+
+#: gui/main_window.rb:83
+msgid "Please select some courses first."
+msgstr ""
+
+#: gui/main_window.rb:95
+msgid ""
+"Sorry, but no schedules are possible with the selected courses and "
+"constraints."
+msgstr ""
+
+#: gui/main_window.rb:201
+msgid "Schedule"
+msgstr ""
+
+#: gui/main_window.rb:289
+msgid "Populating available courses"
+msgstr ""
+
+#: gui/main_window.rb:333 gui/main_window.rb:346
+msgid "Course Name"
+msgstr ""
+
+#: gui/main_window.rb:333 gui/main_window.rb:346
+msgid "Course Number"
+msgstr ""
+
+#: gui/main_window.rb:373
+msgid "Constraints"
 msgstr ""
 
 #: gui/progress_dialog.rb:13
 msgid "Progress"
 msgstr ""
 
-#: gui/main_window.rb:75
-msgid "Please select some courses first."
-msgstr ""
-
-#: gui/main_window.rb:87
-msgid ""
-"Sorry, but no schedules are possible with the selected courses and "
-"constraints."
-msgstr ""
-
-#: gui/main_window.rb:174
-msgid "Schedule"
-msgstr ""
-
-#: gui/main_window.rb:266
-msgid "Populating available courses"
-msgstr ""
-
-#: gui/main_window.rb:310 gui/main_window.rb:323
-msgid "Course Name"
-msgstr ""
-
-#: gui/main_window.rb:310 gui/main_window.rb:323
-msgid "Course Number"
-msgstr ""
-
-#: gui/main_window.rb:350
-msgid "Constraints"
-msgstr ""
-
-#: logic/scheduler.rb:88 logic/scheduler.rb:89
-msgid "Generating schedules (%d so far)"
-msgstr ""
-
 #: logic/repy.rb:66
 msgid "Loading REPY file..."
+msgstr ""
+
+#: logic/scheduler.rb:88
+msgid "Generating schedules (%d so far)"
 msgstr ""
 
 #: constraints/no_clashes.rb:40
