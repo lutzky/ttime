@@ -6,14 +6,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ttime 0.x.x\n"
-"POT-Creation-Date: 2006-10-19 15:39+0200\n"
-"PO-Revision-Date: 2006-10-19 12:01+0200\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-10-21 21:18+0200\n"
+"PO-Revision-Date: 2006-10-21 21:21+0200\n"
 "Last-Translator: Ohad Lutzky <lutzky@gmail.com>\n"
 "Language-Team: Hebrew <eliz@gnu.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);"
 
 #: data.rb:24
 msgid "Loading technion data from YAML"
@@ -35,33 +36,37 @@ msgstr "מוריד קובץ REPY מהטכניון"
 msgid "Extracting REPY file"
 msgstr "מחלץ קובץ REPY..."
 
-#: gui/main_window.rb:83
+#: gui/main_window.rb:91
 msgid "Please select some courses first."
 msgstr "אנא בחר קורסים קודם."
 
-#: gui/main_window.rb:95
+#: gui/main_window.rb:106
 msgid ""
 "Sorry, but no schedules are possible with the selected courses and "
 "constraints."
 msgstr "אנחנו מצטערים, אך אין מערכות אפשריות עבור הקורסים וההגבלות שנבחרו."
 
-#: gui/main_window.rb:201
+#: gui/main_window.rb:207
+msgid " of %d"
+msgstr " מתוך %d"
+
+#: gui/main_window.rb:213
 msgid "Schedule"
 msgstr "מערכת שעות"
 
-#: gui/main_window.rb:289
+#: gui/main_window.rb:301
 msgid "Populating available courses"
 msgstr "ממלא את רשימת הקורסים הזמינים"
 
-#: gui/main_window.rb:333 gui/main_window.rb:346
+#: gui/main_window.rb:345 gui/main_window.rb:358
 msgid "Course Name"
 msgstr "שם קורס"
 
-#: gui/main_window.rb:333 gui/main_window.rb:346
+#: gui/main_window.rb:345 gui/main_window.rb:358
 msgid "Course Number"
 msgstr "מספר קורס"
 
-#: gui/main_window.rb:373
+#: gui/main_window.rb:385
 msgid "Constraints"
 msgstr "הגבלות"
 
@@ -73,7 +78,7 @@ msgstr "התקדמות"
 msgid "Loading REPY file..."
 msgstr "טוען קובץ REPY..."
 
-#: logic/scheduler.rb:88
+#: logic/scheduler.rb:85 logic/scheduler.rb:90
 msgid "Generating schedules (%d so far)"
 msgstr "מייצר מערכות (%d עד כה)"
 
@@ -108,7 +113,7 @@ msgstr ""
 "נכתב ברובו כהוכחת קונצפט - בתיעוד של UDonkey כתוב שניתן לבדוק זאת\n"
 "רק לאחר שמערכת נבנית, ולא ברור למה."
 
-#: gui/ttime.glade:8 gui/ttime.glade:787
+#: gui/ttime.glade:8 gui/ttime.glade:772
 msgid "TTime"
 msgstr "TTime"
 
@@ -116,75 +121,63 @@ msgstr "TTime"
 msgid "_File"
 msgstr "_קובץ"
 
-#: gui/ttime.glade:101
+#: gui/ttime.glade:63
 msgid "_Schedules"
 msgstr "מערכות שעות"
 
-#: gui/ttime.glade:110
+#: gui/ttime.glade:72
 msgid "Find schedules"
 msgstr "בנה מערכת שעות"
 
-#: gui/ttime.glade:138
+#: gui/ttime.glade:100 gui/ttime.glade:364
 msgid "Jump 10 back"
 msgstr "קפוץ 10 אחורה"
 
-#: gui/ttime.glade:160
+#: gui/ttime.glade:122 gui/ttime.glade:381
 msgid "Previous"
 msgstr "קודמת"
 
-#: gui/ttime.glade:182
+#: gui/ttime.glade:144 gui/ttime.glade:398
 msgid "Next"
 msgstr "באה"
 
-#: gui/ttime.glade:204
+#: gui/ttime.glade:166 gui/ttime.glade:415
 msgid "Jump 10 forward"
 msgstr "קפוץ 10 קדימה"
 
-#: gui/ttime.glade:230
+#: gui/ttime.glade:192
 msgid "_Tools"
 msgstr "_כלים"
 
-#: gui/ttime.glade:239
+#: gui/ttime.glade:201
 msgid "Auto _Update"
 msgstr "_עדכון אוטומטי"
 
-#: gui/ttime.glade:267
+#: gui/ttime.glade:229
 msgid "_Help"
 msgstr "_עזרה"
 
-#: gui/ttime.glade:304
-msgid "New File"
-msgstr "קובץ חדש"
-
-#: gui/ttime.glade:319
-msgid "Open File"
-msgstr "פתח קובץ"
-
-#: gui/ttime.glade:334
-msgid "Save File"
-msgstr "שמור קובץ"
-
-#: gui/ttime.glade:362
+#: gui/ttime.glade:266
 msgid "Find Schedules"
 msgstr "מצא מערכות שעות"
 
-#: gui/ttime.glade:414
+#: gui/ttime.glade:318
 msgid " of 0"
 msgstr " מתוך 0"
 
-#: gui/ttime.glade:555
+#: gui/ttime.glade:540
 msgid "Available Courses"
 msgstr "קורסים זמינים"
 
-#: gui/ttime.glade:663
+#: gui/ttime.glade:648
 msgid "Selected Courses"
 msgstr "קורסים שנבחרו"
 
-#: gui/ttime.glade:743
+#: gui/ttime.glade:728
 msgid "Course List"
 msgstr "רשימת קורסים"
 
-#: gui/ttime.glade:788
+#: gui/ttime.glade:773
 msgid ""
 "Inspired by UDonkey and Marprog\n"
 "\n"
@@ -193,6 +186,6 @@ msgstr ""
 "בהשראת UDonkey\n"
 "אבל אנחנו לא אוהבים #C"
 
-#: gui/ttime.glade:793
+#: gui/ttime.glade:778
 msgid "TTime Trac"
 msgstr "TTime Trac"

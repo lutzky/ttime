@@ -95,12 +95,16 @@ module TTime
         progress_dialog = ProgressDialog.new
 
         Thread.new do
-          @scheduler = Logic::Scheduler.new(@selected_courses, @constraints, &progress_dialog.get_status_proc(:pulsating => true, :show_cancel_button => true))
+          @scheduler = Logic::Scheduler.new @selected_courses,
+            @constraints,
+            &progress_dialog.get_status_proc(:pulsating => true,
+                                             :show_cancel_button => true)
 
           progress_dialog.dispose
 
           if @scheduler.ok_schedules.empty?
-            error_dialog _("Sorry, but no schedules are possible with the selected courses and constraints.")
+            error_dialog _("Sorry, but no schedules are possible with the " \
+                           "selected courses and constraints.")
           else
             set_num_schedules @scheduler.ok_schedules.size
             self.current_schedule = 0
@@ -200,7 +204,7 @@ module TTime
 
       def set_num_schedules(n)
         @glade["spin_current_schedule"].adjustment.upper = n
-        @glade["lbl_num_schedules"].text = " of #{n}"
+        @glade["lbl_num_schedules"].text = sprintf(_(" of %d"), n)
       end
 
       def init_schedule_view
@@ -336,29 +340,21 @@ module TTime
         selected_courses_view = @glade["treeview_selected_courses"]
         selected_courses_view.model = @list_selected_courses
 
-        columns = []
-
         [ _("Course Name"), _("Course Number") ].each_with_index do |label, i|
-          columns[i] = Gtk::TreeViewColumn.new label, Gtk::CellRendererText.new,
+          col = Gtk::TreeViewColumn.new label, Gtk::CellRendererText.new,
             :text => i
-          columns[i].resizable = true
-        end
+          col.resizable = true
 
-        columns.each do |c|
-          available_courses_view.append_column c
-        end
+          available_courses_view.append_column col
 
-        # This actually has to be done twice, because we need different
-        # copies of the columns for each of the views
+          # We actually have to create an entirely new column again, because a
+          # TreeViewColumn object can't be shared between two treeviews.
 
-        [ _("Course Name"), _("Course Number") ].each_with_index do |label, i|
-          columns[i] = Gtk::TreeViewColumn.new label, Gtk::CellRendererText.new,
+          col = Gtk::TreeViewColumn.new label, Gtk::CellRendererText.new,
             :text => i
-          columns[i].resizable = true
-        end
+          col.resizable = true
 
-        columns.each do |c|
-          selected_courses_view.append_column c
+          selected_courses_view.append_column col
         end
       end
 

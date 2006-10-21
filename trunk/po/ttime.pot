@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ttime 0.x.x\n"
-"POT-Creation-Date: 2006-10-19 15:39+0200\n"
+"POT-Creation-Date: 2006-10-21 21:18+0200\n"
 "PO-Revision-Date: 2006-10-19 11:53+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -36,33 +36,37 @@ msgstr ""
 msgid "Extracting REPY file"
 msgstr ""
 
-#: gui/main_window.rb:83
+#: gui/main_window.rb:91
 msgid "Please select some courses first."
 msgstr ""
 
-#: gui/main_window.rb:95
+#: gui/main_window.rb:106
 msgid ""
 "Sorry, but no schedules are possible with the selected courses and "
 "constraints."
 msgstr ""
 
-#: gui/main_window.rb:201
+#: gui/main_window.rb:207
+msgid " of %d"
+msgstr ""
+
+#: gui/main_window.rb:213
 msgid "Schedule"
 msgstr ""
 
-#: gui/main_window.rb:289
+#: gui/main_window.rb:301
 msgid "Populating available courses"
 msgstr ""
 
-#: gui/main_window.rb:333 gui/main_window.rb:346
+#: gui/main_window.rb:345 gui/main_window.rb:358
 msgid "Course Name"
 msgstr ""
 
-#: gui/main_window.rb:333 gui/main_window.rb:346
+#: gui/main_window.rb:345 gui/main_window.rb:358
 msgid "Course Number"
 msgstr ""
 
-#: gui/main_window.rb:373
+#: gui/main_window.rb:385
 msgid "Constraints"
 msgstr ""
 
@@ -74,7 +78,7 @@ msgstr ""
 msgid "Loading REPY file..."
 msgstr ""
 
-#: logic/scheduler.rb:88
+#: logic/scheduler.rb:85 logic/scheduler.rb:90
 msgid "Generating schedules (%d so far)"
 msgstr ""
 
@@ -104,7 +108,7 @@ msgid ""
 "\"WTF?\"\n"
 msgstr ""
 
-#: gui/ttime.glade:8 gui/ttime.glade:787
+#: gui/ttime.glade:8 gui/ttime.glade:772
 msgid "TTime"
 msgstr ""
 
@@ -112,81 +116,69 @@ msgstr ""
 msgid "_File"
 msgstr ""
 
-#: gui/ttime.glade:101
+#: gui/ttime.glade:63
 msgid "_Schedules"
 msgstr ""
 
-#: gui/ttime.glade:110
+#: gui/ttime.glade:72
 msgid "Find schedules"
 msgstr ""
 
-#: gui/ttime.glade:138
+#: gui/ttime.glade:100 gui/ttime.glade:364
 msgid "Jump 10 back"
 msgstr ""
 
-#: gui/ttime.glade:160
+#: gui/ttime.glade:122 gui/ttime.glade:381
 msgid "Previous"
 msgstr ""
 
-#: gui/ttime.glade:182
+#: gui/ttime.glade:144 gui/ttime.glade:398
 msgid "Next"
 msgstr ""
 
-#: gui/ttime.glade:204
+#: gui/ttime.glade:166 gui/ttime.glade:415
 msgid "Jump 10 forward"
 msgstr ""
 
-#: gui/ttime.glade:230
+#: gui/ttime.glade:192
 msgid "_Tools"
 msgstr ""
 
-#: gui/ttime.glade:239
+#: gui/ttime.glade:201
 msgid "Auto _Update"
 msgstr ""
 
-#: gui/ttime.glade:267
+#: gui/ttime.glade:229
 msgid "_Help"
 msgstr ""
 
-#: gui/ttime.glade:304
-msgid "New File"
-msgstr ""
-
-#: gui/ttime.glade:319
-msgid "Open File"
-msgstr ""
-
-#: gui/ttime.glade:334
-msgid "Save File"
-msgstr ""
-
-#: gui/ttime.glade:362
+#: gui/ttime.glade:266
 msgid "Find Schedules"
 msgstr ""
 
-#: gui/ttime.glade:414
+#: gui/ttime.glade:318
 msgid " of 0"
 msgstr ""
 
-#: gui/ttime.glade:555
+#: gui/ttime.glade:540
 msgid "Available Courses"
 msgstr ""
 
-#: gui/ttime.glade:663
+#: gui/ttime.glade:648
 msgid "Selected Courses"
 msgstr ""
 
-#: gui/ttime.glade:743
+#: gui/ttime.glade:728
 msgid "Course List"
 msgstr ""
 
-#: gui/ttime.glade:788
+#: gui/ttime.glade:773
 msgid ""
 "Inspired by UDonkey and Marprog\n"
 "\n"
 "But we don't like C#"
 msgstr ""
 
-#: gui/ttime.glade:793
+#: gui/ttime.glade:778
 msgid "TTime Trac"
 msgstr ""
