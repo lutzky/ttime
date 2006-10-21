@@ -196,6 +196,3 @@ msgstr ""
 #: gui/ttime.glade:793
 msgid "TTime Trac"
 msgstr "TTime Trac"
-
-#~ msgid "Test"
-#~ msgstr "בדיקה"
