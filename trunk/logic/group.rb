@@ -40,6 +40,10 @@ module TTime
         "addEvent(#{@group.course.number},#{type},#@day,#{start_box},#{end_box},\"#{desc}\");"
       end
 
+      def course
+        group.course
+      end
+
       private
 
       def place_convert(s)
