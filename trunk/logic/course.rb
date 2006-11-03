@@ -76,7 +76,7 @@ module TTime
       def groups_of_type (type)
         ret = []
         groups.each do |group|
-          ret << group if group.type_is? type
+          ret << group if (group.type_is?(type) && (not group.events.empty?))
         end
         return ret
       end
