@@ -57,7 +57,7 @@ module TTime
 
       attr_reader :ok_schedules
 
-      REPORT_FREQUENCY = 100
+      REPORT_TIME = 0.5
 
       def initialize(courses,constraints,&status_report_proc)
         @courses = courses
@@ -80,16 +80,11 @@ module TTime
       end
 
       def generate_ok_schedules
-        i = 0
+        @last_time = Time.now
+        @status_report_proc.call sprintf(_("Generating schedules " \
+                                           "(%d so far)"), 0)
         catch(:cancel) do
-          @status_report_proc.call sprintf(_("Generating schedules " \
-                                                 "(%d so far)"), 0)
           each_schedule_recusively(@courses,[]) do |groups|
-            i += 1
-            if i % REPORT_FREQUENCY == 0
-              @status_report_proc.call sprintf(_("Generating schedules " \
-                                                 "(%d so far)"), i)
-            end
             @ok_schedules << Schedule.new(groups)
           end
         end
@@ -100,6 +95,7 @@ module TTime
         first = courses[0]
         rest = courses - [first]
         first.each_group_selection do |selection|
+          call_status_report
           catch(:bad_schedule) do
             new_selections = group_selections + [selection]
             @constraints.each do |con|
@@ -115,10 +111,18 @@ module TTime
                 yield schedule
               end 
             end # if rest.empty?
-          end # catch
+          end # catch :bad_schedule
         end
       end
 
+      def call_status_report
+        if Time.now - @last_time > REPORT_TIME
+          @last_time = Time.now
+          @status_report_proc.call sprintf(_("Generating schedules " \
+                                             "(%d so far)"),
+                                             @ok_schedules.size)
+        end
+      end
     end
   end
 end
