@@ -18,7 +18,15 @@ module TTime
         evaluate_schedule
       end
 
+      # Checks whether the given (partial) schedule is appropriate. This
+      # is verified each time a schedule is generated.
       def evaulate_schedule
+        true
+      end
+
+      # Checks whether the given group is appropriate. This is verified
+      # before the generation of schedules.
+      def evaluate_group(grp)
         true
       end
     end

@@ -62,10 +62,13 @@ module TTime
         end.join("\n\n")
       end
 
-      def each_group_selection
+      def each_group_selection(constraints = [])
         groups_by_type = []
         GROUP_TYPES.each do |type|
           g = groups_of_type(type)
+          constraints.each do |constraint|
+            g.reject! { |grp| not constraint.evaluate_group(grp) }
+          end
           groups_by_type << g if not g.empty?
         end
         groups_by_type.one_member_of_each_member do |m|

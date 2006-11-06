@@ -68,14 +68,6 @@ module TTime
 
         num_types_arr = []
 
-        @expected_schedule_count = 1
-        courses.each do |course|
-          Course::GROUP_TYPES.each_with_index do |type, i|
-            num_types_arr[i] = course.groups.count { |g| g.type == type }
-          end
-          @expected_schedule_count *= num_types_arr.zero_is_one_product
-        end
-
         generate_ok_schedules
       end
 
@@ -94,7 +86,7 @@ module TTime
       def each_schedule_recusively(courses,group_selections)
         first = courses[0]
         rest = courses - [first]
-        first.each_group_selection do |selection|
+        first.each_group_selection(@constraints) do |selection|
           call_status_report
           catch(:bad_schedule) do
             new_selections = group_selections + [selection]

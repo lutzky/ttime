@@ -12,37 +12,38 @@ module TTime
       end
 
       def evaluate_schedule
+        true
+      end
+
+      def evaluate_group(grp)
         return true unless @enabled
 
-        event_list.each do |ev|
-          # There is no other besides Dado
-          return false if ev.course.number == "114073" &&
-            ev.group.type == :lecture &&
-            ev.group.number != 10
+        # There is no other besides Dado
+        return false if grp.course.number == "114073" &&
+          grp.type == :lecture &&
+          grp.number != 10
 
-          # Makowski please - I like my hints
-          return false if ev.course.number == "234293" &&
-            ev.group.type == :lecture &&
-            ev.group.number != 10
+        # Makowski please - I like my hints
+        return false if grp.course.number == "234293" &&
+          grp.type == :lecture &&
+          grp.number != 10
 
-          # Kolodny please - Oded's recommendation
-          return false if ev.course.number == "044127" &&
-            ev.group.type == :lecture &&
-            ev.group.number != 10
+        # Kolodny please - Oded's recommendation
+        return false if grp.course.number == "044127" &&
+          grp.type == :lecture &&
+          grp.number != 10
 
-          # Yichia please
-          return false if ev.course.number == "104215" &&
-            ev.group.type == :tutorial &&
-            ev.group.number != 11
+        # Yichia please
+        return false if grp.course.number == "104215" &&
+          grp.type == :tutorial &&
+          grp.number != 11
 
-          # Anarchists please
-          #          return false if ev.course.number == "234293" &&
-          #            ev.group.type == :tutorial &&
-          #            ev.group.number != 12
-          # Gah, conflicts with Kolodny
-
-        end
-
+        # Anarchists please
+        #          return false if grp.course.number == "234293" &&
+        #            grp.type == :tutorial &&
+        #            grp.number != 12
+        # Gah, conflicts with Kolodny
+        #
         true
       end
 
@@ -59,14 +60,6 @@ module TTime
         btn_enabled.signal_connect('toggled') do
           @enabled = btn_enabled.active?
         end
-
-        vbox.pack_start btn_enabled, false, false
-        vbox.pack_start Gtk::Label.new(
-        _(<<-EOF
-These are my own querky little preferences. This should be enhanced into
-a full-blown group-selection constraint.
-        EOF
-        ))
 
         vbox
       end
