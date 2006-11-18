@@ -1,13 +1,17 @@
 table {
   height: 100%;
   width: 100%;
+  border-collapse: collapse;
 }
 
 table td {
-  vertical-align: top;
+	vertical-align: top;
+}
+
+table td.divisor {
+	border-top: 1px dotted black;
 }
 
 table td.course {
-  -moz-border-radius: 0.4em;
-  border: 1px solid black;
+	border: 1px solid black;
 }

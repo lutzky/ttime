@@ -44,30 +44,38 @@ end
 
 Events = [
   # Sunday
-  EventBox.new("Complex Functions", "Ullman 310", 1, 1030, 200),
-  EventBox.new("ICT", "Phisbach 403", 1, 1230, 100),
-  EventBox.new("Semiconductors", "Meyer 351", 1, 1330, 100),
-  EventBox.new("Logic and Set Theory", "Ullman 304", 1, 1430, 200),
+  EventBox.new("עבודה", "", 1, 830, 200),
+  EventBox.new("פונקציות מרוכבות", "אולמן 310", 1, 1030, 200),
+  EventBox.new("תורת המעגלים החשמליים", "פישבך 504", 1, 1230, 100),
+  EventBox.new("יסודות התקני מל\"מ", "מאייר 351", 1, 1330, 100),
+  EventBox.new("לוגיקה ותורת הקבוצות", "אולמן 304", 1, 1430, 200),
   
   # Monday
-  EventBox.new("Logic and Set Theory", "Taub 9", 2, 930, 300),
-  EventBox.new("Physics 3H", "Physics 1", 2, 1230, 200),
+  EventBox.new("לוגיקה ותורת הקבוצות", "טאוב 9", 2, 930, 300),
+  EventBox.new("פיסיקה 3ח'", "פיסיקה 1", 2, 1230, 200),
+  EventBox.new("פגישת צוות", "", 2, 1430, 100),
+  EventBox.new("עבודה", "", 2, 1530, 300),
 
   # Tuesday
-  EventBox.new("Complex Functions", "Ullman 602", 3, 930, 100),
-  EventBox.new("PDEs", "Ullman 205", 3, 1030, 200),
-  EventBox.new("ICT", "Meyer 280", 3, 1430, 300),
+  EventBox.new("פונקציות מרוכבות", "אולמן 602", 3, 930, 100),
+  EventBox.new("מד\"ח", "אולמן 205", 3, 1030, 200),
+  EventBox.new("עבודה", "", 3, 1230, 200),
+  EventBox.new("תורת המעגלים החשמליים", "מאייר 280", 3, 1430, 300),
+  EventBox.new("עבודה", "", 3, 1730, 200),
 
   # Wednesday
-  EventBox.new("Semiconductors", "Meyer 165", 4, 830, 200),
-  EventBox.new("Physics 3H", "Physics 323", 4, 1130, 100),
-  EventBox.new("MAS", "Blumfield 424", 4, 1330, 300),
-  EventBox.new("MAS", "Blumfield 310", 4, 1630, 100),
+  EventBox.new("יסודות התקני מל\"מ", "מאייר 280", 4, 830, 200),
+  EventBox.new("פיסיקה 3ח'", "פיסיקה 323", 4, 1130, 100),
+  EventBox.new("מערכות מרובות סוכנים", "בלומפילד 424", 4, 1330, 300),
+  EventBox.new("מערכות מרובות סוכנים", "בלומפילד 310", 4, 1630, 100),
+  EventBox.new("עבודה", "", 4, 1730, 200),
 
   # Thursday
-  EventBox.new("Semiconductors", "Meyer 165", 5, 930, 100),
-  EventBox.new("PDEs", "Ullman 201", 5, 1030, 100),
-  EventBox.new("Physics 3H", "Ullman 201", 5, 1230, 100)
+  EventBox.new("יסודות התקני מל\"מ", "מאייר 280", 5, 930, 100),
+  EventBox.new("מד\"ח", "אולמן 201", 5, 1030, 100),
+  EventBox.new("סדנת מל\"מ", "פישבך 405", 5, 1130, 100),
+  EventBox.new("פיסיקה 3ח'", "אולמן 603", 5, 1230, 100),
+  EventBox.new("עבודה", "", 5, 1330, 300)
 ]
 
 EventColors = ["#ccf","#cfc","#cff","#fcc","#fcf","#ffc","#ccc","#fff"]
@@ -126,14 +134,18 @@ def get_event(params = {})
 end
 
 puts <<EOF
-<head><link rel="stylesheet" href="sched.css" /></head>
+<html charset="utf-8">
+<head><link rel="stylesheet" href="sched.css" />
+<meta http-equiv='Content-Type' content='text/html;charset=utf-8' >
+</head>
+<body dir="rtl">
 <table>
 
 <tr>
   <th></th>
 EOF
 
-DayNames = ['Nilday','Sunday','Monday','Tuesday','Wednesday','Thursday','Friday', 'Saturday']
+DayNames = ['Nilday','ראשון','שני','שלישי','רביעי','חמישי','שישי', 'שבת']
 
 puts "<tr><th></th>"
 puts day_range.collect { |i| "<th>#{DayNames[i]}</th>" }.join
@@ -142,14 +154,18 @@ puts "</tr>"
 timeslot_range.each do |timeslot|
   puts "<tr>"
   if Hour.is_divisor(timeslot)
-    puts "<td rowspan=\"#{60 / TimeGranularity}\">#{Hour.grid_to_human(timeslot)}</td>"
+    puts "<td class=\"divisor\" rowspan=\"#{60 / TimeGranularity}\">#{Hour.grid_to_human(timeslot)}</td>"
   end
   day_range.each do |day|
     ev = get_event(:day => day, :start_box => timeslot)
     if ev.nil?
       blocker = get_event(:day => day, :continue => timeslot)
       if blocker.nil?
-        puts "<td></td>"
+        if Hour.is_divisor(timeslot)
+          puts "<td class=\"divisor\">&nbsp;</td>"
+        else
+          puts "<td></td>"
+        end
       end
     else
       puts "<td class=\"course\" style=\"background-color: #{color_for_course ev.name}\" rowspan=\"#{ev.box_length}\">#{ev.name}<br />#{ev.location}</td>"
@@ -157,4 +173,4 @@ timeslot_range.each do |timeslot|
   end
   puts "</tr>"
 end
-puts "</table>"
+puts "</table></body></html>"
