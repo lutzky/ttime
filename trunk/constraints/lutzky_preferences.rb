@@ -8,7 +8,7 @@ module TTime
       def initialize
         super
 
-        @enabled = true
+        @enabled = false
       end
 
       def evaluate_schedule
@@ -54,12 +54,13 @@ module TTime
       def preferences_panel
         vbox = Gtk::VBox.new
 
-        btn_enabled = Gtk::CheckButton.new(_('Enable'))
+        btn_enabled = Gtk::CheckButton.new(_('I am Lutzky'))
         btn_enabled.active = @enabled
 
         btn_enabled.signal_connect('toggled') do
           @enabled = btn_enabled.active?
         end
+        vbox.pack_start btn_enabled, false, false
 
         vbox
       end

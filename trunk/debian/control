@@ -1,0 +1,12 @@
+Source: ttime
+Section: accessories
+Priority: optional
+Maintainer: Boaz Goldstein <boaz@gezer.org.il>
+Build-Depends: ruby (>= 1.8), libgtk-mozembed-ruby1.8, libglade2-ruby (= 0.15.0-1.1), libgtk2-ruby (= 0.15.0-1.1), rake, libgettext-ruby1.8, irb
+Standards-Version: 3.7.2
+
+Package: ttime
+Architecture: any
+Depends: ruby (>= 1.8), libgtk-mozembed-ruby1.8, libglade2-ruby (= 0.15.0-1.1), libgtk2-ruby (= 0.15.0-1.1), libgettext-ruby1.8
+Description: a time table orgenizer for the technion 
+ a time table orgenizer for the technion

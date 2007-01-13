@@ -1,0 +1,6 @@
+ttime (0.1-1) unstable; urgency=low
+
+  * Initial release (Closes: #nnnn)  <nnnn is the bug number of your ITP>
+
+ -- Boaz Goldstein <boaz@gezer.org.il>  Sat, 13 Jan 2007 17:16:53 +0200
+

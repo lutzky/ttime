@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ttime 0.x.x\n"
-"POT-Creation-Date: 2006-10-21 21:18+0200\n"
+"POT-Creation-Date: 2007-01-13 22:02+0200\n"
 "PO-Revision-Date: 2006-10-19 11:53+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -58,15 +58,15 @@ msgstr ""
 msgid "Populating available courses"
 msgstr ""
 
-#: gui/main_window.rb:345 gui/main_window.rb:358
+#: gui/main_window.rb:343
 msgid "Course Name"
 msgstr ""
 
-#: gui/main_window.rb:345 gui/main_window.rb:358
+#: gui/main_window.rb:343
 msgid "Course Number"
 msgstr ""
 
-#: gui/main_window.rb:385
+#: gui/main_window.rb:377
 msgid "Constraints"
 msgstr ""
 
@@ -78,8 +78,16 @@ msgstr ""
 msgid "Loading REPY file..."
 msgstr ""
 
-#: logic/scheduler.rb:85 logic/scheduler.rb:90
+#: logic/scheduler.rb:76 logic/scheduler.rb:113
 msgid "Generating schedules (%d so far)"
+msgstr ""
+
+#: constraints/lutzky_preferences.rb:51
+msgid "Lutzky Preferences"
+msgstr ""
+
+#: constraints/lutzky_preferences.rb:57
+msgid "I am Lutzky"
 msgstr ""
 
 #: constraints/no_clashes.rb:40
