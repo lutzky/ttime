@@ -17,6 +17,10 @@ module TTime
     class MainWindow
       include GetText
 
+      def on_auto_update
+        load_data(true)
+      end
+
       def on_next_activate
         if self.current_schedule
           self.current_schedule += 1
@@ -57,14 +61,7 @@ module TTime
         notebook = @glade["notebook"]
 
         @constraints = []
-        @selected_courses = []
 
-        @tree_available_courses = Gtk::TreeStore.new String, String,
-          Logic::Course
-        @list_selected_courses = Gtk::ListStore.new String, String,
-          Logic::Course
-
-        init_course_tree_views
         init_schedule_view
         init_constraints
 
@@ -280,11 +277,20 @@ module TTime
         selected_iter
       end
 
-      def load_data
+      def load_data(force = false)
+        @selected_courses = []
+
+        @tree_available_courses = Gtk::TreeStore.new String, String,
+          Logic::Course
+        @list_selected_courses = Gtk::ListStore.new String, String,
+          Logic::Course
+
+        init_course_tree_views
+
         progress_dialog = ProgressDialog.new
 
         Thread.new do
-          @data = TTime::Data.new(&progress_dialog.get_status_proc)
+          @data = TTime::Data.new(force, &progress_dialog.get_status_proc)
 
           progress_dialog.dispose
 

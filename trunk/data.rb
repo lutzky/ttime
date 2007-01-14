@@ -16,20 +16,24 @@ module TTime
     class << self
     end
 
-    def initialize(&status_report_proc)
+    def initialize(force = false, &status_report_proc)
       @status_report_proc = status_report_proc
       @status_report_proc = proc {} if @status_report_proc.nil?
 
-      if USE_YAML && File::exists?(YAML_File)
-        report _("Loading technion data from YAML")
-        @data = File.open(YAML_File) { |yf| YAML::load(yf.read) }
-      elsif File::exists?(MARSHAL_File)
-        report _("Loading technion data")
-        @data = File.open(MARSHAL_File) { |mf| Marshal.load(mf.read) }
-      elsif File::exists?(REPY_File)
-        @data = convert_repy
-      else
+      if force
         @data = download_repy
+      else
+        if USE_YAML && File::exists?(YAML_File)
+          report _("Loading technion data from YAML")
+          @data = File.open(YAML_File) { |yf| YAML::load(yf.read) }
+        elsif File::exists?(MARSHAL_File)
+          report _("Loading technion data")
+          @data = File.open(MARSHAL_File) { |mf| Marshal.load(mf.read) }
+        elsif File::exists?(REPY_File)
+          @data = convert_repy
+        else
+          @data = download_repy
+        end
       end
     end
 
@@ -60,7 +64,7 @@ module TTime
     def size
       data.size
     end
-    
+
     private
 
     USE_YAML = false
@@ -95,7 +99,7 @@ module TTime
       report _("Extracting REPY file"), 0.5
 
       # FIXME: This kinda won't work on anything non-UNIX
-      `bash -c 'cd #{DATA_DIR} && unzip #{REPY_Zip_filename} && rm #{REPY_Zip_filename}'`
+      `bash -c 'cd #{DATA_DIR} && unzip -o #{REPY_Zip_filename} && rm #{REPY_Zip_filename}'`
 
       convert_repy
     end

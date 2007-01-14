@@ -200,6 +200,7 @@
 		      <property name="visible">True</property>
 		      <property name="label" translatable="yes">Auto _Update</property>
 		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="on_auto_update" last_modification_time="Sun, 14 Jan 2007 22:21:06 GMT"/>
 		      <accelerator key="R" modifiers="GDK_CONTROL_MASK" signal="activate"/>
 		    </widget>
 		  </child>
