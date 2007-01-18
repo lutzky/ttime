@@ -186,7 +186,12 @@ module TTime
         @settings = Settings.new
 
         @settings.selected_courses.each do |course_num|
-          add_selected_course @data.find_course_by_num(course_num)
+          begin
+            add_selected_course @data.find_course_by_num(course_num)
+          rescue NoSuchCourse
+            error_dialog "There was a course with number \"#{course_num}\"" \
+              " in your preferences, but it doesn't seem to exist now."
+          end
         end
       end
 

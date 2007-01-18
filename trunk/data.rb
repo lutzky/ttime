@@ -8,6 +8,8 @@ require 'gettext'
 GetText::bindtextdomain("ttime", "locale", nil, "utf-8")
 
 module TTime
+  class NoSuchCourse < Exception; end
+
   class Data
     include GetText
 
@@ -43,6 +45,8 @@ module TTime
           return course if course.number.to_s == course_num.to_s
         end
       end
+
+      raise NoSuchCourse, "There is no course with number #{course_num}"
     end
 
     def [](*args)
