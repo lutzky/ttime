@@ -13,6 +13,7 @@ require 'gui/main_window'
 require 'jcode'
 require 'gettext'
 
+# REQUEST FOR COMMENT: what is this?
 $KCODE = 'u'
 
 Thread.abort_on_exception = true
