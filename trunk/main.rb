@@ -10,11 +10,11 @@ end
 
 require 'gui/main_window'
 
+# Standard unicode support activation
 require 'jcode'
-require 'gettext'
-
-# REQUEST FOR COMMENT: what is this?
 $KCODE = 'u'
+
+require 'gettext'
 
 Thread.abort_on_exception = true
 
