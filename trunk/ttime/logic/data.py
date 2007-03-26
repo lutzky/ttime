@@ -5,6 +5,26 @@ import urllib
 import zipfile
 import tempfile
 import codecs
+import re
+
+#####
+# static constant
+# TODO: do this the correct way
+num_regexp = re.compile("[0-9][0-9\.,\/:-_]*", re.UNICODE)
+
+def unicode_flip(string):
+    return (unicode(string))[::-1]
+   
+
+# fix the hebrew
+def bidi_flip(string):
+    string=unicode(string)
+    matches = num_regexp.finditer(string)
+    for match in matches:
+        string = string.replace(match.group(),unicode_flip(match.group()))
+    return unicode_flip(string)
+
+
 
 def repy_data():
     """Download raw REPY data from Technion, convert it to almost-unicode
@@ -13,7 +33,7 @@ def repy_data():
     t = tempfile.TemporaryFile()
     t.write(urllib.urlopen(REPY_URI).read())
     z = zipfile.ZipFile(t)
-    repy_data = '\n'.join([ unicode(x).rstrip('\r')[::-1] for x in
+    repy_data = '\n'.join([ bidi_flip(unicode(x).rstrip('\r')) for x in
         unicode(z.read('REPY'), 'cp862').split('\n') ])
     z.close
     t.close
