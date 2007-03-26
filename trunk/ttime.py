@@ -7,8 +7,6 @@ import pygtk
 pygtk.require('2.0')
 import gtk
 import gobject
-gobject.threads_init()
-import threading
 
 import ttime.logic.data
 import ttime.gui.MainWindow
