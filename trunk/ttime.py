@@ -23,6 +23,7 @@ class MainWindowStarter:
     def __init__(self):
         progress = ttime.gui.ProgressDialog.ProgressDialog(
                 'Loading REPY data', self.get_data,
+                cancel_func = gtk.main_quit,
                 callback_func = self.start_main_window
                 )
 
@@ -30,3 +31,4 @@ class MainWindowStarter:
 
 if __name__ == '__main__':
     m = MainWindowStarter()
+    print 'Letting all threads die...'
