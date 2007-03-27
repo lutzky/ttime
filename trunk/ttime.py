@@ -11,6 +11,7 @@ import gobject
 import ttime.logic.data
 import ttime.gui.MainWindow
 import ttime.gui.ProgressDialog
+from ttime import gui
 
 class MainWindowStarter:
     def start_main_window(self):
@@ -21,7 +22,7 @@ class MainWindowStarter:
         self.repy_data = ttime.logic.data.repy_data()
 
     def __init__(self):
-        progress = ttime.gui.ProgressDialog.ProgressDialog(
+        progress = gui.ProgressDialog(
                 'Loading REPY data', self.get_data,
                 cancel_func = gtk.main_quit,
                 callback_func = self.start_main_window
