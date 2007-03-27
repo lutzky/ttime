@@ -8,18 +8,16 @@ pygtk.require('2.0')
 import gtk
 import gobject
 
-import ttime.logic.data
-import ttime.gui.MainWindow
-import ttime.gui.ProgressDialog
 from ttime import gui
+from ttime import logic
 
 class MainWindowStarter:
     def start_main_window(self):
         print "Data has been downloaded, starting main window"
-        self.main_window = ttime.gui.MainWindow.MainWindow()
+        self.main_window = gui.MainWindow()
 
     def get_data(self):
-        self.repy_data = ttime.logic.data.repy_data()
+        self.repy_data = logic.data.repy_data()
 
     def __init__(self):
         progress = gui.ProgressDialog(
