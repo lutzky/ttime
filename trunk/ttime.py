@@ -27,7 +27,6 @@ class MainWindowStarter:
                 cancel_func = gtk.main_quit,
                 callback_func = self.start_main_window
                 )
-        self.start_main_window()
 
         gtk.main()
 
