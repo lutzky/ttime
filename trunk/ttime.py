@@ -22,11 +22,11 @@ class MainWindowStarter:
         self.repy_data = logic.data.repy_data()
 
     def __init__(self):
-#        progress = gui.ProgressDialog(
-#                'Loading REPY data', self.get_data,
-#                cancel_func = gtk.main_quit,
-#                callback_func = self.start_main_window
-#                )
+        progress = gui.ProgressDialog(
+                'Loading REPY data', self.get_data,
+                cancel_func = gtk.main_quit,
+                callback_func = self.start_main_window
+                )
         self.start_main_window()
 
         gtk.main()
