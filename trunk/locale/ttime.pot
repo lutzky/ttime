@@ -1,0 +1,100 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2007-03-29 12:17+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ttime.py:18
+msgid "Data has been downloaded, starting main window"
+msgstr ""
+
+#: ttime/gui/ttime.glade.h:1
+msgid " of 0"
+msgstr ""
+
+#: ttime/gui/ttime.glade.h:2
+msgid "Auto _Update"
+msgstr ""
+
+#: ttime/gui/ttime.glade.h:3
+msgid "Available Courses"
+msgstr ""
+
+#: ttime/gui/ttime.glade.h:4
+msgid "Course List"
+msgstr ""
+
+#: ttime/gui/ttime.glade.h:5
+msgid "Find Schedules"
+msgstr ""
+
+#: ttime/gui/ttime.glade.h:6
+msgid "Find schedules"
+msgstr ""
+
+#: ttime/gui/ttime.glade.h:7
+msgid ""
+"Inspired by UDonkey and Marprog\n"
+"\n"
+"But we don't like C#"
+msgstr ""
+
+#: ttime/gui/ttime.glade.h:10
+msgid "Jump 10 back"
+msgstr ""
+
+#: ttime/gui/ttime.glade.h:11
+msgid "Jump 10 forward"
+msgstr ""
+
+#: ttime/gui/ttime.glade.h:12
+msgid "Next"
+msgstr ""
+
+#: ttime/gui/ttime.glade.h:13
+msgid "Previous"
+msgstr ""
+
+#: ttime/gui/ttime.glade.h:14
+msgid "Selected Courses"
+msgstr ""
+
+#: ttime/gui/ttime.glade.h:15
+msgid "TTime"
+msgstr ""
+
+#: ttime/gui/ttime.glade.h:16
+msgid "TTime Trac"
+msgstr ""
+
+#: ttime/gui/ttime.glade.h:17
+msgid "_File"
+msgstr ""
+
+#: ttime/gui/ttime.glade.h:18
+msgid "_Help"
+msgstr ""
+
+#: ttime/gui/ttime.glade.h:19
+msgid "_Schedules"
+msgstr ""
+
+#: ttime/gui/ttime.glade.h:20
+msgid "_Tools"
+msgstr ""
+
+#: ttime/gui/ttime.glade.h:22
+msgid "translator-credits"
+msgstr ""

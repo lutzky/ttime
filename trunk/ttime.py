@@ -8,24 +8,7 @@ pygtk.require('2.0')
 import gtk
 import gobject
 
-import locale
-import gettext
-
-local_path = os.path.realpath(os.path.dirname(sys.argv[0]))
-langs = []
-lc, encoding = locale.getdefaultlocale()
-if (lc):
-    langs = [lc]
-language = os.environ.get('LANGUAGE', None)
-if (language):
-    langs += language.split(":")
-langs += ["he_IL", "en_US"]
-
-gettext.bindtextdomain("ttime", local_path)
-gettext.bindtextdomain("ttime")
-lang = gettext.translation("ttime", local_path, languages = langs, fallback = False)
-
-_ = lang.gettext
+from ttime.localize import _
 
 from ttime import gui
 from ttime import logic
@@ -39,11 +22,12 @@ class MainWindowStarter:
         self.repy_data = logic.data.repy_data()
 
     def __init__(self):
-        progress = gui.ProgressDialog(
-                'Loading REPY data', self.get_data,
-                cancel_func = gtk.main_quit,
-                callback_func = self.start_main_window
-                )
+#        progress = gui.ProgressDialog(
+#                'Loading REPY data', self.get_data,
+#                cancel_func = gtk.main_quit,
+#                callback_func = self.start_main_window
+#                )
+        self.start_main_window()
 
         gtk.main()
 
