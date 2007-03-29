@@ -4,34 +4,23 @@
 import codecs
 import re # the awesome power of text parsing!
 
-#####
-# static constant
-# TODO: do this the correct way
-num_regexp = re.compile("[0-9][0-9\.-]*[0-9]")
+FACULTY_BANNER_REGEX = re.compile("""\+==========================================\+
+\| מערכת שעות - (.*) +\|
+\|.*\|
+\+==========================================\+""", re.UNICODE)
 
-def f(string):
-    if string:
-        revwords = re.split(r'([אבגדהוזחטיכלמנסעפצקרשת])+', string)    # separators too since '(...)'
-        revwords.reverse()              # inplace reverse the list
-        return ''.join(revwords)    # list of strings -> string
-        # *NOTE* the nullstring-joiner once again!
-   
+COURSE_BANNER_REGEX = re.compile("""\+------------------------------------------\+
+\| (\d\d\d\d\d\d) +(.*) +\|
+\| שעות הוראה בשבוע:ה-(\d) ת-(\d) +נק: (.*) *\|
+\+------------------------------------------\+""", re.UNICODE)
 
-# fix the hebrew
-def bidi_flip(string):
-    matches = num_regexp.finditer(string)
-    for match in matches:
-        string.replace(match,f(match))#the ::-1 notation is a crappy reverse
-    return f(string)
+# FIXME: Finish this
+def parse_repy_data(raw_repy_data):
+    raw_faculties = raw_repy_data.split("\n\n")
 
+    return raw_faculties
 
-
-#########################################
-# actual code
-
-repy = codecs.open('REPY','r',encoding="cp862")
-
-for line in repy:
-    print bidi_flip(line.encode('utf8','replace'))
-
-
+# FIXME: Remove this
+if __name__ == "__main__":
+    import data
+    print len(parse_repy_data(data.repy_data()))

@@ -26,6 +26,8 @@ def bidi_flip(string):
 
 
 
+# FIXME cache this, at least for development purposes (when done, we'll
+# want to just cache the parsed version)
 def repy_data():
     """Download raw REPY data from Technion, convert it to almost-unicode
     (numbers are reversed)"""
