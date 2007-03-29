@@ -10,9 +10,6 @@ import gobject
 gobject.threads_init()
 import threading
 
-# FIXME: Make this use gettext instead
-_ = str
-
 # FIXME: "Stop" button only calls the cancel callback, currently no good
 #        way to actually kill off a thread
 
