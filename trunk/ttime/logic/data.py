@@ -6,6 +6,9 @@ import zipfile
 import tempfile
 import codecs
 import re
+import ttime
+from ttime.localize import _
+
 
 #####
 # static constant
@@ -24,17 +27,20 @@ def bidi_flip(string):
         string = string.replace(match.group(),unicode_flip(match.group()))
     return unicode_flip(string)
 
-
-
-# FIXME cache this, at least for development purposes (when done, we'll
-# want to just cache the parsed version)
 def repy_data():
     """Download raw REPY data from Technion, convert it to almost-unicode
     (numbers are reversed)"""
     REPY_URI = "http://ug.technion.ac.il/rep/REPFILE.zip"
-    t = tempfile.TemporaryFile()
-    t.write(urllib.urlopen(REPY_URI).read())
-    z = zipfile.ZipFile(t)
+    try:
+        t = tempfile.TemporaryFile()
+        t.write(urllib.urlopen(REPY_URI).read())
+        z = zipfile.ZipFile(t)
+    except:
+        ttime.warning(_("Network download of REPFILE.zip failed, trying local"))
+        try:
+            t = open("REPFILE.zip")
+            z = zipfile.ZipFile(t)
+        except: raise _("REP file download has failed")
     repy_data = '\n'.join([ bidi_flip(unicode(x).rstrip('\r')) for x in
         unicode(z.read('REPY'), 'cp862').split('\n') ])
     z.close
