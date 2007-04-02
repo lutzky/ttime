@@ -4,6 +4,8 @@
 import codecs
 import re # the awesome power of text parsing!
 
+from ttime.logic import data
+
 FACULTY_BANNER_REGEX = re.compile("""\+==========================================\+
 \| מערכת שעות - (.*) +\|
 \|.*\|
@@ -15,12 +17,12 @@ COURSE_BANNER_REGEX = re.compile("""\+------------------------------------------
 \+------------------------------------------\+""", re.UNICODE)
 
 # FIXME: Finish this
-def parse_repy_data(raw_repy_data):
-    raw_faculties = raw_repy_data.split("\n\n")
+def parse_repy_data():
+    raw_faculties = data.repy_data().split("\n\n")
+# FIXME FIXME regexes misbehaving bahhhhhhh :/
+#    data_split = re.split(FACULTY_BANNER_REGEX, raw_faculties[0])
+#    data_split = re.split("==", raw_faculties[0])
+#    print len(data_split)
+#    print data_split[41]
 
     return raw_faculties
-
-# FIXME: Remove this
-if __name__ == "__main__":
-    import data
-    print len(parse_repy_data(data.repy_data()))

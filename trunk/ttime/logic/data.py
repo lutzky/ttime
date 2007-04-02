@@ -7,7 +7,9 @@ import tempfile
 import codecs
 import re
 import ttime
+
 from ttime.localize import _
+from ttime import prefs
 
 
 #####
@@ -31,16 +33,22 @@ def repy_data():
     """Download raw REPY data from Technion, convert it to almost-unicode
     (numbers are reversed)"""
     REPY_URI = "http://ug.technion.ac.il/rep/REPFILE.zip"
+    if prefs.options.usecache:
+        t = open("REPFILE.zip")
+    else:
+        try:
+            t = tempfile.TemporaryFile()
+            t.write(urllib.urlopen(REPY_URI).read())
+        except:
+            ttime.warning(_("Network download of REPFILE.zip failed, " \
+                    "trying local"))
+            try:
+                t = open("REPFILE.zip")
+            except: raise _("REP file download has failed")
     try:
-        t = tempfile.TemporaryFile()
-        t.write(urllib.urlopen(REPY_URI).read())
         z = zipfile.ZipFile(t)
     except:
-        ttime.warning(_("Network download of REPFILE.zip failed, trying local"))
-        try:
-            t = open("REPFILE.zip")
-            z = zipfile.ZipFile(t)
-        except: raise _("REP file download has failed")
+        raise _("REP file is not a valid zip file!")
     repy_data = '\n'.join([ bidi_flip(unicode(x).rstrip('\r')) for x in
         unicode(z.read('REPY'), 'cp862').split('\n') ])
     z.close

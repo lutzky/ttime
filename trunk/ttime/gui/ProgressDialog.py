@@ -21,7 +21,8 @@ class ProgressDialogWorker(threading.Thread):
 
     def run(self):
         self.worker_func()
-        self.callback_func()
+        # Apparently this will throw you back into the main thread:
+        gobject.idle_add(self.callback_func)
 
 class ProgressDialog(gtk.Dialog):
     def __init__(self, label, worker_func, callback_func = None,
