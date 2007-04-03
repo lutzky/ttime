@@ -4,25 +4,37 @@
 import codecs
 import re # the awesome power of text parsing!
 
+from ttime import prefs
 from ttime.logic import data
 
-FACULTY_BANNER_REGEX = re.compile("""\+==========================================\+
+FACULTY_BANNER_REGEX = re.compile(u"""\+==========================================\+
 \| מערכת שעות - (.*) +\|
 \|.*\|
 \+==========================================\+""", re.UNICODE)
 
-COURSE_BANNER_REGEX = re.compile("""\+------------------------------------------\+
+COURSE_BANNER_REGEX = re.compile(u"""\+------------------------------------------\+
 \| (\d\d\d\d\d\d) +(.*) +\|
 \| שעות הוראה בשבוע:ה-(\d) ת-(\d) +נק: (.*) *\|
 \+------------------------------------------\+""", re.UNICODE)
 
 # FIXME: Finish this
 def parse_repy_data():
-    raw_faculties = data.repy_data().split("\n\n")
-# FIXME FIXME regexes misbehaving bahhhhhhh :/
-#    data_split = re.split(FACULTY_BANNER_REGEX, raw_faculties[0])
-#    data_split = re.split("==", raw_faculties[0])
-#    print len(data_split)
-#    print data_split[41]
+    if prefs.options.do_parsing:
+        # Functional or just plain messed up? You be the judge.
+        parsed_faculties = [
+                parse_raw_faculty(*tuple(
+                    re.split(FACULTY_BANNER_REGEX, raw_faculty)[1:3]
+                    ))
+                for raw_faculty in data.repy_data().split("\n\n")
+                ]
 
-    return raw_faculties
+        # FIXME: Later non-standard faculties mess this up
+
+        print parsed_faculties
+
+        return parsed_faculties
+
+def parse_raw_faculty(name, raw_data):
+    print name
+    return name
+

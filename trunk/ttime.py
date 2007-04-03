@@ -36,6 +36,8 @@ if __name__ == '__main__':
     parser = OptionParser("usage: %prog { -c }")
     parser.add_option("-c", "--cache", dest="usecache", help="Use cached REPY",
             default = False, action="store_true")
+    parser.add_option("-p", "--parse", dest="do_parsing", help="Actually parse",
+            default = False, action="store_true")
     (options,args) = parser.parse_args()
     prefs.options = options
 
