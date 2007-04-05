@@ -21,7 +21,10 @@ SPORTS_BANNER_REGEX = re.compile(u"""\+=========================================
 | +מקצועות ספורט -.*\|
 \+===============================================================\+""", re.UNICODE)
 
-# FIXME: Finish this
+COURSE_HEADER_REGEX = re.compile(u"""\n\|\s(\d\d\d\d\d\d) ([א-תףץךןם0-9()\/+#,.\-"' ]+?) *\|\n\| שעות הוראה בשבוע\:( *[א-ת].+?[0-9]+)+ +נק: (\d\.?\d) ?\|""", re.UNICODE)
+
+def single_space(str): return re.sub(' +',' ', str)
+
 def parse_repy_data():
     if prefs.options.do_parsing:
         non_sport_raw, sport_header, sport_raw = tuple(
@@ -62,5 +65,17 @@ def parse_raw_faculty(name = None, raw_data = None):
     return (name, courses) # TODO: Stick with this format?
 
 def parse_raw_course(header, body):
-    # TODO: Parse it ;)
+    arr = re.match(COURSE_HEADER_REGEX, header).groups()
+    course_id = arr[0]
+    course_name = arr[1].strip()
+    academic_points = float(arr[-1])
+    hours = []
+
+    for i in range(2,len(arr)-1):
+        hours.append(arr[i].strip())
+
+    # print course_id, course_name, academic_points, str(hours), '!'
+
+    # TODO: The state-machine :/
+
     return (header, body)
