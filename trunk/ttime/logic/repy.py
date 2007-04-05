@@ -28,10 +28,10 @@ def parse_repy_data():
                 re.split(SPORTS_BANNER_REGEX, data.repy_data())
                 )
 
+        faculties = parse_non_sport_data(non_sport_raw)
+
         # FIXME: We should do something about sport_raw too, shouldn't we? :)
 
-        for name in parse_non_sport_data(non_sport_raw):
-            if name: print name
         return None
 
 def parse_non_sport_data(raw_data):
@@ -48,4 +48,19 @@ def parse_non_sport_data(raw_data):
 def parse_raw_faculty(name = None, raw_data = None):
     if not name:
         return None
-    return name
+
+    raw_courses = raw_data.split("+------------------------------------------+")
+
+    courses = []
+
+    raw_courses.pop(0) # Remove initial blank
+
+    for i in range(len(raw_courses)/2):
+        courses += parse_raw_course(header = raw_courses[i*2],
+                body = raw_courses[i*2+1])
+
+    return (name, courses) # TODO: Stick with this format?
+
+def parse_raw_course(header, body):
+    # TODO: Parse it ;)
+    return (header, body)
