@@ -1,6 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+
+from ttime.gui import warning, error
+from ttime.localize import _
+
 import codecs
 import re # the awesome power of text parsing!
 
@@ -21,13 +25,19 @@ SPORTS_BANNER_REGEX = re.compile(u"""\+=========================================
 | +מקצועות ספורט -.*\|
 \+===============================================================\+""", re.UNICODE)
 
-LECTURER_IN_CHARGE_REGEX = re.compile(u"\| מורה  אחראי :(.*?) *\|", re.UNICODE)
-FIRST_TEST_DATE_REGEX = re.compile(u"\| מועד ראשון :(.*?) *\|", re.UNICODE)
-SECOND_TEST_DATE_REGEX = re.compile(u"\| מועד שני   :(.*?) *\|", re.UNICODE)
-RISHUM_LINE_REGEX = re.compile(u"\|רישום +\|", re.UNICODE)
-EMPTY_LINE_REGEX = re.compile(u"\| +\|", re.UNICODE)
+RAW_COURSE_REGEX = re.compile(u"\n("
+        u"(\| מורה  אחראי :(?P<lecturer_in_charge>.*?) *\|)|"
+        u"(\| מועד ראשון :(?P<first_test_date>.*?) *\|)|"
+        u"(\| מועד שני   :(?P<second_test_date>.*?) *\|)|"
+        u"(\| -+ +\|)"
+        u"\n)*"
+#        u"(\n)?((\|מס. + \++ +\|\n\|רישום +\|)|(\| +\|))"
+        
+        , re.UNICODE)
 
-COURSE_HEADER_REGEX = re.compile(u"""\n\|\s(\d\d\d\d\d\d) ([א-תףץךןם0-9()\/+#,.\-"' ]+?) *\|\n\| שעות הוראה בשבוע\:( *[א-ת].+?[0-9]+)+ +נק: (\d\.?\d) ?\|""", re.UNICODE)
+COURSE_HEADER_REGEX = re.compile(u"""\n\|\s(?P<course_id>\d\d\d\d\d\d) (?P<course_name>[א-תףץךןם0-9()\/+#,.\-"' ]+?) *\|\n\| שעות הוראה בשבוע\:( *[א-ת].+?[0-9]+)+ +נק: (?P<academic_points>\d\.?\d) ?\|""", re.UNICODE)
+
+GROUP_LINE_REGEX = re.compile(u"\| *([0-9]*) *([א-ת]+) ?: ?(.*?) *\|", re.UNICODE)
 
 STATE_START, STATE_THING, STATE_DETAILS = range(3)
 
@@ -95,12 +105,13 @@ def parse_raw_faculty(name = None, raw_data = None):
     return (name, courses) # TODO: Stick with this format?
 
 def parse_raw_course(header, body):
-    arr = re.match(COURSE_HEADER_REGEX, header).groups()
-    course_id = arr[0]
-    course_name = arr[1].strip()
-    academic_points = float(arr[-1])
+    m = re.match(COURSE_HEADER_REGEX, header)
+    course_id = m.groupdict()['course_id']
+    course_name = m.groupdict()['course_name'].strip()
+    academic_points = float(m.groupdict()['academic_points'])
     hours = []
 
+    arr = m.groups()
     for i in range(2,len(arr)-1):
         hours.append(arr[i].strip())
 
@@ -110,23 +121,19 @@ def parse_raw_course(header, body):
 
     current_lecture_group_number = 1
 
-    mre = Matcher()
+    print body
 
-    state = STATE_START
-    for line in body.split("\n"):
-        if state == STATE_START:
-            if line[3] != '-':
-                if mre.match(LECTURER_IN_CHARGE_REGEX, line):
-                    lecturer_in_charge = single_space(mre.groups[0].strip())
-                elif mre.match(FIRST_TEST_DATE_REGEX, line):
-                    first_test_date = convert_test_date(mre.groups[0])
-                elif mre.match(SECOND_TEST_DATE_REGEX, line):
-                    second_test_date = convert_test_date(mre.groups[0])
-                elif RISHUM_LINE_REGEX.match(line) \
-                        or EMPTY_LINE_REGEX.match(line):
-                            state = STATE_THING
-                
+    m = re.match(RAW_COURSE_REGEX, body)
 
+    try:
+        print m.groupdict()
+        for i,j in m.groupdict().items(): print i,j
+    except:
+        error(_(u"Error parsing course body in %s %s. Body was:\n‏<tt>%s</tt>") %
+            (course_id, course_name, body))
+        raise
 
+    error("stopping")
+    raise
 
     return (header, body)
