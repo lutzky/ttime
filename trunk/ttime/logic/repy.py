@@ -9,7 +9,7 @@ import codecs
 import re # the awesome power of text parsing!
 
 from ttime import prefs
-from ttime.logic import data
+from ttime.logic import data, db
 
 FACULTY_BANNER_REGEX = re.compile(u"""\+==========================================\+
 \| מערכת שעות - (.*) +\|

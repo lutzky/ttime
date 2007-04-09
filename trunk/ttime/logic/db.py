@@ -4,6 +4,8 @@ from datetime import date
 import os
 import sys
 
+from ttime import prefs
+
 class Lecturer(SQLObject):
     name = StringCol()
     
@@ -46,6 +48,11 @@ class Place(SQLObject):
 
 _all_tables = [EventSet, Event, Place, Course, Semester, Lecturer]
 
+def test():
+    test_create_db()
+    test_add_course()
+    test_print_all_courses()
+
 def test_uri():
     db_filename = "testfile.sqlite"
     uri = "sqlite:%s" % os.path.abspath(db_filename)
@@ -53,7 +60,7 @@ def test_uri():
     return uri
 
 def test_create_db():
-    connection = connectionForURI(test_uri())
+    connection = connectionForURI("sqlite:%s" % prefs.sqlite_db_filename())
     sqlhub.processConnection = connection
     
     for table in _all_tables:
@@ -74,8 +81,3 @@ def test_print_all_courses():
     for c in Course.select():
         print "%s - %s, by %s\n" % (c.number, c.name, c.lecturer_in_charge.name)
         print "Exam: %s" % c.first_exam_date
-    
-
-if __name__ == "__main__":
-    test()
-
