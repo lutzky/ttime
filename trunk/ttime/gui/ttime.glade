@@ -777,7 +777,7 @@ But we don't like C#</property>
   <property name="wrap_license">False</property>
   <property name="website">http://yasmin.technion.ac.il/svn-trac/ttime</property>
   <property name="website_label" translatable="yes">TTime Trac</property>
-  <property name="authors">Haggai Eran
+  <property name="authors" translatable="yes">Haggai Eran
 Boaz Goldstein
 Ohad Lutzky</property>
   <property name="translator_credits" translatable="yes" comments="TRANSLATORS: Replace this string with your names, one name per line.">translator-credits</property>

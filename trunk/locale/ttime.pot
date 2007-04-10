@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-29 19:11+0200\n"
+"POT-Creation-Date: 2007-04-10 10:16+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,8 +16,12 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ttime.py:18
+#: ttime.py:24
 msgid "Data has been downloaded, starting main window"
+msgstr ""
+
+#: ttime.py:31
+msgid "Downloading REPY data"
 msgstr ""
 
 #: ttime/gui/ttime.glade.h:1
@@ -46,55 +50,62 @@ msgstr ""
 
 #: ttime/gui/ttime.glade.h:7
 msgid ""
+"Haggai Eran\n"
+"Boaz Goldstein\n"
+"Ohad Lutzky"
+msgstr ""
+
+#: ttime/gui/ttime.glade.h:10
+msgid ""
 "Inspired by UDonkey and Marprog\n"
 "\n"
 "But we don't like C#"
 msgstr ""
 
-#: ttime/gui/ttime.glade.h:10
+#: ttime/gui/ttime.glade.h:13
 msgid "Jump 10 back"
 msgstr ""
 
-#: ttime/gui/ttime.glade.h:11
+#: ttime/gui/ttime.glade.h:14
 msgid "Jump 10 forward"
 msgstr ""
 
-#: ttime/gui/ttime.glade.h:12
+#: ttime/gui/ttime.glade.h:15
 msgid "Next"
 msgstr ""
 
-#: ttime/gui/ttime.glade.h:13
+#: ttime/gui/ttime.glade.h:16
 msgid "Previous"
 msgstr ""
 
-#: ttime/gui/ttime.glade.h:14
+#: ttime/gui/ttime.glade.h:17
 msgid "Selected Courses"
 msgstr ""
 
-#: ttime/gui/ttime.glade.h:15
+#: ttime/gui/ttime.glade.h:18
 msgid "TTime"
 msgstr ""
 
-#: ttime/gui/ttime.glade.h:16
+#: ttime/gui/ttime.glade.h:19
 msgid "TTime Trac"
 msgstr ""
 
-#: ttime/gui/ttime.glade.h:17
+#: ttime/gui/ttime.glade.h:20
 msgid "_File"
 msgstr ""
 
-#: ttime/gui/ttime.glade.h:18
+#: ttime/gui/ttime.glade.h:21
 msgid "_Help"
 msgstr ""
 
-#: ttime/gui/ttime.glade.h:19
+#: ttime/gui/ttime.glade.h:22
 msgid "_Schedules"
 msgstr ""
 
-#: ttime/gui/ttime.glade.h:20
+#: ttime/gui/ttime.glade.h:23
 msgid "_Tools"
 msgstr ""
 
-#: ttime/gui/ttime.glade.h:22
+#: ttime/gui/ttime.glade.h:25
 msgid "translator-credits"
 msgstr ""
