@@ -38,7 +38,7 @@ module TTime
       GROUP_TYPES = [:lecture,:tutorial,:lab]
 
       attr_accessor :number, :name, :academic_points, :hours, :lecturer_in_charge,
-        :first_test_date, :second_test_date, :groups
+        :first_test_date, :second_test_date, :groups, :course_id
 
       def text
         base = <<-EOF

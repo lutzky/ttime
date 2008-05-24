@@ -66,6 +66,10 @@ module TTime
 
         @status_report_proc = status_report_proc || proc {}
 
+        @courses.each_with_index do |c,i|
+            c.course_id = i
+        end
+
         num_types_arr = []
 
         generate_ok_schedules

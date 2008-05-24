@@ -28,6 +28,25 @@ module TTime
         end
       end
 
+      def frac(x)
+          x/100 + ( (x%100).to_f / 60 )
+      end
+
+      def start_frac
+          frac(@start)
+      end
+
+      def end_frac
+          frac(@end)
+      end
+      def desc
+         "<b>#{@group.course.name}</b>\nקבוצה #{@group.number}\n#@place"
+      end
+
+      def group_id
+          @group.course_id
+      end
+
       def to_javascript
         start_box = (@start - 30) / 100
         # Ending at xx:30 means ending at xx:20, last box isn't taken
@@ -70,6 +89,9 @@ module TTime
         "תרגיל" => :tutorial
       }
   
+      def course_id
+          @course.course_id
+      end
       def type_is? (x)
         type == x.to_sym
       end

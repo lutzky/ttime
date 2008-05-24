@@ -9,6 +9,7 @@ require 'settings'
 require 'logic/course'
 require 'logic/scheduler'
 require 'gui/progress_dialog'
+require 'tcal/tcal'
 
 GetText::bindtextdomain("ttime", "locale", nil, "utf-8")
 
@@ -211,8 +212,8 @@ module TTime
 
       def init_schedule_view
         notebook = @glade["notebook"]
-        @mozembed = Gtk::MozEmbed.new
-        notebook.append_page @mozembed, Gtk::Label.new(_("Schedule"))
+        @calendar = TCal::Calendar.new({:logo => 'gui/ttime.svg' })
+        notebook.append_page @calendar, Gtk::Label.new(_("Schedule"))
 
         notebook.show_all
       end
@@ -225,19 +226,8 @@ module TTime
 
       def draw_current_schedule
         return unless scheduler_ready?
-        schedule = @scheduler.ok_schedules[@current_schedule]
-
-        @sched_html_file.unlink if @sched_html_file
-
-        @sched_html_file = Tempfile.new("schedule")
-
-        File.open("gui/html/SchedTable_pre.html") do |f|
-          @sched_html_file.write f.read
-        end
-
-        #File.open("gui/html/example.js") do |f|
-        #  @sched_html_file.write f.read
-        #end
+        
+        @calendar.clear_events
 
         schedule.events.each do |ev|
           @sched_html_file.write ev.to_javascript + "\n"

@@ -8,10 +8,9 @@ require 'rsvg2'
 
 
 # internal includes
-require 'event'
-require 'layer'
-require 'cairo_aux'
-require 'profiler'
+require 'tcal/event'
+require 'tcal/layer'
+require 'tcal/cairo_aux'
 
 
 
@@ -119,7 +118,6 @@ module TCal
 
 
             self.signal_connect("expose-event") do
-                Profiler__::start_profile
                 self.draw_sched
                 true
             end
@@ -230,6 +228,11 @@ module TCal
         def clear_events
             @events = [] 
             @computed_layers=false
+        end
+
+        def redraw
+            (width,height)=self.window.size
+            self.window.invalidate(Gdk::Rectangle.new(0, 0, width, height),false)
         end
 
 
