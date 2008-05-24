@@ -309,6 +309,11 @@ module TCal
 
 
 
+        def get_bg_image
+            surface = Cairo::ImageSurface.new(Cairo::FORMAT_ARGB32, 300, 200)
+        end
+
+
         # main graphic function
         # this functions draws the grid lines, the backgrounds, the logo, the hours, 
         # and the itterates to draw the events
@@ -328,14 +333,16 @@ module TCal
 
             # gray BG for border
             cairo.rectangle(0,0,width,height)
-            lin = cairo.linear_gradient(0,height,0,0, :reflect,[1.0,gray],[1.0 - 1.0/@hour_segments,lgray], [0.0 ,llgray])
-            cairo.set_source(lin)
+            #lin = cairo.linear_gradient(0,height,0,0, :reflect,[1.0,gray],[1.0 - 1.0/@hour_segments,lgray], [0.0 ,llgray])
+            #cairo.set_source(lin)
+            cairo.set_source_rgb(0.9,0.9,0.9)
             cairo.fill()
 
             # white for bg
             cairo.rectangle(0,step_height,width-step_width,height)
-            lin = cairo.linear_gradient(0,height,0,0, :reflect,[0.0,owhite],[0.3,white])
-            cairo.set_source(lin)
+            #lin = cairo.linear_gradient(0,height,0,0, :reflect,[0.0,owhite],[0.3,white])
+            #cairo.set_source(lin)
+            cairo.set_source_rgb(1.0,1.0,1.0)
             cairo.fill()
 
 
@@ -360,8 +367,9 @@ module TCal
             font_size = 12 if font_size > 12 # over 12 it becomes oversized and ugly
 
             # set grid gradient
-            lin = cairo.linear_gradient(0,height,0,0, :reflect,[0.0,oblack],[0.3,ooblack])
-            cairo.set_source(lin)
+            #lin = cairo.linear_gradient(0,height,0,0, :reflect,[0.0,oblack],[0.3,ooblack])
+            #cairo.set_source(lin)
+            cairo.set_source_rgb(0.67,0.67,0.67)
 
             # itterate to draw
             @days.downto 1 do |i|
