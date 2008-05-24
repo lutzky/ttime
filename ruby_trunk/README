@@ -1,0 +1,22 @@
+TTime - A Techinon Timetable utility
+------------------------------------
+
+This is the Ruby version of TTime. To run it, you'll need the following
+packages (for ruby1.8):
+
+* rake
+* ruby1.8
+* libzip-ruby1.8
+* libgettext-ruby1.8
+* libglade2-ruby1.8
+* libgtk2-ruby1.8
+
+For now, we're using mozembed for our calendar rendering, so you'll also
+need:
+
+* libgtk-mozembed-ruby1.8
+
+For the Cairo calendar renderer, you'll want:
+* libpango1-ruby1.8
+* librsvg2-ruby1.8
+* libcairo-ruby1.8
