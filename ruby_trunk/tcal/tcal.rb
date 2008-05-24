@@ -119,7 +119,7 @@ module TCal
 
 
             self.signal_connect("expose-event") do
-                self.draw_grid
+                self.draw_sched
                 true
             end
         end
@@ -333,15 +333,12 @@ module TCal
 
                 # gray BG for border
                 cairo.rectangle(0,0,width,height)
-                #lin = cairo.linear_gradient(0,height,0,0, :reflect,[1.0,gray],[1.0 - 1.0/@hour_segments,lgray], [0.0 ,llgray])
-                #cairo.set_source(lin)
-                cairo.set_source_rgb(0.9,0.9,0.9)
+                lin = cairo.linear_gradient(0,height,0,0, :reflect,[1.0,gray],[1.0 - 1.0/@hour_segments,lgray], [0.0 ,llgray])
+                cairo.set_source(lin)
                 cairo.fill()
 
                 # white for bg
                 cairo.rectangle(0,step_height,width-step_width,height)
-                #lin = cairo.linear_gradient(0,height,0,0, :reflect,[0.0,owhite],[0.3,white])
-                #cairo.set_source(lin)
                 cairo.set_source_rgb(1.0,1.0,1.0)
                 cairo.fill()
 
@@ -367,9 +364,8 @@ module TCal
                 font_size = 12 if font_size > 12 # over 12 it becomes oversized and ugly
 
                 # set grid gradient
-                #lin = cairo.linear_gradient(0,height,0,0, :reflect,[0.0,oblack],[0.3,ooblack])
-                #cairo.set_source(lin)
-                cairo.set_source_rgb(0.67,0.67,0.67)
+                lin = cairo.linear_gradient(0,height,0,0, :reflect,[0.0,oblack],[0.3,ooblack])
+                cairo.set_source(lin)
 
                 # itterate to draw
                 @days.downto 1 do |i|
@@ -423,106 +419,16 @@ module TCal
         # this functions draws the grid lines, the backgrounds, the logo, the hours, 
         # and the itterates to draw the events
         # FIXME: refactor to several functions
-        def draw_grid
-
+        def draw_sched
 
             cairo = self.get_cairo
-#            # compute_ratios
             (width,height)=self.window.size
-#            step_width = (width + @line_width) / (@days+1)
-#            step_height = (height + @line_width).to_f / (@hour_segments+1)
-#
-#            # get cairo and set constants
-#            cairo.set_line_join(Cairo::LINE_JOIN_ROUND)
-#            cairo.set_line_cap(Cairo::LINE_CAP_ROUND)
-#            cairo.set_line_width(@line_width)
-#
-#            # gray BG for border
-#            cairo.rectangle(0,0,width,height)
-#            #lin = cairo.linear_gradient(0,height,0,0, :reflect,[1.0,gray],[1.0 - 1.0/@hour_segments,lgray], [0.0 ,llgray])
-#            #cairo.set_source(lin)
-#            cairo.set_source_rgb(0.9,0.9,0.9)
-#            cairo.fill()
-#
-#            # white for bg
-#            cairo.rectangle(0,step_height,width-step_width,height)
-#            #lin = cairo.linear_gradient(0,height,0,0, :reflect,[0.0,owhite],[0.3,white])
-#            #cairo.set_source(lin)
-#            cairo.set_source_rgb(1.0,1.0,1.0)
-#            cairo.fill()
-#
-#
-#            #logo
-#            if not @logo.nil?
-#
-#                # rsvg
-#                cairo.translate 0,step_height
-#                cairo.render_rsvg_centered(width - step_width,height - step_height, @logo_handle)
-#                cairo.identity_matrix
-#
-#                #fade_logo
-#                cairo.set_source_rgba(1.0,1.0,1.0,0.8)
-#                cairo.rectangle(0,step_height,width-step_width,height)
-#                cairo.fill()
-#            end
-#
-#
-#            # compute optimal font size
-#            font_size = (step_height * 0.60).to_i
-#            font_size = 8 if font_size < 8 # you cant read less than 8
-#            font_size = 12 if font_size > 12 # over 12 it becomes oversized and ugly
-#
-#            # set grid gradient
-#            #lin = cairo.linear_gradient(0,height,0,0, :reflect,[0.0,oblack],[0.3,ooblack])
-#            #cairo.set_source(lin)
-#            cairo.set_source_rgb(0.67,0.67,0.67)
-#
-#            # itterate to draw
-#            @days.downto 1 do |i|
-#
-#                # draw line
-#                cairo.move_to step_width*i, 0
-#                cairo.rel_line_to 0, height
-#                cairo.stroke
-#                cairo.move_to step_width*(i-1)+3, (0.2 * step_height).to_i - @line_width
-#
-#                # render day name
-#                cairo.pango_render_text((step_width)-6,"Sans #{font_size}","<tt>#{day_names[(@days-i-1+@start_day)%7]}</tt>")
-#
-#            end
-#
-#
-#
-#            # itterate to draw
-#            @hour_segments.downto 1 do |i|
-#
-#
-#                # compute if this is a major line, and if so make it full width
-#                # otherwise make it narrow
-#                if (i % @major_hour == @major_mod)
-#                    cairo.set_line_width(@line_width)
-#                else
-#                    cairo.set_line_width(@line_width * 0.20)
-#                end
-#
-#                # draw line
-#                cairo.move_to 0, (step_height*i).to_i
-#                cairo.rel_line_to width, 0
-#                cairo.stroke
-#                cairo.move_to width-step_width+3, (step_height*(i+0.2)).to_i - @line_width
-#
-#                # render hour
-#                cairo.pango_render_text((step_width)-6,
-#                                         "Sans #{font_size}",
-#                                          "<tt>#{to_time(@start_hour+(@jump_hour*(i-1)))}</tt>")
-#
-#            end
 
+            # draw the grid background
             bg_grid = get_bg_image
             cairo.set_source(bg_grid)
             cairo.rectangle(0,0,width,height)
             cairo.fill
-
 
             compute_layers unless @computed_layers # make sure we have layers computed
 
