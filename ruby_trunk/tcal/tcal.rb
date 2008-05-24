@@ -119,6 +119,7 @@ module TCal
 
 
             self.signal_connect("expose-event") do
+                Profiler__::start_profile
                 self.draw_sched
                 true
             end
@@ -236,10 +237,7 @@ module TCal
 
             # set internal line width for this function
             line_width=3.0
-
-            # set the line style, for smoother lines
-            cairo.set_line_join(Cairo::LINE_JOIN_ROUND)
-            cairo.set_line_cap(Cairo::LINE_CAP_ROUND)
+            half_line_width=line_width/2 #optimizaton
 
             # get size and compute ratios
             # FIXME: repeated
@@ -249,6 +247,8 @@ module TCal
             hour_steps = (item.hour - @start_hour)/(@jump_hour) 
             length_steps = item.length/@jump_hour
             day_steps = (item.day + 7 - @start_day) % 7 
+            layer_width = (step_width*item.ratio).to_i
+            item_length = (step_height*length_steps).to_i
 
             # translate to where we want to draw
             cairo.translate(step_width*(@days-day_steps-1),(hour_steps+1)*step_height)
@@ -258,45 +258,40 @@ module TCal
             cairo.set_source_rgba(clr[0],clr[1],clr[2],clr[3])
 
             # draw path
-            cairo.rounded_rectangle(
-                line_width/2+step_width*item.ratio*item.layer, # room we need to make for items in lower layers
-                line_width/2,
-                step_width*item.ratio*(item.layer+1)-line_width/2, # move to the next layer
-                step_height*length_steps-line_width/2)
-                cairo.set_line_width(line_width)
+            cairo.rounded_rectangle(half_line_width+layer_width*item.layer, 
+                                    half_line_width,
+                                    layer_width*(item.layer+1)-half_line_width, # move to the next layer
+                                    item_length-half_line_width)
+            cairo.set_line_width(line_width)
 
-                # stroke path
-                cairo.stroke_preserve
+            # stroke path
+            cairo.stroke_preserve
 
-                # load bg color
-                clr = @@colors_bg[item.color_id]
-                cairo.set_source_rgba(clr[0],clr[1],clr[2],clr[3])
+            # load bg color
+            clr = @@colors_bg[item.color_id]
+            cairo.set_source_rgba(clr[0],clr[1],clr[2],clr[3])
 
-                # fill path
-                cairo.fill
+            # fill path
+            cairo.fill
+
+            # create clipping region for text
+            cairo.rectangle(0,0,step_width,item_length-line_width-1)
 
 
+            cairo.clip
 
-                # create clipping region for text
-                cairo.rounded_rectangle(
-                    line_width+step_width*item.ratio*item.layer+1, # room we need to make for items in lower layers
-                    line_width+1,
-                    step_width*item.ratio*(item.layer+1)-line_width-1, # move to the next layer
-                    step_height*length_steps-line_width-1)
-                    cairo.clip
+            # set text color
+            cairo.set_source_rgba(0,0,0,1)
 
-                    # set text color
-                    cairo.set_source_rgba(0,0,0,1)
+            # set text position
+            cairo.move_to(3+(layer_width*item.layer),3)
 
-                    # set text position
-                    cairo.move_to(3+(step_width*item.ratio*item.layer),3)
+            #draw text
+            cairo.pango_render_text((layer_width-6),"Sans 8",item.markup)
 
-                    #draw text
-                    cairo.pango_render_text((step_width*item.ratio-6),"Sans 8",item.markup)
-
-                    #reset damage
-                    cairo.reset_clip
-                    cairo.identity_matrix
+            #reset damage
+            cairo.reset_clip
+            cairo.identity_matrix
         end
 
         # turn fraction time ino a formated time string, aka 12.25 => "12:30"
@@ -409,7 +404,7 @@ module TCal
                 end
                 @bg_image =  Cairo::SurfacePattern.new(surf)       
             end
-            
+
             # what we wanted
             return @bg_image
         end
@@ -433,9 +428,13 @@ module TCal
             compute_layers unless @computed_layers # make sure we have layers computed
 
             # render events
+            #
+#            Profiler__::start_profile
             @events.each do |i| 
                 draw_item(cairo,i)
             end
+#            Profiler__::stop_profile
+#            Profiler__::print_profile($stderr)
         end
 
 
