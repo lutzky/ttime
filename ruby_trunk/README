@@ -6,6 +6,7 @@ packages (for ruby1.8):
 
 * rake
 * ruby1.8
+* libzip-ruby1.8
 * libgettext-ruby1.8
 * libglade2-ruby1.8
 * libgtk2-ruby1.8

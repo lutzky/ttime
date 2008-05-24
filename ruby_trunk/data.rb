@@ -1,5 +1,7 @@
 require 'logic/repy'
 require 'open-uri'
+require 'zip/zip'
+require 'tempfile'
 require 'pathname'
 require 'gettext'
 
@@ -96,16 +98,22 @@ module TTime
 
       DATA_DIR.mkpath
 
-      open(REPY_URI) do |in_file|
-        open(REPY_Zip,"w") do |out_file|
-          out_file.write in_file.read
-        end
+      Tempfile.open("rw") do |tf|
+          open(REPY_URI) do |in_file|
+              tf.write in_file.read
+          end
+
+          tf.seek(0)
+
+          report _("Extracting REPY file"), 0.5
+
+          Zip::ZipInputStream.open(tf.path) do |zis|
+              entry = zis.get_next_entry
+              open(REPY_File, "w") do |dest_file|
+                  dest_file.write zis.read
+              end
+          end
       end
-
-      report _("Extracting REPY file"), 0.5
-
-      # FIXME: This kinda won't work on anything non-UNIX
-      `bash -c 'cd #{DATA_DIR} && unzip -o #{REPY_Zip_filename} && rm #{REPY_Zip_filename}'`
 
       convert_repy
     end
