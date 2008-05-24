@@ -94,6 +94,8 @@ module TTime
     def download_repy
       report _("Downloading REPY file from Technion")
 
+      DATA_DIR.mkpath
+
       open(REPY_URI) do |in_file|
         open(REPY_Zip,"w") do |out_file|
           out_file.write in_file.read
