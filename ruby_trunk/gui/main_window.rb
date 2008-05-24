@@ -1,6 +1,6 @@
 require 'libglade2'
 require 'data'
-require 'gtkmozembed'
+#require 'gtkmozembed'
 require 'tempfile'
 require 'gettext'
 
@@ -225,21 +225,21 @@ module TTime
       end
 
       def draw_current_schedule
+        #test
         return unless scheduler_ready?
-        
+
+        #get current schedual to draw
+        schedule = @scheduler.ok_schedules[@current_schedule]
+
+        #clear the calendar
         @calendar.clear_events
 
         schedule.events.each do |ev|
-          @sched_html_file.write ev.to_javascript + "\n"
+            @calendar.add_event(ev.desc,ev.day,ev.start_frac,ev.end_frac-ev.start_frac,ev.group_id)
         end
 
-        File.open("gui/html/SchedTable_post.html") do |f|
-          @sched_html_file.write f.read
-        end
+        @calendar.redraw
 
-        @sched_html_file.close
-
-        @mozembed.location = 'file://' + @sched_html_file.path
       end
 
       def set_course_info(info)
