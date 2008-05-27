@@ -71,8 +71,13 @@ module TTime
           end
           groups_by_type << g if not g.empty?
         end
-        groups_by_type.one_member_of_each_member do |m|
-          yield m
+
+        if groups_by_type.empty?
+          yield []
+        else
+          groups_by_type.one_member_of_each_member do |m|
+            yield m
+          end
         end
       end
 
