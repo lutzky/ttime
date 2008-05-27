@@ -311,7 +311,6 @@ module TCal
             (width,height)=self.window.size
             if @bg_image.nil? or width != @bg_image_width or height != @bg_image_height
 
-                puts "DING"
                 # initialize for drawing
                 @bg_image_width=width
                 @bg_image_height=height
