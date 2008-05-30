@@ -9,6 +9,11 @@ module TTime
         super
 
         @enabled = false
+
+        @allowed_groups = {
+            "044147" => { :lecture => [10,20], :tutorial => [12,13,22] },
+            "236360" => { :tutorial => [11] }
+        }
       end
 
       def evaluate_schedule
@@ -18,32 +23,14 @@ module TTime
       def evaluate_group(grp)
         return true unless @enabled
 
-        # There is no other besides Dado
-        return false if grp.course.number == "114073" &&
-          grp.type == :lecture &&
-          grp.number != 10
+        @allowed_groups.each do |course, selections|
+          if grp.course.number == course
+            if selections.include?(grp.type)
+              return false unless selections[grp.type].include? grp.number
+            end
+          end
+        end
 
-        # Makowski please - I like my hints
-        return false if grp.course.number == "234293" &&
-          grp.type == :lecture &&
-          grp.number != 10
-
-        # Kolodny please - Oded's recommendation
-        return false if grp.course.number == "044127" &&
-          grp.type == :lecture &&
-          grp.number != 10
-
-        # Yichia please
-        return false if grp.course.number == "104215" &&
-          grp.type == :tutorial &&
-          grp.number != 11
-
-        # Anarchists please
-        #          return false if grp.course.number == "234293" &&
-        #            grp.type == :tutorial &&
-        #            grp.number != 12
-        # Gah, conflicts with Kolodny
-        #
         true
       end
 
@@ -63,23 +50,6 @@ module TTime
         vbox.pack_start btn_enabled, false, false
 
         vbox
-      end
-
-      def print_event_grid(event_grid)
-        puts '-start------------'
-        earliest_start.upto(latest_finish) do |h|
-          print h
-          print ": "
-          0.upto(7) do |d|
-            if event_grid[d][h]
-              print '*'
-            else
-              print ' '
-            end
-          end
-          print "\n"
-        end
-        puts '--------------end-'
       end
     end
   end
