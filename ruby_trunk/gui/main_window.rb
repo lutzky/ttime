@@ -128,6 +128,7 @@ module TTime
         if iter
           @selected_courses.delete iter[2]
           @list_selected_courses.remove iter
+          update_contraint_courses
 
           on_available_course_selection
           on_selected_course_selection
@@ -198,6 +199,8 @@ module TTime
 
       def add_selected_course(course)
         @selected_courses << course
+
+        update_contraint_courses
 
         iter = @list_selected_courses.append
         iter[0] = course.name
@@ -356,6 +359,12 @@ module TTime
           col.resizable = true
 
           selected_courses_view.append_column col
+        end
+      end
+
+      def update_contraint_courses
+        @constraints.each do |c|
+          c.update_courses(@selected_courses)
         end
       end
 

@@ -7,18 +7,20 @@ module TTime
   module Constraints
     class LutzkyPreferences < AbstractConstraint
       ( TEXT_COLUMN, SHOW_CHECKBOX_COLUMN, MARKED_COLUMN, \
-        COURSE_COLUMN, TYPE_COLUMN, GROUP_COLUMN ) = (0..6).to_a
+        COURSE_COLUMN, GROUP_COLUMN ) = (0..4).to_a
+
+      GROUP_TYPE_NAME = {
+        :lecture => _('Lecture'),
+        :tutorial => _('Tutorial'),
+        # TODO More types?
+      }
 
       def initialize
         super
 
         @enabled = false
 
-        @forbidden_groups = {
-            "044147" => { :tutorial => Set.new([11,21]) },
-            "236360" => { :tutorial => Set.new([12,13]) }
-        }
-
+        @forbidden_groups = {}
       end
 
       def evaluate_schedule
@@ -27,39 +29,57 @@ module TTime
 
       def evaluate_group(grp)
         return true unless @enabled
-
-        flag = true if grp.number == 10
-
-        if @forbidden_groups.include? grp.course.number \
-          and @forbidden_groups[grp.course.number].include? grp.type \
-          and @forbidden_groups[grp.course.number][grp.type].include? grp.number
-              return false
-        end
-
-        return true
+        return !(group_is_forbidden?(grp.course.number, grp.number))
       end
 
       def name
         _('Lutzky Preferences')
       end
 
-      def allow_group(course, type, group)
-        @forbidden_groups[course][type].delete group
+      def allow_group(course_number, group_number)
+        @forbidden_groups[course_number].delete group_number
       end
 
-      def disallow_group(course, type, group)
-        @forbidden_groups[course] = {} unless @forbidden_groups.include? course
+      def update_courses(course_list)
+        @model.clear
 
-        unless @forbidden_groups[course].include? type
-          @forbidden_groups[course][type] = Set.new
+        for course in course_list
+          course_iter = @model.append(nil)
+          course_iter[TEXT_COLUMN] = course.name
+
+          for group_type in course.groups.collect { |g| g.type }.uniq
+            group_type_iter = @model.append(course_iter)
+            group_type_iter[TEXT_COLUMN] = GROUP_TYPE_NAME[group_type] or group_type
+            for group in course.groups.select { |g| g.type == group_type }
+              group_iter = @model.append(group_type_iter)
+              group_iter[TEXT_COLUMN] = group.number.to_s
+              group_iter[COURSE_COLUMN] = course.number
+              group_iter[GROUP_COLUMN] = group.number
+              group_iter[SHOW_CHECKBOX_COLUMN] = true
+
+              if group_is_forbidden?(course.number, group.number)
+                group_iter[MARKED_COLUMN] = false
+              else
+                group_iter[MARKED_COLUMN] = true
+              end
+            end
+          end
         end
+      end
 
-        @forbidden_groups[course][type].add group
+      def group_is_forbidden?(course_number, group_number)
+        return false unless @forbidden_groups.include?(course_number)
+        return @forbidden_groups[course_number].include?(group_number)
+      end
+
+      def disallow_group(course_number, group_number)
+        @forbidden_groups[course_number] ||= Set.new
+        @forbidden_groups[course_number].add group_number
       end
 
       def tree_setup
         @model = Gtk::TreeStore.new(String, TrueClass, TrueClass, String, \
-                                    Symbol, Fixnum)
+                                    Fixnum)
 
         @treeview = Gtk::TreeView.new(@model)
         @treeview.rules_hint = true
@@ -69,7 +89,7 @@ module TTime
 
         cellrend.signal_connect("toggled") do |renderer, path|
           iter = @model.get_iter(path)
-          args = iter[COURSE_COLUMN], iter[TYPE_COLUMN].to_sym, iter[GROUP_COLUMN]
+          args = iter[COURSE_COLUMN], iter[GROUP_COLUMN]
 
           if iter[MARKED_COLUMN]
             disallow_group *args
@@ -87,69 +107,6 @@ module TTime
                                 cellrend,
                                 'visible' => SHOW_CHECKBOX_COLUMN,
                                 'active' => MARKED_COLUMN)
-
-        selections = \
-          [
-            [ 'מעגלי מיתוג אלקטרוניים',
-              "044147",
-              [
-                [ "Lectures", :lecture,
-                  [
-                    [ 10, true ],
-                    [ 20, true ]
-                  ]
-                ],
-                [ "Tutorials", :tutorial,
-                  [
-                    [ 11, false ],
-                    [ 12, true ],
-                    [ 13, true ],
-                    [ 21, false ],
-                    [ 22, true ],
-                  ]
-                ]
-              ]
-            ],
-            [ 'תורת הקומפילציה',
-              "236360",
-              [
-                [ "Lectures", :lecture,
-                  [
-                    [ 10, true ],
-                  ]
-                ],
-                [ "Tutorials", :tutorial,
-                  [
-                    [ 11, true ],
-                    [ 12, false ],
-                    [ 13, false ],
-                  ]
-                ]
-              ]
-            ]
-          ]
-
-        selections.each do |course|
-          course_iter = @model.append(nil)
-          course_iter[TEXT_COLUMN] = course[0]
-          course_iter[SHOW_CHECKBOX_COLUMN] = false
-
-          course[2].each do |group_type|
-            group_type_iter = @model.append(course_iter)
-            group_type_iter[TEXT_COLUMN] = group_type[0]
-            group_type_iter[SHOW_CHECKBOX_COLUMN] = false
-
-            group_type[2].each do |group|
-              group_iter = @model.append(group_type_iter)
-              group_iter[TEXT_COLUMN] = group[0].to_s
-              group_iter[SHOW_CHECKBOX_COLUMN] = true
-              group_iter[MARKED_COLUMN] = group[1]
-              group_iter[COURSE_COLUMN] = course[1]
-              group_iter[TYPE_COLUMN] = group_type[1]
-              group_iter[GROUP_COLUMN] = group[0]
-            end
-          end
-        end
       end
 
       def preferences_panel

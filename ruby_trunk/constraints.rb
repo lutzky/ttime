@@ -18,6 +18,10 @@ module TTime
         evaluate_schedule
       end
 
+      # Handles an update in the course list (if the constraint needs it)
+      def update_courses(course_list)
+      end
+
       # Checks whether the given (partial) schedule is appropriate. This
       # is verified each time a schedule is generated.
       def evaulate_schedule
