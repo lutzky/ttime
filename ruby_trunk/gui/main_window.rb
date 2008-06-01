@@ -178,16 +178,13 @@ module TTime
       private
 
       def save_settings
-        @settings['selected_courses'] = @selected_courses.collect do |course|
-          course.number
-        end
-        @settings.save
+        Settings.instance['selected_courses'] = \
+          @selected_courses.collect { |course| course.number }
+        Settings.instance.save
       end
 
       def load_settings
-        @settings = Settings.new
-
-        @settings.selected_courses.each do |course_num|
+        Settings.instance.selected_courses.each do |course_num|
           begin
             add_selected_course @data.find_course_by_num(course_num)
           rescue NoSuchCourse
