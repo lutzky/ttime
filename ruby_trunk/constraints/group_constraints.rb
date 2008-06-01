@@ -18,9 +18,18 @@ module TTime
       def initialize
         super
 
-        @enabled = false
+        Settings.instance[:group_constraints] ||= {
+          :enabled => false,
+          :forbidden_groups => {}
+        }
+      end
 
-        @forbidden_groups = {}
+      def settings
+        Settings.instance[:group_constraints]
+      end
+
+      def forbidden_groups
+        return settings[:forbidden_groups]
       end
 
       def evaluate_schedule
@@ -28,7 +37,7 @@ module TTime
       end
 
       def evaluate_group(grp)
-        return true unless @enabled
+        return true unless settings[:enabled]
         return !(group_is_forbidden?(grp.course.number, grp.number))
       end
 
@@ -37,7 +46,7 @@ module TTime
       end
 
       def allow_group(course_number, group_number)
-        @forbidden_groups[course_number].delete group_number
+        forbidden_groups[course_number].delete group_number
       end
 
       def update_courses(course_list)
@@ -68,13 +77,13 @@ module TTime
       end
 
       def group_is_forbidden?(course_number, group_number)
-        return false unless @forbidden_groups.include?(course_number)
-        return @forbidden_groups[course_number].include?(group_number)
+        return false unless forbidden_groups.include?(course_number)
+        return forbidden_groups[course_number].include?(group_number)
       end
 
       def disallow_group(course_number, group_number)
-        @forbidden_groups[course_number] ||= Set.new
-        @forbidden_groups[course_number].add group_number
+        forbidden_groups[course_number] ||= Set.new
+        forbidden_groups[course_number].add group_number
       end
 
       def tree_setup
@@ -118,16 +127,16 @@ module TTime
 
         tree_setup
 
-        @treeview.sensitive = @enabled
+        @treeview.sensitive = settings[:enabled]
 
         sw.add(@treeview)
 
         btn_enabled = Gtk::CheckButton.new(_('Use group constraints'))
-        btn_enabled.active = @enabled
+        btn_enabled.active = settings[:enabled]
 
         btn_enabled.signal_connect('toggled') do
-          @enabled = btn_enabled.active?
-          @treeview.sensitive = @enabled
+          settings[:enabled] = btn_enabled.active?
+          @treeview.sensitive = settings[:enabled]
         end
 
         vbox.pack_start btn_enabled, false, false
