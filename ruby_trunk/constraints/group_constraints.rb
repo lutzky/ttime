@@ -5,7 +5,7 @@ GetText::bindtextdomain("ttime", "locale", nil, "utf-8")
 
 module TTime
   module Constraints
-    class LutzkyPreferences < AbstractConstraint
+    class GroupConstraint < AbstractConstraint
       ( TEXT_COLUMN, SHOW_CHECKBOX_COLUMN, MARKED_COLUMN, \
         COURSE_COLUMN, GROUP_COLUMN ) = (0..4).to_a
 
@@ -33,7 +33,7 @@ module TTime
       end
 
       def name
-        _('Lutzky Preferences')
+        _('Group Constraints')
       end
 
       def allow_group(course_number, group_number)
@@ -120,7 +120,7 @@ module TTime
 
         sw.add(@treeview)
 
-        btn_enabled = Gtk::CheckButton.new(_('I am Lutzky'))
+        btn_enabled = Gtk::CheckButton.new(_('Use group constraints'))
         btn_enabled.active = @enabled
 
         btn_enabled.signal_connect('toggled') do
