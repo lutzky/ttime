@@ -118,6 +118,8 @@ module TTime
 
         tree_setup
 
+        @treeview.sensitive = @enabled
+
         sw.add(@treeview)
 
         btn_enabled = Gtk::CheckButton.new(_('Use group constraints'))
@@ -125,7 +127,9 @@ module TTime
 
         btn_enabled.signal_connect('toggled') do
           @enabled = btn_enabled.active?
+          @treeview.sensitive = @enabled
         end
+
         vbox.pack_start btn_enabled, false, false
 
         vbox.pack_end sw, true, true, 0
