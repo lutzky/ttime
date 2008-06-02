@@ -215,6 +215,10 @@ module TTime
         @calendar = TCal::Calendar.new({:logo => 'gui/ttime.svg' })
         notebook.append_page @calendar, Gtk::Label.new(_("Schedule"))
 
+        @calendar.add_click_handler do |params|
+          puts "Click! #{params.inspect}"
+        end
+
         notebook.show_all
       end
 

@@ -121,9 +121,37 @@ module TCal
                 self.draw_sched
                 true
             end
+
+            self.add_events(Gdk::Event::ALL_EVENTS_MASK)
+
+            @click_handlers = []
+
+            self.signal_connect("button-press-event") do |calendar, e|
+              @click_handlers.each do |handler|
+                # TODO If a group was clicked, let the handler know which one
+                handler.call({
+                  :day => day_at_x(e.x),
+                  :hour => hour_at_y(e.y)
+                })
+              end
+            end
         end
 
+        def add_click_handler(&handler)
+          @click_handlers << handler
+        end
 
+        def day_at_x(x)
+          day = @days - (x / step_width).to_i - 1
+          return nil if day < 0
+          day
+        end
+
+        def hour_at_y(y)
+          hour = ((y / step_height).to_i - 1) * @jump_hour + @start_hour
+          return nil if hour < @start_hour
+          hour
+        end
 
         # returns a new cairo context for the drawing area
         def get_cairo
