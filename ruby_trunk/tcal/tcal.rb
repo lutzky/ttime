@@ -231,7 +231,6 @@ module TCal
         end
 
         def redraw
-            (width,height)=self.window.size
             self.window.invalidate(Gdk::Rectangle.new(0, 0, width, height),false)
         end
 
@@ -243,10 +242,6 @@ module TCal
             half_line_width=line_width/2 #optimizaton
 
             # get size and compute ratios
-            # FIXME: repeated
-            (width,height)=self.window.size
-            step_width = (width + @line_width) / (@days+1)
-            step_height = (height + @line_width).to_f / (@hour_segments+1)
             hour_steps = (item.hour - @start_hour)/(@jump_hour) 
             length_steps = item.length/@jump_hour
             day_steps = (item.day + 7 - @start_day) % 7 
@@ -305,10 +300,23 @@ module TCal
             return sprintf("%d:%02d",hours,mins)
         end
 
+        def width
+          self.window.size[0]
+        end
 
+        def height
+          self.window.size[1]
+        end
+
+        def step_width
+          (width + @line_width) / (@days + 1)
+        end
+
+        def step_height
+          (height + @line_width) / (@hour_segments+1)
+        end
 
         def get_bg_image
-            (width,height)=self.window.size
             if @bg_image.nil? or width != @bg_image_width or height != @bg_image_height
 
                 # initialize for drawing
@@ -318,10 +326,6 @@ module TCal
                 #this will be the bg image at the end
                 surf = Cairo::ImageSurface.new(Cairo::FORMAT_ARGB32, width,height)
                 cairo = Cairo::Context.new(surf)
-
-                # compute_ratios
-                step_width = (width + @line_width) / (@days+1)
-                step_height = (height + @line_width).to_f / (@hour_segments+1)
 
                 # get cairo and set constants
                 cairo.set_line_join(Cairo::LINE_JOIN_ROUND)
@@ -419,7 +423,6 @@ module TCal
         def draw_sched
 
             cairo = self.get_cairo
-            (width,height)=self.window.size
 
             # draw the grid background
             bg_grid = get_bg_image
