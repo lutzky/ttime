@@ -29,7 +29,10 @@ module TTime
 
         @hash = []
 
-        each_raw_faculty do |name, contents|
+        each_raw_faculty do |name, contents,is_sport|
+          if is_sport
+          @hash << Sport.new(name, contents)
+          else
           @hash << Faculty.new(name, contents)
         end
 
@@ -49,6 +52,9 @@ module TTime
 \| (\d\d\d\d\d\d) +(.*) +\|
 \| שעות הוראה בשבוע:ה-(\d) ת-(\d) +נק: (.*) *\|
 \+------------------------------------------\+/
+     SPORTS_BANNER_REGEX = /+===============================================================+
+\| *(מקצועות ספורט.*) *\|
++===============================================================+/
 
       def convert_to_unicode
         converter = Iconv.new('utf-8', 'cp862')
@@ -59,7 +65,7 @@ module TTime
         @unicode
       end
 
-      def each_raw_faculty #:yields: name, raw_faculty
+      def each_raw_faculty #:yields: name, raw_faculty, is_sports?
         raw_faculties = @unicode.split(/\n\n/)
 
         raw_faculties.each_with_index do |raw_faculty,i|
@@ -70,7 +76,13 @@ module TTime
 
           if banner
             name = FACULTY_BANNER_REGEX.match(banner)[1].strip.single_space
-            yield name, raw_faculty
+            yield name, raw_faculty, false
+          else
+              banner =  raw_faculty.slice!(SPORTS_BANNER_REGEX)
+              if banner
+                  name = SPORTS_BANNER_REGEX.match(banner)[1].strip.single_space
+                  yield name, raw_faculty, true
+              end
           end
         end
       end
