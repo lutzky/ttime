@@ -113,6 +113,15 @@ module TTime
           self.lecturer = y.strip.single_space
         end
       end
+
+      def time_as_text
+        self.events.collect do |e|
+          human_day = Day::numeric_to_human(e.day)
+          human_start = Hour::military_to_human(e.start)
+          human_end = Hour::military_to_human(e.end)
+              "יום #{human_day}, #{human_start}-#{human_end}"
+        end.join("\n")
+      end
     end
   end
 end

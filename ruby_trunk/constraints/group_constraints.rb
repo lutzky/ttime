@@ -11,7 +11,9 @@ module TTime
         [ :show_checkbox, TrueClass ],
         [ :marked, TrueClass ],
         [ :course, String ],
-        [ :group, Fixnum ]
+        [ :group, Fixnum ],
+        [ :time, String ],
+        [ :lecturer, String ],
       ]
 
       def col_index(column_name)
@@ -81,6 +83,8 @@ module TTime
               group_iter[col_index(:course)] = course.number
               group_iter[col_index(:group)] = group.number
               group_iter[col_index(:show_checkbox)] = true
+              group_iter[col_index(:time)] = group.time_as_text
+              group_iter[col_index(:lecturer)] = group.lecturer
 
               if group_is_forbidden?(course.number, group.number)
                 group_iter[col_index(:marked)] = false
@@ -123,13 +127,19 @@ module TTime
           iter[col_index(:marked)] ^= true
         end
 
-        @treeview.insert_column(-1, 'Group',
-                                Gtk::CellRendererText.new,
-                                'text' => col_index(:text))
         @treeview.insert_column(-1, 'Allowed',
                                 cellrend,
                                 'visible' => col_index(:show_checkbox),
                                 'active' => col_index(:marked))
+        @treeview.insert_column(-1, 'Group',
+                                Gtk::CellRendererText.new,
+                                'text' => col_index(:text))
+        @treeview.insert_column(-1, 'Time',
+                                Gtk::CellRendererText.new,
+                                'text' => col_index(:time))
+        @treeview.insert_column(-1, 'Time',
+                                Gtk::CellRendererText.new,
+                                'text' => col_index(:lecturer))
       end
 
       def preferences_panel
