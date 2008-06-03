@@ -6,8 +6,26 @@ GetText::bindtextdomain("ttime", "locale", nil, "utf-8")
 module TTime
   module Constraints
     class GroupConstraint < AbstractConstraint
-      ( TEXT_COLUMN, SHOW_CHECKBOX_COLUMN, MARKED_COLUMN, \
-        COURSE_COLUMN, GROUP_COLUMN ) = (0..4).to_a
+      COLUMNS = [
+        [ :text, String ],
+        [ :show_checkbox, TrueClass ],
+        [ :marked, TrueClass ],
+        [ :course, String ],
+        [ :group, Fixnum ],
+        [ :time, String ],
+        [ :lecturer, String ],
+      ]
+
+      def col_index(column_name)
+        COLUMNS.each_index do |i|
+          return i if COLUMNS[i][0] == column_name
+        end
+        raise Exception("Column not found")
+      end
+
+      def column_classes
+        COLUMNS.collect { |col| col[1] }
+      end
 
       GROUP_TYPE_NAME = {
         :lecture => _('Lecture'),
@@ -54,22 +72,24 @@ module TTime
 
         for course in course_list
           course_iter = @model.append(nil)
-          course_iter[TEXT_COLUMN] = course.name
+          course_iter[col_index(:text)] = course.name
 
           for group_type in course.groups.collect { |g| g.type }.uniq
             group_type_iter = @model.append(course_iter)
-            group_type_iter[TEXT_COLUMN] = GROUP_TYPE_NAME[group_type] or group_type
+            group_type_iter[col_index(:text)] = GROUP_TYPE_NAME[group_type] or group_type
             for group in course.groups.select { |g| g.type == group_type }
               group_iter = @model.append(group_type_iter)
-              group_iter[TEXT_COLUMN] = group.number.to_s
-              group_iter[COURSE_COLUMN] = course.number
-              group_iter[GROUP_COLUMN] = group.number
-              group_iter[SHOW_CHECKBOX_COLUMN] = true
+              group_iter[col_index(:text)] = group.number.to_s
+              group_iter[col_index(:course)] = course.number
+              group_iter[col_index(:group)] = group.number
+              group_iter[col_index(:show_checkbox)] = true
+              group_iter[col_index(:time)] = group.time_as_text
+              group_iter[col_index(:lecturer)] = group.lecturer
 
               if group_is_forbidden?(course.number, group.number)
-                group_iter[MARKED_COLUMN] = false
+                group_iter[col_index(:marked)] = false
               else
-                group_iter[MARKED_COLUMN] = true
+                group_iter[col_index(:marked)] = true
               end
             end
           end
@@ -87,9 +107,7 @@ module TTime
       end
 
       def tree_setup
-        @model = Gtk::TreeStore.new(String, TrueClass, TrueClass, String, \
-                                    Fixnum)
-
+        @model = Gtk::TreeStore.new(*column_classes)
         @treeview = Gtk::TreeView.new(@model)
         @treeview.rules_hint = true
         @treeview.selection.mode = Gtk::SELECTION_MULTIPLE
@@ -98,24 +116,30 @@ module TTime
 
         cellrend.signal_connect("toggled") do |renderer, path|
           iter = @model.get_iter(path)
-          args = iter[COURSE_COLUMN], iter[GROUP_COLUMN]
+          args = iter[col_index(:course)], iter[col_index(:group)]
 
-          if iter[MARKED_COLUMN]
+          if iter[col_index(:marked)]
             disallow_group *args
           else
             allow_group *args
           end
 
-          iter[MARKED_COLUMN] ^= true
+          iter[col_index(:marked)] ^= true
         end
 
-        @treeview.insert_column(-1, 'Group',
-                                Gtk::CellRendererText.new,
-                                'text' => TEXT_COLUMN)
         @treeview.insert_column(-1, 'Allowed',
                                 cellrend,
-                                'visible' => SHOW_CHECKBOX_COLUMN,
-                                'active' => MARKED_COLUMN)
+                                'visible' => col_index(:show_checkbox),
+                                'active' => col_index(:marked))
+        @treeview.insert_column(-1, 'Group',
+                                Gtk::CellRendererText.new,
+                                'text' => col_index(:text))
+        @treeview.insert_column(-1, 'Time',
+                                Gtk::CellRendererText.new,
+                                'text' => col_index(:time))
+        @treeview.insert_column(-1, 'Time',
+                                Gtk::CellRendererText.new,
+                                'text' => col_index(:lecturer))
       end
 
       def preferences_panel
