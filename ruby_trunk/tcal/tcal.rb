@@ -127,11 +127,15 @@ module TCal
             @click_handlers = []
 
             self.signal_connect("button-press-event") do |calendar, e|
+              day = day_at_x(e.x)
+              hour = hour_at_y(e.y)
+              ratio = (e.x % step_width) / step_width.to_f
+              event = @events.find { |ev| ev.catches_click?(day, hour, ratio) }
               @click_handlers.each do |handler|
-                # TODO If a group was clicked, let the handler know which one
                 handler.call({
-                  :day => day_at_x(e.x),
-                  :hour => hour_at_y(e.y)
+                  :day => day,
+                  :hour => hour,
+                  :event => event,
                 })
               end
             end
@@ -142,7 +146,7 @@ module TCal
         end
 
         def day_at_x(x)
-          day = @days - (x / step_width).to_i - 1
+          day = @days - (x / step_width).to_i
           return nil if day < 0
           day
         end
@@ -247,8 +251,8 @@ module TCal
 
 
         # add a new event to the sched
-        def add_event(text,day,hour,length,color)
-            @events << Event.new(text,day,hour,length,color,1,0)
+        def add_event(text,day,hour,length,color,group)
+            @events << Event.new(text,day,hour,length,color,1,0,group)
             @computed_layers=false
         end
 

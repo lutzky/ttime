@@ -9,7 +9,8 @@ module TCal
     # [color_id] the id of the color to be used
     # [ratio] the amount of the column taken up by this event
     # [layer] the column of the day the event is in. 0 if it is alone during it's time
-    class Event < Struct.new(:text,:day,:hour,:length,:color_id,:ratio,:layer)
+    # [group] the Group this event belongs to
+    class Event < Struct.new(:text,:day,:hour,:length,:color_id,:ratio,:layer,:group)
 
         # receives an event and determines if it collides with [self]
         def collides_with?(other)
@@ -33,6 +34,14 @@ module TCal
             self.text.sub(/^(.*)$/,'<b>\1</b>')
         end
 
+        # Was a click at the given day, hour and ratio inside this event?
+        def catches_click?(day, hour, ratio)
+          day == self.day and \
+            hour >= self.hour and \
+            hour < self.hour + self.length and \
+            ratio > self.layer * self.ratio and \
+            ratio < (self.layer + 1) * self.ratio
+        end
     end
 
 end
