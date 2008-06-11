@@ -135,7 +135,7 @@ module TCal
                 handler.call({
                   :day => day,
                   :hour => hour,
-                  :event => event,
+                  :data => (event and event.data),
                 })
               end
             end
@@ -251,8 +251,8 @@ module TCal
 
 
         # add a new event to the sched
-        def add_event(text,day,hour,length,color,group)
-            @events << Event.new(text,day,hour,length,color,1,0,group)
+        def add_event(text,day,hour,length,color,data)
+            @events << Event.new(text,day,hour,length,color,1,0,data)
             @computed_layers=false
         end
 

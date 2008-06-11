@@ -9,8 +9,8 @@ module TCal
     # [color_id] the id of the color to be used
     # [ratio] the amount of the column taken up by this event
     # [layer] the column of the day the event is in. 0 if it is alone during it's time
-    # [group] the Group this event belongs to
-    class Event < Struct.new(:text,:day,:hour,:length,:color_id,:ratio,:layer,:group)
+    # [data] Any additional data the user wants to store
+    class Event < Struct.new(:text,:day,:hour,:length,:color_id,:ratio,:layer,:data)
 
         # receives an event and determines if it collides with [self]
         def collides_with?(other)
