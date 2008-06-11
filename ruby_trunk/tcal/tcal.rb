@@ -123,21 +123,6 @@ module TCal
             end
 
             self.add_events(Gdk::Event::ALL_EVENTS_MASK)
-            self.has_tooltip = true
-
-            self.signal_connect("query-tooltip") do |calendar, x, y, v, z|
-              day = day_at_x(x)
-              hour = hour_at_y(y)
-              ratio = (x % step_width) / step_width.to_f
-              if day and hour and ratio
-                event = @events.find {|ev| ev.catches_click?(day, hour, ratio) }
-                if event
-                  calendar.tooltip_markup = event.markup
-                end
-              end
-              false
-            end
-
 
             @click_handlers = []
 
