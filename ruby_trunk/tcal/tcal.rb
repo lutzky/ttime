@@ -121,9 +121,41 @@ module TCal
                 self.draw_sched
                 true
             end
+
+            self.add_events(Gdk::Event::ALL_EVENTS_MASK)
+
+            @click_handlers = []
+
+            self.signal_connect("button-press-event") do |calendar, e|
+              day = day_at_x(e.x)
+              hour = hour_at_y(e.y)
+              ratio = (e.x % step_width) / step_width.to_f
+              event = @events.find { |ev| ev.catches_click?(day, hour, ratio) }
+              @click_handlers.each do |handler|
+                handler.call({
+                  :day => day,
+                  :hour => hour,
+                  :data => (event and event.data),
+                })
+              end
+            end
         end
 
+        def add_click_handler(&handler)
+          @click_handlers << handler
+        end
 
+        def day_at_x(x)
+          day = @days - (x / step_width).to_i
+          return nil if day < 0
+          day
+        end
+
+        def hour_at_y(y)
+          hour = ((y / step_height).to_i - 1) * @jump_hour + @start_hour
+          return nil if hour < @start_hour
+          hour
+        end
 
         # returns a new cairo context for the drawing area
         def get_cairo
@@ -219,8 +251,8 @@ module TCal
 
 
         # add a new event to the sched
-        def add_event(text,day,hour,length,color)
-            @events << Event.new(text,day,hour,length,color,1,0)
+        def add_event(text,day,hour,length,color,data)
+            @events << Event.new(text,day,hour,length,color,1,0,data)
             @computed_layers=false
         end
 

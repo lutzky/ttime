@@ -212,10 +212,58 @@ module TTime
 
       def init_schedule_view
         notebook = @glade["notebook"]
+
+        v = Gtk::VPaned.new
+        s = Gtk::ScrolledWindow.new
+
+        s.shadow_type = Gtk::ShadowType::ETCHED_IN
+
+        s.hscrollbar_policy = Gtk::PolicyType::NEVER
+        s.vscrollbar_policy = Gtk::PolicyType::AUTOMATIC
+
         @calendar = TCal::Calendar.new({:logo => 'gui/ttime.svg' })
-        notebook.append_page @calendar, Gtk::Label.new(_("Schedule"))
+        @calendar_info = Gtk::TextView.new
+        @calendar_info.editable = false
+
+        s.add @calendar_info
+
+        v.pack1 @calendar, true, false
+        v.pack2 s, false, true
+
+        notebook.append_page v, Gtk::Label.new(_("Schedule"))
+
+        @calendar.add_click_handler do |params|
+          if params[:data]
+            set_calendar_info params[:data][:event]
+          end
+        end
 
         notebook.show_all
+      end
+
+      # Update @calendar_info to display info about the given event
+      def set_calendar_info(event)
+        buffer = @calendar_info.buffer
+
+        buffer.text = ''
+        iter = buffer.get_iter_at_offset(0)
+
+        tag = buffer.create_tag(nil, { :font => 'Sans Bold 14' })
+
+        buffer.insert(iter, "#{event.group.course.name}\n", tag)
+
+        add_detail_to_buffer(buffer, iter, "קבוצה", event.group.number)
+        add_detail_to_buffer(buffer, iter, "מקום", event.place)
+        add_detail_to_buffer(buffer, iter, "מרצה", event.group.lecturer)
+      end
+
+      def add_detail_to_buffer(buffer, iter, title, detail)
+        tag = buffer.create_tag(nil, {
+          :weight => Pango::FontDescription::WEIGHT_BOLD
+        })
+
+        buffer.insert(iter, "#{title}: ", tag)
+        buffer.insert(iter, "#{detail}\n")
       end
 
       def scheduler_ready?
@@ -235,7 +283,7 @@ module TTime
         @calendar.clear_events
 
         schedule.events.each do |ev|
-            @calendar.add_event(ev.desc,ev.day,ev.start_frac,ev.end_frac-ev.start_frac,ev.group_id)
+            @calendar.add_event(ev.desc,ev.day,ev.start_frac,ev.end_frac-ev.start_frac,ev.group_id,{ :event => ev })
         end
 
         @calendar.redraw
