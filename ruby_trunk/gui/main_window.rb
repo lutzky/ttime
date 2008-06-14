@@ -177,6 +177,38 @@ module TTime
 
       private
 
+      def matches_search?(iter)
+        text = @glade["search_box"].text
+        puts text
+        ret=true
+
+        if iter.has_child?
+          child = iter.first_child
+          return true if matches_search?(child)
+          while child.next!
+            return true if matches_search?(child)
+          end
+          return false
+        end
+
+
+        begin
+          if text == ''
+            ret=true
+          elsif iter[1] == ''
+            ret=true
+          elsif text =~ /^[0-9]/ # Key is numeric
+            puts "|#{iter[1]}|"
+            ret = (iter[1] =~ /^#{text}/)
+          else
+            ret = (iter[0] =~ /#{text}/)
+          end
+        rescue
+          ret = true
+        end
+        return ret
+      end
+
       def save_settings
         Settings.instance['selected_courses'] = \
           @selected_courses.collect { |course| course.number }
@@ -283,7 +315,7 @@ module TTime
         @calendar.clear_events
 
         schedule.events.each do |ev|
-            @calendar.add_event(ev.desc,ev.day,ev.start_frac,ev.end_frac-ev.start_frac,ev.group_id,{ :event => ev })
+          @calendar.add_event(ev.desc,ev.day,ev.start_frac,ev.end_frac-ev.start_frac,ev.group_id,{ :event => ev })
         end
 
         @calendar.redraw
@@ -325,8 +357,10 @@ module TTime
 
         @tree_available_courses = Gtk::TreeStore.new String, String,
           Logic::Course
+        @tree_available_search = Gtk::TreeModelFilter.new @tree_available_courses
         @list_selected_courses = Gtk::ListStore.new String, String,
           Logic::Course
+
 
         init_course_tree_views
 
@@ -366,13 +400,16 @@ module TTime
 
           progress_dialog.dispose
 
-          @glade["treeview_available_courses"].expand_all
+#          @glade["treeview_available_courses"].expand_all
         end
       end
 
+
+
+
       def init_course_tree_views
         available_courses_view = @glade["treeview_available_courses"]
-        available_courses_view.model = @tree_available_courses
+        available_courses_view.model = @tree_available_search
 
         available_courses_view.set_search_equal_func do |m,c,key,iter|
           begin
@@ -385,6 +422,19 @@ module TTime
             true
           end
         end
+
+
+
+        @tree_available_search.set_visible_func do |model, iter|
+          matches_search? iter
+        end
+
+        @glade["search_box"].signal_connect("activate") do |widget|
+          @glade["treeview_available_courses"].expand_all
+          @tree_available_search.refilter
+          @glade["treeview_available_courses"].expand_all
+        end
+
 
         selected_courses_view = @glade["treeview_selected_courses"]
         selected_courses_view.model = @list_selected_courses

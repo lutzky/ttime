@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ttime 0.x.x\n"
-"POT-Creation-Date: 2007-01-13 22:02+0200\n"
+"POT-Creation-Date: 2008-06-14 18:04+0300\n"
 "PO-Revision-Date: 2006-10-19 11:53+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,57 +16,57 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: data.rb:24
+#: data.rb:31
 msgid "Loading technion data from YAML"
 msgstr ""
 
-#: data.rb:27
+#: data.rb:34
 msgid "Loading technion data"
 msgstr ""
 
-#: data.rb:78
+#: data.rb:88
 msgid "Loading data from REPY"
 msgstr ""
 
-#: data.rb:87
+#: data.rb:97
 msgid "Downloading REPY file from Technion"
 msgstr ""
 
-#: data.rb:95
+#: data.rb:109
 msgid "Extracting REPY file"
 msgstr ""
 
-#: gui/main_window.rb:91
+#: gui/main_window.rb:89
 msgid "Please select some courses first."
 msgstr ""
 
-#: gui/main_window.rb:106
+#: gui/main_window.rb:104
 msgid ""
 "Sorry, but no schedules are possible with the selected courses and "
 "constraints."
 msgstr ""
 
-#: gui/main_window.rb:207
+#: gui/main_window.rb:210
 msgid " of %d"
 msgstr ""
 
-#: gui/main_window.rb:213
+#: gui/main_window.rb:233
 msgid "Schedule"
 msgstr ""
 
-#: gui/main_window.rb:301
+#: gui/main_window.rb:350
 msgid "Populating available courses"
 msgstr ""
 
-#: gui/main_window.rb:343
+#: gui/main_window.rb:392
 msgid "Course Name"
 msgstr ""
 
-#: gui/main_window.rb:343
+#: gui/main_window.rb:392
 msgid "Course Number"
 msgstr ""
 
-#: gui/main_window.rb:377
+#: gui/main_window.rb:432
 msgid "Constraints"
 msgstr ""
 
@@ -74,20 +74,12 @@ msgstr ""
 msgid "Progress"
 msgstr ""
 
-#: logic/repy.rb:66
+#: logic/repy.rb:78
 msgid "Loading REPY file..."
 msgstr ""
 
-#: logic/scheduler.rb:76 logic/scheduler.rb:113
+#: logic/scheduler.rb:80 logic/scheduler.rb:117
 msgid "Generating schedules (%d so far)"
-msgstr ""
-
-#: constraints/lutzky_preferences.rb:51
-msgid "Lutzky Preferences"
-msgstr ""
-
-#: constraints/lutzky_preferences.rb:57
-msgid "I am Lutzky"
 msgstr ""
 
 #: constraints/no_clashes.rb:40
@@ -116,77 +108,97 @@ msgid ""
 "\"WTF?\"\n"
 msgstr ""
 
-#: gui/ttime.glade:8 gui/ttime.glade:772
+#: constraints/group_constraints.rb:31
+msgid "Lecture"
+msgstr ""
+
+#: constraints/group_constraints.rb:32
+msgid "Tutorial"
+msgstr ""
+
+#: constraints/group_constraints.rb:63
+msgid "Group Constraints"
+msgstr ""
+
+#: constraints/group_constraints.rb:158
+msgid "Use group constraints"
+msgstr ""
+
+#: gui/ttime.glade:7
 msgid "TTime"
 msgstr ""
 
-#: gui/ttime.glade:41
+#: gui/ttime.glade:21
 msgid "_File"
 msgstr ""
 
-#: gui/ttime.glade:63
+#: gui/ttime.glade:41
 msgid "_Schedules"
 msgstr ""
 
-#: gui/ttime.glade:72
+#: gui/ttime.glade:48
 msgid "Find schedules"
 msgstr ""
 
-#: gui/ttime.glade:100 gui/ttime.glade:364
+#: gui/ttime.glade:69 gui/ttime.glade:258
 msgid "Jump 10 back"
 msgstr ""
 
-#: gui/ttime.glade:122 gui/ttime.glade:381
+#: gui/ttime.glade:85 gui/ttime.glade:270
 msgid "Previous"
 msgstr ""
 
-#: gui/ttime.glade:144 gui/ttime.glade:398
+#: gui/ttime.glade:101 gui/ttime.glade:282
 msgid "Next"
 msgstr ""
 
-#: gui/ttime.glade:166 gui/ttime.glade:415
+#: gui/ttime.glade:117 gui/ttime.glade:294
 msgid "Jump 10 forward"
 msgstr ""
 
-#: gui/ttime.glade:192
+#: gui/ttime.glade:137
 msgid "_Tools"
 msgstr ""
 
-#: gui/ttime.glade:201
+#: gui/ttime.glade:144
 msgid "Auto _Update"
 msgstr ""
 
-#: gui/ttime.glade:229
+#: gui/ttime.glade:171
 msgid "_Help"
 msgstr ""
 
-#: gui/ttime.glade:266
+#: gui/ttime.glade:201
 msgid "Find Schedules"
 msgstr ""
 
-#: gui/ttime.glade:318
+#: gui/ttime.glade:230
 msgid " of 0"
 msgstr ""
 
-#: gui/ttime.glade:540
+#: gui/ttime.glade:340
+msgid "search   "
+msgstr ""
+
+#: gui/ttime.glade:403
 msgid "Available Courses"
 msgstr ""
 
-#: gui/ttime.glade:648
+#: gui/ttime.glade:461
 msgid "Selected Courses"
 msgstr ""
 
-#: gui/ttime.glade:728
+#: gui/ttime.glade:502
 msgid "Course List"
 msgstr ""
 
-#: gui/ttime.glade:773
+#: gui/ttime.glade:529
 msgid ""
 "Inspired by UDonkey and Marprog\n"
 "\n"
 "But we don't like C#"
 msgstr ""
 
-#: gui/ttime.glade:778
+#: gui/ttime.glade:533
 msgid "TTime Trac"
 msgstr ""
