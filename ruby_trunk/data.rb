@@ -98,7 +98,8 @@ module TTime
 
       DATA_DIR.mkpath
 
-      Tempfile.open("rw") do |tf|
+      Tempfile.open("rwb") do |tf|
+          tf.binmode
           open(REPY_URI) do |in_file|
               tf.write in_file.read
           end
