@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ttime 0.x.x\n"
-"POT-Creation-Date: 2008-06-14 18:04+0300\n"
+"POT-Creation-Date: 2008-06-15 00:13+0300\n"
 "PO-Revision-Date: 2006-10-19 11:53+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -46,27 +46,27 @@ msgid ""
 "constraints."
 msgstr ""
 
-#: gui/main_window.rb:210
+#: gui/main_window.rb:242
 msgid " of %d"
 msgstr ""
 
-#: gui/main_window.rb:233
+#: gui/main_window.rb:265
 msgid "Schedule"
 msgstr ""
 
-#: gui/main_window.rb:350
+#: gui/main_window.rb:384
 msgid "Populating available courses"
 msgstr ""
 
-#: gui/main_window.rb:392
+#: gui/main_window.rb:442
 msgid "Course Name"
 msgstr ""
 
-#: gui/main_window.rb:392
+#: gui/main_window.rb:442
 msgid "Course Number"
 msgstr ""
 
-#: gui/main_window.rb:432
+#: gui/main_window.rb:482
 msgid "Constraints"
 msgstr ""
 
@@ -177,7 +177,7 @@ msgid " of 0"
 msgstr ""
 
 #: gui/ttime.glade:340
-msgid "search   "
+msgid "Search "
 msgstr ""
 
 #: gui/ttime.glade:403
@@ -188,17 +188,17 @@ msgstr ""
 msgid "Selected Courses"
 msgstr ""
 
-#: gui/ttime.glade:502
+#: gui/ttime.glade:505
 msgid "Course List"
 msgstr ""
 
-#: gui/ttime.glade:529
+#: gui/ttime.glade:532
 msgid ""
 "Inspired by UDonkey and Marprog\n"
 "\n"
 "But we don't like C#"
 msgstr ""
 
-#: gui/ttime.glade:533
+#: gui/ttime.glade:536
 msgid "TTime Trac"
 msgstr ""

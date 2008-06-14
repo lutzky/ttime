@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ttime 0.x.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-06-14 18:04+0300\n"
+"POT-Creation-Date: 2008-06-15 00:13+0300\n"
 "PO-Revision-Date: 2006-10-21 21:21+0200\n"
 "Last-Translator: Ohad Lutzky <lutzky@gmail.com>\n"
 "Language-Team: Hebrew <eliz@gnu.org>\n"
@@ -46,27 +46,27 @@ msgid ""
 "constraints."
 msgstr "אנחנו מצטערים, אך אין מערכות אפשריות עבור הקורסים וההגבלות שנבחרו."
 
-#: gui/main_window.rb:210
+#: gui/main_window.rb:242
 msgid " of %d"
 msgstr " מתוך %d"
 
-#: gui/main_window.rb:233
+#: gui/main_window.rb:265
 msgid "Schedule"
 msgstr "מערכת שעות"
 
-#: gui/main_window.rb:350
+#: gui/main_window.rb:384
 msgid "Populating available courses"
 msgstr "ממלא את רשימת הקורסים הזמינים"
 
-#: gui/main_window.rb:392
+#: gui/main_window.rb:442
 msgid "Course Name"
 msgstr "שם קורס"
 
-#: gui/main_window.rb:392
+#: gui/main_window.rb:442
 msgid "Course Number"
 msgstr "מספר קורס"
 
-#: gui/main_window.rb:432
+#: gui/main_window.rb:482
 msgid "Constraints"
 msgstr "הגבלות"
 
@@ -182,8 +182,8 @@ msgid " of 0"
 msgstr " מתוך 0"
 
 #: gui/ttime.glade:340
-msgid "search   "
-msgstr "חיפוש  "
+msgid "Search "
+msgstr "חיפוש "
 
 #: gui/ttime.glade:403
 msgid "Available Courses"
@@ -193,11 +193,11 @@ msgstr "קורסים זמינים"
 msgid "Selected Courses"
 msgstr "קורסים שנבחרו"
 
-#: gui/ttime.glade:502
+#: gui/ttime.glade:505
 msgid "Course List"
 msgstr "רשימת קורסים"
 
-#: gui/ttime.glade:529
+#: gui/ttime.glade:532
 msgid ""
 "Inspired by UDonkey and Marprog\n"
 "\n"
@@ -206,6 +206,6 @@ msgstr ""
 "בהשראת UDonkey\n"
 "אבל אנחנו לא אוהבים #C"
 
-#: gui/ttime.glade:533
+#: gui/ttime.glade:536
 msgid "TTime Trac"
 msgstr "TTime Trac"

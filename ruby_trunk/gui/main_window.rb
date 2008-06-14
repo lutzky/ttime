@@ -179,7 +179,7 @@ module TTime
 
       def matches_search?(iter)
         text = @glade["search_box"].text
-        puts text
+        #puts text
         ret=true
 
         if iter.has_child?
@@ -198,7 +198,7 @@ module TTime
           elsif iter[1] == ''
             ret=true
           elsif text =~ /^[0-9]/ # Key is numeric
-            puts "|#{iter[1]}|"
+            #puts "|#{iter[1]}|"
             ret = (iter[1] =~ /^#{text}/)
           else
             ret = (iter[0] =~ /#{text}/)
