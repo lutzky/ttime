@@ -1,13 +1,20 @@
 require 'pathname'
 require 'yaml'
+require 'singleton'
 
 module TTime
   class Settings
+    include Singleton
+
     SETTINGS_FILE = Pathname.new(ENV['HOME']) + '.ttime.yml'
 
     attr_accessor :hash
 
     def initialize
+      load_settings
+    end
+
+    def load_settings
       if SETTINGS_FILE.exist?
         @hash = SETTINGS_FILE.open { |f| YAML::load(f.read) }
       else
