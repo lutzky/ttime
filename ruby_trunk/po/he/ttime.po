@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ttime 0.x.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-06-16 00:00+0300\n"
+"POT-Creation-Date: 2008-06-16 00:34+0300\n"
 "PO-Revision-Date: 2006-10-21 21:21+0200\n"
 "Last-Translator: Ohad Lutzky <lutzky@gmail.com>\n"
 "Language-Team: Hebrew <eliz@gnu.org>\n"
@@ -86,7 +86,8 @@ msgstr "מייצר מערכות (%d עד כה)"
 msgid "No clashes"
 msgstr "ללא התנגשויות"
 
-#: constraints/no_clashes.rb:46 constraints/one_free_day.rb:35
+#: constraints/no_clashes.rb:46 constraints/no_running.rb:44
+#: constraints/one_free_day.rb:35
 msgid "Enable"
 msgstr "הפעל"
 
@@ -99,6 +100,18 @@ msgstr ""
 "אזהרה! ביטול הגבלת ה-'ללא התנגשויות' יגרום למציאת המערכות לקחת הרבה יותר\n"
 "זמן! אתם כנראה רוצים להשאיר את זה דולק. (בקרוב נאפשר לבחור לאיזה קורסים\n"
 "לאפשר התנגשויות)"
+
+#: constraints/no_running.rb:38
+msgid "No running"
+msgstr "ללא ריצות"
+
+#: constraints/no_running.rb:53
+msgid ""
+"This constraint makes sure you don't have to run between buildings during a\n"
+"10-minute (in case the lecturer finishes on time) break.\n"
+msgstr ""
+"ההגבלה הזו מוודאת שלא תצטרך/י לרוץ בין בניינים בזמן הפסקה של 10 דקות (וגם זה\n"
+"במקרה שהמרצה מסיים בזמן)\n"
 
 #: constraints/one_free_day.rb:29
 msgid "One free day"

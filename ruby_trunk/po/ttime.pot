@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ttime 0.x.x\n"
-"POT-Creation-Date: 2008-06-16 00:00+0300\n"
+"POT-Creation-Date: 2008-06-16 00:34+0300\n"
 "PO-Revision-Date: 2006-10-19 11:53+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -86,7 +86,8 @@ msgstr ""
 msgid "No clashes"
 msgstr ""
 
-#: constraints/no_clashes.rb:46 constraints/one_free_day.rb:35
+#: constraints/no_clashes.rb:46 constraints/no_running.rb:44
+#: constraints/one_free_day.rb:35
 msgid "Enable"
 msgstr ""
 
@@ -95,6 +96,16 @@ msgid ""
 "WARNING! Disabling the 'no clashes' constraint will make scheduling take\n"
 "MUCH longer! You probably want to leave this on. (Coming soon: allow\n"
 "clashes only for specific courses)\n"
+msgstr ""
+
+#: constraints/no_running.rb:38
+msgid "No running"
+msgstr ""
+
+#: constraints/no_running.rb:53
+msgid ""
+"This constraint makes sure you don't have to run between buildings during a\n"
+"10-minute (in case the lecturer finishes on time) break.\n"
 msgstr ""
 
 #: constraints/one_free_day.rb:29
