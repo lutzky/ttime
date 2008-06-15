@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ttime 0.x.x\n"
-"POT-Creation-Date: 2008-06-15 00:13+0300\n"
+"POT-Creation-Date: 2008-06-16 00:00+0300\n"
 "PO-Revision-Date: 2006-10-19 11:53+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -118,6 +118,22 @@ msgstr ""
 
 #: constraints/group_constraints.rb:63
 msgid "Group Constraints"
+msgstr ""
+
+#: constraints/group_constraints.rb:130
+msgid "Allowed"
+msgstr ""
+
+#: constraints/group_constraints.rb:134
+msgid "Group"
+msgstr ""
+
+#: constraints/group_constraints.rb:137
+msgid "Time"
+msgstr ""
+
+#: constraints/group_constraints.rb:140
+msgid "Lecturer"
 msgstr ""
 
 #: constraints/group_constraints.rb:158

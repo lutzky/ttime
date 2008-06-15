@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ttime 0.x.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-06-15 00:13+0300\n"
+"POT-Creation-Date: 2008-06-16 00:00+0300\n"
 "PO-Revision-Date: 2006-10-21 21:21+0200\n"
 "Last-Translator: Ohad Lutzky <lutzky@gmail.com>\n"
 "Language-Team: Hebrew <eliz@gnu.org>\n"
@@ -124,6 +124,22 @@ msgstr "תרגול"
 #: constraints/group_constraints.rb:63
 msgid "Group Constraints"
 msgstr "דרוש קבוצות מסוימות"
+
+#: constraints/group_constraints.rb:130
+msgid "Allowed"
+msgstr "מותר"
+
+#: constraints/group_constraints.rb:134
+msgid "Group"
+msgstr "קבוצה"
+
+#: constraints/group_constraints.rb:137
+msgid "Time"
+msgstr "זמן"
+
+#: constraints/group_constraints.rb:140
+msgid "Lecturer"
+msgstr "מרצה"
 
 #: constraints/group_constraints.rb:158
 msgid "Use group constraints"

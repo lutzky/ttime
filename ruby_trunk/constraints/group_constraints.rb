@@ -127,17 +127,17 @@ module TTime
           iter[col_index(:marked)] ^= true
         end
 
-        @treeview.insert_column(-1, 'Allowed',
+        @treeview.insert_column(-1, _('Allowed'),
                                 cellrend,
                                 'visible' => col_index(:show_checkbox),
                                 'active' => col_index(:marked))
-        @treeview.insert_column(-1, 'Group',
+        @treeview.insert_column(-1, _('Group'),
                                 Gtk::CellRendererText.new,
                                 'text' => col_index(:text))
-        @treeview.insert_column(-1, 'Time',
+        @treeview.insert_column(-1, _('Time'),
                                 Gtk::CellRendererText.new,
                                 'text' => col_index(:time))
-        @treeview.insert_column(-1, 'Time',
+        @treeview.insert_column(-1, _('Lecturer'),
                                 Gtk::CellRendererText.new,
                                 'text' => col_index(:lecturer))
       end
