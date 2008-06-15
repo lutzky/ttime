@@ -49,7 +49,7 @@ module TTime
 
         each_raw_faculty do |name, contents,is_sport|
           if is_sport
-            @hash << Sport.new(name, contents)
+            #@hash << Sport.new(name, contents)
           else
             @hash << Faculty.new(name, contents)
           end
