@@ -41,8 +41,54 @@ module TTime
           :forbidden_groups => {}
         }
 
-        add_menu_item _("Only enable this group"), true do |*e|
-          puts "Got args #{e.inspect}"
+        add_menu_item _("Only enable this group"), true do |params|
+          group = params[:data][:event].group
+          course = group.course
+          course.groups.each do |grp|
+            if grp.type == group.type
+              disallow_group course.number, grp.number
+            end
+          end
+          allow_group course.number, group.number
+
+          update_forbidden_marks
+        end
+
+        add_menu_item _("Disable this group"), true do |params|
+          group = params[:data][:event].group
+          course = group.course
+          disallow_group course.number, group.number
+          update_forbidden_marks
+        end
+      end
+
+      def each_selection_iter(start_at = nil, &block)
+        block.call start_at if start_at
+        if start_at
+          iter = start_at.first_child
+          if iter
+            each_selection_iter(iter, &block)
+            while iter.next!
+              each_selection_iter iter, &block
+            end
+          end
+        else
+          iter = @model.iter_first
+          if iter
+            each_selection_iter(iter, &block)
+            while iter.next!
+              each_selection_iter iter, &block
+            end
+          end
+        end
+      end
+
+      def update_forbidden_marks
+        each_selection_iter do |iter|
+          course_number = iter[col_index(:course)]
+          group_number = iter[col_index(:group)]
+          iter[col_index(:marked)] = \
+            !group_is_forbidden?(course_number, group_number)
         end
       end
 
