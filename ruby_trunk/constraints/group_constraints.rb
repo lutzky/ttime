@@ -40,6 +40,10 @@ module TTime
           :enabled => false,
           :forbidden_groups => {}
         }
+
+        add_menu_item _("Only enable this group"), true do |*e|
+          puts "Got args #{e.inspect}"
+        end
       end
 
       def settings

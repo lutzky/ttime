@@ -270,6 +270,23 @@ module TTime
           end
         end
 
+        @calendar.add_rightclick_handler do |params|
+          menu = Gtk::Menu.new
+          @constraints.each do |constraint|
+            constraint.menu_items.each do |item|
+              unless item.event_required? and params[:data].nil?
+                mi = Gtk::MenuItem.new item.caption
+                mi.signal_connect("activate") do |*e|
+                  item.block.call params
+                end
+                menu.append mi
+              end
+            end
+          end
+          menu.show_all
+          menu.popup(nil,nil,3,params[:gdk_event].time)
+        end
+
         notebook.show_all
       end
 

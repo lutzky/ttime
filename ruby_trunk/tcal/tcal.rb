@@ -12,7 +12,8 @@ require 'tcal/event'
 require 'tcal/layer'
 require 'tcal/cairo_aux'
 
-
+LEFT_BUTTON = 1
+RIGHT_BUTTON = 3
 
 module TCal
 
@@ -136,9 +137,18 @@ module TCal
                   :day => day,
                   :hour => hour,
                   :data => (event and event.data),
+                  :gdk_event => e,
                 })
               end
             end
+        end
+
+        def add_rightclick_handler(&handler)
+          @click_handlers << Proc.new do |params|
+            if params[:gdk_event].button == RIGHT_BUTTON
+              handler.call params
+            end
+          end
         end
 
         def add_click_handler(&handler)

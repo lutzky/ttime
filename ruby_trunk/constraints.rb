@@ -7,6 +7,27 @@ module TTime
       include GetText
 
       attr_reader :schedule
+      attr_reader :menu_items
+
+      class ConstraintMenuItem
+        attr_accessor :caption, :block
+
+        def initialize(caption, block, event_required = false)
+          @caption, @block, @event_required = caption, block, event_required
+        end
+
+        def event_required?
+          @event_required
+        end
+      end
+
+      def initialize
+        @menu_items = []
+      end
+
+      def add_menu_item(caption, event_required = false, &block)
+        @menu_items << ConstraintMenuItem.new(caption, block, event_required)
+      end
 
       def event_list
         @schedule.flatten.collect { |grp| grp.events }.flatten
