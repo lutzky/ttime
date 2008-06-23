@@ -10,6 +10,7 @@ module TTime
 
       def initialize(line,group)
         @group = group
+        return if line.nil?
         begin
           m=/(.+)'(\d+.\d+) ?-(\d+.\d+) *(.*)/.match(line)
           @day = Day.new(m[1]).to_i

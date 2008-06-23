@@ -4,6 +4,7 @@ require 'zip/zip'
 require 'tempfile'
 require 'pathname'
 require 'gettext'
+require 'xml'
 
 #require 'yaml'
 
@@ -23,6 +24,10 @@ module TTime
     def initialize(force = false, &status_report_proc)
       @status_report_proc = status_report_proc
       @status_report_proc = proc {} if @status_report_proc.nil?
+
+      # FIXME Naturally, we'll want a smarter method of selection...
+      @data = TTime::XMLData.convert_udonkey_xml
+      return
 
       if force
         @data = download_repy

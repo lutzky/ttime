@@ -3,6 +3,10 @@ require 'date'
 require 'logic/group'
 require 'logic/shared'
 
+# FIXME: This shouldn't be here, we only need it for RawCourse. It should be
+# removed once parsing is disconnected from logic
+require 'logic/repy'
+
 class Array
   def one_member_of_each_member
     # this is a tricky one...

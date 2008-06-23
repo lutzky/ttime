@@ -5,11 +5,13 @@ module TTime
     class Faculty
       attr_accessor :name, :courses
 
-      def initialize(name, contents)
+      def initialize(name, contents = nil)
         @name = name
         @courses = []
-        each_raw_course(contents) do |course_contents|
-          @courses << Course.new(course_contents)
+        if contents
+          each_raw_course(contents) do |course_contents|
+            @courses << Course.new(course_contents)
+          end
         end
       end
 
