@@ -21,34 +21,37 @@ module TCal
 
         # defualt list of background colors (RGBA)
         # FIXME: ugly
-        @@colors_bg = [
-            [1.0,0.0,0.0,0.7],
-            [0.0,1.0,0.0,0.7],
-            [0.0,0.0,1.0,0.7],
-            [0.0,1.0,0.5,0.7],
-            [0.5,0.4,1.0,0.7],
-            [1.0,1.0,0.0,0.7],
-            [0.5,1.0,0.0,0.7],
-            [0.7,0.1,0.1,0.7],
-            [0.1,0.7,0.1,0.7],
+      @@colors = [
+          [1.0,0.0,0.0,0.7],
+          [0.0,1.0,0.0,0.7],
+          [0.0,0.0,1.0,0.7],
+          [0.0,1.0,0.5,0.7],
+          [0.5,0.4,1.0,0.7],
+          [1.0,1.0,0.0,0.7],
+          [0.5,1.0,0.0,0.7],
+          [0.7,0.1,0.1,0.7],
+          [0.1,0.7,0.1,0.7],
+      ]
+
+      def modify_color(color, params = {})
+        factor = params[:brightness] || 1.0
+        alpha = params[:alpha] || color[3]
+        return [
+          color[0] * factor,
+          color[1] * factor,
+          color[2] * factor,
+          alpha
         ]
+      end
 
-        # defualt list of border colors (RGBA)
-        # FIXME: ugly
-        @@colors_border = [
-            [0.8,0.0,0.0,0.9],
-            [0.0,0.8,0.0,0.9],
-            [0.0,0.0,0.8,0.9],
-            [0.0,1.0,0.3,0.9],
-            [0.5,0.4,1.0,0.9],
-            [1.0,1.0,0.0,0.9],
-            [0.5,1.0,0.0,0.9],
-            [0.7,0.1,0.1,0.9],
-            [0.1,0.7,0.1,0.9],
-
-
-        ]
-
+      def get_color(type, index)
+        color = @@colors[index % @@colors.length]
+        case type
+        when :lecture: return color
+        when :tutorial: return modify_color(color, :brightness => 0.8)
+        when :border: return modify_color(color, :brightness => 0.7, :alpha => 0.9)
+        end
+      end
 
         # send a hash of parameters, please
         #
@@ -261,8 +264,8 @@ module TCal
 
 
         # add a new event to the sched
-        def add_event(text,day,hour,length,color,data)
-            @events << Event.new(text,day,hour,length,color,1,0,data)
+        def add_event(text,day,hour,length,color,data,type)
+            @events << Event.new(text,day,hour,length,color,1,0,data,type)
             @computed_layers=false
         end
 
@@ -294,7 +297,7 @@ module TCal
             cairo.translate(step_width*(@days-day_steps-1),(hour_steps+1)*step_height)
 
             # load color
-            clr = @@colors_border[item.color_id]
+            clr = get_color(:border, item.color_id)
             cairo.set_source_rgba(clr[0],clr[1],clr[2],clr[3])
 
             # draw path
@@ -308,7 +311,7 @@ module TCal
             cairo.stroke_preserve
 
             # load bg color
-            clr = @@colors_bg[item.color_id]
+            clr = get_color(item.type, item.color_id)
             cairo.set_source_rgba(clr[0],clr[1],clr[2],clr[3])
 
             # fill path

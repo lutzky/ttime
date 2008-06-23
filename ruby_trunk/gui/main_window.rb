@@ -332,7 +332,7 @@ module TTime
         @calendar.clear_events
 
         schedule.events.each do |ev|
-          @calendar.add_event(ev.desc,ev.day,ev.start_frac,ev.end_frac-ev.start_frac,ev.group_id,{ :event => ev })
+          @calendar.add_event(ev.desc,ev.day,ev.start_frac,ev.end_frac-ev.start_frac,ev.group_id,{ :event => ev },ev.group.type)
         end
 
         @calendar.redraw
