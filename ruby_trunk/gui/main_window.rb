@@ -14,6 +14,16 @@ require 'tcal/tcal'
 
 GetText::bindtextdomain("ttime", "locale", nil, "utf-8")
 
+module Gtk
+  class Menu
+    def add_with_callback label, &blk
+      mi = Gtk::MenuItem.new label
+      mi.signal_connect("activate", &blk)
+      self.append mi
+    end
+  end
+end
+
 module TTime
   module GUI
     class MainWindow
@@ -283,33 +293,24 @@ module TTime
 
         @calendar.add_rightclick_handler do |params|
           menu = Gtk::Menu.new
+          menu.add_with_callback _("Show all alternatives") do |*e|
+            for course in @selected_courses
+              show_alternatives_for course
+            end
+          end
           unless params[:data].nil?
-            mi = Gtk::MenuItem.new _("Show alternatives")
-            mi.signal_connect("activate") do |*e|
+            menu.add_with_callback _("Show alternatives to this event") do |*e|
               course = params[:data][:event].course
               group = params[:data][:event].group
-              @calendar.reject_events! do |data|
-                ev = data[:event]
-                ev.group.course.number == course.number and \
-                  ev.group.type == group.type
-              end
-              course.groups.select { |g| g.type == group.type }.each do |g|
-                g.events.each do |ev|
-                  add_event_to_calendar ev
-                end
-              end
-              @calendar.redraw
+              show_alternatives_for course, group.type
             end
-            menu.append mi
           end
           @constraints.select { |c| c.enabled? }.each do |constraint|
             constraint.menu_items.each do |item|
               unless item.event_required? and params[:data].nil?
-                mi = Gtk::MenuItem.new item.caption
-                mi.signal_connect("activate") do |*e|
+                menu.add_with_callback item.caption do |*e|
                   item.block.call params
                 end
-                menu.append mi
               end
             end
           end
@@ -318,6 +319,22 @@ module TTime
         end
 
         notebook.show_all
+      end
+
+      def show_alternatives_for course, group_type = nil
+        @calendar.reject_events! do |data|
+          ev = data[:event]
+          ev.group.course.number == course.number and \
+            (group_type == nil or ev.group.type == group_type)
+        end
+        course.groups.select do |g|
+          group_type == nil or g.type == group_type
+        end.each do |g|
+          g.events.each do |ev|
+            add_event_to_calendar ev
+          end
+        end
+        @calendar.redraw
       end
 
       # Update @calendar_info to display info about the given event
