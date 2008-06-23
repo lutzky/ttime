@@ -34,9 +34,15 @@ module TTime
       end
 
       def accepts?(schedule)
+        return true unless self.enabled?
         @schedule = schedule
 
         evaluate_schedule
+      end
+
+      # Is this constraint currently enabled?
+      def enabled?
+        true
       end
 
       # Handles an update in the course list (if the constraint needs it)

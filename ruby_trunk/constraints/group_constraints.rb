@@ -37,7 +37,7 @@ module TTime
         super
 
         Settings.instance[:group_constraints] ||= {
-          :enabled => false,
+          :enabled => true,
           :forbidden_groups => {}
         }
 
@@ -50,6 +50,13 @@ module TTime
             end
           end
           allow_group course.number, group.number
+
+          TTime::GUI::MainWindow.instance.reject_events_from_calendar! do |data|
+            ev = data[:event]
+            ev.course.number == course.number and \
+              ev.group.type == group.type and \
+              ev.group.number != group.number
+          end
 
           update_forbidden_marks
         end
@@ -190,6 +197,10 @@ module TTime
         @treeview.insert_column(-1, _('Lecturer'),
                                 Gtk::CellRendererText.new,
                                 'text' => col_index(:lecturer))
+      end
+
+      def enabled?
+        settings[:enabled]
       end
 
       def preferences_panel

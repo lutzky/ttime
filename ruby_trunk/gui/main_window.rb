@@ -3,6 +3,7 @@ require 'data'
 #require 'gtkmozembed'
 require 'tempfile'
 require 'gettext'
+require 'singleton'
 
 require 'constraints'
 require 'settings'
@@ -16,6 +17,7 @@ GetText::bindtextdomain("ttime", "locale", nil, "utf-8")
 module TTime
   module GUI
     class MainWindow
+      include Singleton
       include GetText
 
       def on_auto_update
@@ -175,6 +177,15 @@ module TTime
 
       attr_reader :current_schedule
 
+      def reject_events_from_calendar! &blk
+        @calendar.reject_events! &blk
+        @calendar.redraw
+      end
+
+      def add_event_to_calendar ev
+          @calendar.add_event(ev.desc,ev.day,ev.start_frac,ev.end_frac-ev.start_frac,ev.group_id,{ :event => ev })
+      end
+
       private
 
       def matches_search?(iter)
@@ -272,7 +283,26 @@ module TTime
 
         @calendar.add_rightclick_handler do |params|
           menu = Gtk::Menu.new
-          @constraints.each do |constraint|
+          unless params[:data].nil?
+            mi = Gtk::MenuItem.new _("Show alternatives")
+            mi.signal_connect("activate") do |*e|
+              course = params[:data][:event].course
+              group = params[:data][:event].group
+              @calendar.reject_events! do |data|
+                ev = data[:event]
+                ev.group.course.number == course.number and \
+                  ev.group.type == group.type
+              end
+              course.groups.each do |g|
+                g.events.each do |ev|
+                  add_event_to_calendar ev
+                end
+              end
+              @calendar.redraw
+            end
+            menu.append mi
+          end
+          @constraints.select { |c| c.enabled? }.each do |constraint|
             constraint.menu_items.each do |item|
               unless item.event_required? and params[:data].nil?
                 mi = Gtk::MenuItem.new item.caption
@@ -332,7 +362,7 @@ module TTime
         @calendar.clear_events
 
         schedule.events.each do |ev|
-          @calendar.add_event(ev.desc,ev.day,ev.start_frac,ev.end_frac-ev.start_frac,ev.group_id,{ :event => ev })
+          add_event_to_calendar ev
         end
 
         @calendar.redraw

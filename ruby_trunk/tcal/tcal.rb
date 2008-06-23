@@ -266,6 +266,13 @@ module TCal
             @computed_layers=false
         end
 
+        def reject_events! &blk
+          @events.reject! do |ev|
+            blk.call ev.data
+          end
+          @compute_layers=false
+        end
+
         # remove all events
         def clear_events
             @events = [] 
