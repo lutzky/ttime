@@ -270,7 +270,7 @@ module TCal
           @events.reject! do |ev|
             blk.call ev.data
           end
-          @compute_layers=false
+          @computed_layers=false
         end
 
         # remove all events

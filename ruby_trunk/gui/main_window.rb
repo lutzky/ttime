@@ -293,7 +293,7 @@ module TTime
                 ev.group.course.number == course.number and \
                   ev.group.type == group.type
               end
-              course.groups.each do |g|
+              course.groups.select { |g| g.type == group.type }.each do |g|
                 g.events.each do |ev|
                   add_event_to_calendar ev
                 end
