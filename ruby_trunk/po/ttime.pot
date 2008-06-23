@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ttime 0.x.x\n"
-"POT-Creation-Date: 2008-06-16 00:34+0300\n"
+"POT-Creation-Date: 2008-06-23 09:42+0300\n"
 "PO-Revision-Date: 2006-10-19 11:53+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -54,19 +54,19 @@ msgstr ""
 msgid "Schedule"
 msgstr ""
 
-#: gui/main_window.rb:384
+#: gui/main_window.rb:401
 msgid "Populating available courses"
 msgstr ""
 
-#: gui/main_window.rb:442
+#: gui/main_window.rb:459
 msgid "Course Name"
 msgstr ""
 
-#: gui/main_window.rb:442
+#: gui/main_window.rb:459
 msgid "Course Number"
 msgstr ""
 
-#: gui/main_window.rb:482
+#: gui/main_window.rb:499
 msgid "Constraints"
 msgstr ""
 
@@ -86,7 +86,7 @@ msgstr ""
 msgid "No clashes"
 msgstr ""
 
-#: constraints/no_clashes.rb:46 constraints/no_running.rb:44
+#: constraints/no_clashes.rb:46 constraints/no_running.rb:54
 #: constraints/one_free_day.rb:35
 msgid "Enable"
 msgstr ""
@@ -98,11 +98,11 @@ msgid ""
 "clashes only for specific courses)\n"
 msgstr ""
 
-#: constraints/no_running.rb:38
+#: constraints/no_running.rb:48
 msgid "No running"
 msgstr ""
 
-#: constraints/no_running.rb:53
+#: constraints/no_running.rb:63
 msgid ""
 "This constraint makes sure you don't have to run between buildings during a\n"
 "10-minute (in case the lecturer finishes on time) break.\n"
@@ -127,27 +127,35 @@ msgstr ""
 msgid "Tutorial"
 msgstr ""
 
-#: constraints/group_constraints.rb:63
+#: constraints/group_constraints.rb:44
+msgid "Only enable this group"
+msgstr ""
+
+#: constraints/group_constraints.rb:57
+msgid "Disable this group"
+msgstr ""
+
+#: constraints/group_constraints.rb:113
 msgid "Group Constraints"
 msgstr ""
 
-#: constraints/group_constraints.rb:130
+#: constraints/group_constraints.rb:180
 msgid "Allowed"
 msgstr ""
 
-#: constraints/group_constraints.rb:134
+#: constraints/group_constraints.rb:184
 msgid "Group"
 msgstr ""
 
-#: constraints/group_constraints.rb:137
+#: constraints/group_constraints.rb:187
 msgid "Time"
 msgstr ""
 
-#: constraints/group_constraints.rb:140
+#: constraints/group_constraints.rb:190
 msgid "Lecturer"
 msgstr ""
 
-#: constraints/group_constraints.rb:158
+#: constraints/group_constraints.rb:208
 msgid "Use group constraints"
 msgstr ""
 
