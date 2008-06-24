@@ -28,7 +28,9 @@ module TTime
 
         1.upto(courses.size/2) do |i|
           i*=2
-          c = RawCourse.new
+          # FIXME once this moves into separate parsing code, it should be
+          # in the Parse module, so RawCourse should suffice.
+          c = TTime::Parse::RawCourse.new
           c.header = courses[i-1]
           c.body = courses[i]
           yield c

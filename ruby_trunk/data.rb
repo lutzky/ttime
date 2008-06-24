@@ -1,10 +1,10 @@
-require 'logic/repy'
 require 'open-uri'
 require 'zip/zip'
 require 'tempfile'
 require 'pathname'
 require 'gettext'
 require 'parse/udonkey_xml'
+require 'parse/repy'
 
 #require 'yaml'
 
@@ -132,7 +132,7 @@ module TTime
     end
 
     def load_repy
-      Logic::Repy.new(open(REPY_File) { |f| f.read }, &@status_report_proc)
+      Parse::Repy.new(open(REPY_File) { |f| f.read }, &@status_report_proc)
     end
 
     def update_yaml

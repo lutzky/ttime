@@ -7,7 +7,7 @@ require 'logic/shared'
 GetText::bindtextdomain("ttime", "locale", nil, "utf-8")
 
 module TTime
-  module Logic
+  module Parse
     RawCourse = Struct.new(:header,:body)
 
     class Repy
@@ -51,7 +51,7 @@ module TTime
           if is_sport
             #@hash << Sport.new(name, contents)
           else
-            @hash << Faculty.new(name, contents)
+            @hash << TTime::Logic::Faculty.new(name, contents)
           end
         end
 

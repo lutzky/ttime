@@ -5,7 +5,7 @@ require 'logic/shared'
 
 # FIXME: This shouldn't be here, we only need it for RawCourse. It should be
 # removed once parsing is disconnected from logic
-require 'logic/repy'
+require 'parse/repy'
 
 class Array
   def one_member_of_each_member
@@ -92,7 +92,9 @@ module TTime
       end
 
       def initialize(x = nil)
-        return unless x.is_a? RawCourse
+        # FIXME once this moves into separate parsing code, it should be
+        # in the Parse module, so RawCourse should suffice.
+        return unless x.is_a? TTime::Parse::RawCourse
 
         @groups = []
         grp = nil
