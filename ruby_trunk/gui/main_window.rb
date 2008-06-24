@@ -346,7 +346,7 @@ module TTime
 
         tag = buffer.create_tag(nil, { :font => 'Sans Bold 14' })
 
-        buffer.insert(iter, "#{event.group.course.name}\n", tag)
+        buffer.insert(iter, "#{event.group.name}\n", tag)
 
         add_detail_to_buffer(buffer, iter, "קבוצה", event.group.number)
         add_detail_to_buffer(buffer, iter, "מקום", event.place)

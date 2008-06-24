@@ -135,7 +135,11 @@ module TTime
               group_iter[col_index(:group)] = group.number
               group_iter[col_index(:show_checkbox)] = true
               group_iter[col_index(:time)] = group.time_as_text
-              group_iter[col_index(:lecturer)] = group.lecturer
+              if group.description
+                group_iter[col_index(:lecturer)] = group.description
+              else
+                group_iter[col_index(:lecturer)] = group.lecturer
+              end
 
               if group_is_forbidden?(course.number, group.number)
                 group_iter[col_index(:marked)] = false

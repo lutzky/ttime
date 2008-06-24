@@ -41,7 +41,7 @@ module TTime
           frac(@end)
       end
       def desc
-         "<b>#{@group.course.name}</b>\nקבוצה #{@group.number}\n#@place"
+        "<b>#{@group.name}</b>\nקבוצה #{@group.number}\n#@place"
       end
 
       def group_id
@@ -82,7 +82,7 @@ module TTime
     end
   
     class Group
-      attr_accessor :number, :lecturer, :type, :events, :course
+      attr_accessor :number, :lecturer, :type, :events, :course, :description
       HebToType = {
         "הרצאה" => :lecture,
         "מעבדה" => :lab,
@@ -122,6 +122,10 @@ module TTime
           human_end = Hour::military_to_human(e.end)
               "יום #{human_day}, #{human_start}-#{human_end}"
         end.join("\n")
+      end
+
+      def name
+        @description || @course.name
       end
     end
   end
