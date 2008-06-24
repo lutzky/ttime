@@ -4,7 +4,7 @@ require 'zip/zip'
 require 'tempfile'
 require 'pathname'
 require 'gettext'
-require 'xml'
+require 'parse/udonkey_xml'
 
 #require 'yaml'
 
@@ -33,7 +33,7 @@ module TTime
       @status_report_proc = proc {} if @status_report_proc.nil?
 
       # FIXME Naturally, we'll want a smarter method of selection...
-      @data = TTime::XMLData.convert_udonkey_xml
+      @data = TTime::Parse::UDonkeyXML.convert_udonkey_xml
       return
 
       if force
