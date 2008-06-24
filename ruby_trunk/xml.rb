@@ -52,6 +52,7 @@ module TTime
         group = TTime::Logic::Group.new
         group.number = xml_course_event.property("regNumber").to_i
         group.type = GROUP_TYPES[xml_course_event.property("eventType")]
+        group.type ||= :other
         group.lecturer = xml_course_event.property("teacher")
         group.course = course
         group.events = xml_course_event.find("PlaceTime").collect do |xml_placetime|

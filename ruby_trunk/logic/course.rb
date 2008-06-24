@@ -39,8 +39,6 @@ end
 module TTime
   module Logic
     class Course
-      GROUP_TYPES = [:lecture,:tutorial,:lab]
-
       attr_accessor :number, :name, :academic_points, :hours, :lecturer_in_charge,
         :first_test_date, :second_test_date, :groups, :course_id
 
@@ -68,7 +66,7 @@ module TTime
 
       def each_group_selection(constraints = [])
         groups_by_type = []
-        GROUP_TYPES.each do |type|
+        TTime::Data::GROUP_TYPES.keys.each do |type|
           g = groups_of_type(type)
           constraints.each do |constraint|
             g.reject! { |grp| not constraint.evaluate_group(grp) }

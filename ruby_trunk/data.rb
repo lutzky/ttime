@@ -21,6 +21,13 @@ module TTime
     class << self
     end
 
+    GROUP_TYPES = {
+      :lecture => _('Lecture'),
+      :tutorial => _('Tutorial'),
+      :lab => _('Lab'),
+      :other => ('Other'),
+    }
+
     def initialize(force = false, &status_report_proc)
       @status_report_proc = status_report_proc
       @status_report_proc = proc {} if @status_report_proc.nil?

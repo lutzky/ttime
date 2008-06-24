@@ -27,12 +27,6 @@ module TTime
         COLUMNS.collect { |col| col[1] }
       end
 
-      GROUP_TYPE_NAME = {
-        :lecture => _('Lecture'),
-        :tutorial => _('Tutorial'),
-        # TODO More types?
-      }
-
       def initialize
         super
 
@@ -133,7 +127,7 @@ module TTime
 
           for group_type in course.groups.collect { |g| g.type }.uniq
             group_type_iter = @model.append(course_iter)
-            group_type_iter[col_index(:text)] = GROUP_TYPE_NAME[group_type] or group_type
+            group_type_iter[col_index(:text)] = TTime::Data::GROUP_TYPES[group_type] or group_type
             for group in course.groups.select { |g| g.type == group_type }
               group_iter = @model.append(group_type_iter)
               group_iter[col_index(:text)] = group.number.to_s
