@@ -44,9 +44,12 @@ module TCal
       def get_color(type, index)
         color = @@colors[index % @@colors.length]
         case type
-        when :lecture: return color
-        when :tutorial: return modify_color(color, :brightness => 0.8)
-        when :border: return modify_color(color, :brightness => 0.7, :alpha => 0.9)
+        when :tutorial
+          return modify_color(color, :brightness => 0.8)
+        when :border
+          return modify_color(color, :brightness => 0.7, :alpha => 0.9)
+        else
+          return color
         end
       end
 
