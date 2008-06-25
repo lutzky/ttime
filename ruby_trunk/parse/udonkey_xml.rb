@@ -2,7 +2,6 @@ require 'logic/faculty'
 require 'xml/libxml'
 
 # FIXME this shouldn't come from here
-XML_FILENAME = 'data/MainDB.xml'
 
 module TTime
   module Parse
@@ -25,8 +24,8 @@ module TTime
       HEBREW_DAYS = [ nil, "א", "ב", "ג", "ד", "ה", "ו", "ש" ]
 
       class << self
-        def convert_udonkey_xml(xml_file = XML_FILENAME)
-          doc = XML::Document.file xml_file
+        def convert_udonkey_xml(xml_file)
+          doc = XML::Document.file xml_file.to_s
           faculties = []
           doc.find("/CourseDB/Faculty").each do |xml_faculty|
             faculty = TTime::Logic::Faculty.new xml_faculty.property("name")
@@ -73,7 +72,7 @@ module TTime
         end
 
         def convert_xml_placetime xml_placetime, group
-          event = TTime::Logic::Event.new nil, group
+          event = TTime::Logic::Event.new group
           event.day = HEBREW_DAYS.index xml_placetime.property("EventDay")
           event.start = xml_placetime.property("EventTime").gsub(".","").to_i
           event.end = event.start + \

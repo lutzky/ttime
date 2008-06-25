@@ -38,7 +38,7 @@ module TTime
       attr_accessor :number, :name, :academic_points, :hours, :lecturer_in_charge,
         :first_test_date, :second_test_date, :groups, :course_id
 
-      def initialize number, name
+      def initialize number = nil, name = nil
         @number = number
         @name = name
         @groups = []

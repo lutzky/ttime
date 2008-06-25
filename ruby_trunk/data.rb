@@ -32,16 +32,15 @@ module TTime
       @status_report_proc = status_report_proc
       @status_report_proc = proc {} if @status_report_proc.nil?
 
-      # FIXME Naturally, we'll want a smarter method of selection...
-      @data = TTime::Parse::UDonkeyXML.convert_udonkey_xml
-      return
-
       if force
         @data = download_repy
       else
         if USE_YAML && File::exists?(YAML_File)
           report _("Loading technion data from YAML")
           @data = File.open(YAML_File) { |yf| YAML::load(yf.read) }
+        elsif File::exists?(UDonkey_XML_File)
+          report _("Loading UDonkey XML data")
+          @data = TTime::Parse::UDonkeyXML.convert_udonkey_xml UDonkey_XML_File
         elsif File::exists?(MARSHAL_File)
           report _("Loading technion data")
           @data = File.open(MARSHAL_File) { |mf| Marshal.load(mf.read) }
@@ -95,6 +94,7 @@ module TTime
     REPY_URI = "http://ug.technion.ac.il/rep/REPFILE.zip"
     YAML_File = DATA_DIR + "technion.yml"
     MARSHAL_File = DATA_DIR + "technion.mrshl"
+    UDonkey_XML_File = DATA_DIR + "MainDB.xml"
 
     def convert_repy
       report _("Loading data from REPY")
