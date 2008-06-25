@@ -3,10 +3,6 @@ require 'date'
 require 'logic/group'
 require 'logic/shared'
 
-# FIXME: This shouldn't be here, we only need it for RawCourse. It should be
-# removed once parsing is disconnected from logic
-require 'parse/repy'
-
 class Array
   def one_member_of_each_member
     # this is a tricky one...
@@ -41,6 +37,13 @@ module TTime
     class Course
       attr_accessor :number, :name, :academic_points, :hours, :lecturer_in_charge,
         :first_test_date, :second_test_date, :groups, :course_id
+
+      def initialize number, name
+        @number = number
+        @name = name
+        @groups = []
+        @hours = []
+      end
 
       def text
         base = <<-EOF
@@ -89,98 +92,6 @@ module TTime
           ret << group if (group.type_is?(type) && (not group.events.empty?))
         end
         return ret
-      end
-
-      def initialize(x = nil)
-        # FIXME once this moves into separate parsing code, it should be
-        # in the Parse module, so RawCourse should suffice.
-        return unless x.is_a? TTime::Parse::RawCourse
-
-        @groups = []
-        grp = nil
-        ## sorry for the perl
-        arr = /\|\s(\d\d\d\d\d\d) ([א-תףץךןם0-9()\/+#,.\-"'_: ]+?) *\|\n\| שעות הוראה בשבוע\:( *[א-ת].+?[0-9]+)+ +נק: (\d\.?\d) ?\|/.match(x.header)
-        begin
-          #puts "course num: #{arr[1]}\n course name #{arr[2]}\n course hrs: #{arr[3]} | points: #{arr[arr.size-1]}\n----------\n"
-
-          @number = arr[1].reverse
-          @name = arr[2].strip.single_space
-          @academic_points = arr[arr.size-1].reverse.to_f
-          @hours = []
-          4.upto(arr.size-2) do |i|
-            hours << arr[i]
-          end
-        rescue
-          #puts x.header
-          raise
-        end
-
-        current_lecture_group_number = 1
-
-        state = :start
-        #puts x.body
-        x.body.each do |line|
-          case state
-          when :start:
-            if line[3] != '-'
-              if m=/\| מורה  אחראי :(.*?) *\|/.match(line)
-                @lecturer_in_charge = m[1].strip.single_space
-              elsif m=/\| מועד ראשון :(.*?) *\|/.match(line)
-                @first_test_date = convert_test_date(m[1])
-              elsif m = /\| מועד שני   :(.*?) *\|/.match(line)
-                @second_test_date = convert_test_date(m[1])
-              elsif line =~ /\|רישום +\|/ or line =~ /\| +\|/
-                state = :thing
-              end
-            end
-          when :thing:
-            line.strip!
-            if line =~ /----/
-              #this should not happen
-            elsif m=/\| *([0-9]*) *([א-ת]+) ?: ?(.*?) *\|/.match(line)
-              grp = Group.new
-              grp.course = self
-              grp.heb_type =  m[2]
-              grp.number = m[1].reverse.to_i
-
-              if grp.number == 0
-                grp.number = 10 * current_lecture_group_number
-                current_lecture_group_number += 1
-              end
-
-              grp.add_hours(m[3])
-              state = :details
-            end
-          when :details:
-            if line !~ /:/
-              if line =~ /\| +\|/ || line =~ /\+\+\+\+\+\+/ || line =~ /----/
-                @groups << grp
-                state = :thing
-              else
-                m=/\| +(.*?) +\|/.match(line)
-                grp.add_hours(m[1]) if m
-              end
-            else
-              (property,value) = /\| +(.*?) +\|/.match(line)[1].split(/:/)
-              grp.set_from_heb(property,value)
-            end
-          end
-        end
-        if state == :details
-          @groups << grp
-        end
-      end
-
-      private
-
-      def convert_test_date(s)
-        israeli_date = s.split(' ')[2].reverse
-
-        american_date = israeli_date.gsub(/^(\d\d)\/(\d\d)\/(\d\d)/,'\2/\1/\3')
-
-        # TODO: This will only work until 2068, as years are given in two
-        # digits. Let's hope REPY doesn't survive until then.
-        Date.parse(american_date, true)
       end
     end
   end
