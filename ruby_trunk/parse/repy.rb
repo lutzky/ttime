@@ -28,6 +28,21 @@ module TTime
 \| *(מקצועות ספורט.*) *\|
 \+===============================================================\+/
 
+      GROUP_TYPES = {
+        "הרצאה" => :lecture,
+        "מעבדה" => :lab,
+        "תרגיל" => :tutorial,
+        "קבוצה" => :set,
+      }
+
+      DAY_NAMES = {
+        'א' => 1,
+        'ב' => 2,
+        'ג' => 3,
+        'ד' => 4,
+        'ה' => 5,
+        'ו' => 6,
+      }
 
 
       attr_reader :raw
@@ -153,7 +168,7 @@ module TTime
             elsif m=/\| *([0-9]*) *([א-ת]+) ?: ?(.*?) *\|/.match(line)
               grp = TTime::Logic::Group.new
               grp.course = course
-              grp.heb_type =  m[2]
+              grp.type = GROUP_TYPES[m[2]]
               grp.number = m[1].reverse.to_i
 
               if grp.number == 0
@@ -161,32 +176,78 @@ module TTime
                 current_lecture_group_number += 1
               end
 
-              grp.add_hours(m[3])
+              add_events_to_group(grp, m[3])
               state = :details
             end
           when :details:
             if line !~ /:/
               if line =~ /\| +\|/ || line =~ /\+\+\+\+\+\+/ || line =~ /----/
-                course.groups << grp
+                course.groups << grp unless grp.events.empty?
                 state = :thing
               else
                 m=/\| +(.*?) +\|/.match(line)
-                grp.add_hours(m[1]) if m
+                add_events_to_group(grp, m[1]) if m
               end
             else
               (property,value) = /\| +(.*?) +\|/.match(line)[1].split(/:/)
-              grp.set_from_heb(property,value)
+              set_from_heb(grp, property, value)
             end
           end
         end
         if state == :details
-          course.groups << grp
+          course.groups << grp unless grp.events.empty?
         end
 
         return course
       end
 
-      private
+      def set_from_heb(group,x,y)
+        case x.strip
+        when 'מרצה'
+          group.lecturer = y.strip.single_space
+        end
+      end
+
+      def add_events_to_group group, event_line
+        if event_line =~ /^ *- *$/; return; end
+
+        event = TTime::Logic::Event.new(group)
+
+        return if event_line.nil?
+        begin
+          m=/(.+)'(\d+.\d+) ?-(\d+.\d+) *(.*)/.match(event_line)
+          event.day = DAY_NAMES[m[1]]
+          event.start = m[3].reverse.gsub(".","").to_i
+          event.place = place_convert(m[4])
+          event.end = m[2].reverse.gsub(".","").to_i
+        rescue
+          if $DEBUG
+            $stderr.puts '-----------------------------------------------------'
+            $stderr.puts 'Parse error! Could not figure out the following line:'
+            $stderr.puts line
+            $stderr.puts 'Match object:'
+            $stderr.puts m.inspect
+            $stderr.puts '-----------------------------------------------------'
+          end
+          raise
+        end
+
+        group.events << event
+      end
+
+      def place_convert(s)
+        # TODO This relies on a very fragile assumption that places in the REPY
+        # file consist of two words - a building and a room, and the room is
+        # sometimes numeric
+
+        s = s.strip.single_space
+
+        room, building = s.split(' ')
+
+        return s if room.to_i == 0 # Room isn't a number - do not touch
+
+        [ building, room.reverse ].join(' ')
+      end
 
       def convert_test_date(s)
         israeli_date = s.split(' ')[2].reverse
