@@ -37,6 +37,7 @@ module TCal
 
         # Was a click at the given day, hour and ratio inside this event?
         def catches_click?(day, hour, ratio)
+          return false if (day.nil? or hour.nil? or ratio.nil?)
           day == self.day and \
             hour >= self.hour and \
             hour < self.hour + self.length and \
