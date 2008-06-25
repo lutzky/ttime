@@ -5,14 +5,9 @@ module TTime
     class Faculty
       attr_accessor :name, :courses
 
-      def initialize(name, contents = nil)
+      def initialize(name, courses = [])
         @name = name
-        @courses = []
-        if contents
-          each_raw_course(contents) do |course_contents|
-            @courses << Course.new(course_contents)
-          end
-        end
+        @courses = courses
       end
 
       def get_course(course_number)
@@ -20,21 +15,6 @@ module TTime
           return course if course.number.to_i == course_number.to_i
         end
         nil
-      end
-
-      private
-      def each_raw_course(contents)
-        courses = contents.split('+------------------------------------------+')
-
-        1.upto(courses.size/2) do |i|
-          i*=2
-          # FIXME once this moves into separate parsing code, it should be
-          # in the Parse module, so RawCourse should suffice.
-          c = TTime::Parse::RawCourse.new
-          c.header = courses[i-1]
-          c.body = courses[i]
-          yield c
-        end
       end
     end
   end

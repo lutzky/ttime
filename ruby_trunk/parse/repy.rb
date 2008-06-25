@@ -51,7 +51,11 @@ module TTime
           if is_sport
             #@hash << Sport.new(name, contents)
           else
-            @hash << TTime::Logic::Faculty.new(name, contents)
+            faculty = TTime::Logic::Faculty.new(name)
+            each_course(contents) do |course|
+              faculty.courses << course
+            end
+            @hash << faculty
           end
         end
 
@@ -90,6 +94,18 @@ module TTime
                   yield name, raw_faculty, true
               end
           end
+        end
+      end
+
+      def each_course contents
+        courses = contents.split('+------------------------------------------+')
+
+        1.upto(courses.size/2) do |i|
+          i*=2
+          c = RawCourse.new
+          c.header = courses[i-1]
+          c.body = courses[i]
+          yield TTime::Logic::Course.new(c)
         end
       end
     end
