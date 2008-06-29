@@ -305,15 +305,19 @@ module TTime
               show_alternatives_for course, group.type
             end
           end
-          @constraints.select { |c| c.enabled? }.each do |constraint|
-            constraint.menu_items.each do |item|
-              unless item.event_required? and params[:data].nil?
-                menu.add_with_callback item.caption do |*e|
-                  item.block.call params
+
+          @constraints.select do |constraint|
+            if constraint.enabled? and constraint.class.menu_items
+              constraint.class.menu_items.each do |item|
+                unless item.event_required? and params[:data].nil?
+                  menu.add_with_callback item.caption do |*e|
+                    constraint.send item.method_name, params
+                  end
                 end
               end
             end
           end
+
           menu.show_all
           menu.popup(nil,nil,3,params[:gdk_event].time)
         end
