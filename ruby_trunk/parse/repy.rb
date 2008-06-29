@@ -13,20 +13,28 @@ module TTime
     class Repy
       include GetText
 
-      FACULTY_BANNER_REGEX = /\+==========================================\+
-\| מערכת שעות - (.*) +\|
-\|.*\|
-\+==========================================\+/
+      Expr = {
+        :faculty => /
+        # Contents: 1 is the faculty name
+        \+==========================================\+\n
+        \|\sמערכת\sשעות\s-\s(.*)\s+\|\n
+        \|.*\|\n
+        \+==========================================\+/x,
 
-      COURSE_BANNER_REGEX = /\+------------------------------------------\+
-\| (\d\d\d\d\d\d) +(.*) +\|
-\| שעות הוראה בשבוע:ה-(\d) ת-(\d) +נק: (.*) *\|
-\+------------------------------------------\+/
+        :sports => /
+        \+===============================================================\+\n
+        \|\s*(מקצועות\sספורט.*)\s*\|\n
+        \+===============================================================\+/,
 
-
-     SPORTS_BANNER_REGEX = /\+===============================================================\+
-\| *(מקצועות ספורט.*) *\|
-\+===============================================================\+/
+        :course_head => /
+        # Contents: 1 is the course number, in reverse
+        #           2 is the course name
+        #           3 is the alleged number of weekly hours
+        #           4 is the amount of academic points
+        \|\s(\d\d\d\d\d\d)\s([א-תףץךןם0-9()\/+#,.\-"'_: ]+?)\s*\|\n
+        \|\sשעות\sהוראה\sבשבוע\:(\s*[א-ת].+?[0-9]+)+\s+נק:\s(\d\.?\d)\s?\|
+        /x,
+      }
 
       GROUP_TYPES = {
         "הרצאה" => :lecture,
@@ -97,15 +105,15 @@ module TTime
           @status_report_proc.call(_("Loading REPY file..."), i.to_f / raw_faculties.size.to_f)
 
           raw_faculty.lstrip!
-          banner = raw_faculty.slice!(FACULTY_BANNER_REGEX)
+          banner = raw_faculty.slice!(Expr[:faculty])
 
           if banner
-            name = FACULTY_BANNER_REGEX.match(banner)[1].strip.single_space
+            name = Expr[:faculty].match(banner)[1].strip.single_space
             yield name, raw_faculty, false
           else
-              banner =  raw_faculty.slice!(SPORTS_BANNER_REGEX)
+              banner =  raw_faculty.slice!(Expr[:sports])
               if banner
-                  name = SPORTS_BANNER_REGEX.match(banner)[1].strip.single_space
+                  name = Expr[:sports].match(banner)[1].strip.single_space
                   yield name, raw_faculty, true
               end
           end
@@ -126,11 +134,8 @@ module TTime
 
       def parse_raw_course contents
         grp = nil
-        ## sorry for the perl
-        arr = /\|\s(\d\d\d\d\d\d) ([א-תףץךןם0-9()\/+#,.\-"'_: ]+?) *\|\n\| שעות הוראה בשבוע\:( *[א-ת].+?[0-9]+)+ +נק: (\d\.?\d) ?\|/.match(contents.header)
+        arr = Expr[:course_head].match(contents.header)
         begin
-          #puts "course num: #{arr[1]}\n course name #{arr[2]}\n course hrs: #{arr[3]} | points: #{arr[arr.size-1]}\n----------\n"
-
           number = arr[1].reverse
           name = arr[2].strip.single_space
           course = TTime::Logic::Course.new number, name
@@ -139,7 +144,6 @@ module TTime
             course.hours << arr[i]
           end
         rescue
-          #puts contents.header
           raise
         end
 

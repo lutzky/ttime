@@ -45,6 +45,10 @@ module TTime
         @hours = []
       end
 
+      def inspect
+        "#<Course #@number #{@name.inspect}>"
+      end
+
       def text
         base = <<-EOF
 #@number - #@name

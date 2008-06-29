@@ -12,6 +12,10 @@ module TTime
         @group = group
       end
 
+      def inspect
+        "#<Event group=#@group>"
+      end
+
       def frac(x)
           x/100 + ( (x%100).to_f / 60 )
       end
@@ -41,6 +45,10 @@ module TTime
       attr_accessor :number, :lecturer, :type, :events, :course, :description
       def initialize
         @events = []
+      end
+
+      def inspect
+        "#<Group number=#@number>"
       end
   
       def course_id

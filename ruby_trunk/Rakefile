@@ -57,7 +57,7 @@ end
 
 desc "Create a UTF-8 encoded version of the REPY file"
 task :recode_repy do
-  repy = open(TTime::Data::REPY_File) { |f| TTime::Logic::Repy.new(f.read) }
+  repy = open(TTime::Data::REPY_File) { |f| TTime::Parse::Repy.new(f.read) }
   open('data/REPY.utf-8','w') { |f| f.write repy.unicode }
 end
 
