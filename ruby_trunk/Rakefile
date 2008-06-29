@@ -25,34 +25,9 @@ task :fixme do
   puts `grep -r FIXME * | grep -v '.svn'`
 end
 
-desc "Run all tests"
-task :test do
-  Dir.glob('tests/*.rb') do |test|
-    require test
-  end
-end
-
-task :default => [:run] do
-end
-
-desc "Run the application"
-task :run do
-  require 'main'
-end
-
-desc "Run the application with $DEBUG set to true"
-task :debug => [:clean] do
-  $DEBUG = true
-  require 'main'
-end
-
 desc "Delete all data including the REPY file"
 task :distclean => [:clean] do
   File.try_unlink TTime::Data::REPY_File
-end
-
-desc "Same as clean and run"
-task :cleanrun => [:clean, :run] do
 end
 
 desc "Create a UTF-8 encoded version of the REPY file"
