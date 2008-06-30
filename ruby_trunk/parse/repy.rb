@@ -310,7 +310,7 @@ module TTime
           elsif raw_event =~ Expr[:sports_event]
             event = TTime::Logic::Event.new(group)
             event.day, raw_start, raw_end, event.place =
-              DAY_NAMES[$1], $3, $2, $4
+              DAY_NAMES[$1], $3, $2, $4.rstrip
 
             event.start, event.end = [raw_start, raw_end].collect do |s|
               s.reverse.gsub(".", "").to_i
@@ -318,9 +318,13 @@ module TTime
 
             group.events << event
           else
-            puts "Ignoring bad event line for course #{group.course.number}, " \
-              "group #{group.number} (#{group.description}):"
-            puts "\"#{raw_event}\""
+            $stderr.write "Ignoring bad event line " \
+              "for course #{group.course.number}, " \
+              "group #{group.number} (#{group.description})"
+            if $DEBUG
+              $stderr.write ":\n#{raw_event}"
+            end
+            $stderr.write("\n")
           end
         end
 

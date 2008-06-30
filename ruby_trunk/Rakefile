@@ -54,6 +54,6 @@ task :updatepo do
   GetText.update_pofiles("ttime",
                          Dir.glob("*.rb") + 
                          Dir.glob("*/*.rb") +
-                         [ "gui/ttime.glade" ],
+                         [ "ttime", "gui/ttime.glade" ],
                          "ttime 0.x.x")
 end
