@@ -1,7 +1,6 @@
 #!/usr/bin/env ruby
 
 require 'logic/times'
-require 'logic/shared'
 
 module TTime
   module Logic

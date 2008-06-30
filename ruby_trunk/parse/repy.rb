@@ -2,7 +2,6 @@ require 'iconv'
 require 'gettext'
 
 require 'logic/faculty'
-require 'logic/shared'
 
 $KCODE='u'
 require 'jcode'
@@ -166,7 +165,7 @@ module TTime
           banner = raw_faculty.slice!(Expr[:faculty])
 
           if banner
-            name = Expr[:faculty].match(banner)[1].strip.single_space
+            name = Expr[:faculty].match(banner)[1].strip.squeeze(" ")
             yield name, raw_faculty, false
           elsif raw_faculty != ""
               banner = raw_faculty.slice!(Expr[:sports])
@@ -194,7 +193,7 @@ module TTime
         arr = Expr[:course_head].match header
         begin
           number = arr[1].reverse
-          name = arr[2].strip.single_space
+          name = arr[2].strip.squeeze(" ")
           course = TTime::Logic::Course.new number, name
           course.academic_points = arr[arr.size-1].reverse.to_f
           4.upto(arr.size-2) do |i|
@@ -221,7 +220,7 @@ module TTime
           when :start:
             if line[3] != '-'
               if m=/\| מורה  אחראי :(.*?) *\|/.match(line)
-                course.lecturer_in_charge = m[1].strip.single_space
+                course.lecturer_in_charge = m[1].strip.squeeze(" ")
               elsif m=/\| מועד ראשון :(.*?) *\|/.match(line)
                 course.first_test_date = convert_test_date(m[1])
               elsif m = /\| מועד שני   :(.*?) *\|/.match(line)
@@ -277,7 +276,7 @@ module TTime
         body.lstrip!
 
         body =~ Expr[:teacher_in_charge]
-        course.lecturer_in_charge = $1.single_space if $1
+        course.lecturer_in_charge = $1.squeeze(" ") if $1
         body.slice!(Expr[:teacher_in_charge])
 
         course_notes = body.slice!(Expr[:course_notes])
@@ -305,7 +304,7 @@ module TTime
 
         raw_group.split("\n").each do |raw_event|
           if raw_event =~ Expr[:sports_instructor]
-            group.lecturer = $1.single_space
+            group.lecturer = $1.squeeze(" ")
             # Only a dash line should remain, so we stop the loop here
             break
           elsif raw_event =~ Expr[:sports_event]
@@ -331,7 +330,7 @@ module TTime
       def set_from_heb(group,x,y)
         case x.strip
         when 'מרצה'
-          group.lecturer = y.strip.single_space
+          group.lecturer = y.strip.squeeze(" ")
         end
       end
 
@@ -369,7 +368,7 @@ module TTime
         # file consist of two words - a building and a room, and the room is
         # sometimes numeric
 
-        s = s.strip.single_space
+        s = s.strip.squeeze(" ")
 
         room, building = s.split(' ')
 

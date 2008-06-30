@@ -9,10 +9,10 @@ module TTime
       attr_reader :schedule
 
       class ConstraintMenuItem
-        attr_accessor :caption, :block
+        attr_accessor :caption, :method_name
 
-        def initialize(caption, block, event_required = false)
-          @caption, @block, @event_required = caption, block, event_required
+        def initialize(caption, method_name, event_required = false)
+          @caption, @method_name, @event_required = caption, method_name, event_required
         end
 
         def event_required?
