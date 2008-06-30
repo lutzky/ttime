@@ -277,7 +277,7 @@ module TTime
         body.lstrip!
 
         body =~ Expr[:teacher_in_charge]
-        course.lecturer_in_charge = $1.single_space
+        course.lecturer_in_charge = $1.single_space if $1
         body.slice!(Expr[:teacher_in_charge])
 
         course_notes = body.slice!(Expr[:course_notes])
