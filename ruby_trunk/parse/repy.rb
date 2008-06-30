@@ -4,6 +4,18 @@ require 'gettext'
 require 'logic/faculty'
 require 'logic/shared'
 
+$KCODE='u'
+require 'jcode'
+
+class String
+  def u_leftchop! n
+    # Essentially the same as str.slice!(0..n-1), but works for unicode
+    tmp = self.scan(/./m)[0..n-1].join("")
+    self[0..-1] = self.scan(/./m)[n..-1].join("")
+    tmp
+  end
+end
+
 GetText::bindtextdomain("ttime", "locale", nil, "utf-8")
 
 module TTime
@@ -22,19 +34,59 @@ module TTime
         \+==========================================\+/x,
 
         :sports => /
-        \+===============================================================\+\n
-        \|\s*(מקצועות\sספורט.*)\s*\|\n
-        \+===============================================================\+/,
+        \s*\+===============================================================\+\n
+        \|.*מקצועות\sספורט.*\|\n
+        \+===============================================================\+
+        /x,
 
         :course_head => /
         # Contents: 1 is the course number, in reverse
         #           2 is the course name
         #           3 is the alleged number of weekly hours
         #           4 is the amount of academic points
-        \|\s(\d\d\d\d\d\d)\s([א-תףץךןם0-9()\/+#,.\-"'_: ]+?)\s*\|\n
-        \|\sשעות\sהוראה\sבשבוע\:(\s*[א-ת].+?[0-9]+)+\s+נק:\s(\d\.?\d)\s?\|
+        \|\s+(\d{6})\s+(.*?)\s*\|\n
+        \|\s+שעות\sהוראה\sבשבוע\:(\s*[א-ת].+?[0-9]+)*\s+נק:\s(\d\.?\d)\s*\|
         /x,
+
+        :teacher_in_charge => /
+          מורה\s+אחראי\s*:\s*
+          (.*?) # Teacher's name
+          \s*\n
+          \s*-+\s*\n
+          /x,
+
+        :course_notes => /
+          # If we have notes at the beginning of a course, the list starts
+          # with a "1.", and ends with a double newline
+          \s*1\.
+          (.|\n)*?
+          \n\s*\n # Double newlines have leading spaces :(
+          /x,
+
+        :sports_group => /
+          \s*
+          (\d\d)            # Group number
+          \s+
+          (.*)              # Group description
+          \s+
+          /x,
+
+        :sports_event => /
+          \s*
+          (א|ב|ג|ד|ה|ו|ש)'  # Day of week (Note, using [אבגדהוש] doesn't work?)
+          (\d+\.\d+)        # END time
+          [ -]*
+          (\d+\.\d+)        # START time
+          \s+
+          (.*)             # Place
+          /x,
+
+        :sports_instructor => /\s+מדריך:\s(.*)/
       }
+
+      # Sports groups, number + description, are always exactly this long
+      # (with padding after)
+      SPORTS_GROUP_LEN = 20
 
       GROUP_TYPES = {
         "הרצאה" => :lecture,
@@ -65,21 +117,27 @@ module TTime
         convert_to_unicode
       end
 
+      def inspect
+        "#<Repy>"
+      end
+
       def hash
         return @hash if @hashed
 
         @hash = []
 
         each_raw_faculty do |name, contents,is_sport|
-          if is_sport
-            #@hash << Sport.new(name, contents)
-          else
-            faculty = TTime::Logic::Faculty.new(name)
-            each_course(contents) do |course|
-              faculty.courses << course
+          faculty = TTime::Logic::Faculty.new(name)
+          each_raw_course(contents) do |raw_course|
+            if raw_course.body
+              if is_sport
+                faculty.courses << parse_raw_sports_course(raw_course)
+              else
+                faculty.courses << parse_raw_course(raw_course)
+              end
             end
-            @hash << faculty
           end
+          @hash << faculty
         end
 
         @hashed = true
@@ -110,31 +168,30 @@ module TTime
           if banner
             name = Expr[:faculty].match(banner)[1].strip.single_space
             yield name, raw_faculty, false
-          else
-              banner =  raw_faculty.slice!(Expr[:sports])
+          elsif raw_faculty != ""
+              banner = raw_faculty.slice!(Expr[:sports])
               if banner
-                  name = Expr[:sports].match(banner)[1].strip.single_space
-                  yield name, raw_faculty, true
+                name = _("Physical Education")
+                yield name, raw_faculty, true
               end
           end
         end
       end
 
-      def each_course contents
-        courses = contents.split('+------------------------------------------+')
+      def each_raw_course contents
+        courses = contents.split(/\+-+\+/)
 
         1.upto(courses.size/2) do |i|
           i*=2
           c = RawCourse.new
           c.header = courses[i-1]
           c.body = courses[i]
-          yield parse_raw_course(c)
+          yield c
         end
       end
 
-      def parse_raw_course contents
-        grp = nil
-        arr = Expr[:course_head].match(contents.header)
+      def parse_course_header header
+        arr = Expr[:course_head].match header
         begin
           number = arr[1].reverse
           name = arr[2].strip.single_space
@@ -146,6 +203,14 @@ module TTime
         rescue
           raise
         end
+
+        return course
+      end
+
+      def parse_raw_course contents
+        grp = nil
+
+        course = parse_course_header contents.header
 
         current_lecture_group_number = 1
 
@@ -180,7 +245,7 @@ module TTime
                 current_lecture_group_number += 1
               end
 
-              add_events_to_group(grp, m[3])
+              add_event_to_group(grp, m[3])
               state = :details
             end
           when :details:
@@ -190,7 +255,7 @@ module TTime
                 state = :thing
               else
                 m=/\| +(.*?) +\|/.match(line)
-                add_events_to_group(grp, m[1]) if m
+                add_event_to_group(grp, m[1]) if m
               end
             else
               (property,value) = /\| +(.*?) +\|/.match(line)[1].split(/:/)
@@ -205,6 +270,64 @@ module TTime
         return course
       end
 
+      def parse_raw_sports_course(raw_course)
+        course = parse_course_header(raw_course.header)
+        body = raw_course.body
+        body.gsub!("|","")
+        body.lstrip!
+
+        body =~ Expr[:teacher_in_charge]
+        course.lecturer_in_charge = $1.single_space
+        body.slice!(Expr[:teacher_in_charge])
+
+        course_notes = body.slice!(Expr[:course_notes])
+        # TODO: Well... we have the course notes. Do we want them?
+
+        raw_groups = body.split(/\n\s+\n/)
+
+        raw_groups.each do |raw_group|
+          group = parse_raw_sports_group raw_group, course
+          course.groups << group
+        end
+
+        course
+      end
+
+      def parse_raw_sports_group(raw_group, course)
+        group = TTime::Logic::Group.new
+        group.course = course
+        group.type = :other
+        raw_group.lstrip!
+        header = raw_group.u_leftchop!(SPORTS_GROUP_LEN)
+
+        header =~ Expr[:sports_group]
+        group.number, group.description = $1.to_i, $2.rstrip
+
+        raw_group.split("\n").each do |raw_event|
+          if raw_event =~ Expr[:sports_instructor]
+            group.lecturer = $1.single_space
+            # Only a dash line should remain, so we stop the loop here
+            break
+          elsif raw_event =~ Expr[:sports_event]
+            event = TTime::Logic::Event.new(group)
+            event.day, raw_start, raw_end, event.place =
+              DAY_NAMES[$1], $3, $2, $4
+
+            event.start, event.end = [raw_start, raw_end].collect do |s|
+              s.reverse.gsub(".", "").to_i
+            end
+
+            group.events << event
+          else
+            puts "Ignoring bad event line for course #{group.course.number}, " \
+              "group #{group.number} (#{group.description}):"
+            puts "\"#{raw_event}\""
+          end
+        end
+
+        group
+      end
+
       def set_from_heb(group,x,y)
         case x.strip
         when 'מרצה'
@@ -212,7 +335,7 @@ module TTime
         end
       end
 
-      def add_events_to_group group, event_line
+      def add_event_to_group group, event_line
         if event_line =~ /^ *- *$/; return; end
 
         event = TTime::Logic::Event.new(group)
@@ -225,18 +348,20 @@ module TTime
           event.place = place_convert(m[4])
           event.end = m[2].reverse.gsub(".","").to_i
         rescue
-          if $DEBUG
-            $stderr.puts '-----------------------------------------------------'
-            $stderr.puts 'Parse error! Could not figure out the following line:'
-            $stderr.puts line
-            $stderr.puts 'Match object:'
-            $stderr.puts m.inspect
-            $stderr.puts '-----------------------------------------------------'
-          end
-          raise
+          parse_error line, m
         end
 
         group.events << event
+      end
+
+      def parse_error line, match
+          $stderr.puts '-----------------------------------------------------'
+          $stderr.puts 'Parse error! Could not figure out the following line:'
+          $stderr.puts line
+          $stderr.puts 'Match object:'
+          $stderr.puts match.inspect
+          $stderr.puts '-----------------------------------------------------'
+        raise "Parse error when reading REPY file"
       end
 
       def place_convert(s)
