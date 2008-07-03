@@ -27,6 +27,37 @@ module TTime
         COLUMNS.collect { |col| col[1] }
       end
 
+      menu_item :only_enable_this_group, _("Only enable this group"), true
+
+      def only_enable_this_group params
+        group = params[:data][:event].group
+        course = group.course
+        course.groups.each do |grp|
+          if grp.type == group.type
+            disallow_group course.number, grp.number
+          end
+        end
+        allow_group course.number, group.number
+
+        TTime::GUI::MainWindow.instance.reject_events_from_calendar! do |data|
+          ev = data[:event]
+          ev.course.number == course.number and \
+            ev.group.type == group.type and \
+            ev.group.number != group.number
+        end
+
+        update_forbidden_marks
+      end
+
+      menu_item :disable_this_group, _("Disable this group"), true
+
+      def disable_this_group params
+        group = params[:data][:event].group
+        course = group.course
+        disallow_group course.number, group.number
+        update_forbidden_marks
+      end
+
       def initialize
         super
 
@@ -34,33 +65,6 @@ module TTime
           :enabled => true,
           :forbidden_groups => {}
         }
-
-        add_menu_item _("Only enable this group"), true do |params|
-          group = params[:data][:event].group
-          course = group.course
-          course.groups.each do |grp|
-            if grp.type == group.type
-              disallow_group course.number, grp.number
-            end
-          end
-          allow_group course.number, group.number
-
-          TTime::GUI::MainWindow.instance.reject_events_from_calendar! do |data|
-            ev = data[:event]
-            ev.course.number == course.number and \
-              ev.group.type == group.type and \
-              ev.group.number != group.number
-          end
-
-          update_forbidden_marks
-        end
-
-        add_menu_item _("Disable this group"), true do |params|
-          group = params[:data][:event].group
-          course = group.course
-          disallow_group course.number, group.number
-          update_forbidden_marks
-        end
       end
 
       def each_selection_iter(start_at = nil, &block)

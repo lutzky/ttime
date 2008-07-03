@@ -20,6 +20,7 @@ module TTime
         "הרצאה" => :lecture,
         "תרגיל" => :tutorial,
         "מעבדה" => :lab,
+        nil     => :other,
       }
       HEBREW_DAYS = [ nil, "א", "ב", "ג", "ד", "ה", "ו", "ש" ]
 
@@ -83,6 +84,77 @@ module TTime
           # return nil as them, and reject nil events outside.
           return nil if event.day.nil?
           return event
+        end
+
+        TIME_FMT="%d/%m/%y" # FIXME Y2K much? But this is what UDonkey uses...
+
+        def UDonkeyXML.output_xml faculties
+          puts %*<?xml version="1.0"?>\n<CourseDB>\n*
+          faculties.each do |faculty|
+            puts %[      <Faculty name="#{faculty.name}" semester="">]
+            faculty.courses.each do |course|
+              print %[            <Course ]
+
+              print %[name="#{course.name.gsub('"',"'")}" ]
+              print %[number="#{course.number}" ]
+              print %[courseAcademicPoints="#{course.academic_points}" ]
+              # FIXME lectureHours, tutorialHours
+
+              if course.lecturer_in_charge
+                lecturerInCharge = course.lecturer_in_charge.gsub('"',"'")
+                print %[lecturerInCharge="#{lecturerInCharge}" ]
+              end
+
+              if course.first_test_date
+                moedADate = course.first_test_date.strftime(TIME_FMT)
+                print %[moedADate="#{moedADate}" ]
+              end
+              if course.second_test_date
+                moedBDate = course.second_test_date.strftime(TIME_FMT)
+                print %[moedBDate="#{moedBDate}" ]
+              end
+              print %[courseAcademicPoints="#{course.academic_points}" ]
+
+              print %[>\n]
+
+              course.groups.each do |group|
+                print %[                  <CourseEvent ]
+                print %[regNumber="#{group.number}" ]
+
+                if GROUP_TYPES.invert[group.type]
+                  print %[eventType="#{GROUP_TYPES.invert[group.type]}" ]
+                else
+                  print %[eventType="#{group.description}" ]
+                end
+
+                if group.lecturer
+                  print %[teacher="#{group.lecturer.gsub('"',"'")}"]
+                else
+                  print %[teacher=""]
+                end
+
+                puts ">"
+
+                group.events.each do |event|
+                  print %[                        <PlaceTime ]
+                  print %[EventDay="#{HEBREW_DAYS[event.day]}" ]
+
+                  event_time = "#{event.start / 100}.#{event.start % 100}"
+                  event_duration = (event.end - event.start) / 100
+                  print %[EventTime="#{event_time}" ]
+                  print %[EventDuration="#{event_duration}" ]
+                  print %[EventLocation="#{event.place}" ]
+                  print %[/>\n]
+                end
+
+                print %[                  </CourseEvent>\n]
+              end
+
+              print %[            </Course>\n]
+            end
+            puts %[      </Faculty>]
+          end
+          puts %[</CourseDB>]
         end
       end
     end

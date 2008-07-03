@@ -1,0 +1,62 @@
+#!/usr/bin/env ruby
+
+require 'pathname'
+require 'optparse'
+
+p = Pathname.new($0)
+
+if p.basename.to_s == 'main.rb'
+  Dir.chdir p.parent.to_s
+end
+
+action = :run_gui
+
+OptionParser.new do |opts|
+  opts.on("--hebrew", "Force Hebrew locale") do
+    ENV["LC_ALL"]="he_IL.UTF-8"
+    ENV["LANG"]="he_IL.UTF-8"
+    ENV["LANGUAGE"]="he_IL.UTF-8"
+  end
+
+  opts.on("--win32-hack", "Hack for win32 compatibility") do
+    ENV["HOME"] = Dir.pwd
+  end
+
+  opts.on("--convert-repy", "Convert the REPY file to a sane format") do
+    action = :convert_repy
+  end
+end.parse!
+
+require 'gettext'
+
+include GetText
+
+# Standard unicode support activation
+require 'jcode'
+$KCODE = 'u'
+
+def run_gui
+  require 'gui/main_window'
+
+  Thread.abort_on_exception = true
+
+  Gtk.init
+  a = TTime::GUI::MainWindow.instance
+  Gtk.main
+end
+
+TIME_FMT="%d/%m/%y" # FIXME Y2K much? But this is what UDonkey uses...
+
+def convert_repy
+  require 'data'
+
+  oldmsg = ""
+  data = TTime::Data.new(:convert) do |msg,_|
+    $stderr.write "#{msg}\n" if msg != oldmsg
+    oldmsg = msg
+  end
+
+  TTime::Parse::UDonkeyXML.output_xml data.data
+end
+
+self.send(action)

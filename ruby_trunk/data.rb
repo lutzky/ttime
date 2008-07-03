@@ -32,7 +32,9 @@ module TTime
       @status_report_proc = status_report_proc
       @status_report_proc = proc {} if @status_report_proc.nil?
 
-      if force
+      if force == :convert
+        @data = convert_repy
+      elsif force
         @data = download_repy
       else
         if USE_YAML && File::exists?(YAML_File)

@@ -7,13 +7,12 @@ module TTime
       include GetText
 
       attr_reader :schedule
-      attr_reader :menu_items
 
       class ConstraintMenuItem
-        attr_accessor :caption, :block
+        attr_accessor :caption, :method_name
 
-        def initialize(caption, block, event_required = false)
-          @caption, @block, @event_required = caption, block, event_required
+        def initialize(caption, method_name, event_required = false)
+          @caption, @method_name, @event_required = caption, method_name, event_required
         end
 
         def event_required?
@@ -21,12 +20,13 @@ module TTime
         end
       end
 
-      def initialize
-        @menu_items = []
-      end
+      class << self
+        def menu_item(method_name, caption, event_required = false)
+          @menu_items ||= []
+          @menu_items << ConstraintMenuItem.new(caption, method_name, event_required)
+        end
 
-      def add_menu_item(caption, event_required = false, &block)
-        @menu_items << ConstraintMenuItem.new(caption, block, event_required)
+        attr_reader :menu_items
       end
 
       def event_list

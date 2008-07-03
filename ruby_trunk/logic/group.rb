@@ -1,7 +1,6 @@
 #!/usr/bin/env ruby
 
 require 'logic/times'
-require 'logic/shared'
 
 module TTime
   module Logic
@@ -10,6 +9,10 @@ module TTime
 
       def initialize(group)
         @group = group
+      end
+
+      def inspect
+        "#<Event group=#@group>"
       end
 
       def frac(x)
@@ -41,6 +44,10 @@ module TTime
       attr_accessor :number, :lecturer, :type, :events, :course, :description
       def initialize
         @events = []
+      end
+
+      def inspect
+        "#<Group number=#@number>"
       end
   
       def course_id

@@ -1,7 +1,6 @@
 require 'date'
 
 require 'logic/group'
-require 'logic/shared'
 
 class Array
   def one_member_of_each_member
@@ -43,6 +42,10 @@ module TTime
         @name = name
         @groups = []
         @hours = []
+      end
+
+      def inspect
+        "#<Course #@number #{@name.inspect}>"
       end
 
       def text

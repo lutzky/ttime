@@ -25,39 +25,14 @@ task :fixme do
   puts `grep -r FIXME * | grep -v '.svn'`
 end
 
-desc "Run all tests"
-task :test do
-  Dir.glob('tests/*.rb') do |test|
-    require test
-  end
-end
-
-task :default => [:run] do
-end
-
-desc "Run the application"
-task :run do
-  require 'main'
-end
-
-desc "Run the application with $DEBUG set to true"
-task :debug => [:clean] do
-  $DEBUG = true
-  require 'main'
-end
-
 desc "Delete all data including the REPY file"
 task :distclean => [:clean] do
   File.try_unlink TTime::Data::REPY_File
 end
 
-desc "Same as clean and run"
-task :cleanrun => [:clean, :run] do
-end
-
 desc "Create a UTF-8 encoded version of the REPY file"
 task :recode_repy do
-  repy = open(TTime::Data::REPY_File) { |f| TTime::Logic::Repy.new(f.read) }
+  repy = open(TTime::Data::REPY_File) { |f| TTime::Parse::Repy.new(f.read) }
   open('data/REPY.utf-8','w') { |f| f.write repy.unicode }
 end
 
@@ -79,6 +54,6 @@ task :updatepo do
   GetText.update_pofiles("ttime",
                          Dir.glob("*.rb") + 
                          Dir.glob("*/*.rb") +
-                         [ "gui/ttime.glade" ],
+                         [ "ttime", "gui/ttime.glade" ],
                          "ttime 0.x.x")
 end
