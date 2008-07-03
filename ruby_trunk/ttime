@@ -45,8 +45,6 @@ def run_gui
   Gtk.main
 end
 
-TIME_FMT="%d/%m/%y" # FIXME Y2K much? But this is what UDonkey uses...
-
 def convert_repy
   require 'data'
 

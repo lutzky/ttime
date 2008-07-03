@@ -1,8 +1,6 @@
 require 'logic/faculty'
 require 'xml/libxml'
 
-# FIXME this shouldn't come from here
-
 module TTime
   module Parse
     class UDonkeyXML
@@ -89,72 +87,78 @@ module TTime
         TIME_FMT="%d/%m/%y" # FIXME Y2K much? But this is what UDonkey uses...
 
         def UDonkeyXML.output_xml faculties
-          puts %*<?xml version="1.0"?>\n<CourseDB>\n*
+          doc = XML::Document.new
+          doc.encoding = 'UTF-8'
+          doc.root = XML::Node.new('CourseDB')
           faculties.each do |faculty|
-            puts %[      <Faculty name="#{faculty.name}" semester="">]
+            faculty_node = XML::Node.new('Faculty')
+            doc.root << faculty_node
+            faculty_node['name'] = faculty.name
+            # FIXME faculty_node['semester'] = ?
+
             faculty.courses.each do |course|
-              print %[            <Course ]
+              course_node = XML::Node.new('Course')
+              faculty_node << course_node
 
-              print %[name="#{course.name.gsub('"',"'")}" ]
-              print %[number="#{course.number}" ]
-              print %[courseAcademicPoints="#{course.academic_points}" ]
-              # FIXME lectureHours, tutorialHours
-
-              if course.lecturer_in_charge
-                lecturerInCharge = course.lecturer_in_charge.gsub('"',"'")
-                print %[lecturerInCharge="#{lecturerInCharge}" ]
-              end
-
+              moedADate = nil
               if course.first_test_date
                 moedADate = course.first_test_date.strftime(TIME_FMT)
-                print %[moedADate="#{moedADate}" ]
               end
+
+              moedBDate = nil
               if course.second_test_date
                 moedBDate = course.second_test_date.strftime(TIME_FMT)
-                print %[moedBDate="#{moedBDate}" ]
               end
-              print %[courseAcademicPoints="#{course.academic_points}" ]
 
-              print %[>\n]
+              course_hash = {
+                'name' => course.name,
+                'number' => course.number,
+                'courseAcademicPoints' => course.academic_points.to_s,
+                # FIXME lectureHours, tutorialHours
+                'lecturerInCharge' => course.lecturer_in_charge,
+                'moedADate' => moedADate,
+                'moedBDate' => moedBDate,
+              }
+
+              course_hash.each do |key, val|
+                course_node[key] = val.gsub(%["],%[']) if val
+              end
 
               course.groups.each do |group|
-                print %[                  <CourseEvent ]
-                print %[regNumber="#{group.number}" ]
+                group_elem = XML::Node.new('CourseEvent')
 
-                if GROUP_TYPES.invert[group.type]
-                  print %[eventType="#{GROUP_TYPES.invert[group.type]}" ]
-                else
-                  print %[eventType="#{group.description}" ]
+                group_hash = {
+                  'regNumber' => group.number.to_s,
+                  'eventType' => GROUP_TYPES.invert[group.type] || \
+                                   group.description,
+                  'teacher' => group.lecturer
+                }
+
+                group_hash.each do |key, val|
+                  group_elem[key] = val.gsub(%["],%[']) if val
                 end
-
-                if group.lecturer
-                  print %[teacher="#{group.lecturer.gsub('"',"'")}"]
-                else
-                  print %[teacher=""]
-                end
-
-                puts ">"
 
                 group.events.each do |event|
-                  print %[                        <PlaceTime ]
-                  print %[EventDay="#{HEBREW_DAYS[event.day]}" ]
+                  event_elem = XML::Node.new('PlaceTime')
 
                   event_time = "#{event.start / 100}.#{event.start % 100}"
                   event_duration = (event.end - event.start) / 100
-                  print %[EventTime="#{event_time}" ]
-                  print %[EventDuration="#{event_duration}" ]
-                  print %[EventLocation="#{event.place}" ]
-                  print %[/>\n]
+
+                  event_hash = {
+                    'EventDay' => HEBREW_DAYS[event.day],
+                    'EventTime' => event_time.to_s,
+                    'EventDuration' => event_duration.to_s,
+                    'EventLocation' => event.place
+                  }
+
+                  event_hash.each do |key, val|
+                    event_elem[key] = val.gsub(%["],%[']) if val
+                  end
                 end
-
-                print %[                  </CourseEvent>\n]
               end
-
-              print %[            </Course>\n]
             end
-            puts %[      </Faculty>]
           end
-          puts %[</CourseDB>]
+          print doc.to_s
         end
       end
     end
