@@ -32,7 +32,7 @@ module TTime
       @status_report_proc = status_report_proc
       @status_report_proc = proc {} if @status_report_proc.nil?
 
-      if force == :convert
+      if force == :convert and File::exists?(REPY_File)
         @data = convert_repy
       elsif force
         @data = download_repy
