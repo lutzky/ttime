@@ -125,7 +125,8 @@ module TTime
               end
 
               course.groups.each do |group|
-                group_elem = XML::Node.new('CourseEvent')
+                group_node = XML::Node.new('CourseEvent')
+                course_node << group_node
 
                 group_hash = {
                   'regNumber' => group.number.to_s,
@@ -135,11 +136,12 @@ module TTime
                 }
 
                 group_hash.each do |key, val|
-                  group_elem[key] = val.gsub(%["],%[']) if val
+                  group_node[key] = val.gsub(%["],%[']) if val
                 end
 
                 group.events.each do |event|
-                  event_elem = XML::Node.new('PlaceTime')
+                  event_node = XML::Node.new('PlaceTime')
+                  group_node << event_node
 
                   event_time = "#{event.start / 100}.#{event.start % 100}"
                   event_duration = (event.end - event.start) / 100
@@ -152,7 +154,7 @@ module TTime
                   }
 
                   event_hash.each do |key, val|
-                    event_elem[key] = val.gsub(%["],%[']) if val
+                    event_node[key] = val.gsub(%["],%[']) if val
                   end
                 end
               end

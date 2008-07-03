@@ -170,7 +170,7 @@ module TTime
           elsif raw_faculty != ""
               banner = raw_faculty.slice!(Expr[:sports])
               if banner
-                name = _("Physical Education")
+                name = "חינוך גופני"
                 yield name, raw_faculty, true
               end
           end
