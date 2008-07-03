@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ttime 0.x.x\n"
-"POT-Creation-Date: 2008-06-23 09:42+0300\n"
+"POT-Creation-Date: 2008-07-03 19:10+0300\n"
 "PO-Revision-Date: 2006-10-19 11:53+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,57 +16,81 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: data.rb:31
+#: data.rb:25
+msgid "Lecture"
+msgstr ""
+
+#: data.rb:26
+msgid "Tutorial"
+msgstr ""
+
+#: data.rb:27
+msgid "Lab"
+msgstr ""
+
+#: data.rb:41
 msgid "Loading technion data from YAML"
 msgstr ""
 
-#: data.rb:34
+#: data.rb:44
+msgid "Loading UDonkey XML data"
+msgstr ""
+
+#: data.rb:47
 msgid "Loading technion data"
 msgstr ""
 
-#: data.rb:88
+#: data.rb:102
 msgid "Loading data from REPY"
 msgstr ""
 
-#: data.rb:97
+#: data.rb:111
 msgid "Downloading REPY file from Technion"
 msgstr ""
 
-#: data.rb:109
+#: data.rb:123
 msgid "Extracting REPY file"
 msgstr ""
 
-#: gui/main_window.rb:89
+#: gui/main_window.rb:101
 msgid "Please select some courses first."
 msgstr ""
 
-#: gui/main_window.rb:104
+#: gui/main_window.rb:116
 msgid ""
 "Sorry, but no schedules are possible with the selected courses and "
 "constraints."
 msgstr ""
 
-#: gui/main_window.rb:242
+#: gui/main_window.rb:263
 msgid " of %d"
 msgstr ""
 
-#: gui/main_window.rb:265
+#: gui/main_window.rb:286
 msgid "Schedule"
 msgstr ""
 
-#: gui/main_window.rb:401
+#: gui/main_window.rb:296
+msgid "Show all alternatives"
+msgstr ""
+
+#: gui/main_window.rb:302
+msgid "Show alternatives to this event"
+msgstr ""
+
+#: gui/main_window.rb:452
 msgid "Populating available courses"
 msgstr ""
 
-#: gui/main_window.rb:459
+#: gui/main_window.rb:510
 msgid "Course Name"
 msgstr ""
 
-#: gui/main_window.rb:459
+#: gui/main_window.rb:510
 msgid "Course Number"
 msgstr ""
 
-#: gui/main_window.rb:499
+#: gui/main_window.rb:550
 msgid "Constraints"
 msgstr ""
 
@@ -74,12 +98,12 @@ msgstr ""
 msgid "Progress"
 msgstr ""
 
-#: logic/repy.rb:78
-msgid "Loading REPY file..."
-msgstr ""
-
 #: logic/scheduler.rb:80 logic/scheduler.rb:117
 msgid "Generating schedules (%d so far)"
+msgstr ""
+
+#: parse/repy.rb:162
+msgid "Loading REPY file..."
 msgstr ""
 
 #: constraints/no_clashes.rb:40
@@ -119,43 +143,35 @@ msgid ""
 "\"WTF?\"\n"
 msgstr ""
 
-#: constraints/group_constraints.rb:31
-msgid "Lecture"
-msgstr ""
-
-#: constraints/group_constraints.rb:32
-msgid "Tutorial"
-msgstr ""
-
-#: constraints/group_constraints.rb:44
+#: constraints/group_constraints.rb:30
 msgid "Only enable this group"
 msgstr ""
 
-#: constraints/group_constraints.rb:57
+#: constraints/group_constraints.rb:52
 msgid "Disable this group"
 msgstr ""
 
-#: constraints/group_constraints.rb:113
+#: constraints/group_constraints.rb:118
 msgid "Group Constraints"
 msgstr ""
 
-#: constraints/group_constraints.rb:180
+#: constraints/group_constraints.rb:189
 msgid "Allowed"
 msgstr ""
 
-#: constraints/group_constraints.rb:184
+#: constraints/group_constraints.rb:193
 msgid "Group"
 msgstr ""
 
-#: constraints/group_constraints.rb:187
+#: constraints/group_constraints.rb:196
 msgid "Time"
 msgstr ""
 
-#: constraints/group_constraints.rb:190
+#: constraints/group_constraints.rb:199
 msgid "Lecturer"
 msgstr ""
 
-#: constraints/group_constraints.rb:208
+#: constraints/group_constraints.rb:221
 msgid "Use group constraints"
 msgstr ""
 

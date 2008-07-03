@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ttime 0.x.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-06-23 09:42+0300\n"
-"PO-Revision-Date: 2008-06-23 09:43+0300\n"
+"POT-Creation-Date: 2008-07-03 19:10+0300\n"
+"PO-Revision-Date: 2008-07-03 19:12+0300\n"
 "Last-Translator: Ohad Lutzky <lutzky@gmail.com>\n"
 "Language-Team: Hebrew <eliz@gnu.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,57 +16,81 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);"
 
-#: data.rb:31
+#: data.rb:25
+msgid "Lecture"
+msgstr "הרצאה"
+
+#: data.rb:26
+msgid "Tutorial"
+msgstr "תרגול"
+
+#: data.rb:27
+msgid "Lab"
+msgstr "מעבדה"
+
+#: data.rb:41
 msgid "Loading technion data from YAML"
 msgstr "טוען מידע טכניוני מקובץ ה-YAML"
 
-#: data.rb:34
+#: data.rb:44
+msgid "Loading UDonkey XML data"
+msgstr "טוען מידע טכניוני מקובץ XML"
+
+#: data.rb:47
 msgid "Loading technion data"
 msgstr "טוען מידע טכניוני"
 
-#: data.rb:88
+#: data.rb:102
 msgid "Loading data from REPY"
 msgstr "טוען מידע מקובץ ה-REPY"
 
-#: data.rb:97
+#: data.rb:111
 msgid "Downloading REPY file from Technion"
 msgstr "מוריד קובץ REPY מהטכניון"
 
-#: data.rb:109
+#: data.rb:123
 msgid "Extracting REPY file"
 msgstr "מחלץ קובץ REPY..."
 
-#: gui/main_window.rb:89
+#: gui/main_window.rb:101
 msgid "Please select some courses first."
 msgstr "אנא בחר קורסים קודם."
 
-#: gui/main_window.rb:104
+#: gui/main_window.rb:116
 msgid ""
 "Sorry, but no schedules are possible with the selected courses and "
 "constraints."
 msgstr "אנחנו מצטערים, אך אין מערכות אפשריות עבור הקורסים וההגבלות שנבחרו."
 
-#: gui/main_window.rb:242
+#: gui/main_window.rb:263
 msgid " of %d"
 msgstr " מתוך %d"
 
-#: gui/main_window.rb:265
+#: gui/main_window.rb:286
 msgid "Schedule"
 msgstr "מערכת שעות"
 
-#: gui/main_window.rb:401
+#: gui/main_window.rb:296
+msgid "Show all alternatives"
+msgstr "הצג חלופות להכל"
+
+#: gui/main_window.rb:302
+msgid "Show alternatives to this event"
+msgstr "הצג חלופות לאירוע זה"
+
+#: gui/main_window.rb:452
 msgid "Populating available courses"
 msgstr "ממלא את רשימת הקורסים הזמינים"
 
-#: gui/main_window.rb:459
+#: gui/main_window.rb:510
 msgid "Course Name"
 msgstr "שם קורס"
 
-#: gui/main_window.rb:459
+#: gui/main_window.rb:510
 msgid "Course Number"
 msgstr "מספר קורס"
 
-#: gui/main_window.rb:499
+#: gui/main_window.rb:550
 msgid "Constraints"
 msgstr "הגבלות"
 
@@ -74,13 +98,13 @@ msgstr "הגבלות"
 msgid "Progress"
 msgstr "התקדמות"
 
-#: logic/repy.rb:78
-msgid "Loading REPY file..."
-msgstr "טוען קובץ REPY..."
-
 #: logic/scheduler.rb:80 logic/scheduler.rb:117
 msgid "Generating schedules (%d so far)"
 msgstr "מייצר מערכות (%d עד כה)"
+
+#: parse/repy.rb:162
+msgid "Loading REPY file..."
+msgstr "טוען קובץ REPY..."
 
 #: constraints/no_clashes.rb:40
 msgid "No clashes"
@@ -127,43 +151,35 @@ msgstr ""
 "נכתב ברובו כהוכחת קונצפט - בתיעוד של UDonkey כתוב שניתן לבדוק זאת\n"
 "רק לאחר שמערכת נבנית, ולא ברור למה."
 
-#: constraints/group_constraints.rb:31
-msgid "Lecture"
-msgstr "הרצאה"
-
-#: constraints/group_constraints.rb:32
-msgid "Tutorial"
-msgstr "תרגול"
-
-#: constraints/group_constraints.rb:44
+#: constraints/group_constraints.rb:30
 msgid "Only enable this group"
 msgstr "אפשר קבוצה זו בלבד"
 
-#: constraints/group_constraints.rb:57
+#: constraints/group_constraints.rb:52
 msgid "Disable this group"
 msgstr "אל תאפשר קבוצה זו"
 
-#: constraints/group_constraints.rb:113
+#: constraints/group_constraints.rb:118
 msgid "Group Constraints"
 msgstr "דרוש קבוצות מסוימות"
 
-#: constraints/group_constraints.rb:180
+#: constraints/group_constraints.rb:189
 msgid "Allowed"
 msgstr "מותר"
 
-#: constraints/group_constraints.rb:184
+#: constraints/group_constraints.rb:193
 msgid "Group"
 msgstr "קבוצה"
 
-#: constraints/group_constraints.rb:187
+#: constraints/group_constraints.rb:196
 msgid "Time"
 msgstr "זמן"
 
-#: constraints/group_constraints.rb:190
+#: constraints/group_constraints.rb:199
 msgid "Lecturer"
 msgstr "מרצה"
 
-#: constraints/group_constraints.rb:208
+#: constraints/group_constraints.rb:221
 msgid "Use group constraints"
 msgstr "השתמש בדרישות ע\"פ קבוצות"
 
