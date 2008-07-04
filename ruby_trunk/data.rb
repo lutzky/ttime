@@ -1,14 +1,16 @@
 require 'open-uri'
-require 'zip/zip'
 require 'tempfile'
 require 'pathname'
-require 'gettext'
-require 'parse/udonkey_xml'
 require 'parse/repy'
 
+begin
+  require 'gettext'
+  GetText::bindtextdomain("ttime", "locale", nil, "utf-8")
+rescue LoadError
+  module GetText; def _ s; s; end; end
+end
 #require 'yaml'
 
-GetText::bindtextdomain("ttime", "locale", nil, "utf-8")
 
 module TTime
   class NoSuchCourse < Exception; end
@@ -42,6 +44,7 @@ module TTime
           @data = File.open(YAML_File) { |yf| YAML::load(yf.read) }
         elsif File::exists?(UDonkey_XML_File)
           report _("Loading UDonkey XML data")
+          require 'parse/udonkey_xml'
           @data = TTime::Parse::UDonkeyXML.convert_udonkey_xml UDonkey_XML_File
         elsif File::exists?(MARSHAL_File)
           report _("Loading technion data")
@@ -121,6 +124,8 @@ module TTime
           tf.seek(0)
 
           report _("Extracting REPY file"), 0.5
+
+          require 'zip/zip'
 
           Zip::ZipInputStream.open(tf.path) do |zis|
               entry = zis.get_next_entry

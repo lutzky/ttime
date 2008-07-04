@@ -1,7 +1,12 @@
 require 'iconv'
-require 'gettext'
-
 require 'logic/faculty'
+
+begin
+  require 'gettext'
+  include GetText
+rescue LoadError
+  def _ s; s; end
+end
 
 $KCODE='u'
 require 'jcode'

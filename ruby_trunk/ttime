@@ -27,9 +27,12 @@ OptionParser.new do |opts|
   end
 end.parse!
 
-require 'gettext'
-
-include GetText
+begin
+  require 'gettext'
+  include GetText
+rescue LoadError
+  def _ s; s; end
+end
 
 # Standard unicode support activation
 require 'jcode'
@@ -54,6 +57,7 @@ def convert_repy
     oldmsg = msg
   end
 
+  require 'parse/udonkey_xml'
   TTime::Parse::UDonkeyXML.output_xml data.data
 end
 

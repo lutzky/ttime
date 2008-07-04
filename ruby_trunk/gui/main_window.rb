@@ -2,7 +2,6 @@ require 'libglade2'
 require 'data'
 #require 'gtkmozembed'
 require 'tempfile'
-require 'gettext'
 require 'singleton'
 
 require 'constraints'
@@ -12,7 +11,13 @@ require 'logic/scheduler'
 require 'gui/progress_dialog'
 require 'tcal/tcal'
 
-GetText::bindtextdomain("ttime", "locale", nil, "utf-8")
+begin
+  require 'gettext'
+  GetText::bindtextdomain("ttime", "locale", nil, "utf-8")
+rescue LoadError
+  module GetText; def _ s; s; end; end
+end
+
 
 module Gtk
   class Menu

@@ -1,12 +1,15 @@
 #!/usr/bin/env ruby
 
-require 'gettext'
-
 require 'logic/course'
 require 'logic/group'
 require 'logic/times'
 
-GetText::bindtextdomain("ttime", "locale", nil, "utf-8")
+begin
+  require 'gettext'
+  GetText::bindtextdomain("ttime", "locale", nil, "utf-8")
+rescue LoadError
+  module GetText; def _ s; s; end; end
+end
 
 class Array
   def count
