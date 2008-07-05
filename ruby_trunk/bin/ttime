@@ -3,11 +3,7 @@
 require 'pathname'
 require 'optparse'
 
-p = Pathname.new($0)
-
-if p.basename.to_s == 'main.rb'
-  Dir.chdir p.parent.to_s
-end
+$LOAD_PATH.unshift((Pathname.new($0).dirname.parent + 'lib').to_s)
 
 action = :run_gui
 
@@ -19,7 +15,7 @@ OptionParser.new do |opts|
   end
 
   opts.on("--win32-hack", "Hack for win32 compatibility") do
-    ENV["HOME"] = Dir.pwd
+    ENV["HOME"] = File::dirname($0)
   end
 
   opts.on("--convert-repy", "Convert the REPY file to a sane format") do
@@ -39,7 +35,7 @@ require 'jcode'
 $KCODE = 'u'
 
 def run_gui
-  require 'gui/main_window'
+  require 'ttime/gui/main_window'
 
   Thread.abort_on_exception = true
 
@@ -49,7 +45,7 @@ def run_gui
 end
 
 def convert_repy
-  require 'data'
+  require 'ttime/data'
 
   oldmsg = ""
   data = TTime::Data.new(:convert) do |msg,_|
@@ -57,7 +53,7 @@ def convert_repy
     oldmsg = msg
   end
 
-  require 'parse/udonkey_xml'
+  require 'ttime/parse/udonkey_xml'
   TTime::Parse::UDonkeyXML.output_xml data.data
 end
 
