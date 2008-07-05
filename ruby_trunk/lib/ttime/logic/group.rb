@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-require 'logic/times'
+require 'ttime/logic/times'
 
 module TTime
   module Logic

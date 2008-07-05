@@ -1,5 +1,5 @@
-require 'logic/faculty'
-require 'logic/course'
+require 'ttime/logic/faculty'
+require 'ttime/logic/course'
 
 module TTime
   module Logic

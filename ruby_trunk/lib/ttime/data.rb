@@ -1,7 +1,7 @@
 require 'open-uri'
 require 'tempfile'
 require 'pathname'
-require 'parse/repy'
+require 'ttime/parse/repy'
 
 begin
   require 'gettext'
@@ -46,7 +46,7 @@ module TTime
           @data = File.open(YAML_File) { |yf| YAML::load(yf.read) }
         elsif File::exists?(UDonkey_XML_File)
           report _("Loading UDonkey XML data")
-          require 'parse/udonkey_xml'
+          require 'ttime/parse/udonkey_xml'
           @data = TTime::Parse::UDonkeyXML.convert_udonkey_xml UDonkey_XML_File
         elsif File::exists?(MARSHAL_File)
           report _("Loading technion data")

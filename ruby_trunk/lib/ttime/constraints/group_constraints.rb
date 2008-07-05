@@ -1,4 +1,4 @@
-require 'constraints'
+require 'ttime/constraints'
 require 'set'
 
 GetText::bindtextdomain("ttime", "locale", nil, "utf-8")

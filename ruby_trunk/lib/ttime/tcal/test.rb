@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 require 'gtk2'
-require 'tcal'
+require 'ttime/tcal'
 
 window = Gtk::Window.new
 

@@ -1,15 +1,15 @@
 require 'libglade2'
-require 'data'
+require 'ttime/data'
 #require 'gtkmozembed'
 require 'tempfile'
 require 'singleton'
 
-require 'constraints'
-require 'settings'
-require 'logic/course'
-require 'logic/scheduler'
-require 'gui/progress_dialog'
-require 'tcal/tcal'
+require 'ttime/constraints'
+require 'ttime/settings'
+require 'ttime/logic/course'
+require 'ttime/logic/scheduler'
+require 'ttime/gui/progress_dialog'
+require 'ttime/tcal/tcal'
 
 begin
   require 'gettext'

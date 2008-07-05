@@ -1,6 +1,6 @@
 require 'date'
 
-require 'logic/group'
+require 'ttime/logic/group'
 
 class Array
   def one_member_of_each_member

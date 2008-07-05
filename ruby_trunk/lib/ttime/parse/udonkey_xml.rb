@@ -1,4 +1,4 @@
-require 'logic/faculty'
+require 'ttime/logic/faculty'
 require 'xml/libxml'
 
 module TTime

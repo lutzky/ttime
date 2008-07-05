@@ -1,5 +1,5 @@
 require 'iconv'
-require 'logic/faculty'
+require 'ttime/logic/faculty'
 
 begin
   require 'gettext'

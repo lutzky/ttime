@@ -1,8 +1,8 @@
 #!/usr/bin/env ruby
 
-require 'logic/course'
-require 'logic/group'
-require 'logic/times'
+require 'ttime/logic/course'
+require 'ttime/logic/group'
+require 'ttime/logic/times'
 
 begin
   require 'gettext'

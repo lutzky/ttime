@@ -8,9 +8,9 @@ require 'rsvg2'
 
 
 # internal includes
-require 'tcal/event'
-require 'tcal/layer'
-require 'tcal/cairo_aux'
+require 'ttime/tcal/event'
+require 'ttime/tcal/layer'
+require 'ttime/tcal/cairo_aux'
 
 LEFT_BUTTON = 1
 RIGHT_BUTTON = 3

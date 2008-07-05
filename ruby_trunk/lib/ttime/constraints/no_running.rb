@@ -1,5 +1,5 @@
-require 'constraints'
-require 'logic/times'
+require 'ttime/constraints'
+require 'ttime/logic/times'
 
 GetText::bindtextdomain("ttime", "locale", nil, "utf-8")
 

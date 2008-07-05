@@ -1,4 +1,4 @@
-require 'logic/course'
+require 'ttime/logic/course'
 
 module TTime
   module Logic
