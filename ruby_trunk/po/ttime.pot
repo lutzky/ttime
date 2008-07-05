@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ttime 0.x.x\n"
-"POT-Creation-Date: 2008-07-03 19:10+0300\n"
+"POT-Creation-Date: 2008-07-05 15:09+0300\n"
 "PO-Revision-Date: 2006-10-19 11:53+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,103 +16,59 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: data.rb:25
+#: data.rb:27
 msgid "Lecture"
 msgstr ""
 
-#: data.rb:26
+#: data.rb:28
 msgid "Tutorial"
 msgstr ""
 
-#: data.rb:27
+#: data.rb:29
 msgid "Lab"
 msgstr ""
 
-#: data.rb:41
+#: data.rb:43
 msgid "Loading technion data from YAML"
 msgstr ""
 
-#: data.rb:44
+#: data.rb:46
 msgid "Loading UDonkey XML data"
 msgstr ""
 
-#: data.rb:47
+#: data.rb:50
 msgid "Loading technion data"
 msgstr ""
 
-#: data.rb:102
+#: data.rb:105
 msgid "Loading data from REPY"
 msgstr ""
 
-#: data.rb:111
+#: data.rb:114
 msgid "Downloading REPY file from Technion"
 msgstr ""
 
-#: data.rb:123
+#: data.rb:126
 msgid "Extracting REPY file"
 msgstr ""
 
-#: gui/main_window.rb:101
-msgid "Please select some courses first."
+#: constraints/no_running.rb:48
+msgid "No running"
 msgstr ""
 
-#: gui/main_window.rb:116
+#: constraints/no_running.rb:54 constraints/no_clashes.rb:46
+#: constraints/one_free_day.rb:35
+msgid "Enable"
+msgstr ""
+
+#: constraints/no_running.rb:63
 msgid ""
-"Sorry, but no schedules are possible with the selected courses and "
-"constraints."
-msgstr ""
-
-#: gui/main_window.rb:263
-msgid " of %d"
-msgstr ""
-
-#: gui/main_window.rb:286
-msgid "Schedule"
-msgstr ""
-
-#: gui/main_window.rb:296
-msgid "Show all alternatives"
-msgstr ""
-
-#: gui/main_window.rb:302
-msgid "Show alternatives to this event"
-msgstr ""
-
-#: gui/main_window.rb:452
-msgid "Populating available courses"
-msgstr ""
-
-#: gui/main_window.rb:510
-msgid "Course Name"
-msgstr ""
-
-#: gui/main_window.rb:510
-msgid "Course Number"
-msgstr ""
-
-#: gui/main_window.rb:550
-msgid "Constraints"
-msgstr ""
-
-#: gui/progress_dialog.rb:13
-msgid "Progress"
-msgstr ""
-
-#: logic/scheduler.rb:80 logic/scheduler.rb:117
-msgid "Generating schedules (%d so far)"
-msgstr ""
-
-#: parse/repy.rb:162
-msgid "Loading REPY file..."
+"This constraint makes sure you don't have to run between buildings during a\n"
+"10-minute (in case the lecturer finishes on time) break.\n"
 msgstr ""
 
 #: constraints/no_clashes.rb:40
 msgid "No clashes"
-msgstr ""
-
-#: constraints/no_clashes.rb:46 constraints/no_running.rb:54
-#: constraints/one_free_day.rb:35
-msgid "Enable"
 msgstr ""
 
 #: constraints/no_clashes.rb:55
@@ -120,16 +76,6 @@ msgid ""
 "WARNING! Disabling the 'no clashes' constraint will make scheduling take\n"
 "MUCH longer! You probably want to leave this on. (Coming soon: allow\n"
 "clashes only for specific courses)\n"
-msgstr ""
-
-#: constraints/no_running.rb:48
-msgid "No running"
-msgstr ""
-
-#: constraints/no_running.rb:63
-msgid ""
-"This constraint makes sure you don't have to run between buildings during a\n"
-"10-minute (in case the lecturer finishes on time) break.\n"
 msgstr ""
 
 #: constraints/one_free_day.rb:29
@@ -163,7 +109,7 @@ msgstr ""
 msgid "Group"
 msgstr ""
 
-#: constraints/group_constraints.rb:196
+#: constraints/group_constraints.rb:196 constraints/free_hours.rb:121
 msgid "Time"
 msgstr ""
 
@@ -173,6 +119,112 @@ msgstr ""
 
 #: constraints/group_constraints.rb:221
 msgid "Use group constraints"
+msgstr ""
+
+#: constraints/free_hours.rb:26 constraints/free_hours.rb:29
+msgid "Add free hour"
+msgstr ""
+
+#: constraints/free_hours.rb:50
+msgid "Start:"
+msgstr ""
+
+#: constraints/free_hours.rb:62
+msgid "End:"
+msgstr ""
+
+#: constraints/free_hours.rb:112
+msgid "Free Hours"
+msgstr ""
+
+#: constraints/free_hours.rb:128
+msgid "Free hours"
+msgstr ""
+
+#: constraints/free_hours.rb:134
+msgid "Remove"
+msgstr ""
+
+#: gui/main_window.rb:106
+msgid "Please select some courses first."
+msgstr ""
+
+#: gui/main_window.rb:121
+msgid ""
+"Sorry, but no schedules are possible with the selected courses and "
+"constraints."
+msgstr ""
+
+#: gui/main_window.rb:268
+msgid " of %d"
+msgstr ""
+
+#: gui/main_window.rb:291
+msgid "Schedule"
+msgstr ""
+
+#: gui/main_window.rb:301
+msgid "Show all alternatives"
+msgstr ""
+
+#: gui/main_window.rb:307
+msgid "Show alternatives to this event"
+msgstr ""
+
+#: gui/main_window.rb:457
+msgid "Populating available courses"
+msgstr ""
+
+#: gui/main_window.rb:515
+msgid "Course Name"
+msgstr ""
+
+#: gui/main_window.rb:515
+msgid "Course Number"
+msgstr ""
+
+#: gui/main_window.rb:555
+msgid "Constraints"
+msgstr ""
+
+#: gui/progress_dialog.rb:13
+msgid "Progress"
+msgstr ""
+
+#: parse/repy.rb:167
+msgid "Loading REPY file..."
+msgstr ""
+
+#: logic/scheduler.rb:83 logic/scheduler.rb:120
+msgid "Generating schedules (%d so far)"
+msgstr ""
+
+#: logic/times.rb:14
+msgid "Sunday"
+msgstr ""
+
+#: logic/times.rb:15
+msgid "Monday"
+msgstr ""
+
+#: logic/times.rb:16
+msgid "Tuesday"
+msgstr ""
+
+#: logic/times.rb:17
+msgid "Wednesday"
+msgstr ""
+
+#: logic/times.rb:18
+msgid "Thursday"
+msgstr ""
+
+#: logic/times.rb:19
+msgid "Friday"
+msgstr ""
+
+#: logic/times.rb:20
+msgid "Saturday"
 msgstr ""
 
 #: gui/ttime.glade:7

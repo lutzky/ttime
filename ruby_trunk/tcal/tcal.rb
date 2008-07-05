@@ -138,7 +138,7 @@ module TCal
               @click_handlers.each do |handler|
                 handler.call({
                   :day => day,
-                  :hour => hour,
+                  :hour => TTime::Logic::Hour::float_to_military(hour),
                   :data => (event and event.data),
                   :gdk_event => e,
                 })
