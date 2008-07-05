@@ -34,6 +34,8 @@ module TTime
       @status_report_proc = status_report_proc
       @status_report_proc = proc {} if @status_report_proc.nil?
 
+      DATA_DIR.mkdir unless DATA_DIR.exist?
+
       if force == :convert and File::exists?(REPY_File)
         @data = convert_repy
       elsif force
@@ -91,7 +93,7 @@ module TTime
 
     USE_YAML = false
 
-    DATA_DIR = Pathname.new "data/"
+    DATA_DIR = Pathname.new(ENV['HOME']) + ".ttime/data"
 
     REPY_Zip_filename = "REPFILE.zip"
     REPY_Zip = DATA_DIR + REPY_Zip_filename
