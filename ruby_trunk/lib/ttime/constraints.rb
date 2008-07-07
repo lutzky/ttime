@@ -1,4 +1,5 @@
 require 'pp'
+require 'pathname'
 
 begin
   require 'gettext'
@@ -68,16 +69,31 @@ module TTime
       end
     end
 
+    # Constraint directories are given either relative to $0's directory or
+    # absolutely. All paths are searched.
+    ConstraintPathCandidates = [
+      '../lib/ttime/constraints',
+      '/usr/lib/ttime/constraints',
+      '/usr/share/ttime/constraints',
+      '/usr/local/share/ttime/constraints',
+    ]
+
     def Constraints.initialize
-      Dir.glob('constraints/*.rb').each do |constraint|
-        require constraint
+      my_path = Pathname.new($0).dirname
+      ConstraintPathCandidates.collect { |p| my_path + p }.each do |path|
+        Dir.glob(path + '*.rb').each do |constraint|
+          require constraint
+        end
       end
     end
 
     def Constraints.get_constraints
-      constraint_classes = Constraints.constants.collect do |c|
+      constraint_class_names = Constraints.constants - \
+        [ "AbstractConstraint", "ConstraintPathCandidates" ]
+
+      constraint_classes = constraint_class_names.collect do |c|
         Constraints.module_eval(c)
-      end - [ AbstractConstraint ]
+      end
 
       constraint_classes.collect do |c|
         c.new
