@@ -31,6 +31,22 @@ end
 
 module TTime
   module GUI
+    DataPathCandidates = [
+      '../share/ttime/',
+      '/usr/share/ttime/',
+      '/usr/local/share/ttime/',
+    ]
+
+    class << self
+      def find_data_file filename
+        my_path = Pathname.new($0).dirname
+        DataPathCandidates.collect { |p| my_path + p + filename }.each do |path|
+          return path.to_s if path.exist?
+        end
+        raise Errno::ENOENT.new(filename)
+      end
+    end
+
     class MainWindow
       include Singleton
       include GetText
@@ -70,9 +86,9 @@ module TTime
       def show_preferences
       end
 
-      GLADE_FILE = "gui/ttime.glade"
       def initialize
-        @glade = GladeXML.new(GLADE_FILE,nil,"ttime","locale") do |handler|
+        glade_file = GUI.find_data_file("ttime.glade")
+        @glade = GladeXML.new(glade_file,nil,"ttime","locale") do |handler|
           method(handler) 
         end
 
@@ -279,7 +295,8 @@ module TTime
         s.hscrollbar_policy = Gtk::PolicyType::NEVER
         s.vscrollbar_policy = Gtk::PolicyType::AUTOMATIC
 
-        @calendar = TCal::Calendar.new({:logo => 'gui/ttime.svg' })
+        logo_file = GUI.find_data_file('ttime.svg')
+        @calendar = TCal::Calendar.new({ :logo => logo_file })
         @calendar_info = Gtk::TextView.new
         @calendar_info.editable = false
 
