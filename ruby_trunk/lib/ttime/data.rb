@@ -11,8 +11,6 @@ module TTime
   class NoSuchCourse < Exception; end
 
   class Data
-    include GetText
-
     attr_reader :data
 
     class << self

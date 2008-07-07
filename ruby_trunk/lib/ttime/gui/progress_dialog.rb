@@ -4,8 +4,6 @@ require 'gtk2'
 module TTime
   module GUI
     class ProgressDialog < Gtk::Dialog
-      include GetText
-
       def initialize
         super
 

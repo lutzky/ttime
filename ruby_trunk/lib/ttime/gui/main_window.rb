@@ -44,7 +44,6 @@ module TTime
 
     class MainWindow
       include Singleton
-      include GetText
 
       def on_auto_update
         load_data(true)
@@ -83,7 +82,7 @@ module TTime
 
       def initialize
         glade_file = GUI.find_data_file("ttime.glade")
-        @glade = GladeXML.new(glade_file,nil,"ttime",$GETTEXT_DOMAIN) do |handler|
+        @glade = GladeXML.new(glade_file,nil,"ttime") do |handler|
           method(handler) 
         end
 

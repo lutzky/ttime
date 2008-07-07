@@ -2,8 +2,6 @@ require 'iconv'
 require 'ttime/logic/faculty'
 require 'ttime/gettext_settings'
 
-include GetText
-
 $KCODE='u'
 require 'jcode'
 

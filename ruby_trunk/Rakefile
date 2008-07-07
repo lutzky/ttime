@@ -25,7 +25,7 @@ end
 desc "Create mo-files for L10n"
 task :makemo do
   require 'gettext/utils'
-  GetText.create_mofiles(true, "po", "locale")
+  GetText.create_mofiles(true, "po", "data/locale")
 end
 
 desc "Update pot/po files to match new version"

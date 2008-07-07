@@ -26,8 +26,6 @@ end
 module TTime
   module Logic
     class Schedule
-      include GetText
-
       attr_reader :groups
 
       def initialize(course_groups_arr)

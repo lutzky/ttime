@@ -5,8 +5,6 @@ require 'ttime/gettext_settings'
 module TTime
   module Constraints
     class AbstractConstraint
-      include GetText
-
       attr_reader :schedule
 
       class ConstraintMenuItem

@@ -1,7 +1,5 @@
 require 'ttime/gettext_settings'
 
-include GetText
-
 module TTime
   module Logic
     class Day 
