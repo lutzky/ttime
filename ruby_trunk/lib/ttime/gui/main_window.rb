@@ -27,7 +27,7 @@ module TTime
     # Candidates for GUI data paths are given either relative to $0's directory
     # or absolutely. The first match (for any specific file) is chosen.
     DataPathCandidates = [
-      '../share/ttime/',
+      '../data/ttime/',
       '/usr/share/ttime/',
       '/usr/local/share/ttime/',
     ]
