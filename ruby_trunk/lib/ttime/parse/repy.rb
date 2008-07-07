@@ -1,12 +1,8 @@
 require 'iconv'
 require 'ttime/logic/faculty'
+require 'ttime/gettext_settings'
 
-begin
-  require 'gettext'
-  include GetText
-rescue LoadError
-  def _ s; s; end
-end
+include GetText
 
 $KCODE='u'
 require 'jcode'
@@ -19,8 +15,6 @@ class String
     tmp
   end
 end
-
-GetText::bindtextdomain("ttime", "locale", nil, "utf-8")
 
 module TTime
   module Parse

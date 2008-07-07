@@ -2,13 +2,8 @@ require 'open-uri'
 require 'tempfile'
 require 'pathname'
 require 'ttime/parse/repy'
+require 'ttime/gettext_settings.rb'
 
-begin
-  require 'gettext'
-  GetText::bindtextdomain("ttime", "locale", nil, "utf-8")
-rescue LoadError
-  module GetText; def _ s; s; end; end
-end
 #require 'yaml'
 
 

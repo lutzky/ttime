@@ -10,14 +10,7 @@ require 'ttime/logic/course'
 require 'ttime/logic/scheduler'
 require 'ttime/gui/progress_dialog'
 require 'ttime/tcal/tcal'
-
-begin
-  require 'gettext'
-  GetText::bindtextdomain("ttime", "locale", nil, "utf-8")
-rescue LoadError
-  module GetText; def _ s; s; end; end
-end
-
+require 'ttime/gettext_settings'
 
 module Gtk
   class Menu
@@ -90,7 +83,7 @@ module TTime
 
       def initialize
         glade_file = GUI.find_data_file("ttime.glade")
-        @glade = GladeXML.new(glade_file,nil,"ttime","locale") do |handler|
+        @glade = GladeXML.new(glade_file,nil,"ttime",$GETTEXT_DOMAIN) do |handler|
           method(handler) 
         end
 

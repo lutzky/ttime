@@ -1,6 +1,5 @@
 require 'ttime/constraints'
-
-GetText::bindtextdomain("ttime", "locale", nil, "utf-8")
+require 'ttime/gettext_settings'
 
 module TTime
   module Constraints
