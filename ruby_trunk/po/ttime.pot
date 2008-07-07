@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ttime 0.x.x\n"
-"POT-Creation-Date: 2008-07-05 15:09+0300\n"
+"POT-Creation-Date: 2008-07-07 14:59+0300\n"
 "PO-Revision-Date: 2006-10-19 11:53+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,292 +16,298 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: data.rb:27
+#: lib/ttime/gui/main_window.rb:117
+msgid "Please select some courses first."
+msgstr ""
+
+#: lib/ttime/gui/main_window.rb:132
+msgid ""
+"Sorry, but no schedules are possible with the selected courses and "
+"constraints."
+msgstr ""
+
+#: lib/ttime/gui/main_window.rb:279
+msgid " of %d"
+msgstr ""
+
+#: lib/ttime/gui/main_window.rb:303
+msgid "Schedule"
+msgstr ""
+
+#: lib/ttime/gui/main_window.rb:313
+msgid "Show all alternatives"
+msgstr ""
+
+#: lib/ttime/gui/main_window.rb:319
+msgid "Show alternatives to this event"
+msgstr ""
+
+#: lib/ttime/gui/main_window.rb:469
+msgid "Populating available courses"
+msgstr ""
+
+#: lib/ttime/gui/main_window.rb:527
+msgid "Course Name"
+msgstr ""
+
+#: lib/ttime/gui/main_window.rb:527
+msgid "Course Number"
+msgstr ""
+
+#: lib/ttime/gui/main_window.rb:567
+msgid "Constraints"
+msgstr ""
+
+#: lib/ttime/gui/progress_dialog.rb:12
+msgid "Progress"
+msgstr ""
+
+#: lib/ttime/data.rb:22
 msgid "Lecture"
 msgstr ""
 
-#: data.rb:28
+#: lib/ttime/data.rb:23
 msgid "Tutorial"
 msgstr ""
 
-#: data.rb:29
+#: lib/ttime/data.rb:24
 msgid "Lab"
 msgstr ""
 
-#: data.rb:43
+#: lib/ttime/data.rb:48
 msgid "Loading technion data from YAML"
 msgstr ""
 
-#: data.rb:46
+#: lib/ttime/data.rb:51
 msgid "Loading UDonkey XML data"
 msgstr ""
 
-#: data.rb:50
+#: lib/ttime/data.rb:55
 msgid "Loading technion data"
 msgstr ""
 
-#: data.rb:105
+#: lib/ttime/data.rb:111
 msgid "Loading data from REPY"
 msgstr ""
 
-#: data.rb:114
+#: lib/ttime/data.rb:120
 msgid "Downloading REPY file from Technion"
 msgstr ""
 
-#: data.rb:126
+#: lib/ttime/data.rb:132
 msgid "Extracting REPY file"
 msgstr ""
 
-#: constraints/no_running.rb:48
-msgid "No running"
+#: lib/ttime/logic/scheduler.rb:77 lib/ttime/logic/scheduler.rb:114
+msgid "Generating schedules (%d so far)"
 msgstr ""
 
-#: constraints/no_running.rb:54 constraints/no_clashes.rb:46
-#: constraints/one_free_day.rb:35
-msgid "Enable"
+#: lib/ttime/logic/times.rb:9
+msgid "Sunday"
 msgstr ""
 
-#: constraints/no_running.rb:63
+#: lib/ttime/logic/times.rb:10
+msgid "Monday"
+msgstr ""
+
+#: lib/ttime/logic/times.rb:11
+msgid "Tuesday"
+msgstr ""
+
+#: lib/ttime/logic/times.rb:12
+msgid "Wednesday"
+msgstr ""
+
+#: lib/ttime/logic/times.rb:13
+msgid "Thursday"
+msgstr ""
+
+#: lib/ttime/logic/times.rb:14
+msgid "Friday"
+msgstr ""
+
+#: lib/ttime/logic/times.rb:15
+msgid "Saturday"
+msgstr ""
+
+#: lib/ttime/parse/repy.rb:161
+msgid "Loading REPY file..."
+msgstr ""
+
+#: lib/ttime/constraints/free_hours.rb:25
+#: lib/ttime/constraints/free_hours.rb:45
+msgid "Add free hour"
+msgstr ""
+
+#: lib/ttime/constraints/free_hours.rb:65
+msgid "Start:"
+msgstr ""
+
+#: lib/ttime/constraints/free_hours.rb:69
+msgid "End:"
+msgstr ""
+
+#: lib/ttime/constraints/free_hours.rb:112
+msgid "Free Hours"
+msgstr ""
+
+#: lib/ttime/constraints/free_hours.rb:121
+#: lib/ttime/constraints/group_constraints.rb:195
+msgid "Time"
+msgstr ""
+
+#: lib/ttime/constraints/free_hours.rb:128
+msgid "Free hours"
+msgstr ""
+
+#: lib/ttime/constraints/free_hours.rb:134
+msgid "Remove"
+msgstr ""
+
+#: lib/ttime/constraints/free_days.rb:34
+msgid "Free days"
+msgstr ""
+
+#: lib/ttime/constraints/free_days.rb:51
+msgid " free days please"
+msgstr ""
+
+#: lib/ttime/constraints/free_days.rb:58
 msgid ""
-"This constraint makes sure you don't have to run between buildings during a\n"
-"10-minute (in case the lecturer finishes on time) break.\n"
+"This constraint makes sure your schedule has <b>at least</b> as many free "
+"days\n"
+"as you requested.\n"
 msgstr ""
 
-#: constraints/no_clashes.rb:40
+#: lib/ttime/constraints/no_clashes.rb:39
 msgid "No clashes"
 msgstr ""
 
-#: constraints/no_clashes.rb:55
+#: lib/ttime/constraints/no_clashes.rb:45
+#: lib/ttime/constraints/no_running.rb:53
+msgid "Enable"
+msgstr ""
+
+#: lib/ttime/constraints/no_clashes.rb:54
 msgid ""
 "WARNING! Disabling the 'no clashes' constraint will make scheduling take\n"
 "MUCH longer! You probably want to leave this on. (Coming soon: allow\n"
 "clashes only for specific courses)\n"
 msgstr ""
 
-#: constraints/one_free_day.rb:29
-msgid "One free day"
+#: lib/ttime/constraints/no_running.rb:47
+msgid "No running"
 msgstr ""
 
-#: constraints/one_free_day.rb:44
+#: lib/ttime/constraints/no_running.rb:62
 msgid ""
-"Written mostly as proof of a concept - UDonkey's documentation says they\n"
-"can only check this condition after a schedule is built, to which I say "
-"\"WTF?\"\n"
+"This constraint makes sure you don't have to run between buildings during a\n"
+"10-minute (in case the lecturer finishes on time) break.\n"
 msgstr ""
 
-#: constraints/group_constraints.rb:30
+#: lib/ttime/constraints/group_constraints.rb:29
 msgid "Only enable this group"
 msgstr ""
 
-#: constraints/group_constraints.rb:52
+#: lib/ttime/constraints/group_constraints.rb:51
 msgid "Disable this group"
 msgstr ""
 
-#: constraints/group_constraints.rb:118
+#: lib/ttime/constraints/group_constraints.rb:117
 msgid "Group Constraints"
 msgstr ""
 
-#: constraints/group_constraints.rb:189
+#: lib/ttime/constraints/group_constraints.rb:188
 msgid "Allowed"
 msgstr ""
 
-#: constraints/group_constraints.rb:193
+#: lib/ttime/constraints/group_constraints.rb:192
 msgid "Group"
 msgstr ""
 
-#: constraints/group_constraints.rb:196 constraints/free_hours.rb:121
-msgid "Time"
-msgstr ""
-
-#: constraints/group_constraints.rb:199
+#: lib/ttime/constraints/group_constraints.rb:198
 msgid "Lecturer"
 msgstr ""
 
-#: constraints/group_constraints.rb:221
+#: lib/ttime/constraints/group_constraints.rb:220
 msgid "Use group constraints"
 msgstr ""
 
-#: constraints/free_hours.rb:26 constraints/free_hours.rb:29
-msgid "Add free hour"
-msgstr ""
-
-#: constraints/free_hours.rb:50
-msgid "Start:"
-msgstr ""
-
-#: constraints/free_hours.rb:62
-msgid "End:"
-msgstr ""
-
-#: constraints/free_hours.rb:112
-msgid "Free Hours"
-msgstr ""
-
-#: constraints/free_hours.rb:128
-msgid "Free hours"
-msgstr ""
-
-#: constraints/free_hours.rb:134
-msgid "Remove"
-msgstr ""
-
-#: gui/main_window.rb:106
-msgid "Please select some courses first."
-msgstr ""
-
-#: gui/main_window.rb:121
-msgid ""
-"Sorry, but no schedules are possible with the selected courses and "
-"constraints."
-msgstr ""
-
-#: gui/main_window.rb:268
-msgid " of %d"
-msgstr ""
-
-#: gui/main_window.rb:291
-msgid "Schedule"
-msgstr ""
-
-#: gui/main_window.rb:301
-msgid "Show all alternatives"
-msgstr ""
-
-#: gui/main_window.rb:307
-msgid "Show alternatives to this event"
-msgstr ""
-
-#: gui/main_window.rb:457
-msgid "Populating available courses"
-msgstr ""
-
-#: gui/main_window.rb:515
-msgid "Course Name"
-msgstr ""
-
-#: gui/main_window.rb:515
-msgid "Course Number"
-msgstr ""
-
-#: gui/main_window.rb:555
-msgid "Constraints"
-msgstr ""
-
-#: gui/progress_dialog.rb:13
-msgid "Progress"
-msgstr ""
-
-#: parse/repy.rb:167
-msgid "Loading REPY file..."
-msgstr ""
-
-#: logic/scheduler.rb:83 logic/scheduler.rb:120
-msgid "Generating schedules (%d so far)"
-msgstr ""
-
-#: logic/times.rb:14
-msgid "Sunday"
-msgstr ""
-
-#: logic/times.rb:15
-msgid "Monday"
-msgstr ""
-
-#: logic/times.rb:16
-msgid "Tuesday"
-msgstr ""
-
-#: logic/times.rb:17
-msgid "Wednesday"
-msgstr ""
-
-#: logic/times.rb:18
-msgid "Thursday"
-msgstr ""
-
-#: logic/times.rb:19
-msgid "Friday"
-msgstr ""
-
-#: logic/times.rb:20
-msgid "Saturday"
-msgstr ""
-
-#: gui/ttime.glade:7
+#: share/ttime/ttime.glade:7
 msgid "TTime"
 msgstr ""
 
-#: gui/ttime.glade:21
+#: share/ttime/ttime.glade:21
 msgid "_File"
 msgstr ""
 
-#: gui/ttime.glade:41
+#: share/ttime/ttime.glade:41
 msgid "_Schedules"
 msgstr ""
 
-#: gui/ttime.glade:48
+#: share/ttime/ttime.glade:48
 msgid "Find schedules"
 msgstr ""
 
-#: gui/ttime.glade:69 gui/ttime.glade:258
+#: share/ttime/ttime.glade:69 share/ttime/ttime.glade:258
 msgid "Jump 10 back"
 msgstr ""
 
-#: gui/ttime.glade:85 gui/ttime.glade:270
+#: share/ttime/ttime.glade:85 share/ttime/ttime.glade:270
 msgid "Previous"
 msgstr ""
 
-#: gui/ttime.glade:101 gui/ttime.glade:282
+#: share/ttime/ttime.glade:101 share/ttime/ttime.glade:282
 msgid "Next"
 msgstr ""
 
-#: gui/ttime.glade:117 gui/ttime.glade:294
+#: share/ttime/ttime.glade:117 share/ttime/ttime.glade:294
 msgid "Jump 10 forward"
 msgstr ""
 
-#: gui/ttime.glade:137
+#: share/ttime/ttime.glade:137
 msgid "_Tools"
 msgstr ""
 
-#: gui/ttime.glade:144
+#: share/ttime/ttime.glade:144
 msgid "Auto _Update"
 msgstr ""
 
-#: gui/ttime.glade:171
+#: share/ttime/ttime.glade:171
 msgid "_Help"
 msgstr ""
 
-#: gui/ttime.glade:201
+#: share/ttime/ttime.glade:201
 msgid "Find Schedules"
 msgstr ""
 
-#: gui/ttime.glade:230
+#: share/ttime/ttime.glade:230
 msgid " of 0"
 msgstr ""
 
-#: gui/ttime.glade:340
+#: share/ttime/ttime.glade:340
 msgid "Search "
 msgstr ""
 
-#: gui/ttime.glade:403
+#: share/ttime/ttime.glade:403
 msgid "Available Courses"
 msgstr ""
 
-#: gui/ttime.glade:461
+#: share/ttime/ttime.glade:461
 msgid "Selected Courses"
 msgstr ""
 
-#: gui/ttime.glade:505
+#: share/ttime/ttime.glade:505
 msgid "Course List"
 msgstr ""
 
-#: gui/ttime.glade:532
+#: share/ttime/ttime.glade:532
 msgid ""
 "Inspired by UDonkey and Marprog\n"
 "\n"
 "But we don't like C#"
 msgstr ""
 
-#: gui/ttime.glade:536
+#: share/ttime/ttime.glade:536
 msgid "TTime Trac"
 msgstr ""

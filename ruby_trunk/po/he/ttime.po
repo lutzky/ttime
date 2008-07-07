@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ttime 0.x.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-07-05 15:09+0300\n"
-"PO-Revision-Date: 2008-07-05 15:10+0300\n"
+"POT-Creation-Date: 2008-07-07 14:59+0300\n"
+"PO-Revision-Date: 2008-07-07 15:00+0300\n"
 "Last-Translator: Ohad Lutzky <lutzky@gmail.com>\n"
 "Language-Team: Hebrew <eliz@gnu.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,65 +16,179 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);"
 
-#: data.rb:27
+#: lib/ttime/gui/main_window.rb:117
+msgid "Please select some courses first."
+msgstr "אנא בחר קורסים קודם."
+
+#: lib/ttime/gui/main_window.rb:132
+msgid ""
+"Sorry, but no schedules are possible with the selected courses and "
+"constraints."
+msgstr "אנחנו מצטערים, אך אין מערכות אפשריות עבור הקורסים וההגבלות שנבחרו."
+
+#: lib/ttime/gui/main_window.rb:279
+msgid " of %d"
+msgstr " מתוך %d"
+
+#: lib/ttime/gui/main_window.rb:303
+msgid "Schedule"
+msgstr "מערכת שעות"
+
+#: lib/ttime/gui/main_window.rb:313
+msgid "Show all alternatives"
+msgstr "הצג חלופות להכל"
+
+#: lib/ttime/gui/main_window.rb:319
+msgid "Show alternatives to this event"
+msgstr "הצג חלופות לאירוע זה"
+
+#: lib/ttime/gui/main_window.rb:469
+msgid "Populating available courses"
+msgstr "ממלא את רשימת הקורסים הזמינים"
+
+#: lib/ttime/gui/main_window.rb:527
+msgid "Course Name"
+msgstr "שם קורס"
+
+#: lib/ttime/gui/main_window.rb:527
+msgid "Course Number"
+msgstr "מספר קורס"
+
+#: lib/ttime/gui/main_window.rb:567
+msgid "Constraints"
+msgstr "הגבלות"
+
+#: lib/ttime/gui/progress_dialog.rb:12
+msgid "Progress"
+msgstr "התקדמות"
+
+#: lib/ttime/data.rb:22
 msgid "Lecture"
 msgstr "הרצאה"
 
-#: data.rb:28
+#: lib/ttime/data.rb:23
 msgid "Tutorial"
 msgstr "תרגול"
 
-#: data.rb:29
+#: lib/ttime/data.rb:24
 msgid "Lab"
 msgstr "מעבדה"
 
-#: data.rb:43
+#: lib/ttime/data.rb:48
 msgid "Loading technion data from YAML"
 msgstr "טוען מידע טכניוני מקובץ ה-YAML"
 
-#: data.rb:46
+#: lib/ttime/data.rb:51
 msgid "Loading UDonkey XML data"
 msgstr "טוען מידע טכניוני מקובץ XML"
 
-#: data.rb:50
+#: lib/ttime/data.rb:55
 msgid "Loading technion data"
 msgstr "טוען מידע טכניוני"
 
-#: data.rb:105
+#: lib/ttime/data.rb:111
 msgid "Loading data from REPY"
 msgstr "טוען מידע מקובץ ה-REPY"
 
-#: data.rb:114
+#: lib/ttime/data.rb:120
 msgid "Downloading REPY file from Technion"
 msgstr "מוריד קובץ REPY מהטכניון"
 
-#: data.rb:126
+#: lib/ttime/data.rb:132
 msgid "Extracting REPY file"
 msgstr "מחלץ קובץ REPY..."
 
-#: constraints/no_running.rb:48
-msgid "No running"
-msgstr "ללא ריצות"
+#: lib/ttime/logic/scheduler.rb:77 lib/ttime/logic/scheduler.rb:114
+msgid "Generating schedules (%d so far)"
+msgstr "מייצר מערכות (%d עד כה)"
 
-#: constraints/no_running.rb:54 constraints/no_clashes.rb:46
-#: constraints/one_free_day.rb:35
-msgid "Enable"
-msgstr "הפעל"
+#: lib/ttime/logic/times.rb:9
+msgid "Sunday"
+msgstr "ראשון"
 
-#: constraints/no_running.rb:63
+#: lib/ttime/logic/times.rb:10
+msgid "Monday"
+msgstr "שני"
+
+#: lib/ttime/logic/times.rb:11
+msgid "Tuesday"
+msgstr "שלישי"
+
+#: lib/ttime/logic/times.rb:12
+msgid "Wednesday"
+msgstr "רביעי"
+
+#: lib/ttime/logic/times.rb:13
+msgid "Thursday"
+msgstr "חמישי"
+
+#: lib/ttime/logic/times.rb:14
+msgid "Friday"
+msgstr "שישי"
+
+#: lib/ttime/logic/times.rb:15
+msgid "Saturday"
+msgstr "שבת"
+
+#: lib/ttime/parse/repy.rb:161
+msgid "Loading REPY file..."
+msgstr "טוען קובץ REPY..."
+
+#: lib/ttime/constraints/free_hours.rb:25
+#: lib/ttime/constraints/free_hours.rb:45
+msgid "Add free hour"
+msgstr "הוסף שעה חופשית"
+
+#: lib/ttime/constraints/free_hours.rb:65
+msgid "Start:"
+msgstr "התחלה:"
+
+#: lib/ttime/constraints/free_hours.rb:69
+msgid "End:"
+msgstr "סוף:"
+
+#: lib/ttime/constraints/free_hours.rb:112
+msgid "Free Hours"
+msgstr "שעות חופשיות"
+
+#: lib/ttime/constraints/free_hours.rb:121
+#: lib/ttime/constraints/group_constraints.rb:195
+msgid "Time"
+msgstr "זמן"
+
+#: lib/ttime/constraints/free_hours.rb:128
+msgid "Free hours"
+msgstr "שעות חופשיות"
+
+#: lib/ttime/constraints/free_hours.rb:134
+msgid "Remove"
+msgstr "הסר"
+
+#: lib/ttime/constraints/free_days.rb:34
+msgid "Free days"
+msgstr "ימים חופשיים"
+
+#: lib/ttime/constraints/free_days.rb:51
+msgid " free days please"
+msgstr "ימים חופשיים בבקשה"
+
+#: lib/ttime/constraints/free_days.rb:58
 msgid ""
-"This constraint makes sure you don't have to run between buildings during a\n"
-"10-minute (in case the lecturer finishes on time) break.\n"
-msgstr ""
-"ההגבלה הזו מוודאת שלא תצטרך/י לרוץ בין בניינים בזמן הפסקה של 10 דקות (וגם "
-"זה\n"
-"במקרה שהמרצה מסיים בזמן)\n"
+"This constraint makes sure your schedule has <b>at least</b> as many free "
+"days\n"
+"as you requested.\n"
+msgstr "הגבלה זו מוודאת שבמערכת שלך יש <b>לפחות</b> את כמות הימיים החופשיים שביקשת."
 
-#: constraints/no_clashes.rb:40
+#: lib/ttime/constraints/no_clashes.rb:39
 msgid "No clashes"
 msgstr "ללא התנגשויות"
 
-#: constraints/no_clashes.rb:55
+#: lib/ttime/constraints/no_clashes.rb:45
+#: lib/ttime/constraints/no_running.rb:53
+msgid "Enable"
+msgstr "הפעל"
+
+#: lib/ttime/constraints/no_clashes.rb:54
 msgid ""
 "WARNING! Disabling the 'no clashes' constraint will make scheduling take\n"
 "MUCH longer! You probably want to leave this on. (Coming soon: allow\n"
@@ -84,226 +198,116 @@ msgstr ""
 "זמן! אתם כנראה רוצים להשאיר את זה דולק. (בקרוב נאפשר לבחור לאיזה קורסים\n"
 "לאפשר התנגשויות)"
 
-#: constraints/one_free_day.rb:29
-msgid "One free day"
-msgstr "יום חופשי כלשהו"
+#: lib/ttime/constraints/no_running.rb:47
+msgid "No running"
+msgstr "ללא ריצות"
 
-#: constraints/one_free_day.rb:44
+#: lib/ttime/constraints/no_running.rb:62
 msgid ""
-"Written mostly as proof of a concept - UDonkey's documentation says they\n"
-"can only check this condition after a schedule is built, to which I say "
-"\"WTF?\"\n"
+"This constraint makes sure you don't have to run between buildings during a\n"
+"10-minute (in case the lecturer finishes on time) break.\n"
 msgstr ""
-"נכתב ברובו כהוכחת קונצפט - בתיעוד של UDonkey כתוב שניתן לבדוק זאת\n"
-"רק לאחר שמערכת נבנית, ולא ברור למה."
+"ההגבלה הזו מוודאת שלא תצטרך/י לרוץ בין בניינים בזמן הפסקה של 10 דקות (וגם "
+"זה\n"
+"במקרה שהמרצה מסיים בזמן)\n"
 
-#: constraints/group_constraints.rb:30
+#: lib/ttime/constraints/group_constraints.rb:29
 msgid "Only enable this group"
 msgstr "אפשר קבוצה זו בלבד"
 
-#: constraints/group_constraints.rb:52
+#: lib/ttime/constraints/group_constraints.rb:51
 msgid "Disable this group"
 msgstr "אל תאפשר קבוצה זו"
 
-#: constraints/group_constraints.rb:118
+#: lib/ttime/constraints/group_constraints.rb:117
 msgid "Group Constraints"
 msgstr "דרוש קבוצות מסוימות"
 
-#: constraints/group_constraints.rb:189
+#: lib/ttime/constraints/group_constraints.rb:188
 msgid "Allowed"
 msgstr "מותר"
 
-#: constraints/group_constraints.rb:193
+#: lib/ttime/constraints/group_constraints.rb:192
 msgid "Group"
 msgstr "קבוצה"
 
-#: constraints/group_constraints.rb:196 constraints/free_hours.rb:121
-msgid "Time"
-msgstr "זמן"
-
-#: constraints/group_constraints.rb:199
+#: lib/ttime/constraints/group_constraints.rb:198
 msgid "Lecturer"
 msgstr "מרצה"
 
-#: constraints/group_constraints.rb:221
+#: lib/ttime/constraints/group_constraints.rb:220
 msgid "Use group constraints"
 msgstr "השתמש בדרישות ע\"פ קבוצות"
 
-#: constraints/free_hours.rb:26 constraints/free_hours.rb:29
-msgid "Add free hour"
-msgstr "הוסף שעה חופשית"
-
-#: constraints/free_hours.rb:50
-msgid "Start:"
-msgstr "התחלה:"
-
-#: constraints/free_hours.rb:62
-msgid "End:"
-msgstr "סוף:"
-
-#: constraints/free_hours.rb:112
-msgid "Free Hours"
-msgstr "שעות חופשיות"
-
-#: constraints/free_hours.rb:128
-msgid "Free hours"
-msgstr "שעות חופשיות"
-
-#: constraints/free_hours.rb:134
-msgid "Remove"
-msgstr "הסר"
-
-#: gui/main_window.rb:106
-msgid "Please select some courses first."
-msgstr "אנא בחר קורסים קודם."
-
-#: gui/main_window.rb:121
-msgid ""
-"Sorry, but no schedules are possible with the selected courses and "
-"constraints."
-msgstr "אנחנו מצטערים, אך אין מערכות אפשריות עבור הקורסים וההגבלות שנבחרו."
-
-#: gui/main_window.rb:268
-msgid " of %d"
-msgstr " מתוך %d"
-
-#: gui/main_window.rb:291
-msgid "Schedule"
-msgstr "מערכת שעות"
-
-#: gui/main_window.rb:301
-msgid "Show all alternatives"
-msgstr "הצג חלופות להכל"
-
-#: gui/main_window.rb:307
-msgid "Show alternatives to this event"
-msgstr "הצג חלופות לאירוע זה"
-
-#: gui/main_window.rb:457
-msgid "Populating available courses"
-msgstr "ממלא את רשימת הקורסים הזמינים"
-
-#: gui/main_window.rb:515
-msgid "Course Name"
-msgstr "שם קורס"
-
-#: gui/main_window.rb:515
-msgid "Course Number"
-msgstr "מספר קורס"
-
-#: gui/main_window.rb:555
-msgid "Constraints"
-msgstr "הגבלות"
-
-#: gui/progress_dialog.rb:13
-msgid "Progress"
-msgstr "התקדמות"
-
-#: parse/repy.rb:167
-msgid "Loading REPY file..."
-msgstr "טוען קובץ REPY..."
-
-#: logic/scheduler.rb:83 logic/scheduler.rb:120
-msgid "Generating schedules (%d so far)"
-msgstr "מייצר מערכות (%d עד כה)"
-
-#: logic/times.rb:14
-msgid "Sunday"
-msgstr "ראשון"
-
-#: logic/times.rb:15
-msgid "Monday"
-msgstr "שני"
-
-#: logic/times.rb:16
-msgid "Tuesday"
-msgstr "שלישי"
-
-#: logic/times.rb:17
-msgid "Wednesday"
-msgstr "רביעי"
-
-#: logic/times.rb:18
-msgid "Thursday"
-msgstr "חמישי"
-
-#: logic/times.rb:19
-msgid "Friday"
-msgstr "שישי"
-
-#: logic/times.rb:20
-msgid "Saturday"
-msgstr "שבת"
-
-#: gui/ttime.glade:7
+#: share/ttime/ttime.glade:7
 msgid "TTime"
 msgstr "TTime"
 
-#: gui/ttime.glade:21
+#: share/ttime/ttime.glade:21
 msgid "_File"
 msgstr "_קובץ"
 
-#: gui/ttime.glade:41
+#: share/ttime/ttime.glade:41
 msgid "_Schedules"
 msgstr "מערכות שעות"
 
-#: gui/ttime.glade:48
+#: share/ttime/ttime.glade:48
 msgid "Find schedules"
 msgstr "בנה מערכת שעות"
 
-#: gui/ttime.glade:69 gui/ttime.glade:258
+#: share/ttime/ttime.glade:69 share/ttime/ttime.glade:258
 msgid "Jump 10 back"
 msgstr "קפוץ 10 אחורה"
 
-#: gui/ttime.glade:85 gui/ttime.glade:270
+#: share/ttime/ttime.glade:85 share/ttime/ttime.glade:270
 msgid "Previous"
 msgstr "קודמת"
 
-#: gui/ttime.glade:101 gui/ttime.glade:282
+#: share/ttime/ttime.glade:101 share/ttime/ttime.glade:282
 msgid "Next"
 msgstr "באה"
 
-#: gui/ttime.glade:117 gui/ttime.glade:294
+#: share/ttime/ttime.glade:117 share/ttime/ttime.glade:294
 msgid "Jump 10 forward"
 msgstr "קפוץ 10 קדימה"
 
-#: gui/ttime.glade:137
+#: share/ttime/ttime.glade:137
 msgid "_Tools"
 msgstr "_כלים"
 
-#: gui/ttime.glade:144
+#: share/ttime/ttime.glade:144
 msgid "Auto _Update"
 msgstr "_עדכון אוטומטי"
 
-#: gui/ttime.glade:171
+#: share/ttime/ttime.glade:171
 msgid "_Help"
 msgstr "_עזרה"
 
-#: gui/ttime.glade:201
+#: share/ttime/ttime.glade:201
 msgid "Find Schedules"
 msgstr "מצא מערכות שעות"
 
-#: gui/ttime.glade:230
+#: share/ttime/ttime.glade:230
 msgid " of 0"
 msgstr " מתוך 0"
 
-#: gui/ttime.glade:340
+#: share/ttime/ttime.glade:340
 msgid "Search "
 msgstr "חיפוש "
 
-#: gui/ttime.glade:403
+#: share/ttime/ttime.glade:403
 msgid "Available Courses"
 msgstr "קורסים זמינים"
 
-#: gui/ttime.glade:461
+#: share/ttime/ttime.glade:461
 msgid "Selected Courses"
 msgstr "קורסים שנבחרו"
 
-#: gui/ttime.glade:505
+#: share/ttime/ttime.glade:505
 msgid "Course List"
 msgstr "רשימת קורסים"
 
-#: gui/ttime.glade:532
+#: share/ttime/ttime.glade:532
 msgid ""
 "Inspired by UDonkey and Marprog\n"
 "\n"
@@ -312,7 +316,6 @@ msgstr ""
 "בהשראת UDonkey\n"
 "אבל אנחנו לא אוהבים #C"
 
-#: gui/ttime.glade:536
+#: share/ttime/ttime.glade:536
 msgid "TTime Trac"
 msgstr "TTime Trac"
-

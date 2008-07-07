@@ -32,8 +32,8 @@ desc "Update pot/po files to match new version"
 task :updatepo do
   require 'gettext/utils'
   GetText.update_pofiles("ttime",
-                         Dir.glob("*.rb") + 
-                         Dir.glob("*/*.rb") +
-                         [ "ttime", "gui/ttime.glade" ],
+                         Dir.glob("lib/**/*.rb") +
+                         Dir.glob("share/ttime/*.glade") +
+                         [ "bin/ttime" ],
                          "ttime 0.x.x")
 end
