@@ -31,10 +31,18 @@ module TTime
 
       DATA_DIR.mkdir unless DATA_DIR.exist?
 
-      if force == :convert and File::exists?(REPY_File)
-        @data = convert_repy
-      elsif force
-        @data = download_repy
+      if force
+        case force
+        when :convert
+          download_repy unless File::exists?(REPY_File)
+          @data = convert_repy
+        when :output_unicode
+          download_repy unless File::exists?(REPY_File)
+          print load_repy.unicode
+        else
+          download_repy
+          @data = convert_repy
+        end
       else
         if USE_YAML && File::exists?(YAML_File)
           report _("Loading technion data from YAML")
@@ -49,7 +57,8 @@ module TTime
         elsif File::exists?(REPY_File)
           @data = convert_repy
         else
-          @data = download_repy
+          download_repy
+          @data = convert_repy
         end
       end
     end
@@ -131,8 +140,6 @@ module TTime
               end
           end
       end
-
-      convert_repy
     end
 
     def load_repy

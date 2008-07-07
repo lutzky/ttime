@@ -1,7 +1,4 @@
-require 'data'
 require 'rake/rdoctask'
-
-include TTime
 
 class File
   class << self
@@ -22,24 +19,7 @@ end
 
 desc "Find all FIXME comments"
 task :fixme do
-  puts `grep -r FIXME * | grep -v '.svn'`
-end
-
-desc "Delete all data including the REPY file"
-task :distclean => [:clean] do
-  File.try_unlink TTime::Data::REPY_File
-end
-
-desc "Create a UTF-8 encoded version of the REPY file"
-task :recode_repy do
-  repy = open(TTime::Data::REPY_File) { |f| TTime::Parse::Repy.new(f.read) }
-  open('data/REPY.utf-8','w') { |f| f.write repy.unicode }
-end
-
-desc "Delete all data except for the REPY file"
-task :clean do
-  File.try_unlink TTime::Data::YAML_File, TTime::Data::MARSHAL_File,
-    'gui/ttime.gladep', 'gui/ttime.gladep.bak', 'gui/ttime.glade.bak'
+  puts `grep -r FIXME * | grep -v '.git'`
 end
 
 desc "Create mo-files for L10n"

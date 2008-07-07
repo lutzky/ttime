@@ -18,8 +18,12 @@ OptionParser.new do |opts|
     ENV["HOME"] = File::dirname($0)
   end
 
-  opts.on("--convert-repy", "Convert the REPY file to a sane format") do
-    action = :convert_repy
+  opts.on("--output-xml", "Write UDonkey-compatible XML (to stdout)") do
+    action = :output_xml
+  end
+
+  opts.on("--repy-utf8", "Write a UTF-8 recoded REPY") do
+    action = :repy_utf8
   end
 end.parse!
 
@@ -44,7 +48,7 @@ def run_gui
   Gtk.main
 end
 
-def convert_repy
+def output_xml
   require 'ttime/data'
 
   oldmsg = ""
@@ -55,6 +59,16 @@ def convert_repy
 
   require 'ttime/parse/udonkey_xml'
   TTime::Parse::UDonkeyXML.output_xml data.data
+end
+
+def repy_utf8
+  require 'ttime/data'
+
+  oldmsg = ""
+  data = TTime::Data.new(:output_unicode) do |msg,_|
+    $stderr.write "#{msg}\n" if msg != oldmsg
+    oldmsg = msg
+  end
 end
 
 self.send(action)
