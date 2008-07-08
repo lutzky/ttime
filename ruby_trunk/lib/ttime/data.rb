@@ -27,7 +27,7 @@ module TTime
       @status_report_proc = status_report_proc
       @status_report_proc = proc {} if @status_report_proc.nil?
 
-      DATA_DIR.mkdir unless DATA_DIR.exist?
+      DATA_DIR.mkpath unless DATA_DIR.exist?
 
       if force
         case force
