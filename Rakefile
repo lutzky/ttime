@@ -13,8 +13,12 @@ class File
   end
 end
 
-Rake::RDocTask.new("doc") do |rd|
-  rd.rdoc_dir = "doc"
+Rake::RDocTask.new("doc") do |rdoc|
+  rdoc.rdoc_dir = "doc"
+  rdoc.title = "TTime -- A Technion Timetable utility"
+  rdoc.main = "README"
+  rdoc.rdoc_files.include('README')
+  rdoc.rdoc_files.include('lib/**/*.rb')
 end
 
 desc "Find all FIXME comments"
