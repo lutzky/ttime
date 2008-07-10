@@ -68,7 +68,7 @@ module TTime
       '/usr/lib/ttime/constraints',
       '/usr/share/ttime/constraints',
       '/usr/local/share/ttime/constraints',
-    ]
+    ] + $LOAD_PATH.collect { |p| File::join(p, 'ttime/constraints') }
 
     def Constraints.initialize
       my_path = Pathname.new($0).dirname
