@@ -2,10 +2,9 @@
 Encoding=UTF-8
 Name=TTime
 Comment=TTime it a time table generator
-Exec=/usr/bin/ttime-he
-Icon=/usr/share/icons/ttime.svg
+Exec=ttime
+Icon=ttime
 Categories=GNOME;Application;Utility;
 Terminal=false
 Type=Application
 StartupNotify=false
-
