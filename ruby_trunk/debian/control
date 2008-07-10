@@ -1,12 +1,14 @@
 Source: ttime
-Section: accessories
-Priority: optional
-Maintainer: Boaz Goldstein <boaz@gezer.org.il>
-Build-Depends: ruby (>= 1.8), libgtk-mozembed-ruby1.8, libglade2-ruby (= 0.15.0-1.1), libgtk2-ruby (= 0.15.0-1.1), rake, libgettext-ruby1.8, irb
+Section: x11
+Priority: extra
+Maintainer: Ohad Lutzky <ohad@lutzky.net>
+Build-Depends: ruby (>= 1.8)
 Standards-Version: 3.7.2
 
 Package: ttime
-Architecture: any
-Depends: ruby (>= 1.8), libgtk-mozembed-ruby1.8, libglade2-ruby (= 0.15.0-1.1), libgtk2-ruby (= 0.15.0-1.1), libgettext-ruby1.8
-Description: a time table orgenizer for the technion 
- a time table orgenizer for the technion
+Architecture: all
+Depends: libzip-ruby1.8, libgettext-ruby1.8, libglade2-ruby1.8, libpango1-ruby1.8, librsvg2-ruby1.8, libcairo-ruby1.8
+Recommends: libxml-ruby1.8
+Description: Technion Timetable Scheduler
+ TTime is a utility intended for students of the Technion IIT, which assists
+ in creation of weekly schedules by using technion-supplied course data.
