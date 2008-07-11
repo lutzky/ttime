@@ -1,6 +1,7 @@
 require 'pp'
 require 'pathname'
 require 'ttime/gettext_settings'
+require 'set'
 
 module TTime
   module Constraints
@@ -72,9 +73,14 @@ module TTime
 
     def Constraints.initialize
       my_path = Pathname.new($0).dirname
+      already_loaded_constraints = Set.new
       ConstraintPathCandidates.collect { |p| my_path + p }.each do |path|
         Dir.glob(path + '*.rb').each do |constraint|
-          require constraint
+          constraint_name = File.basename(constraint)
+          unless already_loaded_constraints.include? constraint_name
+            already_loaded_constraints << constraint_name
+            require constraint
+          end
         end
       end
     end
