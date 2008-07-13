@@ -529,16 +529,18 @@
   </widget>
   <widget class="GtkAboutDialog" id="AboutDialog">
     <property name="type_hint">GDK_WINDOW_TYPE_HINT_NORMAL</property>
+    <property name="program_name">TTime</property>
     <property name="comments" translatable="yes">Inspired by UDonkey and Marprog
 
 But we don't like C#</property>
-    <property name="website">http://yasmin.technion.ac.il/svn-trac/ttime</property>
-    <property name="website_label" translatable="yes">TTime Trac</property>
+    <property name="website">http://github.com/lutzky/ttime</property>
+    <property name="website_label" translatable="yes">Git repository</property>
     <property name="authors">Haggai Eran
 Boaz Goldstein
 Ohad Lutzky</property>
     <property name="translator_credits" translatable="yes" comments="TRANSLATORS: Replace this string with your names, one name per line.">translator-credits</property>
     <property name="logo">ttime.svg</property>
+    <signal name="response" handler="on_AboutDialog_response"/>
     <child internal-child="vbox">
       <widget class="GtkVBox" id="dialog-vbox1">
         <child internal-child="action_area">

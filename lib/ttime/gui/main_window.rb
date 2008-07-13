@@ -111,6 +111,10 @@ module TTime
         @glade["AboutDialog"].run
       end
 
+      def on_AboutDialog_response
+        @glade["AboutDialog"].hide
+      end
+
       def find_schedules
         if @selected_courses.empty?
           error_dialog(_('Please select some courses first.'))
