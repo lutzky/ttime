@@ -23,6 +23,39 @@
                 <child>
                   <widget class="GtkMenu" id="file_menu">
                     <child>
+                      <widget class="GtkImageMenuItem" id="load_settings">
+                        <property name="visible">True</property>
+                        <property name="label" translatable="yes">Load Settings...</property>
+                        <property name="use_underline">True</property>
+                        <signal name="activate" handler="on_load_settings_activate"/>
+                        <child internal-child="image">
+                          <widget class="GtkImage" id="menu-item-image6">
+                            <property name="visible">True</property>
+                            <property name="stock">gtk-open</property>
+                          </widget>
+                        </child>
+                      </widget>
+                    </child>
+                    <child>
+                      <widget class="GtkImageMenuItem" id="save_settings">
+                        <property name="visible">True</property>
+                        <property name="label" translatable="yes">Save Settings...</property>
+                        <property name="use_underline">True</property>
+                        <signal name="activate" handler="on_save_settings_activate"/>
+                        <child internal-child="image">
+                          <widget class="GtkImage" id="menu-item-image7">
+                            <property name="visible">True</property>
+                            <property name="stock">gtk-save-as</property>
+                          </widget>
+                        </child>
+                      </widget>
+                    </child>
+                    <child>
+                      <widget class="GtkSeparatorMenuItem" id="menuitem1">
+                        <property name="visible">True</property>
+                      </widget>
+                    </child>
+                    <child>
                       <widget class="GtkImageMenuItem" id="quit">
                         <property name="visible">True</property>
                         <property name="label">gtk-quit</property>

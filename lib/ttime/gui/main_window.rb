@@ -49,6 +49,46 @@ module TTime
         load_data(true)
       end
 
+      def on_load_settings_activate
+        filter = Gtk::FileFilter.new
+        filter.name = _("YAML files")
+        filter.add_pattern "*.yml"
+        fs = Gtk::FileChooserDialog.new(_("Load Settings"),
+                                        nil, Gtk::FileChooser::ACTION_OPEN,
+                                        nil,
+                                        [Gtk::Stock::CANCEL,
+                                          Gtk::Dialog::RESPONSE_CANCEL],
+                                          [Gtk::Stock::OPEN,
+                                            Gtk::Dialog::RESPONSE_ACCEPT]
+                                       )
+
+        fs.add_filter filter
+        if fs.run == Gtk::Dialog::RESPONSE_ACCEPT
+          load_settings(fs.filename)
+        end
+        fs.destroy
+      end
+
+      def on_save_settings_activate
+        filter = Gtk::FileFilter.new
+        filter.name = _("YAML files")
+        filter.add_pattern "*.yml"
+        fs = Gtk::FileChooserDialog.new(_("Save Settings"),
+                                        nil, Gtk::FileChooser::ACTION_SAVE,
+                                        nil,
+                                        [Gtk::Stock::CANCEL,
+                                          Gtk::Dialog::RESPONSE_CANCEL],
+                                          [Gtk::Stock::OPEN,
+                                            Gtk::Dialog::RESPONSE_ACCEPT]
+                                       )
+
+        fs.add_filter filter
+        if fs.run == Gtk::Dialog::RESPONSE_ACCEPT
+          save_settings(fs.filename)
+        end
+        fs.destroy
+      end
+
       def on_next_activate
         if self.current_schedule
           self.current_schedule += 1
@@ -257,13 +297,18 @@ module TTime
         return ret
       end
 
-      def save_settings
+      def save_settings(settings_file = nil)
         Settings.instance['selected_courses'] = \
           @selected_courses.collect { |course| course.number }
-        Settings.instance.save
+        Settings.instance.save(settings_file)
       end
 
-      def load_settings
+      def load_settings(settings_file = nil)
+        Settings.instance.load_settings(settings_file)
+
+        @list_selected_courses.clear
+        @selected_courses.clear
+
         Settings.instance.selected_courses.each do |course_num|
           begin
             add_selected_course @data.find_course_by_num(course_num)

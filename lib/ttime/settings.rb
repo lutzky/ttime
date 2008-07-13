@@ -14,16 +14,25 @@ module TTime
       load_settings
     end
 
-    def load_settings
-      if SETTINGS_FILE.exist?
-        @hash = SETTINGS_FILE.open { |f| YAML::load(f.read) }
+    def load_settings(settings_file = nil)
+      if settings_file
+        settings_file = Pathname.new(settings_file)
+        raise Errno::ENOENT.new(settings_file) unless settings_file.exist?
       else
-        @hash = {}
+        settings_file = SETTINGS_FILE
+        unless settings_file.exist?
+          @hash = {}
+          return
+        end
       end
+
+      @hash = settings_file.open { |f| YAML::load(f.read) }
     end
 
-    def save
-      SETTINGS_FILE.open('w') { |f| f.write YAML::dump(@hash) }
+    def save(settings_file = nil)
+      settings_file ||= SETTINGS_FILE
+      settings_file = Pathname.new(settings_file)
+      settings_file.open('w') { |f| f.write YAML::dump(@hash) }
     end
 
     def selected_courses
