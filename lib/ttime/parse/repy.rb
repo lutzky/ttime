@@ -297,7 +297,7 @@ module TTime
         header = raw_group.u_leftchop!(SPORTS_GROUP_LEN)
 
         header =~ Expr[:sports_group]
-        group.number, group.description = $1.to_i, $2.rstrip
+        group.number, group.description = $1.reverse.to_i, $2.rstrip
 
         raw_group.split("\n").each do |raw_event|
           if raw_event =~ Expr[:sports_instructor]
