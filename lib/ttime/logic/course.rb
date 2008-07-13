@@ -35,7 +35,7 @@ module TTime
   module Logic
     class Course
       attr_accessor :number, :name, :academic_points, :hours, :lecturer_in_charge,
-        :first_test_date, :second_test_date, :groups, :course_id
+        :first_test_date, :second_test_date, :groups
 
       def initialize number = nil, name = nil
         @number = number

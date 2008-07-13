@@ -208,7 +208,15 @@ module TTime
       end
 
       def add_event_to_calendar ev
-          @calendar.add_event(ev.desc,ev.day,ev.start_frac,ev.end_frac-ev.start_frac,ev.group_id,{ :event => ev },ev.group.type)
+        text = ev.desc
+        day = ev.day
+        hour = ev.start_frac
+        length = ev.end_frac - ev.start_frac
+        color = @selected_courses.index(ev.group.course)
+        data = { :event => ev }
+        type = ev.group.type
+
+        @calendar.add_event(text, day, hour, length, color, data, type)
       end
 
       private

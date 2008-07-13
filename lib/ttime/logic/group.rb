@@ -31,10 +31,6 @@ module TTime
         "<b>#{@group.name}</b>\nקבוצה #{@group.number}\n#@place"
       end
 
-      def group_id
-          @group.course_id
-      end
-
       def course
         group.course
       end
@@ -50,10 +46,6 @@ module TTime
         "#<Group number=#@number>"
       end
   
-      def course_id
-          @course.course_id
-      end
-
       def type_is? (x)
         type == x.to_sym
       end
