@@ -21,7 +21,7 @@ module TTime
       else
         settings_file = SETTINGS_FILE
         unless settings_file.exist?
-          @hash = {}
+          @hash ||= {}
           return
         end
       end
