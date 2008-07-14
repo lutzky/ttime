@@ -1,3 +1,12 @@
+ttime (0.8.2) unstable; urgency=low
+
+  * Fix "About" dialog to close when hitting close
+  * Added options to save and load settings
+  * Small graphical tweaks
+  * Fixed some windows localization problems
+
+ -- Ohad Lutzky <ohad@lutzky.net>  Tue, 15 Jul 2008 00:17:05 +0300
+
 ttime (0.8.1) unstable; urgency=low
 
   * Sports group numbers were reversed
