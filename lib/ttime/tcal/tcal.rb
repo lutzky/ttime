@@ -413,7 +413,9 @@ module TCal
 
                 # compute optimal font size
                 font_size = (step_height * 0.60).to_i
-                font_size = 8 if font_size < 8 # you cant read less than 8
+                #font_size = 8 if font_size < 8 # you cant read less than 8
+                # ...but if it's over 8, it'll kludge together and you still
+                # won't be able to read it.
                 font_size = 12 if font_size > 12 # over 12 it becomes oversized and ugly
 
                 # set grid gradient
@@ -452,7 +454,7 @@ module TCal
                     cairo.move_to 0, (step_height*i).to_i
                     cairo.rel_line_to width, 0
                     cairo.stroke
-                    cairo.move_to width-step_width+3, (step_height*(i+0.2)).to_i - @line_width
+                    cairo.move_to width-step_width+3, (step_height*(i+0.1)).to_i - @line_width
 
                     # render hour
                     cairo.pango_render_text((step_width)-6,

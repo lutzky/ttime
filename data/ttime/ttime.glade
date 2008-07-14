@@ -5,8 +5,8 @@
   <widget class="GtkWindow" id="MainWindow">
     <property name="visible">True</property>
     <property name="title" translatable="yes">TTime</property>
-    <property name="default_width">500</property>
-    <property name="default_height">500</property>
+    <property name="default_width">800</property>
+    <property name="default_height">600</property>
     <property name="icon">ttime.svg</property>
     <signal name="delete_event" handler="on_quit_activate"/>
     <child>
