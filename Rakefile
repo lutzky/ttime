@@ -41,3 +41,18 @@ task :updatepo do
                          [ "bin/ttime" ],
                          "ttime 0.x.x")
 end
+
+desc "Build a debian package"
+task :debuild => [ :makemo ] do
+  `debuild`
+end
+
+desc "Build a debian package without signing"
+task :debuild_nosign => [ :makemo ] do
+  `debuild -uc -us`
+end
+
+desc "Zip up relevant windows package files (without Ruby)"
+task :winbuild => [ :makemo ] do
+  `zip -r ttime_win.zip ttime_win.bat bin data lib README.rdoc`
+end

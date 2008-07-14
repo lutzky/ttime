@@ -340,6 +340,3 @@ msgstr ""
 #: data/ttime/ttime.glade:570
 msgid "Git repository"
 msgstr ""
-
-#~ msgid "TTime Trac"
-#~ msgstr "TTime Trac"
