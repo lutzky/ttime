@@ -4,6 +4,8 @@ begin
 
   include GetText
 
+  GetText.locale.charset = "UTF-8"
+
   # Ruby's gettext acts in a sane method - add a path to the set of paths
   # scanned.
   locale_in_data_path = Pathname.new($0).dirname + \

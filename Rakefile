@@ -37,7 +37,7 @@ task :updatepo do
   require 'gettext/utils'
   GetText.update_pofiles("ttime",
                          Dir.glob("lib/**/*.rb") +
-                         Dir.glob("share/ttime/*.glade") +
+                         Dir.glob("data/ttime/*.glade") +
                          [ "bin/ttime" ],
                          "ttime 0.x.x")
 end

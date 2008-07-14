@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ttime 0.x.x\n"
-"POT-Creation-Date: 2008-07-07 14:59+0300\n"
+"POT-Creation-Date: 2008-07-14 21:39+0300\n"
 "PO-Revision-Date: 2006-10-19 11:53+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,121 +16,133 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: lib/ttime/gui/main_window.rb:117
+#: lib/ttime/gui/main_window.rb:54 lib/ttime/gui/main_window.rb:74
+msgid "YAML files"
+msgstr ""
+
+#: lib/ttime/gui/main_window.rb:56
+msgid "Load Settings"
+msgstr ""
+
+#: lib/ttime/gui/main_window.rb:76
+msgid "Save Settings"
+msgstr ""
+
+#: lib/ttime/gui/main_window.rb:160
 msgid "Please select some courses first."
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:132
+#: lib/ttime/gui/main_window.rb:175
 msgid ""
 "Sorry, but no schedules are possible with the selected courses and "
 "constraints."
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:279
+#: lib/ttime/gui/main_window.rb:335
 msgid " of %d"
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:303
+#: lib/ttime/gui/main_window.rb:359
 msgid "Schedule"
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:313
+#: lib/ttime/gui/main_window.rb:369
 msgid "Show all alternatives"
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:319
+#: lib/ttime/gui/main_window.rb:375
 msgid "Show alternatives to this event"
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:469
+#: lib/ttime/gui/main_window.rb:525
 msgid "Populating available courses"
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:527
+#: lib/ttime/gui/main_window.rb:583
 msgid "Course Name"
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:527
+#: lib/ttime/gui/main_window.rb:583
 msgid "Course Number"
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:567
+#: lib/ttime/gui/main_window.rb:623
 msgid "Constraints"
 msgstr ""
 
-#: lib/ttime/gui/progress_dialog.rb:12
+#: lib/ttime/gui/progress_dialog.rb:10
 msgid "Progress"
 msgstr ""
 
-#: lib/ttime/data.rb:22
+#: lib/ttime/data.rb:20
 msgid "Lecture"
 msgstr ""
 
-#: lib/ttime/data.rb:23
+#: lib/ttime/data.rb:21
 msgid "Tutorial"
 msgstr ""
 
-#: lib/ttime/data.rb:24
+#: lib/ttime/data.rb:22
 msgid "Lab"
 msgstr ""
 
-#: lib/ttime/data.rb:48
+#: lib/ttime/data.rb:46
 msgid "Loading technion data from YAML"
 msgstr ""
 
-#: lib/ttime/data.rb:51
+#: lib/ttime/data.rb:49
 msgid "Loading UDonkey XML data"
 msgstr ""
 
-#: lib/ttime/data.rb:55
+#: lib/ttime/data.rb:53
 msgid "Loading technion data"
 msgstr ""
 
-#: lib/ttime/data.rb:111
+#: lib/ttime/data.rb:109
 msgid "Loading data from REPY"
 msgstr ""
 
-#: lib/ttime/data.rb:120
+#: lib/ttime/data.rb:118
 msgid "Downloading REPY file from Technion"
 msgstr ""
 
-#: lib/ttime/data.rb:132
+#: lib/ttime/data.rb:130
 msgid "Extracting REPY file"
 msgstr ""
 
-#: lib/ttime/logic/scheduler.rb:77 lib/ttime/logic/scheduler.rb:114
+#: lib/ttime/logic/scheduler.rb:71 lib/ttime/logic/scheduler.rb:108
 msgid "Generating schedules (%d so far)"
 msgstr ""
 
-#: lib/ttime/logic/times.rb:9
+#: lib/ttime/logic/times.rb:7
 msgid "Sunday"
 msgstr ""
 
-#: lib/ttime/logic/times.rb:10
+#: lib/ttime/logic/times.rb:8
 msgid "Monday"
 msgstr ""
 
-#: lib/ttime/logic/times.rb:11
+#: lib/ttime/logic/times.rb:9
 msgid "Tuesday"
 msgstr ""
 
-#: lib/ttime/logic/times.rb:12
+#: lib/ttime/logic/times.rb:10
 msgid "Wednesday"
 msgstr ""
 
-#: lib/ttime/logic/times.rb:13
+#: lib/ttime/logic/times.rb:11
 msgid "Thursday"
 msgstr ""
 
-#: lib/ttime/logic/times.rb:14
+#: lib/ttime/logic/times.rb:12
 msgid "Friday"
 msgstr ""
 
-#: lib/ttime/logic/times.rb:15
+#: lib/ttime/logic/times.rb:13
 msgid "Saturday"
 msgstr ""
 
-#: lib/ttime/parse/repy.rb:161
+#: lib/ttime/parse/repy.rb:159
 msgid "Loading REPY file..."
 msgstr ""
 
@@ -233,81 +245,89 @@ msgstr ""
 msgid "Use group constraints"
 msgstr ""
 
-#: share/ttime/ttime.glade:7
+#: data/ttime/ttime.glade:7
 msgid "TTime"
 msgstr ""
 
-#: share/ttime/ttime.glade:21
+#: data/ttime/ttime.glade:21
 msgid "_File"
 msgstr ""
 
-#: share/ttime/ttime.glade:41
+#: data/ttime/ttime.glade:28
+msgid "Load Settings..."
+msgstr ""
+
+#: data/ttime/ttime.glade:42
+msgid "Save Settings..."
+msgstr ""
+
+#: data/ttime/ttime.glade:74
 msgid "_Schedules"
 msgstr ""
 
-#: share/ttime/ttime.glade:48
+#: data/ttime/ttime.glade:81
 msgid "Find schedules"
 msgstr ""
 
-#: share/ttime/ttime.glade:69 share/ttime/ttime.glade:258
+#: data/ttime/ttime.glade:102 data/ttime/ttime.glade:291
 msgid "Jump 10 back"
 msgstr ""
 
-#: share/ttime/ttime.glade:85 share/ttime/ttime.glade:270
+#: data/ttime/ttime.glade:118 data/ttime/ttime.glade:303
 msgid "Previous"
 msgstr ""
 
-#: share/ttime/ttime.glade:101 share/ttime/ttime.glade:282
+#: data/ttime/ttime.glade:134 data/ttime/ttime.glade:315
 msgid "Next"
 msgstr ""
 
-#: share/ttime/ttime.glade:117 share/ttime/ttime.glade:294
+#: data/ttime/ttime.glade:150 data/ttime/ttime.glade:327
 msgid "Jump 10 forward"
 msgstr ""
 
-#: share/ttime/ttime.glade:137
+#: data/ttime/ttime.glade:170
 msgid "_Tools"
 msgstr ""
 
-#: share/ttime/ttime.glade:144
+#: data/ttime/ttime.glade:177
 msgid "Auto _Update"
 msgstr ""
 
-#: share/ttime/ttime.glade:171
+#: data/ttime/ttime.glade:204
 msgid "_Help"
 msgstr ""
 
-#: share/ttime/ttime.glade:201
+#: data/ttime/ttime.glade:234
 msgid "Find Schedules"
 msgstr ""
 
-#: share/ttime/ttime.glade:230
+#: data/ttime/ttime.glade:263
 msgid " of 0"
 msgstr ""
 
-#: share/ttime/ttime.glade:340
+#: data/ttime/ttime.glade:373
 msgid "Search "
 msgstr ""
 
-#: share/ttime/ttime.glade:403
+#: data/ttime/ttime.glade:436
 msgid "Available Courses"
 msgstr ""
 
-#: share/ttime/ttime.glade:461
+#: data/ttime/ttime.glade:494
 msgid "Selected Courses"
 msgstr ""
 
-#: share/ttime/ttime.glade:505
+#: data/ttime/ttime.glade:538
 msgid "Course List"
 msgstr ""
 
-#: share/ttime/ttime.glade:532
+#: data/ttime/ttime.glade:566
 msgid ""
 "Inspired by UDonkey and Marprog\n"
 "\n"
 "But we don't like C#"
 msgstr ""
 
-#: share/ttime/ttime.glade:536
-msgid "TTime Trac"
+#: data/ttime/ttime.glade:570
+msgid "Git repository"
 msgstr ""
