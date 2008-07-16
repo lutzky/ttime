@@ -264,7 +264,7 @@ module TCal
 
 
         # add a new event to the sched
-        def add_event(text,day,hour,length,color,data,type)
+        def add_event(text,day,hour,length,color,data = nil,type = nil)
             @events << Event.new(text,day,hour,length,color,1,0,data,type)
             @computed_layers=false
         end
