@@ -34,5 +34,4 @@ area.add_event("מת\"מ\nהרצאה\nטאוב 2",      2,14.5 ,3.0,8)
 window.add(area)
 window.show_all
 
-
 Gtk.main

@@ -104,10 +104,6 @@ module TCal
             @major_mod = params[:major_mod] || 1 # which part of the hour do we mark as major
             @jump_hour = params[:jump_hour] || 0.5
 
-            #cumpute how many parts of a day we have
-            @hour_segments = ((@end_hour - @start_hour) / @jump_hour  ).to_i 
-
-
             @computed_layers=false
 
             @line_width = params[:line_width] || 0.5
@@ -365,7 +361,11 @@ module TCal
         end
 
         def step_height
-          (height + @line_width) / (@hour_segments+1)
+          (height + @line_width) / (hour_segments+1)
+        end
+
+        def hour_segments
+            ((@end_hour - @start_hour) / @jump_hour).to_i
         end
 
         def get_bg_image
@@ -386,7 +386,7 @@ module TCal
 
                 # gray BG for border
                 cairo.rectangle(0,0,width,height)
-                lin = cairo.linear_gradient(0,height,0,0, :reflect,[1.0,gray],[1.0 - 1.0/@hour_segments,lgray], [0.0 ,llgray])
+                lin = cairo.linear_gradient(0,height,0,0, :reflect,[1.0,gray],[1.0 - 1.0/hour_segments,lgray], [0.0 ,llgray])
                 cairo.set_source(lin)
                 cairo.fill()
 
@@ -439,7 +439,7 @@ module TCal
 
 
                 # itterate to draw
-                @hour_segments.downto 1 do |i|
+                hour_segments.downto 1 do |i|
 
 
                     # compute if this is a major line, and if so make it full width
@@ -475,6 +475,15 @@ module TCal
         # and the itterates to draw the events
         # FIXME: refactor to several functions
         def draw_sched
+          earliest_start = @events.collect { |ev| ev.hour }.min
+          latest_finish = @events.collect { |ev| ev.hour + ev.length }.max
+
+          if (earliest_start != @start_hour) or (latest_finish != @end_hour)
+            @start_hour = earliest_start
+            @end_hour   = latest_finish
+            # Invalidate the background
+            @bg_image = nil
+          end
 
             cairo = self.get_cairo
 
