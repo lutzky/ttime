@@ -90,14 +90,6 @@ module TCal
             @start_day = params[:start_day] || 1
             @end_day = params[:end_day] || 5
 
-            # compute the number of days
-            if @end_day > @start_day
-                @days = @end_day - @start_day + 1
-            else
-                @days = @end_day + 8 - @start_day
-            end
-
-
             @start_hour = params[:start_hour] || 8.5
             @end_hour = params[:end_hour] || 20.5
             @major_hour = params[:major_hour] || 2 #once in how many jumps do we use a full line
@@ -155,7 +147,7 @@ module TCal
         end
 
         def day_at_x(x)
-          day = @days - (x / step_width).to_i
+          day = days - (x / step_width).to_i
           return nil if day < 0
           day
         end
@@ -297,7 +289,7 @@ module TCal
             item_length = (step_height*length_steps).to_i
 
             # translate to where we want to draw
-            cairo.translate(step_width*(@days-day_steps-1),(hour_steps+1)*step_height)
+            cairo.translate(step_width*(days-day_steps-1),(hour_steps+1)*step_height)
 
             # load color
             clr = get_color(:border, item.color_id)
@@ -357,7 +349,7 @@ module TCal
         end
 
         def step_width
-          (width + @line_width) / (@days + 1)
+          (width + @line_width) / (days + 1)
         end
 
         def step_height
@@ -366,6 +358,10 @@ module TCal
 
         def hour_segments
             ((@end_hour - @start_hour) / @jump_hour).to_i
+        end
+
+        def days
+          @end_day - @start_day + 1
         end
 
         def get_bg_image
@@ -423,7 +419,7 @@ module TCal
                 cairo.set_source(lin)
 
                 # itterate to draw
-                @days.downto 1 do |i|
+                days.downto 1 do |i|
 
                     # draw line
                     cairo.move_to step_width*i, 0
@@ -432,7 +428,7 @@ module TCal
                     cairo.move_to step_width*(i-1)+3, (0.2 * step_height).to_i - @line_width
 
                     # render day name
-                    cairo.pango_render_text((step_width)-6,"Sans #{font_size}","<tt>#{day_names[(@days-i-1+@start_day)%7]}</tt>")
+                    cairo.pango_render_text((step_width)-6,"Sans #{font_size}","<tt>#{day_names[(days-i-1+@start_day)%7]}</tt>")
 
                 end
 
@@ -479,9 +475,13 @@ module TCal
             earliest_start = @events.collect { |ev| ev.hour }.min
             latest_finish = @events.collect { |ev| ev.hour + ev.length }.max
 
-            if (earliest_start != @start_hour) or (latest_finish != @end_hour)
-              @start_hour = earliest_start
-              @end_hour   = latest_finish
+            start_day = @events.collect { |ev| ev.day }.min
+            end_day = @events.collect { |ev| ev.day }.max
+
+            if [ earliest_start, latest_finish, start_day,  end_day  ] != \
+               [ @start_hour,    @end_hour,     @start_day, @end_day ]
+              @start_hour,      @end_hour,     @start_day, @end_day = \
+                earliest_start, latest_finish, start_day,  end_day
               # Invalidate the background
               @bg_image = nil
             end
