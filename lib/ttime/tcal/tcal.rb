@@ -475,14 +475,16 @@ module TCal
         # and the itterates to draw the events
         # FIXME: refactor to several functions
         def draw_sched
-          earliest_start = @events.collect { |ev| ev.hour }.min
-          latest_finish = @events.collect { |ev| ev.hour + ev.length }.max
+          unless @events.empty?
+            earliest_start = @events.collect { |ev| ev.hour }.min
+            latest_finish = @events.collect { |ev| ev.hour + ev.length }.max
 
-          if (earliest_start != @start_hour) or (latest_finish != @end_hour)
-            @start_hour = earliest_start
-            @end_hour   = latest_finish
-            # Invalidate the background
-            @bg_image = nil
+            if (earliest_start != @start_hour) or (latest_finish != @end_hour)
+              @start_hour = earliest_start
+              @end_hour   = latest_finish
+              # Invalidate the background
+              @bg_image = nil
+            end
           end
 
             cairo = self.get_cairo
