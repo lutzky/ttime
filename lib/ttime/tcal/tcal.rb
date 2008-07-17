@@ -18,6 +18,8 @@ RIGHT_BUTTON = 3
 module TCal
 
     class Calendar < Gtk::DrawingArea
+      DAY_NAME_FONT = "Sans Bold"
+      HOUR_FONT = "Sans"
 
       # Default color list. All colors are represented in RGBA.
       @@colors = [
@@ -428,7 +430,9 @@ module TCal
                     cairo.move_to step_width*(i-1)+3, (0.2 * step_height).to_i - @line_width
 
                     # render day name
-                    cairo.pango_render_text((step_width)-6,"Sans #{font_size}","<tt>#{day_names[(days-i-1+@start_day)%7]}</tt>")
+                    font = "#{DAY_NAME_FONT} #{font_size}"
+                    cairo.pango_render_text((step_width)-6, font,
+                      "#{day_names[(days-i-1+@start_day)%7]}")
 
                 end
 
@@ -453,9 +457,9 @@ module TCal
                     cairo.move_to width-step_width+3, (step_height*(i+0.1)).to_i - @line_width
 
                     # render hour
-                    cairo.pango_render_text((step_width)-6,
-                                         "Sans #{font_size}",
-                                          "<tt>#{to_time(@start_hour+(@jump_hour*(i-1)))}</tt>")
+                    font = "#{HOUR_FONT} #{font_size}"
+                    cairo.pango_render_text((step_width)-6, font,
+                                          "#{to_time(@start_hour+(@jump_hour*(i-1)))}")
 
                 end
                 @bg_image =  Cairo::SurfacePattern.new(surf)       
