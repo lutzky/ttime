@@ -7,6 +7,16 @@ $LOAD_PATH.unshift((Pathname.new($0).dirname.parent + 'lib').to_s)
 
 action = :run_gui
 
+begin
+  require 'ttime/version'
+rescue LoadError
+  # Couldn't load version data - we must be in git
+
+  module TTime
+    Version = '(git)'
+  end
+end
+
 OptionParser.new do |opts|
   opts.on("--hebrew", "Force Hebrew locale") do
     ENV["LC_ALL"]="he_IL.UTF-8"
@@ -24,6 +34,11 @@ OptionParser.new do |opts|
 
   opts.on("--repy-utf8", "Write a UTF-8 recoded REPY") do
     action = :repy_utf8
+  end
+
+  opts.on("--version", "Print version number and exit") do
+    puts TTime::Version
+    exit 0
   end
 end.parse!
 
