@@ -117,9 +117,6 @@ module TTime
         end
       end
 
-      def show_preferences
-      end
-
       def initialize
         glade_file = GUI.find_data_file("ttime.glade")
         @glade = GladeXML.new(glade_file,nil,"ttime") do |handler|
