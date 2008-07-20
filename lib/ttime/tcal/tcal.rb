@@ -1,4 +1,4 @@
-#!/usr/bin/env ruby  
+#!/usr/bin/env ruby
 
 # graphic libs
 require 'gtk2'
@@ -16,10 +16,19 @@ LEFT_BUTTON = 1
 RIGHT_BUTTON = 3
 
 module TCal
-
     class Calendar < Gtk::DrawingArea
       DAY_NAME_FONT = "Sans Bold"
       HOUR_FONT = "Sans"
+
+      MAX_START_HOUR = 8.5
+      MIN_END_HOUR = 16.5
+      MAX_START_DAY = 1
+      MIN_END_DAY = 5
+
+      LLGRAY = [0.98, 0.98, 0.98, 1]
+      LGRAY = [0.9,0.9,0.9, 1]
+      GRAY = [0.8,0.8,0.8, 1]
+      OBLACK = [0.3,0.3,0.3, 1]
 
       # Default color list. All colors are represented in RGBA.
       @@colors = [
@@ -89,11 +98,11 @@ module TCal
             @events = []
 
 
-            @start_day = params[:start_day] || 1
-            @end_day = params[:end_day] || 5
+            @start_day = params[:start_day] || MAX_START_DAY
+            @end_day = params[:end_day] || MIN_END_DAY
 
-            @start_hour = params[:start_hour] || 8.5
-            @end_hour = params[:end_hour] || 20.5
+            @start_hour = params[:start_hour] || MAX_START_HOUR
+            @end_hour = params[:end_hour] || MIN_END_HOUR
             @major_hour = params[:major_hour] || 2 #once in how many jumps do we use a full line
             @major_mod = params[:major_mod] || 1 # which part of the hour do we mark as major
             @jump_hour = params[:jump_hour] || 0.5
@@ -268,7 +277,7 @@ module TCal
 
         # remove all events
         def clear_events
-            @events = [] 
+            @events = []
             @computed_layers=false
         end
 
@@ -284,9 +293,9 @@ module TCal
             half_line_width=line_width/2 #optimizaton
 
             # get size and compute ratios
-            hour_steps = (item.hour - @start_hour)/(@jump_hour) 
+            hour_steps = (item.hour - @start_hour)/(@jump_hour)
             length_steps = item.length/@jump_hour
-            day_steps = (item.day + 7 - @start_day) % 7 
+            day_steps = (item.day + 7 - @start_day) % 7
             layer_width = (step_width*item.ratio).to_i
             item_length = (step_height*length_steps).to_i
 
@@ -298,7 +307,7 @@ module TCal
             cairo.set_source_rgba(clr[0],clr[1],clr[2],clr[3])
 
             # draw path
-            cairo.rounded_rectangle(half_line_width+layer_width*item.layer, 
+            cairo.rounded_rectangle(half_line_width+layer_width*item.layer,
                                     half_line_width,
                                     layer_width*(item.layer+1)-half_line_width, # move to the next layer
                                     item_length-half_line_width)
@@ -366,190 +375,130 @@ module TCal
           @end_day - @start_day + 1
         end
 
-        def get_bg_image
-            if @bg_image.nil? or width != @bg_image_width or height != @bg_image_height
-
-                # initialize for drawing
-                @bg_image_width=width
-                @bg_image_height=height
-
-                #this will be the bg image at the end
-                surf = Cairo::ImageSurface.new(Cairo::FORMAT_ARGB32, width,height)
-                cairo = Cairo::Context.new(surf)
-
-                # get cairo and set constants
-                cairo.set_line_join(Cairo::LINE_JOIN_ROUND)
-                cairo.set_line_cap(Cairo::LINE_CAP_ROUND)
-                cairo.set_line_width(@line_width)
-
-                # gray BG for border
-                cairo.rectangle(0,0,width,height)
-                lin = cairo.linear_gradient(0,height,0,0, :reflect,[1.0,gray],[1.0 - 1.0/hour_segments,lgray], [0.0 ,llgray])
-                cairo.set_source(lin)
-                cairo.fill()
-
-                # white for bg
-                cairo.rectangle(0,step_height,width-step_width,height)
-                cairo.set_source_rgb(1.0,1.0,1.0)
-                cairo.fill()
-
-
-                #logo
-                if not @logo.nil?
-
-                    # rsvg
-                    cairo.translate 0,step_height
-                    cairo.render_rsvg_centered(width - step_width,height - step_height, @logo_handle)
-                    cairo.identity_matrix
-
-                    #fade_logo
-                    cairo.set_source_rgba(1.0,1.0,1.0,0.8)
-                    cairo.rectangle(0,step_height,width-step_width,height)
-                    cairo.fill()
-                end
-
-
-                # compute optimal font size
-                font_size = (step_height * 0.60).to_i
-                #font_size = 8 if font_size < 8 # you cant read less than 8
-                # ...but if it's over 8, it'll kludge together and you still
-                # won't be able to read it.
-                font_size = 12 if font_size > 12 # over 12 it becomes oversized and ugly
-
-                # set grid gradient
-                lin = cairo.linear_gradient(0,height,0,0, :reflect,[0.0,oblack],[0.3,ooblack])
-                cairo.set_source(lin)
-
-                # itterate to draw
-                days.downto 1 do |i|
-
-                    # draw line
-                    cairo.move_to step_width*i, 0
-                    cairo.rel_line_to 0, height
-                    cairo.stroke
-                    cairo.move_to step_width*(i-1)+3, (0.2 * step_height).to_i - @line_width
-
-                    # render day name
-                    font = "#{DAY_NAME_FONT} #{font_size}"
-                    cairo.pango_render_text((step_width)-6, font,
-                      "#{day_names[(days-i-1+@start_day)%7]}")
-
-                end
-
-
-
-                # itterate to draw
-                hour_segments.downto 1 do |i|
-
-
-                    # compute if this is a major line, and if so make it full width
-                    # otherwise make it narrow
-                    if (i % @major_hour == @major_mod)
-                        cairo.set_line_width(@line_width)
-                    else
-                        cairo.set_line_width(@line_width * 0.20)
-                    end
-
-                    # draw line
-                    cairo.move_to 0, (step_height*i).to_i
-                    cairo.rel_line_to width, 0
-                    cairo.stroke
-                    cairo.move_to width-step_width+3, (step_height*(i+0.1)).to_i - @line_width
-
-                    # render hour
-                    font = "#{HOUR_FONT} #{font_size}"
-                    cairo.pango_render_text((step_width)-6, font,
-                                          "#{to_time(@start_hour+(@jump_hour*(i-1)))}")
-
-                end
-                @bg_image =  Cairo::SurfacePattern.new(surf)       
-            end
-
-            # what we wanted
-            return @bg_image
+        def schedule_boundaries
+          [ @start_day, @end_day, @start_hour, @end_hour ]
         end
 
+        def get_bg_image
+          unless @bg_image_schedule_boundaries != schedule_boundaries or
+            @bg_image.nil? or
+            width != @bg_image_width or height != @bg_image_height
 
-        # main graphic function
-        # this functions draws the grid lines, the backgrounds, the logo, the hours, 
-        # and the itterates to draw the events
-        # FIXME: refactor to several functions
-        def draw_sched
-          unless @events.empty?
-            earliest_start = @events.collect { |ev| ev.hour }.min
-            latest_finish = @events.collect { |ev| ev.hour + ev.length }.max
-
-            start_day = @events.collect { |ev| ev.day }.min
-            end_day = @events.collect { |ev| ev.day }.max
-
-            if [ earliest_start, latest_finish, start_day,  end_day  ] != \
-               [ @start_hour,    @end_hour,     @start_day, @end_day ]
-              @start_hour,      @end_hour,     @start_day, @end_day = \
-                earliest_start, latest_finish, start_day,  end_day
-              # Invalidate the background
-              @bg_image = nil
-            end
+            # Previously calculated @bg_image is OK, return that
+            return @bg_image
           end
 
-            cairo = self.get_cairo
+          @bg_image_width=width
+          @bg_image_height=height
 
-            # draw the grid background
-            bg_grid = get_bg_image
-            cairo.set_source(bg_grid)
-            cairo.rectangle(0,0,width,height)
-            cairo.fill
+          @bg_image_schedule_boundaries = schedule_boundaries
 
-            compute_layers unless @computed_layers # make sure we have layers computed
+          # @bg_image itself will be generated from surf
+          surf = Cairo::ImageSurface.new(Cairo::FORMAT_ARGB32, width,height)
+          cairo = Cairo::Context.new(surf)
 
-            # render events
-            #
-#            Profiler__::start_profile
-            @events.each do |i| 
-                draw_item(cairo,i)
+          cairo.set_line_join(Cairo::LINE_JOIN_ROUND)
+          cairo.set_line_cap(Cairo::LINE_CAP_ROUND)
+          cairo.set_line_width(@line_width)
+
+          # gray BG for border
+          cairo.rectangle(0,0,width,height)
+          lin = cairo.linear_gradient(0,height,0,0, :reflect,[1.0,GRAY],[1.0 - 1.0/hour_segments,LGRAY], [0.0, LLGRAY])
+          cairo.set_source(lin)
+          cairo.fill()
+
+          # white for bg
+          cairo.rectangle(0,step_height,width-step_width,height)
+          cairo.set_source_rgb(1.0,1.0,1.0)
+          cairo.fill()
+
+          # Draw logo if selected
+          unless @logo.nil?
+            cairo.translate 0,step_height
+            cairo.render_rsvg_centered(width - step_width,height - step_height, @logo_handle)
+            cairo.identity_matrix
+
+            # ...with a nice fade-out effect
+            cairo.set_source_rgba(1.0,1.0,1.0,0.8)
+            cairo.rectangle(0,step_height,width-step_width,height)
+            cairo.fill()
+          end
+
+          # Note: Font sizes should not be above 12, they tend to look bad.
+          # However, there is no reason for a lower-bound on the font size:
+          # if we set one, rows will kludge together and we lose legibility
+          # all the same.
+          font_size = [ (step_height * 0.60).to_i, 12 ].min
+
+          # set grid gradient
+          lin = cairo.linear_gradient(0,height,0,0, :reflect,[0.0,OBLACK],[0.3,OBLACK])
+          cairo.set_source(lin)
+
+          # Draw day names and appropriate lines
+          days.downto 1 do |i|
+            cairo.move_to step_width*i, 0
+            cairo.rel_line_to 0, height
+            cairo.stroke
+            cairo.move_to step_width*(i-1)+3, (0.2 * step_height).to_i - @line_width
+            font = "#{DAY_NAME_FONT} #{font_size}"
+            cairo.pango_render_text((step_width)-6, font,
+                      "#{day_names[(days-i-1+@start_day)%7]}")
+          end
+
+          # Draw hour labels and appropriate lines
+          hour_segments.downto 1 do |i|
+            # compute if this is a major line, and if so make it full width
+            # otherwise make it narrow
+            if (i % @major_hour == @major_mod)
+              cairo.set_line_width(@line_width)
+            else
+              cairo.set_line_width(@line_width * 0.20)
             end
-#            Profiler__::stop_profile
-#            Profiler__::print_profile($stderr)
+
+            cairo.move_to 0, (step_height*i).to_i
+            cairo.rel_line_to width, 0
+            cairo.stroke
+            cairo.move_to width-step_width+3, (step_height*(i+0.1)).to_i - @line_width
+
+            font = "#{HOUR_FONT} #{font_size}"
+            hour_text = to_time(@start_hour+(@jump_hour*(i-1)))
+            cairo.pango_render_text((step_width)-6, font, hour_text)
+          end
+
+          @bg_image = Cairo::SurfacePattern.new(surf)
+          return @bg_image
         end
 
+        def draw_sched
+          start_hours = @events.collect { |ev| ev.hour }
+          start_hours << MAX_START_HOUR
+          end_hours = @events.collect { |ev| ev.hour + ev.length }
+          end_hours << MIN_END_HOUR
+          busy_days = @events.collect { |ev| ev.day }
+          busy_days << MAX_START_DAY << MIN_END_DAY
 
-        # here is a load of constants that needs to be moved elsewhere
+          @start_hour = start_hours.min
+          @end_hour = end_hours.max
+          @start_day = busy_days.min
+          @end_day = busy_days.max
 
-        def white 
-            [1.0,1.0,1.0, 1]
-        end
-        def owhite
-            [1.0,0.95,0.9, 1]
-        end
+          cairo = self.get_cairo
 
-        def llgray
-            [0.98,0.98,0.98, 1]
-        end
+          # draw the grid background
+          bg_grid = get_bg_image
+          cairo.set_source(bg_grid)
+          cairo.rectangle(0,0,width,height)
+          cairo.fill
 
-        def lgray
-            [0.9,0.9,0.9, 1]
-        end
+          compute_layers unless @computed_layers
 
-        def gray
-            [0.8,0.8,0.8, 1]
-        end
-
-        def black
-            [0,0,0,1]
-        end
-
-        def oblack
-            [0.3,0.3,0.3,1]
-        end
-
-
-        def ooblack
-            [0.5,0.5,0.5,1]
+          @events.each do |i|
+            draw_item(cairo,i)
+          end
         end
 
         def day_names
             ["ראשון","שני","שלישי","רביעי","חמישי","שישי","שבת"]
         end
-
-
     end
 end
