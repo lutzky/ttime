@@ -1,11 +1,12 @@
 #!/usr/bin/env ruby
 
+require 'set'
+
 # graphic libs
 require 'gtk2'
 require 'cairo'
 require 'pango'
 require 'rsvg2'
-
 
 # internal includes
 require 'ttime/tcal/event'
@@ -16,359 +17,336 @@ LEFT_BUTTON = 1
 RIGHT_BUTTON = 3
 
 module TCal
-    class Calendar < Gtk::DrawingArea
-      DAY_NAME_FONT = "Sans Bold"
-      HOUR_FONT = "Sans"
+  class Calendar < Gtk::DrawingArea
+    # Initialize a calendar. Possible parameters (within +params+) are:
+    #
+    # [<tt>:logo</tt>] An SVG filename to use as the background logo
+    def initialize(params={})
+      super()
 
-      MAX_START_HOUR = 8.5
-      MIN_END_HOUR = 16.5
-      MAX_START_DAY = 1
-      MIN_END_DAY = 5
+      @events = []
 
-      LLGRAY = [0.98, 0.98, 0.98, 1]
-      LGRAY = [0.9,0.9,0.9, 1]
-      GRAY = [0.8,0.8,0.8, 1]
-      OBLACK = [0.3,0.3,0.3, 1]
+      @start_day = MAX_START_DAY
+      @end_day = MIN_END_DAY
 
-      # Default color list. All colors are represented in RGBA.
-      @@colors = [
-          [1.00,0.61,0.61,0.70],
-          [0.62,0.61,1.00,0.70],
-          [0.61,1.00,0.62,0.70],
-          [1.00,1.00,0.61,0.70],
-          [1.00,0.61,0.97,0.70],
-          [0.61,0.84,1.00,0.70],
-          [1.00,0.81,0.61,0.70],
-      ]
+      @start_hour = MAX_START_HOUR
+      @end_hour = MIN_END_HOUR
 
-      def modify_color(color, params = {})
-        factor = params[:brightness] || 1.0
-        alpha = params[:alpha] || color[3]
-        return [
-          color[0] * factor,
-          color[1] * factor,
-          color[2] * factor,
-          alpha
-        ]
+      @computed_layers=false
+
+      @logo = params[:logo]
+      if not @logo.nil?
+        @logo_handle =  RSVG::Handle.new_from_file(@logo)
+        @logo_dim = @logo_handle.dimensions
       end
 
-      def get_color(type, index)
-        color = @@colors[index % @@colors.length]
-        case type
-        when :tutorial
-          return modify_color(color, :brightness => 0.8)
-        when :border
-          return modify_color(color, :brightness => 0.7, :alpha => 0.9)
-        else
-          return color
+      self.signal_connect("expose-event") do
+        self.draw_sched
+        true
+      end
+
+      self.add_events(Gdk::Event::ALL_EVENTS_MASK)
+
+      @click_handlers = []
+
+      self.signal_connect("button-press-event") do |calendar, e|
+        day = day_at_x(e.x)
+        hour = hour_at_y(e.y)
+        ratio = (e.x % step_width) / step_width.to_f
+        event = @events.find { |ev| ev.catches_click?(day, hour, ratio) }
+        @click_handlers.each do |handler|
+          handler.call({
+            :day => day,
+            :hour => TTime::Logic::Hour::float_to_military(hour),
+            :data => (event and event.data),
+            :gdk_event => e,
+          })
         end
       end
+    end
 
-        # send a hash of parameters, please
-        #
-        # list of options:
-        #
-        # [start_day] the first day of the weed. default: sunday. 
-        # the days are numbered 1=>sun,2=>mon...7=>sat
-        #
-        # [end_day] the last day of the week. default: thursday
-        # the days are numbered 1=>sun,2=>mon...7=>sat
-        #
-        # [start_hour] the first hour of the day. default 8:30
-        # the numbers represent hours, so 8.5 is 8 and a half hours, or 8:30
-        #
-        # [end_hour] the first hour of the day. default 20:30
-        # the numbers represent hours, so 8.5 is 8 and a half hours, or 8:30
-        #
-        # [jump_hour] the increments by which hours are drawn and written
-        #
-        # [major_hour] how many increments consist of a full unit (and get a bold line)
-        #
-        # [major_mod] which increment gets the bold line ( mod as in the operator % )
-        #
-        # [line_width] the width if the drawn line. default 0.5, which is a fuzzy 2 pixels after anti-aliasing 
-        #
-        # [logo] an SVG to use as the background logo
-        #
-        #
-        def initialize(params={})
-            super()
+    # Register a click handler. If a displayed event is clicked on,
+    # <tt>:data</tt> is the original data sent with this event on add_event.
+    def add_click_handler(&handler) #:yields: {:day,:hour,:data,:gdk_event}
+      @click_handlers << handler
+    end
 
-            # initialize the list of events
-            @events = []
+    # Registers a handler for right-clicks. See add_click_handler.
+    def add_rightclick_handler(&handler) #:yields: {:day,:hour,:data,:gdk_event}
+      @click_handlers << Proc.new do |params|
+        if params[:gdk_event].button == RIGHT_BUTTON
+          handler.call params
+        end
+      end
+    end
 
+    # Adds a new event to the schedule. +color+ should be an index of coloring
+    # group -- an actual color will be assigned based on this and +type+. If
+    # specified, +data+ will be sent to any registered click handlers (see
+    # add_click_handler)
+    def add_event(text,day,hour,length,color,data = nil,type = nil)
+      @events << Event.new(text,day,hour,length,color,1,0,data,type)
+      @computed_layers=false
+    end
 
-            @start_day = params[:start_day] || MAX_START_DAY
-            @end_day = params[:end_day] || MIN_END_DAY
+    # Rejects events from the calendar using the given block. The yielded
+    # +data+ is whatever you sent as +data+ in add_event.
+    def reject_events! &blk # :yields: data
+      @events.reject! do |ev|
+        blk.call ev.data
+      end
+      @computed_layers=false
+    end
 
-            @start_hour = params[:start_hour] || MAX_START_HOUR
-            @end_hour = params[:end_hour] || MIN_END_HOUR
-            @major_hour = params[:major_hour] || 2 #once in how many jumps do we use a full line
-            @major_mod = params[:major_mod] || 1 # which part of the hour do we mark as major
-            @jump_hour = params[:jump_hour] || 0.5
+    # Remove all events from the calendar
+    def clear_events
+      @events = []
+      @computed_layers=false
+    end
 
-            @computed_layers=false
+    # Redraw the schedule
+    def redraw
+      # Send an invalidation event so the schedule gets redrawn
+      self.window.invalidate(Gdk::Rectangle.new(0, 0, width, height),false)
+    end
 
-            @line_width = params[:line_width] || 0.5
+    protected
 
+    DAY_NAME_FONT = "Sans Bold"
+    HOUR_FONT = "Sans"
 
-            #logo
-            @logo = params[:logo]
-            if not @logo.nil?
-                @logo_handle =  RSVG::Handle.new_from_file(@logo)
-                @logo_dim = @logo_handle.dimensions
-            end
+    MAX_START_HOUR = 8.5
+    MIN_END_HOUR = 16.5
+    MAX_START_DAY = 1
+    MIN_END_DAY = 5
 
+    LLGRAY = [0.98, 0.98, 0.98, 1]
+    LGRAY = [0.9,0.9,0.9, 1]
+    GRAY = [0.8,0.8,0.8, 1]
+    OBLACK = [0.3,0.3,0.3, 1]
 
-            self.signal_connect("expose-event") do
-                self.draw_sched
-                true
-            end
+    DAY_NAMES = ["ראשון","שני","שלישי","רביעי","חמישי","שישי","שבת"]
 
-            self.add_events(Gdk::Event::ALL_EVENTS_MASK)
+    EVENT_COLORS = [
+      [1.00,0.61,0.61,0.70],
+      [0.62,0.61,1.00,0.70],
+      [0.61,1.00,0.62,0.70],
+      [1.00,1.00,0.61,0.70],
+      [1.00,0.61,0.97,0.70],
+      [0.61,0.84,1.00,0.70],
+      [1.00,0.81,0.61,0.70],
+    ]
 
-            @click_handlers = []
+    def modify_color(color, params = {})
+      factor = params[:brightness] || 1.0
+      alpha = params[:alpha] || color[3]
+      return [
+        color[0] * factor,
+        color[1] * factor,
+        color[2] * factor,
+        alpha
+      ]
+    end
 
-            self.signal_connect("button-press-event") do |calendar, e|
-              day = day_at_x(e.x)
-              hour = hour_at_y(e.y)
-              ratio = (e.x % step_width) / step_width.to_f
-              event = @events.find { |ev| ev.catches_click?(day, hour, ratio) }
-              @click_handlers.each do |handler|
-                handler.call({
-                  :day => day,
-                  :hour => TTime::Logic::Hour::float_to_military(hour),
-                  :data => (event and event.data),
-                  :gdk_event => e,
-                })
+    # Get an appropriate color for an event of type +type+, with group index
+    # +index+. Try and keep +index+ values in order - colors are chosen
+    # cyclically out of EVENT_COLORS.
+    def get_color(type, index)
+      color = EVENT_COLORS[index % EVENT_COLORS.length]
+      case type
+      when :tutorial
+        return modify_color(color, :brightness => 0.8)
+      when :border
+        return modify_color(color, :brightness => 0.7, :alpha => 0.9)
+      else
+        return color
+      end
+    end
+
+    # Hours are drawn and written by increments of JUMP_HOUR
+    JUMP_HOUR = 0.5
+    # A full line is used every MAJOR_HOUR hours
+    MAJOR_HOUR = 2
+    # The MAJOR_MOD part of the hour is marked as "major"
+    MAJOR_MOD = 1
+
+    LINE_WIDTH = 0.5
+
+    # The (1-indexed) day at the given x coordinate
+    def day_at_x(x)
+      day = days - (x / step_width).to_i
+      return nil if day < 0
+      day
+    end
+
+    # The hour at the given y coordinate
+    def hour_at_y(y)
+      hour = ((y / step_height).to_i - 1) * JUMP_HOUR + @start_hour
+      return nil if hour < @start_hour
+      hour
+    end
+
+    # Creates a Cairo context for the drawing area
+    def get_cairo
+      self.window.create_cairo_context
+    end
+
+    # Iterate over all items and set their layers and ratios so that they are
+    # drawn with correct positioning for overlapping items.
+    #
+    # = General explanation
+    # While there are remaining events, create an arbitrary +selected+ group
+    # of size 1. Grow this group to contain any colliding events until
+    # reaching a fixed-point. Then greedily assign layers to each event within
+    # the group.
+    def compute_layers
+      @computed_layers=true
+
+      remaining = @events
+
+      # As long as there are remaining events, build maximal collision groups
+      # and assign layers and ratios to events within those groups.
+      while not remaining.empty? do
+        # Select an arbitrary event
+        selected = Set.new([remaining[0]])
+        selected_more_events = true
+
+        # Add events colliding with selected events until reaching a
+        # fixed-point
+        while selected_more_events
+          selected_more_events = false
+          old_selected = selected
+          selected = Set.new
+
+          old_selected.each do |s|
+            selected << s
+            remaining.each do |r|
+              if s.collides_with?(r)
+                selected << r
+                selected_more_events = true
               end
             end
+          end
+
+          # Interesting bug - remaining.reject! does not do what we
+          # expect, for some reason. (rejects everything)
+          remaining = remaining.reject { |x| selected.include?(x) }
         end
 
-        def add_rightclick_handler(&handler)
-          @click_handlers << Proc.new do |params|
-            if params[:gdk_event].button == RIGHT_BUTTON
-              handler.call params
+        # Now we take our group selection and divide it up into layers
+
+        layers = []
+
+        selected.each do |s|
+          s.layer = nil
+          layers.each_with_index do |layer, i|
+            unless layer.collides_with?(s)
+              layer << s
+              s.layer = i
+              break
             end
+          end
+
+          if s.layer.nil?
+            # No layer has been assigned yet, so all layers must collide with
+            # s. Create a new one.
+            layers << Layer.new([s])
+            s.layer = layers.size - 1
           end
         end
 
-        def add_click_handler(&handler)
-          @click_handlers << handler
+        # Now all events within the collision group are divided among
+        # layers.size layers, so we give them the appropriate ratio
+        ratio = 1.0 / layers.size
+        selected.each do |s|
+          s.ratio = ratio
         end
+      end
+    end
 
-        def day_at_x(x)
-          day = days - (x / step_width).to_i
-          return nil if day < 0
-          day
-        end
+    def draw_item(cairo,item)
 
-        def hour_at_y(y)
-          hour = ((y / step_height).to_i - 1) * @jump_hour + @start_hour
-          return nil if hour < @start_hour
-          hour
-        end
+      # set internal line width for this function
+      line_width=3.0
+      half_line_width=line_width/2 #optimizaton
 
-        # returns a new cairo context for the drawing area
-        def get_cairo
-            self.window.create_cairo_context
-        end
+      # get size and compute ratios
+      hour_steps = (item.hour - @start_hour)/JUMP_HOUR
+      length_steps = item.length/JUMP_HOUR
+      day_steps = (item.day + 7 - @start_day) % 7
+      layer_width = (step_width*item.ratio).to_i
+      item_length = (step_height*length_steps).to_i
 
+      # translate to where we want to draw
+      cairo.translate(step_width*(days-day_steps-1),(hour_steps+1)*step_height)
 
+      # load color
+      clr = get_color(:border, item.color_id)
+      cairo.set_source_rgba(clr[0],clr[1],clr[2],clr[3])
 
+      # draw path
+      cairo.rounded_rectangle(half_line_width+layer_width*item.layer,
+                              half_line_width,
+                              layer_width*(item.layer+1)-half_line_width, # move to the next layer
+                              item_length-half_line_width)
+      cairo.set_line_width(line_width)
 
-        # itterate over all the items and set their layers and ratios so that they are draws 
-        # with correct positioning for multiple items during the same times
-        #
-        # general explanation:
-        # every we coose an event x and add it to [selected], under the condition
-        # that x was not added to [selected] yet.
-        # every itteration we check the list of events that are not in [selected]
-        # and see if any collide with an event in selected. if so we add them to [selected]
-        # when no collisions remain, we devide the events in [selected] into groups so that
-        # no 2 events in the same group collide. then we assing each group a layer and the
-        # ratio is the inverse of the number of groups
-        def compute_layers
-            @computed_layers=true
-            remaining = @events #all events have not been assigned to a collision group
+      # stroke path
+      cairo.stroke_preserve
 
-            #every itteration we compute a collision group, split it into layers, and assign ratios
-            while not remaining.empty? do
-                # add a random event
-                selected = [remaining[0]]
-                cont = true
-                # cont means we added a new event to selected
-                while(cont)
-                    cont=false
-                    # get a new list
-                    old_selected = selected
-                    selected = []
-                    old_selected.each do |s|
+      # load bg color
+      clr = get_color(item.type, item.color_id)
+      cairo.set_source_rgba(clr[0],clr[1],clr[2],clr[3])
 
-                        # avoid duplicates
-                        selected << s unless selected.include?(s)
-                        remaining.each do |r|
+      # fill path
+      cairo.fill
 
-                            # there's a collision, add r to selected
-                            if s.collides_with?(r)
-
-                                # avoid duplicates
-                                selected << r  unless selected.include?(r)
-                                cont=true # a new event has been added to s. continue
-                            end
-                        end
-                    end
-
-                    # recompute the remaining
-                    rejected = []
-                    remaining.each do |r|
-                        rejected << r unless selected.include?(r)
-                    end
-                    remaining = rejected
-
-                end
-
-                # devide into layers
-                layers = []
-                layer_num=0
-                selected.each do |s|
-                    cur_layer=0
-                    begin
-                        while layers[cur_layer].collides_with?(s) do
-                            cur_layer += 1
-                        end
-
-                        # found a layer that's ok
-                        layers[cur_layer] << s
-                        s.layer=cur_layer
-
-                    rescue
-
-                        #collides with all layers. add a new layer
-                        layers[cur_layer] = Layer.new
-                        layers[cur_layer] << s
-                        s.layer=cur_layer
-                        layer_num += 1
-
-                    end
-                end
-
-                #compute the ratio
-                selected.each do |s|
-                    s.ratio = 1.0/layer_num
-                end
-
-            end
-        end
+      # create clipping region for text
+      cairo.rectangle(0,0,step_width,item_length-line_width-1)
 
 
-        # add a new event to the sched
-        def add_event(text,day,hour,length,color,data = nil,type = nil)
-            @events << Event.new(text,day,hour,length,color,1,0,data,type)
-            @computed_layers=false
-        end
+      cairo.clip
 
-        def reject_events! &blk
-          @events.reject! do |ev|
-            blk.call ev.data
-          end
-          @computed_layers=false
-        end
+      # set text color
+      cairo.set_source_rgba(0,0,0,1)
 
-        # remove all events
-        def clear_events
-            @events = []
-            @computed_layers=false
-        end
+      # set text position
+      cairo.move_to(3+(layer_width*item.layer),3)
 
-        def redraw
-            self.window.invalidate(Gdk::Rectangle.new(0, 0, width, height),false)
-        end
+      #draw text
+      cairo.pango_render_text((layer_width-6),"Sans 8",item.markup)
 
+      #reset damage
+      cairo.reset_clip
+      cairo.identity_matrix
+    end
 
-        def draw_item(cairo,item)
+    # turn fraction time ino a formated time string, aka 12.25 => "12:30"
+    def to_time(time_frac)
+      hours = time_frac.floor
+      frac = time_frac-hours
+      mins = (frac*60).floor
+      return sprintf("%d:%02d",hours,mins)
+    end
 
-            # set internal line width for this function
-            line_width=3.0
-            half_line_width=line_width/2 #optimizaton
+    def width
+      self.window.size[0]
+    end
 
-            # get size and compute ratios
-            hour_steps = (item.hour - @start_hour)/(@jump_hour)
-            length_steps = item.length/@jump_hour
-            day_steps = (item.day + 7 - @start_day) % 7
-            layer_width = (step_width*item.ratio).to_i
-            item_length = (step_height*length_steps).to_i
+    def height
+      self.window.size[1]
+    end
 
-            # translate to where we want to draw
-            cairo.translate(step_width*(days-day_steps-1),(hour_steps+1)*step_height)
+    def step_width
+      (width + LINE_WIDTH) / (days + 1)
+    end
 
-            # load color
-            clr = get_color(:border, item.color_id)
-            cairo.set_source_rgba(clr[0],clr[1],clr[2],clr[3])
+    def step_height
+      (height + LINE_WIDTH) / (hour_segments+1)
+    end
 
-            # draw path
-            cairo.rounded_rectangle(half_line_width+layer_width*item.layer,
-                                    half_line_width,
-                                    layer_width*(item.layer+1)-half_line_width, # move to the next layer
-                                    item_length-half_line_width)
-            cairo.set_line_width(line_width)
-
-            # stroke path
-            cairo.stroke_preserve
-
-            # load bg color
-            clr = get_color(item.type, item.color_id)
-            cairo.set_source_rgba(clr[0],clr[1],clr[2],clr[3])
-
-            # fill path
-            cairo.fill
-
-            # create clipping region for text
-            cairo.rectangle(0,0,step_width,item_length-line_width-1)
-
-
-            cairo.clip
-
-            # set text color
-            cairo.set_source_rgba(0,0,0,1)
-
-            # set text position
-            cairo.move_to(3+(layer_width*item.layer),3)
-
-            #draw text
-            cairo.pango_render_text((layer_width-6),"Sans 8",item.markup)
-
-            #reset damage
-            cairo.reset_clip
-            cairo.identity_matrix
-        end
-
-        # turn fraction time ino a formated time string, aka 12.25 => "12:30"
-        def to_time(time_frac)
-            hours = time_frac.floor
-            frac = time_frac-hours
-            mins = (frac*60).floor
-            return sprintf("%d:%02d",hours,mins)
-        end
-
-        def width
-          self.window.size[0]
-        end
-
-        def height
-          self.window.size[1]
-        end
-
-        def step_width
-          (width + @line_width) / (days + 1)
-        end
-
-        def step_height
-          (height + @line_width) / (hour_segments+1)
-        end
-
-        def hour_segments
-            ((@end_hour - @start_hour) / @jump_hour).to_i
+    def hour_segments
+      ((@end_hour - @start_hour) / JUMP_HOUR).to_i
         end
 
         def days
@@ -399,7 +377,7 @@ module TCal
 
           cairo.set_line_join(Cairo::LINE_JOIN_ROUND)
           cairo.set_line_cap(Cairo::LINE_CAP_ROUND)
-          cairo.set_line_width(@line_width)
+          cairo.set_line_width(LINE_WIDTH)
 
           # gray BG for border
           cairo.rectangle(0,0,width,height)
@@ -439,29 +417,29 @@ module TCal
             cairo.move_to step_width*i, 0
             cairo.rel_line_to 0, height
             cairo.stroke
-            cairo.move_to step_width*(i-1)+3, (0.2 * step_height).to_i - @line_width
+            cairo.move_to step_width*(i-1)+3, (0.2 * step_height).to_i - LINE_WIDTH
             font = "#{DAY_NAME_FONT} #{font_size}"
             cairo.pango_render_text((step_width)-6, font,
-                      "#{day_names[(days-i-1+@start_day)%7]}")
+                      "#{DAY_NAMES[(days-i-1+@start_day)%7]}")
           end
 
           # Draw hour labels and appropriate lines
           hour_segments.downto 1 do |i|
             # compute if this is a major line, and if so make it full width
             # otherwise make it narrow
-            if (i % @major_hour == @major_mod)
-              cairo.set_line_width(@line_width)
+            if (i % MAJOR_HOUR == MAJOR_MOD)
+              cairo.set_line_width(LINE_WIDTH)
             else
-              cairo.set_line_width(@line_width * 0.20)
+              cairo.set_line_width(LINE_WIDTH * 0.20)
             end
 
             cairo.move_to 0, (step_height*i).to_i
             cairo.rel_line_to width, 0
             cairo.stroke
-            cairo.move_to width-step_width+3, (step_height*(i+0.1)).to_i - @line_width
+            cairo.move_to width-step_width+3, (step_height*(i+0.1)).to_i - LINE_WIDTH
 
             font = "#{HOUR_FONT} #{font_size}"
-            hour_text = to_time(@start_hour+(@jump_hour*(i-1)))
+            hour_text = to_time(@start_hour+(JUMP_HOUR*(i-1)))
             cairo.pango_render_text((step_width)-6, font, hour_text)
           end
 
@@ -495,10 +473,6 @@ module TCal
           @events.each do |i|
             draw_item(cairo,i)
           end
-        end
-
-        def day_names
-            ["ראשון","שני","שלישי","רביעי","חמישי","שישי","שבת"]
         end
     end
 end
