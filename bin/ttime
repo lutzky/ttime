@@ -5,17 +5,9 @@ require 'optparse'
 
 $LOAD_PATH.unshift((Pathname.new($0).dirname.parent + 'lib').to_s)
 
+require 'ttime/version'
+
 action = :run_gui
-
-begin
-  require 'ttime/version'
-rescue LoadError
-  # Couldn't load version data - we must be in git
-
-  module TTime
-    Version = '(git)'
-  end
-end
 
 OptionParser.new do |opts|
   opts.on("--hebrew", "Force Hebrew locale") do
