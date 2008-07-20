@@ -1,7 +1,10 @@
 #!/usr/bin/env ruby
 
 require 'gtk2'
-require 'ttime/tcal'
+
+$LOAD_PATH.unshift File::dirname($0)
+
+require 'tcal'
 
 window = Gtk::Window.new
 
@@ -10,7 +13,7 @@ window.signal_connect("delete-event") do
   true
 end
 
-area = TCal::Calendar.new( {:logo => "ttime.svg"})
+area = TCal::Calendar.new()
 area.set_size_request(500,380)
 area.add_event("מערכות סיפרתיות\nתרגול\nטאוב 2",2,10.5,3.5,1)
 area.add_event("מערכות סיפרתיות\nתרגול\nטאוב 2",5,12.0,2.5,1)
@@ -30,6 +33,5 @@ area.add_event("מת\"מ\nהרצאה\nטאוב 2",      2,14.5 ,3.0,8)
 
 window.add(area)
 window.show_all
-
 
 Gtk.main
