@@ -1,3 +1,19 @@
+=begin rdoc
+= Nicknames
+
+Some courses have very long names, and we'd like to to display them (or search
+for them) using shortened names. You can override included nicknames by
+creating a file in your home directory,
+<tt>/home/youruser/.ttime/nicknames.txt</tt>, of the following format:
+
+  Very Long course name Which is hard to remember
+  MyCourse
+
+  Another Very Long course name which couldn't possible fit in schedule
+  Anothercourse
+
+=end
+
 require 'singleton'
 
 module TTime::Logic
