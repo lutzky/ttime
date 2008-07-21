@@ -205,6 +205,7 @@ module TTime
 
           on_available_course_selection
           on_selected_course_selection
+          update_exam_collisions
         end
       end
 
@@ -333,6 +334,14 @@ module TTime
         iter[0] = course.name
         iter[1] = course.number
         iter[2] = course
+        iter[3] = nil
+
+        update_exam_collisions
+      end
+
+      # Look for exam collisions in selected courses and color them accordingly
+      def update_exam_collisions
+        # TODO
       end
 
       def set_num_schedules(n)
@@ -505,7 +514,7 @@ module TTime
           Logic::Course
         @tree_available_search = Gtk::TreeModelFilter.new @tree_available_courses
         @list_selected_courses = Gtk::ListStore.new String, String,
-          Logic::Course
+          Logic::Course, String
 
 
         init_course_tree_views
@@ -596,7 +605,7 @@ module TTime
           # TreeViewColumn object can't be shared between two treeviews.
 
           col = Gtk::TreeViewColumn.new label, Gtk::CellRendererText.new,
-            :text => i
+            :text => i, :foreground => 3
           col.resizable = true
 
           selected_courses_view.append_column col
