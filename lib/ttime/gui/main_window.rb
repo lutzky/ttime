@@ -341,7 +341,45 @@ module TTime
 
       # Look for exam collisions in selected courses and color them accordingly
       def update_exam_collisions
-        # TODO
+        @list_selected_courses.each do |model, path, iter|
+          course = iter[2]
+          other_courses = @selected_courses - [ course ]
+          exam_dates_a = other_courses.collect { |c| c.first_test_date }.uniq
+          exam_dates_b = other_courses.collect { |c| c.second_test_date }.uniq
+
+          min_distance_a = exam_dates_a.collect do |d|
+            (d - course.first_test_date).abs
+          end.min
+
+          min_distance_b = (exam_dates_a + exam_dates_b).collect do |d|
+            [
+              (d - course.first_test_date).abs,
+              (d - course.second_test_date).abs,
+            ].min
+          end.min
+
+          return if min_distance_a.nil? or min_distance_b.nil?
+
+          # TODO: Consider adding a tooltip
+          if min_distance_a < 1
+            iter[3] = "red"
+          elsif min_distance_a < 3
+            iter[3] = "orange"
+          elsif min_distance_a < 5
+            iter[3] = "green"
+          else
+            iter[3] = nil
+          end
+
+          # TODO: Consider adding a tooltip
+          if min_distance_b < 1
+            iter[0] = "#{course.name} [!!!]"
+          elsif min_distance_b < 3
+            iter[0] = "#{course.name} [!!]"
+          elsif min_distance_b < 5
+            iter[0] = "#{course.name} [!]"
+          end
+        end
       end
 
       def set_num_schedules(n)
