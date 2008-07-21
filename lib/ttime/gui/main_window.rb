@@ -8,6 +8,7 @@ require 'ttime/constraints'
 require 'ttime/settings'
 require 'ttime/logic/course'
 require 'ttime/logic/scheduler'
+require 'ttime/logic/nicknames'
 require 'ttime/gui/progress_dialog'
 require 'ttime/tcal/tcal'
 require 'ttime/gettext_settings'
@@ -126,6 +127,9 @@ module TTime
         notebook = @glade["notebook"]
 
         @constraints = []
+
+        # Touch the instance so nicknames get loaded
+        @nicknames = Logic::Nicknames.instance
 
         init_schedule_view
         init_constraints
@@ -250,7 +254,8 @@ module TTime
       end
 
       def add_event_to_calendar ev
-        text = ev.desc
+        name = @nicknames.beautify[ev.group.name] || ev.group.name
+        text = "<b>#{name}</b>\nקבוצה #{ev.group.number}\n#{ev.place}"
         day = ev.day
         hour = ev.start_frac
         length = ev.end_frac - ev.start_frac
@@ -286,6 +291,8 @@ module TTime
           elsif text =~ /^[0-9]/ # Key is numeric
             #puts "|#{iter[1]}|"
             ret = (iter[1] =~ /^#{text}/)
+          elsif @nicknames.beautify[iter[0]] =~ /#{text}/
+            ret=true
           else
             ret = (iter[0] =~ /#{text}/)
           end

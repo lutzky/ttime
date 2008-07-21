@@ -27,10 +27,6 @@ module TTime
           frac(@end)
       end
 
-      def desc
-        "<b>#{@group.name}</b>\nקבוצה #{@group.number}\n#@place"
-      end
-
       def course
         group.course
       end
