@@ -2,9 +2,10 @@ ttime (0.8.3) unstable; urgency=low
 
   * Automatic resizing in tcal - Friday now displayed properly
   * Version now displayed in 'About' dialog
+  * Support for nicknames (short course names)
   * Various cleanups and tweaks
 
- -- Ohad Lutzky <ohad@lutzky.net>  Sun, 20 Jul 2008 19:26:46 +0300
+ -- Ohad Lutzky <ohad@lutzky.net>  Mon, 21 Jul 2008 12:09:30 +0300
 
 ttime (0.8.2) unstable; urgency=low
 
