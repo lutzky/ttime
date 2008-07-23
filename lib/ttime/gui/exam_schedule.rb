@@ -25,14 +25,17 @@ module TTime::GUI
       @test_dates = []
 
       @courses.each do |course|
-        @test_dates << course.first_test_date
-        @test_dates << course.second_test_date
+        unless course.first_test_date.nil?
+          @test_dates << course.first_test_date
+          @moed_a_hash[course.first_test_date] ||= []
+          @moed_a_hash[course.first_test_date] << course
+        end
 
-        @moed_a_hash[course.first_test_date] ||= []
-        @moed_a_hash[course.first_test_date] << course
-
-        @moed_b_hash[course.second_test_date] ||= []
-        @moed_b_hash[course.second_test_date] << course
+        unless course.second_test_date.nil?
+          @test_dates << course.second_test_date
+          @moed_b_hash[course.second_test_date] ||= []
+          @moed_b_hash[course.second_test_date] << course
+        end
       end
 
       @colliding_dates = @test_dates.select do |d|
@@ -109,11 +112,15 @@ module TTime::GUI
       @courses.each do |course|
         moed_a = course.first_test_date
         moed_b = course.second_test_date
-        if moed_a.year == selected_year and moed_a.month == selected_month
-          @cal.mark_day moed_a.day
+        unless moed_a.nil?
+          if moed_a.year == selected_year and moed_a.month == selected_month
+            @cal.mark_day moed_a.day
+          end
         end
-        if moed_b.year == selected_year and moed_b.month == selected_month
-          @cal.mark_day moed_b.day
+        unless moed_b.nil?
+          if moed_b.year == selected_year and moed_b.month == selected_month
+            @cal.mark_day moed_b.day
+          end
         end
       end
     end

@@ -352,19 +352,28 @@ module TTime
 
         @list_selected_courses.each do |model, path, iter|
           course = iter[2]
+          next if course.first_test_date.nil?
           other_courses = @selected_courses - [ course ]
           exam_dates_a = other_courses.collect { |c| c.first_test_date }.uniq
           exam_dates_b = other_courses.collect { |c| c.second_test_date }.uniq
+
+          exam_dates_a.reject! { |d| d.nil? }
+          exam_dates_b.reject! { |d| d.nil? }
 
           min_distance_a = exam_dates_a.collect do |d|
             (d - course.first_test_date).abs
           end.min
 
           min_distance_b = (exam_dates_a + exam_dates_b).collect do |d|
-            [
-              (d - course.first_test_date).abs,
-              (d - course.second_test_date).abs,
-            ].min
+            d1 = d - course.first_test_date
+
+            unless course.second_test_date.nil?
+              d2 = d - course.second_test_date
+            else
+              d2 = 3650
+            end
+
+            [ d1.abs, d2.abs ].min
           end.min
 
           return if min_distance_a.nil? or min_distance_b.nil?
