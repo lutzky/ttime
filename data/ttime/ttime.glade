@@ -214,6 +214,16 @@
             <property name="visible">True</property>
             <property name="toolbar_style">GTK_TOOLBAR_BOTH</property>
             <child>
+              <widget class="GtkToolButton" id="ExamSchedule">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">Exam Schedule</property>
+                <property name="stock_id">gtk-info</property>
+              </widget>
+              <packing>
+                <property name="expand">False</property>
+              </packing>
+            </child>
+            <child>
               <widget class="GtkToolButton" id="find_schedules1">
                 <property name="visible">True</property>
                 <property name="label" translatable="yes">Find Schedules</property>
@@ -547,7 +557,6 @@
   </widget>
   <widget class="GtkAboutDialog" id="AboutDialog">
     <property name="type_hint">GDK_WINDOW_TYPE_HINT_NORMAL</property>
-    <property name="name">TTime</property>
     <property name="comments" translatable="yes">Inspired by UDonkey and Marprog
 
 But we don't like C#</property>
