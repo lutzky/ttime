@@ -50,7 +50,6 @@ module TTime::Logic
       line_pairs = open(nickname_file, "r") { |f| f.read.split("\n\n") }
       line_pairs.each do |line_pair|
         ugly_version, beautiful_version = line_pair.split("\n")
-        puts "'#{ugly_version}' -> #{beautiful_version}" 
         @beautify[ugly_version] = beautiful_version
       end
     end
