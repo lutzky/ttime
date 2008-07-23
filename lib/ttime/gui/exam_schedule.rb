@@ -7,6 +7,7 @@ if __FILE__ == $0
 end
 
 require 'ttime/logic/course'
+require 'ttime/gettext_settings'
 
 module TTime::GUI
   class ExamSchedule < Gtk::Dialog
@@ -69,7 +70,13 @@ module TTime::GUI
           :font => 'Sans Bold',
           :foreground => 'Red',
         })
-        @text_buffer.insert(iter, "WARNING, collisions on: ", tag)
+
+        warning_msg = ngettext(
+            "WARNING, collision on ",
+            "WARNING, collisions on: ",
+          @colliding_dates.size)
+
+        @text_buffer.insert(iter, warning_msg, tag)
 
         colliding_dates = @colliding_dates.collect { |d| d.strftime }.join(", ")
 
@@ -81,13 +88,13 @@ module TTime::GUI
 
       if @moed_a_hash[selected_date]
         @moed_a_hash[selected_date].each do |course|
-          @text_buffer.insert(iter, _("Moed A: #{course.name}\n"))
+          @text_buffer.insert(iter, format(_("Moed A: %s\n"), course.name))
         end
       end
 
       if @moed_b_hash[selected_date]
         @moed_b_hash[selected_date].each do |course|
-          @text_buffer.insert(iter, _("Moed B: #{course.name}\n"))
+          @text_buffer.insert(iter, format(_("Moed B: %s\n"), course.name))
         end
       end
     end

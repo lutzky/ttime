@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ttime 0.x.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-07-14 21:39+0300\n"
-"PO-Revision-Date: 2008-07-14 21:40+0300\n"
+"POT-Creation-Date: 2008-07-23 13:34+0300\n"
+"PO-Revision-Date: 2008-07-23 13:36+0300\n"
 "Last-Translator: Ohad Lutzky <lutzky@gmail.com>\n"
 "Language-Team: Hebrew <eliz@gnu.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,63 +16,81 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);"
 
-#: lib/ttime/gui/main_window.rb:54 lib/ttime/gui/main_window.rb:74
+#: lib/ttime/gui/main_window.rb:56 lib/ttime/gui/main_window.rb:76
 msgid "YAML files"
 msgstr "קבצי YAML"
 
-#: lib/ttime/gui/main_window.rb:56
+#: lib/ttime/gui/main_window.rb:58
 msgid "Load Settings"
 msgstr "טען הגדרות"
 
-#: lib/ttime/gui/main_window.rb:76
+#: lib/ttime/gui/main_window.rb:78
 msgid "Save Settings"
 msgstr "שמור הגדרות"
 
-#: lib/ttime/gui/main_window.rb:160
+#: lib/ttime/gui/main_window.rb:163
 msgid "Please select some courses first."
 msgstr "אנא בחר קורסים קודם."
 
-#: lib/ttime/gui/main_window.rb:175
+#: lib/ttime/gui/main_window.rb:178
 msgid ""
 "Sorry, but no schedules are possible with the selected courses and "
 "constraints."
 msgstr "אנחנו מצטערים, אך אין מערכות אפשריות עבור הקורסים וההגבלות שנבחרו."
 
-#: lib/ttime/gui/main_window.rb:335
+#: lib/ttime/gui/main_window.rb:341
 msgid " of %d"
 msgstr " מתוך %d"
 
-#: lib/ttime/gui/main_window.rb:359
+#: lib/ttime/gui/main_window.rb:365
 msgid "Schedule"
 msgstr "מערכת שעות"
 
-#: lib/ttime/gui/main_window.rb:369
+#: lib/ttime/gui/main_window.rb:375
 msgid "Show all alternatives"
 msgstr "הצג חלופות להכל"
 
-#: lib/ttime/gui/main_window.rb:375
+#: lib/ttime/gui/main_window.rb:381
 msgid "Show alternatives to this event"
 msgstr "הצג חלופות לאירוע זה"
 
-#: lib/ttime/gui/main_window.rb:525
+#: lib/ttime/gui/main_window.rb:531
 msgid "Populating available courses"
 msgstr "ממלא את רשימת הקורסים הזמינים"
 
-#: lib/ttime/gui/main_window.rb:583
+#: lib/ttime/gui/main_window.rb:589
 msgid "Course Name"
 msgstr "שם קורס"
 
-#: lib/ttime/gui/main_window.rb:583
+#: lib/ttime/gui/main_window.rb:589
 msgid "Course Number"
 msgstr "מספר קורס"
 
-#: lib/ttime/gui/main_window.rb:623
+#: lib/ttime/gui/main_window.rb:629
 msgid "Constraints"
 msgstr "הגבלות"
 
 #: lib/ttime/gui/progress_dialog.rb:10
 msgid "Progress"
 msgstr "התקדמות"
+
+#: lib/ttime/gui/exam_schedule.rb:17 data/ttime/ttime.glade:219
+msgid "Exam Schedule"
+msgstr "לוח בחינות"
+
+#: lib/ttime/gui/exam_schedule.rb:75
+msgid "WARNING, collision on "
+msgid_plural "WARNING, collisions on: "
+msgstr[0] "אזהרה, התנגשות ב-"
+msgstr[1] "אזהרה, התנגשויות ב-"
+
+#: lib/ttime/gui/exam_schedule.rb:93
+msgid "Moed A: %s\n"
+msgstr "מועד א': %s\n"
+
+#: lib/ttime/gui/exam_schedule.rb:99
+msgid "Moed B: %s\n"
+msgstr "מועד ב': %s\n"
 
 #: lib/ttime/data.rb:20
 msgid "Lecture"
@@ -268,67 +286,63 @@ msgstr "טען הגדרות..."
 msgid "Save Settings..."
 msgstr "שמור הגדרות..."
 
-#: data/ttime/ttime.glade:74
-msgid "_Schedules"
-msgstr "מערכות שעות"
-
-#: data/ttime/ttime.glade:81
-msgid "Find schedules"
-msgstr "בנה מערכת שעות"
-
-#: data/ttime/ttime.glade:102 data/ttime/ttime.glade:291
-msgid "Jump 10 back"
-msgstr "קפוץ 10 אחורה"
-
-#: data/ttime/ttime.glade:118 data/ttime/ttime.glade:303
-msgid "Previous"
-msgstr "קודמת"
-
-#: data/ttime/ttime.glade:134 data/ttime/ttime.glade:315
-msgid "Next"
-msgstr "באה"
-
-#: data/ttime/ttime.glade:150 data/ttime/ttime.glade:327
-msgid "Jump 10 forward"
-msgstr "קפוץ 10 קדימה"
-
-#: data/ttime/ttime.glade:170
-msgid "_Tools"
-msgstr "_כלים"
-
-#: data/ttime/ttime.glade:177
+#: data/ttime/ttime.glade:61
 msgid "Auto _Update"
 msgstr "_עדכון אוטומטי"
 
-#: data/ttime/ttime.glade:204
+#: data/ttime/ttime.glade:93
+msgid "_Schedules"
+msgstr "מערכות שעות"
+
+#: data/ttime/ttime.glade:100
+msgid "Find schedules"
+msgstr "בנה מערכת שעות"
+
+#: data/ttime/ttime.glade:121 data/ttime/ttime.glade:287
+msgid "Jump 10 back"
+msgstr "קפוץ 10 אחורה"
+
+#: data/ttime/ttime.glade:137 data/ttime/ttime.glade:299
+msgid "Previous"
+msgstr "קודמת"
+
+#: data/ttime/ttime.glade:153 data/ttime/ttime.glade:311
+msgid "Next"
+msgstr "באה"
+
+#: data/ttime/ttime.glade:169 data/ttime/ttime.glade:323
+msgid "Jump 10 forward"
+msgstr "קפוץ 10 קדימה"
+
+#: data/ttime/ttime.glade:189
 msgid "_Help"
 msgstr "_עזרה"
 
-#: data/ttime/ttime.glade:234
+#: data/ttime/ttime.glade:230
 msgid "Find Schedules"
 msgstr "מצא מערכות שעות"
 
-#: data/ttime/ttime.glade:263
+#: data/ttime/ttime.glade:259
 msgid " of 0"
 msgstr " מתוך 0"
 
-#: data/ttime/ttime.glade:373
+#: data/ttime/ttime.glade:369
 msgid "Search "
 msgstr "חיפוש "
 
-#: data/ttime/ttime.glade:436
+#: data/ttime/ttime.glade:432
 msgid "Available Courses"
 msgstr "קורסים זמינים"
 
-#: data/ttime/ttime.glade:494
+#: data/ttime/ttime.glade:490
 msgid "Selected Courses"
 msgstr "קורסים שנבחרו"
 
-#: data/ttime/ttime.glade:538
+#: data/ttime/ttime.glade:534
 msgid "Course List"
 msgstr "רשימת קורסים"
 
-#: data/ttime/ttime.glade:566
+#: data/ttime/ttime.glade:561
 msgid ""
 "Inspired by UDonkey and Marprog\n"
 "\n"
@@ -337,6 +351,6 @@ msgstr ""
 "בהשראת UDonkey\n"
 "אבל אנחנו לא אוהבים #C"
 
-#: data/ttime/ttime.glade:570
+#: data/ttime/ttime.glade:565
 msgid "Git repository"
 msgstr ""
