@@ -361,24 +361,25 @@ module TTime
           return if min_distance_a.nil? or min_distance_b.nil?
 
           # TODO: Consider adding a tooltip
-          if min_distance_a < 1
+          if min_distance_a < 1 or min_distance_b < 1
             iter[3] = "red"
-          elsif min_distance_a < 3
-            iter[3] = "orange"
-          elsif min_distance_a < 5
-            iter[3] = "green"
+          # elsif min_distance_a < 3
+            # iter[3] = "orange"
+          # elsif min_distance_a < 5
+            # iter[3] = "green"
           else
             iter[3] = nil
           end
 
-          # TODO: Consider adding a tooltip
-          if min_distance_b < 1
-            iter[0] = "#{course.name} [!!!]"
-          elsif min_distance_b < 3
-            iter[0] = "#{course.name} [!!]"
-          elsif min_distance_b < 5
-            iter[0] = "#{course.name} [!]"
-          end
+          # We've given up on the confusing notation thanks to exam_schedule
+
+          #if min_distance_b < 1
+          #  iter[0] = "#{course.name} [!!!]"
+          #elsif min_distance_b < 3
+          #  iter[0] = "#{course.name} [!!]"
+          #elsif min_distance_b < 5
+          #  iter[0] = "#{course.name} [!]"
+          #end
         end
       end
 
