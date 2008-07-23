@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ttime 0.x.x\n"
-"POT-Creation-Date: 2008-07-23 13:34+0300\n"
+"POT-Creation-Date: 2008-07-23 13:48+0300\n"
 "PO-Revision-Date: 2006-10-19 11:53+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -74,21 +74,21 @@ msgstr ""
 msgid "Progress"
 msgstr ""
 
-#: lib/ttime/gui/exam_schedule.rb:17 data/ttime/ttime.glade:219
+#: lib/ttime/gui/exam_schedule.rb:17 data/ttime/ttime.glade:231
 msgid "Exam Schedule"
 msgstr ""
 
-#: lib/ttime/gui/exam_schedule.rb:75
+#: lib/ttime/gui/exam_schedule.rb:74
 msgid "WARNING, collision on "
 msgid_plural "WARNING, collisions on: "
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/ttime/gui/exam_schedule.rb:93
+#: lib/ttime/gui/exam_schedule.rb:91
 msgid "Moed A: %s\n"
 msgstr ""
 
-#: lib/ttime/gui/exam_schedule.rb:99
+#: lib/ttime/gui/exam_schedule.rb:97
 msgid "Moed B: %s\n"
 msgstr ""
 
@@ -272,11 +272,11 @@ msgid "_File"
 msgstr ""
 
 #: data/ttime/ttime.glade:28
-msgid "Load Settings..."
+msgid "_Load Settings..."
 msgstr ""
 
 #: data/ttime/ttime.glade:42
-msgid "Save Settings..."
+msgid "_Save Settings..."
 msgstr ""
 
 #: data/ttime/ttime.glade:61
@@ -288,60 +288,72 @@ msgid "_Schedules"
 msgstr ""
 
 #: data/ttime/ttime.glade:100
-msgid "Find schedules"
+msgid "E_xam Schedule"
 msgstr ""
 
-#: data/ttime/ttime.glade:121 data/ttime/ttime.glade:287
+#: data/ttime/ttime.glade:112
+msgid "Find _schedules"
+msgstr ""
+
+#: data/ttime/ttime.glade:133 data/ttime/ttime.glade:299
 msgid "Jump 10 back"
 msgstr ""
 
-#: data/ttime/ttime.glade:137 data/ttime/ttime.glade:299
-msgid "Previous"
+#: data/ttime/ttime.glade:149
+msgid "_Previous"
 msgstr ""
 
-#: data/ttime/ttime.glade:153 data/ttime/ttime.glade:311
-msgid "Next"
+#: data/ttime/ttime.glade:165
+msgid "_Next"
 msgstr ""
 
-#: data/ttime/ttime.glade:169 data/ttime/ttime.glade:323
+#: data/ttime/ttime.glade:181 data/ttime/ttime.glade:335
 msgid "Jump 10 forward"
 msgstr ""
 
-#: data/ttime/ttime.glade:189
+#: data/ttime/ttime.glade:201
 msgid "_Help"
 msgstr ""
 
-#: data/ttime/ttime.glade:230
+#: data/ttime/ttime.glade:242
 msgid "Find Schedules"
 msgstr ""
 
-#: data/ttime/ttime.glade:259
+#: data/ttime/ttime.glade:271
 msgid " of 0"
 msgstr ""
 
-#: data/ttime/ttime.glade:369
+#: data/ttime/ttime.glade:311
+msgid "Previous"
+msgstr ""
+
+#: data/ttime/ttime.glade:323
+msgid "Next"
+msgstr ""
+
+#: data/ttime/ttime.glade:381
 msgid "Search "
 msgstr ""
 
-#: data/ttime/ttime.glade:432
+#: data/ttime/ttime.glade:444
 msgid "Available Courses"
 msgstr ""
 
-#: data/ttime/ttime.glade:490
+#: data/ttime/ttime.glade:502
 msgid "Selected Courses"
 msgstr ""
 
-#: data/ttime/ttime.glade:534
+#: data/ttime/ttime.glade:546
 msgid "Course List"
 msgstr ""
 
-#: data/ttime/ttime.glade:561
+#: data/ttime/ttime.glade:573
 msgid ""
 "Inspired by UDonkey and Marprog\n"
 "\n"
 "But we don't like C#"
 msgstr ""
 
-#: data/ttime/ttime.glade:565
+#: data/ttime/ttime.glade:577
 msgid "Git repository"
 msgstr ""

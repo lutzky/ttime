@@ -25,7 +25,7 @@
                     <child>
                       <widget class="GtkImageMenuItem" id="load_settings">
                         <property name="visible">True</property>
-                        <property name="label" translatable="yes">Load Settings...</property>
+                        <property name="label" translatable="yes">_Load Settings...</property>
                         <property name="use_underline">True</property>
                         <signal name="activate" handler="on_load_settings_activate"/>
                         <child internal-child="image">
@@ -39,7 +39,7 @@
                     <child>
                       <widget class="GtkImageMenuItem" id="save_settings">
                         <property name="visible">True</property>
-                        <property name="label" translatable="yes">Save Settings...</property>
+                        <property name="label" translatable="yes">_Save Settings...</property>
                         <property name="use_underline">True</property>
                         <signal name="activate" handler="on_save_settings_activate"/>
                         <child internal-child="image">
@@ -95,9 +95,22 @@
                 <child>
                   <widget class="GtkMenu" id="schedules_menu">
                     <child>
+                      <widget class="GtkImageMenuItem" id="exam_schedule">
+                        <property name="visible">True</property>
+                        <property name="label" translatable="yes">E_xam Schedule</property>
+                        <property name="use_underline">True</property>
+			<signal name="activate" handler="on_ExamSchedule_clicked"/>
+                        <child internal-child="image">
+                          <widget class="GtkImage" id="menu-item-image9">
+                            <property name="stock">gtk-info</property>
+                          </widget>
+                        </child>
+                      </widget>
+                    </child>
+                    <child>
                       <widget class="GtkImageMenuItem" id="find_schedules">
                         <property name="visible">True</property>
-                        <property name="label" translatable="yes">Find schedules</property>
+                        <property name="label" translatable="yes">Find _schedules</property>
                         <property name="use_underline">True</property>
                         <signal name="activate" handler="find_schedules"/>
                         <accelerator key="G" modifiers="GDK_CONTROL_MASK" signal="activate"/>
@@ -134,7 +147,7 @@
                     <child>
                       <widget class="GtkImageMenuItem" id="previous">
                         <property name="visible">True</property>
-                        <property name="label" translatable="yes">Previous</property>
+                        <property name="label" translatable="yes">_Previous</property>
                         <property name="use_underline">True</property>
                         <signal name="activate" handler="on_previous_activate"/>
                         <accelerator key="Page_Down" modifiers="" signal="activate"/>
@@ -150,7 +163,7 @@
                     <child>
                       <widget class="GtkImageMenuItem" id="next">
                         <property name="visible">True</property>
-                        <property name="label" translatable="yes">Next</property>
+                        <property name="label" translatable="yes">_Next</property>
                         <property name="use_underline">True</property>
                         <signal name="activate" handler="on_next_activate"/>
                         <accelerator key="Page_Up" modifiers="" signal="activate"/>
