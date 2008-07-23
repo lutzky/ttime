@@ -9,12 +9,12 @@ end
 require 'ttime/logic/course'
 
 module TTime::GUI
-  include Gtk
-  class ExamSchedule < Window
+  class ExamSchedule < Gtk::Dialog
     # Initialize an exam schedule with an array of TTime::Course objects.
     # The test dates for the objects will be displayed in the schedule.
-    def initialize(courses)
-      super()
+    def initialize(courses, parent=nil)
+      super(_("Exam Schedule"), parent, Gtk::Dialog::DESTROY_WITH_PARENT,
+            [ Gtk::Stock::OK, Gtk::Dialog::RESPONSE_NONE ])
 
       @courses = courses
 
@@ -40,7 +40,7 @@ module TTime::GUI
 
       first_test = @moed_a_hash.keys.min
 
-      @cal = Calendar.new
+      @cal = Gtk::Calendar.new
       @cal.signal_connect("month_changed") { month_changed_cb }
       @cal.signal_connect("day_selected") { day_selected_cb }
 
@@ -49,12 +49,10 @@ module TTime::GUI
       tv = Gtk::TextView.new(@text_buffer)
       tv.sensitive = false
 
-      vb = VBox.new
+      self.vbox.pack_start @cal
+      self.vbox.pack_end tv
 
-      vb.pack_start @cal
-      vb.pack_end tv
-
-      self.add vb
+      self.vbox.show_all
 
       @cal.set_year(first_test.year)
       # Gtk::Calendar uses 0-based months!
@@ -127,8 +125,6 @@ if __FILE__ == $0
   c2.second_test_date = Date::parse("2008-8-13")
 
   es = ExamSchedule.new([c1, c2])
-  es.show_all
-  es.signal_connect("destroy") { |_| Gtk.main_quit }
-
-  Gtk.main
+  es.signal_connect("destroy") {  Gtk.main_quit }
+  es.run
 end

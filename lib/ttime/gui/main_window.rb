@@ -10,6 +10,7 @@ require 'ttime/logic/course'
 require 'ttime/logic/scheduler'
 require 'ttime/logic/nicknames'
 require 'ttime/gui/progress_dialog'
+require 'ttime/gui/exam_schedule'
 require 'ttime/tcal/tcal'
 require 'ttime/gettext_settings'
 
@@ -635,6 +636,12 @@ module TTime
           Gtk::MessageDialog::ERROR, Gtk::MessageDialog::BUTTONS_OK, msg
         dialog.show
         dialog.signal_connect('response') { dialog.destroy }
+      end
+
+      def on_ExamSchedule_clicked
+        exam_schedule = ExamSchedule.new(@selected_courses, @glade["MainWindow"])
+        exam_schedule.run
+        exam_schedule.destroy
       end
     end
   end
