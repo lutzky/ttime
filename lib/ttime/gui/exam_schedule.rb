@@ -37,7 +37,7 @@ module TTime::GUI
 
       @colliding_dates = @test_dates.select do |d|
         @test_dates.select { |_d| _d == d }.size > 1
-      end.uniq
+      end.uniq.sort
 
       first_test = @moed_a_hash.keys.min
 

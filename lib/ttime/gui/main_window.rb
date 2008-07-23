@@ -125,6 +125,8 @@ module TTime
           method(handler) 
         end
 
+        @colliding_courses = false
+
         notebook = @glade["notebook"]
 
         @constraints = []
@@ -218,6 +220,8 @@ module TTime
 
         if course
           set_course_info course.text
+        else
+          set_course_info ""
         end
       end
 
@@ -228,6 +232,8 @@ module TTime
 
         if course_iter
           set_course_info course_iter[2].text
+        else
+          set_course_info ""
         end
       end
 
@@ -342,6 +348,8 @@ module TTime
 
       # Look for exam collisions in selected courses and color them accordingly
       def update_exam_collisions
+        @colliding_courses = false
+
         @list_selected_courses.each do |model, path, iter|
           course = iter[2]
           other_courses = @selected_courses - [ course ]
@@ -363,12 +371,15 @@ module TTime
 
           # TODO: Consider adding a tooltip
           if min_distance_a < 1 or min_distance_b < 1
+            @colliding_courses = true
             iter[3] = "red"
+            iter[0] = "*#{course.name}*"
           # elsif min_distance_a < 3
             # iter[3] = "orange"
           # elsif min_distance_a < 5
             # iter[3] = "green"
           else
+            iter[0] = course.name
             iter[3] = nil
           end
 
@@ -382,6 +393,8 @@ module TTime
           #  iter[0] = "#{course.name} [!]"
           #end
         end
+
+        on_selected_course_selection
       end
 
       def set_num_schedules(n)
@@ -518,7 +531,22 @@ module TTime
       end
 
       def set_course_info(info)
-        @glade["text_course_info"].buffer.text = info
+        buf = @glade["text_course_info"].buffer
+        buf.text = ""
+        iter = buf.get_iter_at_offset(0)
+
+        if @colliding_courses
+          tag = buf.create_tag(nil, {
+            :font => "Sans Bold 14",
+            :foreground => "red"
+          })
+          buf.insert iter,
+            _("WARNING: The courses marked with * have colliding test dates!"),
+            tag
+          buf.insert iter, "\n"
+        end
+
+        buf.insert iter, info
       end
 
       def currently_addable_course(params = {})

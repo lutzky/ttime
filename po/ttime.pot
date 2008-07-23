@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ttime 0.x.x\n"
-"POT-Creation-Date: 2008-07-23 13:48+0300\n"
+"POT-Creation-Date: 2008-07-23 17:53+0300\n"
 "PO-Revision-Date: 2006-10-19 11:53+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -28,45 +28,49 @@ msgstr ""
 msgid "Save Settings"
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:163
+#: lib/ttime/gui/main_window.rb:165
 msgid "Please select some courses first."
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:178
+#: lib/ttime/gui/main_window.rb:180
 msgid ""
 "Sorry, but no schedules are possible with the selected courses and "
 "constraints."
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:341
+#: lib/ttime/gui/main_window.rb:402
 msgid " of %d"
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:365
+#: lib/ttime/gui/main_window.rb:426
 msgid "Schedule"
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:375
+#: lib/ttime/gui/main_window.rb:436
 msgid "Show all alternatives"
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:381
+#: lib/ttime/gui/main_window.rb:442
 msgid "Show alternatives to this event"
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:531
+#: lib/ttime/gui/main_window.rb:544
+msgid "WARNING: The courses marked with * have colliding test dates!"
+msgstr ""
+
+#: lib/ttime/gui/main_window.rb:607
 msgid "Populating available courses"
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:589
+#: lib/ttime/gui/main_window.rb:665
 msgid "Course Name"
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:589
+#: lib/ttime/gui/main_window.rb:665
 msgid "Course Number"
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:629
+#: lib/ttime/gui/main_window.rb:705
 msgid "Constraints"
 msgstr ""
 
@@ -74,7 +78,7 @@ msgstr ""
 msgid "Progress"
 msgstr ""
 
-#: lib/ttime/gui/exam_schedule.rb:17 data/ttime/ttime.glade:231
+#: lib/ttime/gui/exam_schedule.rb:17 data/ttime/ttime.glade:232
 msgid "Exam Schedule"
 msgstr ""
 
@@ -291,69 +295,69 @@ msgstr ""
 msgid "E_xam Schedule"
 msgstr ""
 
-#: data/ttime/ttime.glade:112
+#: data/ttime/ttime.glade:113
 msgid "Find _schedules"
 msgstr ""
 
-#: data/ttime/ttime.glade:133 data/ttime/ttime.glade:299
+#: data/ttime/ttime.glade:134 data/ttime/ttime.glade:300
 msgid "Jump 10 back"
 msgstr ""
 
-#: data/ttime/ttime.glade:149
+#: data/ttime/ttime.glade:150
 msgid "_Previous"
 msgstr ""
 
-#: data/ttime/ttime.glade:165
+#: data/ttime/ttime.glade:166
 msgid "_Next"
 msgstr ""
 
-#: data/ttime/ttime.glade:181 data/ttime/ttime.glade:335
+#: data/ttime/ttime.glade:182 data/ttime/ttime.glade:336
 msgid "Jump 10 forward"
 msgstr ""
 
-#: data/ttime/ttime.glade:201
+#: data/ttime/ttime.glade:202
 msgid "_Help"
 msgstr ""
 
-#: data/ttime/ttime.glade:242
+#: data/ttime/ttime.glade:243
 msgid "Find Schedules"
 msgstr ""
 
-#: data/ttime/ttime.glade:271
+#: data/ttime/ttime.glade:272
 msgid " of 0"
 msgstr ""
 
-#: data/ttime/ttime.glade:311
+#: data/ttime/ttime.glade:312
 msgid "Previous"
 msgstr ""
 
-#: data/ttime/ttime.glade:323
+#: data/ttime/ttime.glade:324
 msgid "Next"
 msgstr ""
 
-#: data/ttime/ttime.glade:381
+#: data/ttime/ttime.glade:382
 msgid "Search "
 msgstr ""
 
-#: data/ttime/ttime.glade:444
+#: data/ttime/ttime.glade:445
 msgid "Available Courses"
 msgstr ""
 
-#: data/ttime/ttime.glade:502
+#: data/ttime/ttime.glade:503
 msgid "Selected Courses"
 msgstr ""
 
-#: data/ttime/ttime.glade:546
+#: data/ttime/ttime.glade:547
 msgid "Course List"
 msgstr ""
 
-#: data/ttime/ttime.glade:573
+#: data/ttime/ttime.glade:574
 msgid ""
 "Inspired by UDonkey and Marprog\n"
 "\n"
 "But we don't like C#"
 msgstr ""
 
-#: data/ttime/ttime.glade:577
+#: data/ttime/ttime.glade:578
 msgid "Git repository"
 msgstr ""
