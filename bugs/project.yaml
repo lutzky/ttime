@@ -1,0 +1,29 @@
+--- !ditz.rubyforge.org,2008-03-06/project 
+name: ttime
+version: "0.3"
+components: 
+- !ditz.rubyforge.org,2008-03-06/component 
+  name: ttime
+releases: 
+- !ditz.rubyforge.org,2008-03-06/release 
+  name: v0.8.4
+  status: :released
+  release_time: 2008-07-23 16:33:00.552291 Z
+  log_events: 
+  - - 2008-07-23 16:06:57.460174 Z
+    - Ohad Lutzky <ohad@lutzky.net>
+    - created
+    - ""
+  - - 2008-07-23 16:33:00.552391 Z
+    - Ohad Lutzky <ohad@lutzky.net>
+    - released
+    - ""
+- !ditz.rubyforge.org,2008-03-06/release 
+  name: v0.8.5
+  status: :unreleased
+  release_time: 
+  log_events: 
+  - - 2008-07-25 16:11:20.734217 Z
+    - Ohad Lutzky <ohad@lutzky.net>
+    - created
+    - ""

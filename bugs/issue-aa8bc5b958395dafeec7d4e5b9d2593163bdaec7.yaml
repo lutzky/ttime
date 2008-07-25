@@ -1,0 +1,22 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Date list for exam schedule
+desc: |-
+  Show a sorted date list on the right of the exam schedule. Preferably,
+  clicking on a date will select it in the calendar. It would also be wise to
+  show how many tests are given on a date in this list (probably only if there's
+  more than one).
+type: :feature
+component: ttime
+release: v0.8.5
+reporter: Ohad Lutzky <ohad@lutzky.net>
+status: :unstarted
+disposition: 
+creation_time: 2008-07-25 16:12:47.278410 Z
+references: []
+
+id: aa8bc5b958395dafeec7d4e5b9d2593163bdaec7
+log_events: 
+- - 2008-07-25 16:12:52.284868 Z
+  - Ohad Lutzky <ohad@lutzky.net>
+  - created
+  - ""
