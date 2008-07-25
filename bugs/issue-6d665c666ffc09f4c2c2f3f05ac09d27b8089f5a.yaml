@@ -1,0 +1,28 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Null assertion on no search results
+desc: |-
+  When search doesn't return any results, we get the following warning:
+  
+    /usr/lib/ruby/1.8/gettext.rb: line 154
+       Gtk-CRITICAL **:gtk_tree_model_row_has_child_toggled: assertion `path != NULL' failed
+  
+  It might be possible to solve this by setting visible_column and updating
+  accordingly, but it might be more costly.
+  
+  This issue has been seen here as well:
+  http://www.python-forum.de/viewtopic.php?p=89187
+type: :task
+component: ttime
+release: 
+reporter: Ohad Lutzky <ohad@lutzky.net>
+status: :unstarted
+disposition: 
+creation_time: 2008-07-25 16:22:03.141453 Z
+references: []
+
+id: 6d665c666ffc09f4c2c2f3f05ac09d27b8089f5a
+log_events: 
+- - 2008-07-25 16:22:07.886692 Z
+  - Ohad Lutzky <ohad@lutzky.net>
+  - created
+  - ""
