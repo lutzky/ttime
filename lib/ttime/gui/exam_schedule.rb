@@ -46,6 +46,9 @@ module TTime::GUI
 
     # Set the currently displayed date in @cal to +d+.
     def set_cal_date(d)
+      # Avoid warnings when switching to months without current day
+      @cal.set_day(1)
+
       @cal.set_year(d.year)
       @cal.set_month(d.month - 1)
       @cal.set_day(d.day)
