@@ -19,49 +19,36 @@ module TTime::GUI
 
       @courses = courses
 
-      @moed_a_hash = {}
-      @moed_b_hash = {}
+      find_exam_dates
 
-      @test_dates = []
-
-      @courses.each do |course|
-        unless course.first_test_date.nil?
-          @test_dates << course.first_test_date
-          @moed_a_hash[course.first_test_date] ||= []
-          @moed_a_hash[course.first_test_date] << course
-        end
-
-        unless course.second_test_date.nil?
-          @test_dates << course.second_test_date
-          @moed_b_hash[course.second_test_date] ||= []
-          @moed_b_hash[course.second_test_date] << course
-        end
-      end
-
-      @colliding_dates = @test_dates.select do |d|
-        @test_dates.select { |_d| _d == d }.size > 1
-      end.uniq.sort
-
-      first_test = @moed_a_hash.keys.min
+      hbox = Gtk::HBox.new
 
       @cal = Gtk::Calendar.new
       @cal.signal_connect("month_changed") { month_changed_cb }
       @cal.signal_connect("day_selected") { day_selected_cb }
+
+      hbox.pack_start make_exam_list_widget
+      hbox.pack_start @cal
 
       @text_buffer = Gtk::TextBuffer.new
 
       tv = Gtk::TextView.new(@text_buffer)
       tv.sensitive = false
 
-      self.vbox.pack_start @cal
+      self.vbox.pack_start hbox
       self.vbox.pack_end tv
 
       self.vbox.show_all
 
-      @cal.set_year(first_test.year)
-      # Gtk::Calendar uses 0-based months!
-      @cal.set_month(first_test.month - 1)
-      @cal.set_day(first_test.day)
+      first_test = @moed_a_hash.keys.min
+      set_cal_date(first_test)
+    end
+
+    # Set the currently displayed date in @cal to +d+.
+    def set_cal_date(d)
+      @cal.set_year(d.year)
+      @cal.set_month(d.month - 1)
+      @cal.set_day(d.day)
     end
 
     def day_selected_cb
@@ -123,6 +110,85 @@ module TTime::GUI
           end
         end
       end
+    end
+
+    private
+
+    # Prepare @moed_a_hash, @moed_b_hash, @test_dates and @colliding_dates
+    def find_exam_dates
+      @moed_a_hash = {}
+      @moed_b_hash = {}
+
+      @test_dates = []
+
+      @last_moed_a = nil
+
+      @courses.each do |course|
+        unless course.first_test_date.nil?
+          @test_dates << course.first_test_date
+          @moed_a_hash[course.first_test_date] ||= []
+          @moed_a_hash[course.first_test_date] << course
+          if @last_moed_a.nil? or @last_moed_a < course.first_test_date
+            @last_moed_a = course.first_test_date
+          end
+        end
+
+        unless course.second_test_date.nil?
+          @test_dates << course.second_test_date
+          @moed_b_hash[course.second_test_date] ||= []
+          @moed_b_hash[course.second_test_date] << course
+        end
+      end
+
+      @colliding_dates = @test_dates.select do |d|
+        @test_dates.select { |_d| _d == d }.size > 1
+      end.uniq.sort
+
+      @test_dates.sort!
+      @test_dates.uniq!
+    end
+
+    def make_exam_list_widget
+      @exam_list = Gtk::ListStore.new String, Date
+
+      no_separator_written = true
+
+      @test_dates.each do |d|
+        if d > @last_moed_a and no_separator_written
+          no_separator_written = false
+          iter = @exam_list.append
+          iter[0] = "-----"
+          iter[1] = nil
+        end
+
+        iter = @exam_list.append
+        iter[1] = d
+        if @colliding_dates.include? d
+          iter[0] = "*#{d.to_s}"
+        else
+          iter[0] = d.to_s
+        end
+      end
+
+      view_exam_list = Gtk::TreeView.new(@exam_list)
+      col = Gtk::TreeViewColumn.new("Date",                        \
+                                    Gtk::CellRendererText.new,     \
+                                    :text => 0)
+
+      view_exam_list.append_column col
+
+      view_exam_list.signal_connect('cursor_changed') do |tv|
+        iter = tv.selection.selected
+        set_cal_date(iter[1]) if iter and iter[1]
+      end
+
+      sc = Gtk::ScrolledWindow.new
+      sc.set_policy(hscrollbar_policy = Gtk::POLICY_NEVER, \
+                    vscrollbar_policy = Gtk::POLICY_AUTOMATIC)
+
+      sc << view_exam_list
+
+      return sc
     end
   end
 end
