@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ttime 0.x.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-07-23 17:53+0300\n"
-"PO-Revision-Date: 2008-07-23 17:54+0300\n"
+"POT-Creation-Date: 2008-07-26 18:03+0300\n"
+"PO-Revision-Date: 2008-07-26 18:04+0300\n"
 "Last-Translator: Ohad Lutzky <lutzky@gmail.com>\n"
 "Language-Team: Hebrew <eliz@gnu.org>\n"
 "MIME-Version: 1.0\n"
@@ -38,39 +38,39 @@ msgid ""
 "constraints."
 msgstr "אנחנו מצטערים, אך אין מערכות אפשריות עבור הקורסים וההגבלות שנבחרו."
 
-#: lib/ttime/gui/main_window.rb:402
+#: lib/ttime/gui/main_window.rb:411
 msgid " of %d"
 msgstr " מתוך %d"
 
-#: lib/ttime/gui/main_window.rb:426
+#: lib/ttime/gui/main_window.rb:435
 msgid "Schedule"
 msgstr "מערכת שעות"
 
-#: lib/ttime/gui/main_window.rb:436
+#: lib/ttime/gui/main_window.rb:445
 msgid "Show all alternatives"
 msgstr "הצג חלופות להכל"
 
-#: lib/ttime/gui/main_window.rb:442
+#: lib/ttime/gui/main_window.rb:451
 msgid "Show alternatives to this event"
 msgstr "הצג חלופות לאירוע זה"
 
-#: lib/ttime/gui/main_window.rb:544
+#: lib/ttime/gui/main_window.rb:553
 msgid "WARNING: The courses marked with * have colliding test dates!"
 msgstr "אזהרה: לקורסים שמסומנים ב-* יש מבחנים מתנגשים!"
 
-#: lib/ttime/gui/main_window.rb:607
+#: lib/ttime/gui/main_window.rb:616
 msgid "Populating available courses"
 msgstr "ממלא את רשימת הקורסים הזמינים"
 
-#: lib/ttime/gui/main_window.rb:665
+#: lib/ttime/gui/main_window.rb:674
 msgid "Course Name"
 msgstr "שם קורס"
 
-#: lib/ttime/gui/main_window.rb:665
+#: lib/ttime/gui/main_window.rb:674
 msgid "Course Number"
 msgstr "מספר קורס"
 
-#: lib/ttime/gui/main_window.rb:705
+#: lib/ttime/gui/main_window.rb:714
 msgid "Constraints"
 msgstr "הגבלות"
 
@@ -82,19 +82,23 @@ msgstr "התקדמות"
 msgid "Exam Schedule"
 msgstr "לוח בחינות"
 
-#: lib/ttime/gui/exam_schedule.rb:74
+#: lib/ttime/gui/exam_schedule.rb:67
 msgid "WARNING, collision on "
 msgid_plural "WARNING, collisions on: "
 msgstr[0] "אזהרה, התנגשות ב-"
 msgstr[1] "אזהרה, התנגשויות ב-"
 
-#: lib/ttime/gui/exam_schedule.rb:91
+#: lib/ttime/gui/exam_schedule.rb:84
 msgid "Moed A: %s\n"
 msgstr "מועד א': %s\n"
 
-#: lib/ttime/gui/exam_schedule.rb:97
+#: lib/ttime/gui/exam_schedule.rb:90
 msgid "Moed B: %s\n"
 msgstr "מועד ב': %s\n"
+
+#: lib/ttime/gui/exam_schedule.rb:177
+msgid "Date"
+msgstr "תאריך"
 
 #: lib/ttime/data.rb:20
 msgid "Lecture"

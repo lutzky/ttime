@@ -174,7 +174,7 @@ module TTime::GUI
       end
 
       view_exam_list = Gtk::TreeView.new(@exam_list)
-      col = Gtk::TreeViewColumn.new("Date",                        \
+      col = Gtk::TreeViewColumn.new(_("Date"),                     \
                                     Gtk::CellRendererText.new,     \
                                     :text => 0)
 
