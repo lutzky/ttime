@@ -177,9 +177,9 @@ module TTime
           args = iter[col_index(:course)], iter[col_index(:group)]
 
           if iter[col_index(:marked)]
-            disallow_group *args
+            disallow_group(*args)
           else
-            allow_group *args
+            allow_group(*args)
           end
 
           iter[col_index(:marked)] ^= true

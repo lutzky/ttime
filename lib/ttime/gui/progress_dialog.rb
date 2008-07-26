@@ -14,6 +14,8 @@ module TTime
 
         self.modal = true
 
+        @canceled = false
+
         signal_connect('response') do
           @canceled = true
         end

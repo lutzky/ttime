@@ -257,7 +257,7 @@ module TTime
       attr_reader :current_schedule
 
       def reject_events_from_calendar! &blk
-        @calendar.reject_events! &blk
+        @calendar.reject_events!(&blk)
         @calendar.redraw
       end
 
