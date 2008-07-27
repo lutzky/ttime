@@ -48,28 +48,6 @@ module TTime
         "#<Course #@number #{@name.inspect}>"
       end
 
-      def text
-        base = <<-EOF
-#@number - #@name
-מרצה אחראי: #@lecturer_in_charge
-נק' אקדמיות: #@academic_points
-
-מועד א': #@first_test_date
-מועד ב': #@second_test_date
-
-        EOF
-
-        base + self.groups.collect do |g|
-          "קבוצה #{g.number}:\nמרצה: #{g.lecturer}\n" +
-            g.events.collect do |e|
-              human_day = Day::numeric_to_human(e.day)
-              human_start = Hour::military_to_human(e.start)
-              human_end = Hour::military_to_human(e.end)
-              "יום #{human_day}, #{human_start}-#{human_end}"
-            end.join("\n")
-        end.join("\n\n")
-      end
-
       def each_group_selection(constraints = [])
         groups_by_type = []
         TTime::Data::GROUP_TYPES.keys.each do |type|

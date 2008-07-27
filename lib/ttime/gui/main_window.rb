@@ -218,11 +218,7 @@ module TTime
         @glade["btn_add_course"].sensitive = 
           course ? true : false
 
-        if course
-          set_course_info course.text
-        else
-          set_course_info ""
-        end
+        set_course_info course
       end
 
       def on_selected_course_selection
@@ -231,9 +227,9 @@ module TTime
           course_iter ? true : false
 
         if course_iter
-          set_course_info course_iter[2].text
+          set_course_info course_iter[2]
         else
-          set_course_info ""
+          set_course_info nil
         end
       end
 
@@ -539,7 +535,7 @@ module TTime
 
       end
 
-      def set_course_info(info)
+      def set_course_info(course)
         buf = @glade["text_course_info"].buffer
         buf.text = ""
         iter = buf.get_iter_at_offset(0)
@@ -555,7 +551,48 @@ module TTime
           buf.insert iter, "\n"
         end
 
-        buf.insert iter, info
+        if course
+          h1 = buf.create_tag(nil, { :font => "Sans Bold 12" })
+          h2 = buf.create_tag(nil, { :font => "Sans Bold" })
+          buf.insert iter, "[#{course.number}] #{course.name}\n", h1
+
+          [
+            [ course.lecturer_in_charge, _("Lecturer in charge") ],
+            [ course.academic_points, _("Academic points") ],
+            [ course.first_test_date, _("Moed A") ],
+            [ course.second_test_date, _("Moed B") ],
+          ].each do |param, title|
+            if param
+              buf.insert iter, "#{title}: ", h2
+              buf.insert iter, "#{param}\n"
+            end
+          end
+
+          course.groups.each do |grp|
+            buf.insert iter, "\n"
+            buf.insert iter, _("Group %d\n") % grp.number, h2
+            got_any_data = false
+            if grp.lecturer
+              got_any_data = true
+              buf.insert iter, _("Lecturer: "), h2
+              buf.insert iter, grp.lecturer
+              buf.insert iter, "\n"
+            end
+
+            grp.events.each do |ev|
+              got_any_data = true
+              human_day = TTime::Logic::Day::numeric_to_human(ev.day)
+              human_start = TTime::Logic::Hour::military_to_human(ev.start)
+              human_end = TTime::Logic::Hour::military_to_human(ev.end)
+              buf.insert iter, \
+                _("%s, %s-%s\n") % [human_day, human_start, human_end]
+            end
+
+            unless got_any_data
+              buf.insert _("* No data for this group *\n")
+            end
+          end
+        end
       end
 
       def currently_addable_course(params = {})

@@ -14,7 +14,7 @@ module TTime
       ]
       class << self
         def numeric_to_human(i)
-          ['א','ב','ג','ד','ה','ו','ש'][i - 1] + "'"
+          DAY_NAMES[i-1]
         end
       end
     end
