@@ -584,8 +584,7 @@ module TTime
               human_day = TTime::Logic::Day::numeric_to_human(ev.day)
               human_start = TTime::Logic::Hour::military_to_human(ev.start)
               human_end = TTime::Logic::Hour::military_to_human(ev.end)
-              buf.insert iter, \
-                _("%s, %s-%s\n") % [human_day, human_start, human_end]
+              buf.insert iter, "#{human_day}, #{human_start}-#{human_end}\n"
             end
 
             unless got_any_data

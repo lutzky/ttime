@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ttime 0.x.x\n"
-"POT-Creation-Date: 2008-07-26 18:03+0300\n"
+"POT-Creation-Date: 2008-07-27 12:15+0300\n"
 "PO-Revision-Date: 2006-10-19 11:53+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,39 +38,67 @@ msgid ""
 "constraints."
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:411
+#: lib/ttime/gui/main_window.rb:407
 msgid " of %d"
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:435
+#: lib/ttime/gui/main_window.rb:431
 msgid "Schedule"
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:445
+#: lib/ttime/gui/main_window.rb:441
 msgid "Show all alternatives"
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:451
+#: lib/ttime/gui/main_window.rb:447
 msgid "Show alternatives to this event"
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:553
+#: lib/ttime/gui/main_window.rb:549
 msgid "WARNING: The courses marked with * have colliding test dates!"
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:616
+#: lib/ttime/gui/main_window.rb:560
+msgid "Lecturer in charge"
+msgstr ""
+
+#: lib/ttime/gui/main_window.rb:561
+msgid "Academic points"
+msgstr ""
+
+#: lib/ttime/gui/main_window.rb:562
+msgid "Moed A"
+msgstr ""
+
+#: lib/ttime/gui/main_window.rb:563
+msgid "Moed B"
+msgstr ""
+
+#: lib/ttime/gui/main_window.rb:573
+msgid "Group %d\n"
+msgstr ""
+
+#: lib/ttime/gui/main_window.rb:577
+msgid "Lecturer: "
+msgstr ""
+
+#: lib/ttime/gui/main_window.rb:591
+msgid "* No data for this group *\n"
+msgstr ""
+
+#: lib/ttime/gui/main_window.rb:652
 msgid "Populating available courses"
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:674
+#: lib/ttime/gui/main_window.rb:710
 msgid "Course Name"
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:674
+#: lib/ttime/gui/main_window.rb:710
 msgid "Course Number"
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:714
+#: lib/ttime/gui/main_window.rb:750
 msgid "Constraints"
 msgstr ""
 
@@ -78,7 +106,7 @@ msgstr ""
 msgid "Progress"
 msgstr ""
 
-#: lib/ttime/gui/exam_schedule.rb:17 data/ttime/ttime.glade:232
+#: lib/ttime/gui/exam_schedule.rb:17 data/ttime/ttime.glade:233
 msgid "Exam Schedule"
 msgstr ""
 
@@ -291,77 +319,77 @@ msgstr ""
 msgid "Auto _Update"
 msgstr ""
 
-#: data/ttime/ttime.glade:93
+#: data/ttime/ttime.glade:94
 msgid "_Schedules"
 msgstr ""
 
-#: data/ttime/ttime.glade:100
+#: data/ttime/ttime.glade:101
 msgid "E_xam Schedule"
 msgstr ""
 
-#: data/ttime/ttime.glade:113
+#: data/ttime/ttime.glade:114
 msgid "Find _schedules"
 msgstr ""
 
-#: data/ttime/ttime.glade:134 data/ttime/ttime.glade:300
+#: data/ttime/ttime.glade:135 data/ttime/ttime.glade:301
 msgid "Jump 10 back"
 msgstr ""
 
-#: data/ttime/ttime.glade:150
+#: data/ttime/ttime.glade:151
 msgid "_Previous"
 msgstr ""
 
-#: data/ttime/ttime.glade:166
+#: data/ttime/ttime.glade:167
 msgid "_Next"
 msgstr ""
 
-#: data/ttime/ttime.glade:182 data/ttime/ttime.glade:336
+#: data/ttime/ttime.glade:183 data/ttime/ttime.glade:337
 msgid "Jump 10 forward"
 msgstr ""
 
-#: data/ttime/ttime.glade:202
+#: data/ttime/ttime.glade:203
 msgid "_Help"
 msgstr ""
 
-#: data/ttime/ttime.glade:243
+#: data/ttime/ttime.glade:244
 msgid "Find Schedules"
 msgstr ""
 
-#: data/ttime/ttime.glade:272
+#: data/ttime/ttime.glade:273
 msgid " of 0"
 msgstr ""
 
-#: data/ttime/ttime.glade:312
+#: data/ttime/ttime.glade:313
 msgid "Previous"
 msgstr ""
 
-#: data/ttime/ttime.glade:324
+#: data/ttime/ttime.glade:325
 msgid "Next"
 msgstr ""
 
-#: data/ttime/ttime.glade:382
+#: data/ttime/ttime.glade:383
 msgid "Search "
 msgstr ""
 
-#: data/ttime/ttime.glade:445
+#: data/ttime/ttime.glade:446
 msgid "Available Courses"
 msgstr ""
 
-#: data/ttime/ttime.glade:503
+#: data/ttime/ttime.glade:504
 msgid "Selected Courses"
 msgstr ""
 
-#: data/ttime/ttime.glade:547
+#: data/ttime/ttime.glade:548
 msgid "Course List"
 msgstr ""
 
-#: data/ttime/ttime.glade:574
+#: data/ttime/ttime.glade:575
 msgid ""
 "Inspired by UDonkey and Marprog\n"
 "\n"
 "But we don't like C#"
 msgstr ""
 
-#: data/ttime/ttime.glade:578
+#: data/ttime/ttime.glade:579
 msgid "Git repository"
 msgstr ""
