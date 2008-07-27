@@ -11,8 +11,8 @@ type: :task
 component: ttime
 release: v0.8.5
 reporter: Ohad Lutzky <ohad@lutzky.net>
-status: :unstarted
-disposition: 
+status: :closed
+disposition: :fixed
 creation_time: 2008-07-27 07:05:46.479268 Z
 references: []
 
@@ -21,4 +21,8 @@ log_events:
 - - 2008-07-27 07:05:47.352885 Z
   - Ohad Lutzky <ohad@lutzky.net>
   - created
+  - ""
+- - 2008-07-27 09:18:10.476746 Z
+  - Ohad Lutzky <ohad@lutzky.net>
+  - closed issue with disposition fixed
   - ""
