@@ -588,7 +588,7 @@ module TTime
             end
 
             unless got_any_data
-              buf.insert _("* No data for this group *\n")
+              buf.insert iter, _("* No data for this group *\n")
             end
           end
         end
