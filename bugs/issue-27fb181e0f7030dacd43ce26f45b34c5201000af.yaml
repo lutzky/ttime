@@ -1,0 +1,21 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Document the graphical course selection procedure
+desc: |-
+  Graphical course selection (Show all alternatives->allow only this group,
+  etc.) should be documented, as it is quite different from what people are
+  used to from programs like this.
+type: :task
+component: ttime
+release: v0.8.5
+reporter: Ohad Lutzky <ohad@lutzky.net>
+status: :unstarted
+disposition: 
+creation_time: 2008-07-27 07:07:21.241780 Z
+references: []
+
+id: 27fb181e0f7030dacd43ce26f45b34c5201000af
+log_events: 
+- - 2008-07-27 07:07:22.598906 Z
+  - Ohad Lutzky <ohad@lutzky.net>
+  - created
+  - ""

@@ -1,0 +1,24 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: More elegant course info display
+desc: |-
+  The course info textview (displayed at the bottom of the Course List view)
+  doesn't look as good as it should.
+  
+  * The gray background (caused by sensitive=false) is ugly
+  * No formatting used (unlike event info textview in schedule)
+  * Missing data shown ("Lecturer: *blank*", etc.)
+type: :task
+component: ttime
+release: v0.8.5
+reporter: Ohad Lutzky <ohad@lutzky.net>
+status: :unstarted
+disposition: 
+creation_time: 2008-07-27 07:05:46.479268 Z
+references: []
+
+id: b1ef8074c7c8540ea7dfe289ffc1c1f2fb83b8f5
+log_events: 
+- - 2008-07-27 07:05:47.352885 Z
+  - Ohad Lutzky <ohad@lutzky.net>
+  - created
+  - ""

@@ -1,0 +1,18 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: File->Auto Update stopped working
+desc: This is a regression
+type: :bugfix
+component: ttime
+release: v0.8.5
+reporter: Ohad Lutzky <ohad@lutzky.net>
+status: :unstarted
+disposition: 
+creation_time: 2008-07-27 07:01:44.083188 Z
+references: []
+
+id: 1eea8a68a0eea843c3d6eda42ae638004196e670
+log_events: 
+- - 2008-07-27 07:01:47.062330 Z
+  - Ohad Lutzky <ohad@lutzky.net>
+  - created
+  - ""
