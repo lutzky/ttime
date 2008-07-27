@@ -5,8 +5,8 @@ type: :bugfix
 component: ttime
 release: v0.8.5
 reporter: Ohad Lutzky <ohad@lutzky.net>
-status: :unstarted
-disposition: 
+status: :closed
+disposition: :fixed
 creation_time: 2008-07-27 07:01:44.083188 Z
 references: []
 
@@ -15,4 +15,12 @@ log_events:
 - - 2008-07-27 07:01:47.062330 Z
   - Ohad Lutzky <ohad@lutzky.net>
   - created
+  - ""
+- - 2008-07-27 08:12:13.397487 Z
+  - Ohad Lutzky <ohad@lutzky.net>
+  - changed status from unstarted to in_progress
+  - ""
+- - 2008-07-27 08:17:38.175188 Z
+  - Ohad Lutzky <ohad@lutzky.net>
+  - closed issue with disposition fixed
   - ""
