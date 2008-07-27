@@ -525,7 +525,7 @@
                     <child>
                       <widget class="GtkTextView" id="text_course_info">
                         <property name="visible">True</property>
-                        <property name="sensitive">False</property>
+                        <property name="sensitive">True</property>
                         <property name="can_focus">True</property>
                         <property name="cursor_visible">False</property>
                         <property name="accepts_tab">False</property>
