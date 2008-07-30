@@ -23,10 +23,7 @@ You can install ttime with the following command.
 
 === Prerequisites
 
-You'll need the following packages in order to run ttime. You can install them
-all very easily like so:
-
-  grep -E '^\* .*1.8$' README | cut -d\  -f2 | xargs sudo apt-get install
+You'll need the following packages in order to run ttime.
 
 * ruby1.8
 * libzip-ruby1.8
@@ -36,7 +33,29 @@ all very easily like so:
 * libpango1-ruby1.8
 * librsvg2-ruby1.8
 * libcairo-ruby1.8
+
+For UDonkey XML compatilbity, you'll also need:
+
 * libxml-ruby1.8
+
+== Visual scheduling
+
+(Thanks to Tom Meiri for the idea)
+
+Many people don't like having an automated scheduler find all possible
+schedules for them, and would rather see their options and pick by themselves.
+TTime facilitates working in this mode as well:
+
+1. Make sure the "Group Constraints" constraint is enabled in the Constraints
+   tab.
+2. Go to the Schedule tab, right-click and select "Show all alternatives". This
+   will cause all events for all courses to be shown simultaneously, regardless
+   of constraints.
+3. Right-click an event you wish to have in your schedule, and select "Mark
+   this group".
+
+Note that the markings are saved in the "Group Constraints" constraint, and
+will take effect when you click "Find Schedules".
 
 == UDonkey's XML format (http://udonkey.org)
 

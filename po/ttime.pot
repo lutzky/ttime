@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ttime 0.x.x\n"
-"POT-Creation-Date: 2008-07-27 12:15+0300\n"
+"POT-Creation-Date: 2008-07-30 17:45+0300\n"
 "PO-Revision-Date: 2006-10-19 11:53+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -218,7 +218,7 @@ msgid "Free Hours"
 msgstr ""
 
 #: lib/ttime/constraints/free_hours.rb:121
-#: lib/ttime/constraints/group_constraints.rb:195
+#: lib/ttime/constraints/group_constraints.rb:186
 msgid "Time"
 msgstr ""
 
@@ -272,30 +272,26 @@ msgid ""
 msgstr ""
 
 #: lib/ttime/constraints/group_constraints.rb:29
-msgid "Only enable this group"
+msgid "Mark this group"
 msgstr ""
 
-#: lib/ttime/constraints/group_constraints.rb:51
-msgid "Disable this group"
-msgstr ""
-
-#: lib/ttime/constraints/group_constraints.rb:117
+#: lib/ttime/constraints/group_constraints.rb:108
 msgid "Group Constraints"
 msgstr ""
 
-#: lib/ttime/constraints/group_constraints.rb:188
+#: lib/ttime/constraints/group_constraints.rb:179
 msgid "Allowed"
 msgstr ""
 
-#: lib/ttime/constraints/group_constraints.rb:192
+#: lib/ttime/constraints/group_constraints.rb:183
 msgid "Group"
 msgstr ""
 
-#: lib/ttime/constraints/group_constraints.rb:198
+#: lib/ttime/constraints/group_constraints.rb:189
 msgid "Lecturer"
 msgstr ""
 
-#: lib/ttime/constraints/group_constraints.rb:220
+#: lib/ttime/constraints/group_constraints.rb:211
 msgid "Use group constraints"
 msgstr ""
 

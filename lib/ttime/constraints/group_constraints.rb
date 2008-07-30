@@ -26,9 +26,9 @@ module TTime
         COLUMNS.collect { |col| col[1] }
       end
 
-      menu_item :only_enable_this_group, _("Only enable this group"), true
+      menu_item :mark_this_group, _("Mark this group"), true
 
-      def only_enable_this_group params
+      def mark_this_group params
         group = params[:data][:event].group
         course = group.course
         course.groups.each do |grp|
@@ -45,15 +45,6 @@ module TTime
             ev.group.number != group.number
         end
 
-        update_forbidden_marks
-      end
-
-      menu_item :disable_this_group, _("Disable this group"), true
-
-      def disable_this_group params
-        group = params[:data][:event].group
-        course = group.course
-        disallow_group course.number, group.number
         update_forbidden_marks
       end
 
