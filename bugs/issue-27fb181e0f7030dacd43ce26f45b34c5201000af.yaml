@@ -8,8 +8,8 @@ type: :task
 component: ttime
 release: v0.8.5
 reporter: Ohad Lutzky <ohad@lutzky.net>
-status: :unstarted
-disposition: 
+status: :closed
+disposition: :fixed
 creation_time: 2008-07-27 07:07:21.241780 Z
 references: []
 
@@ -19,3 +19,10 @@ log_events:
   - Ohad Lutzky <ohad@lutzky.net>
   - created
   - ""
+- - 2008-07-30 14:56:31.391990 Z
+  - Ohad Lutzky <ohad@lutzky.net>
+  - closed with disposition fixed
+  - |-
+    Replaced "Only enable this group" with "Mark this group", and removed the
+    confusing "Disable this group".
+git_branch: 
