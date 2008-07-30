@@ -20,10 +20,14 @@ releases:
     - ""
 - !ditz.rubyforge.org,2008-03-06/release 
   name: v0.8.5
-  status: :unreleased
-  release_time: 
+  status: :released
+  release_time: 2008-07-30 14:57:06.521761 Z
   log_events: 
   - - 2008-07-25 16:11:20.734217 Z
     - Ohad Lutzky <ohad@lutzky.net>
     - created
+    - ""
+  - - 2008-07-30 14:57:06.521785 Z
+    - Ohad Lutzky <ohad@lutzky.net>
+    - released
     - ""

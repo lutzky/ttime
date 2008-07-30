@@ -1,4 +1,5 @@
 require 'rake/rdoctask'
+require 'fileutils'
 
 VERSION_FILE = "lib/ttime/version.rb"
 
@@ -12,11 +13,10 @@ module Git
     end
 
     def get_tag_sha1s
-      `git show-ref --tags`.split("\n").collect do |tagstring|
-        sha1sum, full_tag_name = tagstring.split(" ")
-        short_tag_name = full_tag_name.split("refs/tags/")[1].chomp
-
-        [ short_tag_name, sha1sum ]
+      Dir::glob(".git/refs/tags/*").collect do |filename|
+        ref = File::read(filename).chomp
+        commit = `git show #{ref} | grep ^commit | head -1`.split[1]
+        [ File::basename(filename), commit ]
       end
     end
 
@@ -116,6 +116,8 @@ end
 
 desc "Zip up relevant windows package files (without Ruby)"
 task :winbuild => [ :generate_version, :makemo ] do
+  FileUtils::copy_file "debian/changelog", "./changelog"
   `zip -r ttime_win.zip ttime_win.bat bin data lib README.rdoc`
+  File::unlink "changelog"
   restore_git_version
 end
