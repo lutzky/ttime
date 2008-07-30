@@ -69,6 +69,19 @@ Rake::RDocTask.new("doc") do |rdoc|
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
 
+desc "Generate ditz html pages"
+task :ditz_html do
+  `ditz html ditz`
+end
+
+# Base path for SSH uploads (in scp syntax)
+WebsiteSSHBasePath = "lutzky.net:public_html/ttime/"
+
+desc "Upload documentation and ditz pages"
+task :upload_html => [ :doc, :ditz_html ] do
+  `scp -r ditz doc #{WebsiteSSHBasePath}`
+end
+
 desc "Find all FIXME comments"
 task :fixme do
   puts `grep -r FIXME * | grep -v '.git'`
