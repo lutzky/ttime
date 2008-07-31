@@ -1,0 +1,23 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Filter course list more dynamically
+desc: |-
+  Allow filters for choosing courses based on interesting information, such
+  as:
+  
+   * Creates a test collision (or test density)
+   * Cannot fit within day-of-week constraints
+type: :feature
+component: ttime
+release: "0.9"
+reporter: Ohad Lutzky <ohad@lutzky.net>
+status: :unstarted
+disposition: 
+creation_time: 2008-07-29 23:08:35.462023 Z
+references: []
+
+id: 3c5409e0f8b7adb29e0dd72bb3a8076c4e27dd79
+log_events: 
+- - 2008-07-29 23:08:36.870245 Z
+  - Ohad Lutzky <ohad@lutzky.net>
+  - created
+  - ""
