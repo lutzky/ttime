@@ -1,0 +1,19 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Crash on "Display Exam Schedule" when no exams
+desc: When there are no exams with tests, showin the exam schedule causes a crash
+type: :bugfix
+component: ttime
+release: "0.9"
+reporter: Ohad Lutzky <ohad@lutzky.net>
+status: :unstarted
+disposition: 
+creation_time: 2008-08-11 12:00:01.305872 Z
+references: []
+
+id: 3a33e80a22c93fb2110bc0262b737cf607046000
+log_events: 
+- - 2008-08-11 12:00:02.408208 Z
+  - Ohad Lutzky <ohad@lutzky.net>
+  - created
+  - ""
+git_branch: 
