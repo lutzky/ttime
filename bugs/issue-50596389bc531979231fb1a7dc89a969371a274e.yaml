@@ -1,0 +1,19 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: PDF Export
+desc: Export current schedule and test exam to PDF
+type: :feature
+component: ttime
+release: "0.9"
+reporter: Ohad Lutzky <ohad@lutzky.net>
+status: :unstarted
+disposition: 
+creation_time: 2008-08-12 15:09:51.203507 Z
+references: []
+
+id: 50596389bc531979231fb1a7dc89a969371a274e
+log_events: 
+- - 2008-08-12 15:09:56.001759 Z
+  - Ohad Lutzky <ohad@lutzky.net>
+  - created
+  - ""
+git_branch: 
