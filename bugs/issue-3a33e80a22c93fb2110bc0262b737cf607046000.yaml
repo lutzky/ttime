@@ -5,8 +5,8 @@ type: :bugfix
 component: ttime
 release: "0.9"
 reporter: Ohad Lutzky <ohad@lutzky.net>
-status: :unstarted
-disposition: 
+status: :closed
+disposition: :fixed
 creation_time: 2008-08-11 12:00:01.305872 Z
 references: []
 
@@ -15,5 +15,9 @@ log_events:
 - - 2008-08-11 12:00:02.408208 Z
   - Ohad Lutzky <ohad@lutzky.net>
   - created
+  - ""
+- - 2008-08-12 10:38:59.928773 Z
+  - Ohad Lutzky <ohad@lutzky.net>
+  - closed with disposition fixed
   - ""
 git_branch: 
