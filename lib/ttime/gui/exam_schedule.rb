@@ -11,6 +11,8 @@ require 'ttime/gettext_settings'
 
 module TTime::GUI
   class ExamSchedule < Gtk::Dialog
+    class NoTests < Exception; end
+
     # Initialize an exam schedule with an array of TTime::Course objects.
     # The test dates for the objects will be displayed in the schedule.
     def initialize(courses, parent=nil)
@@ -146,6 +148,8 @@ module TTime::GUI
       @colliding_dates = @test_dates.select do |d|
         @test_dates.select { |_d| _d == d }.size > 1
       end.uniq.sort
+
+      raise NoTests if @test_dates.empty?
 
       @test_dates.sort!
       @test_dates.uniq!

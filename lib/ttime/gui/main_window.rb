@@ -760,9 +760,13 @@ module TTime
       end
 
       def on_ExamSchedule_clicked
-        exam_schedule = ExamSchedule.new(@selected_courses, @glade["MainWindow"])
-        exam_schedule.run
-        exam_schedule.destroy
+        begin
+          exam_schedule = ExamSchedule.new(@selected_courses, @glade["MainWindow"])
+          exam_schedule.run
+          exam_schedule.destroy
+        rescue ExamSchedule::NoTests
+          error_dialog _("No courses with tests are selected.")
+        end
       end
     end
   end
