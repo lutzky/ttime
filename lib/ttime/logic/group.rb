@@ -36,6 +36,7 @@ module TTime
       attr_accessor :number, :lecturer, :type, :events, :course, :description
       def initialize
         @events = []
+        @description = nil
       end
 
       def inspect

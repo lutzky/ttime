@@ -27,6 +27,7 @@ module TCal
       @events = []
 
       @cairo = nil
+      @bg_image = nil
 
       @start_day = MAX_START_DAY
       @end_day = MIN_END_DAY
@@ -366,8 +367,8 @@ module TCal
     end
 
     def get_bg_image
-      unless @bg_image_schedule_boundaries != schedule_boundaries or
-        @bg_image.nil? or
+      unless @bg_image.nil? or                                  \
+        @bg_image_schedule_boundaries != schedule_boundaries or \
         width != @bg_image_width or height != @bg_image_height
 
         # Previously calculated @bg_image is OK, return that
