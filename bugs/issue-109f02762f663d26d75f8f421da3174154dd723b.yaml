@@ -1,0 +1,30 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Crash when clicking day title in schedule
+desc: |-
+  When clicking the day title, ttime crashes like so:
+  
+  ./lib/ttime/logic/times.rb:33:in `float_to_military': undefined method `floor' for nil:NilClass
+   from ./lib/ttime/tcal/tcal.rb:62:in `initialize'
+   from ./lib/ttime/tcal/tcal.rb:59:in `each'
+   from ./lib/ttime/tcal/tcal.rb:59:in `initialize'
+   from bin/ttime:55:in `call'
+   from bin/ttime:55:in `main'
+   from bin/ttime:55:in `run_gui'
+   from bin/ttime:81:in `send'
+   from bin/ttime:81
+type: :bugfix
+component: ttime
+release: "0.9"
+reporter: Ohad Lutzky <ohad@lutzky.net>
+status: :unstarted
+disposition: 
+creation_time: 2008-08-12 10:41:11.451115 Z
+references: []
+
+id: 109f02762f663d26d75f8f421da3174154dd723b
+log_events: 
+- - 2008-08-12 10:41:17.250956 Z
+  - Ohad Lutzky <ohad@lutzky.net>
+  - created
+  - ""
+git_branch: 

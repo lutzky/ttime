@@ -1,0 +1,19 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Configurable details for schedule
+desc: Make details shown in schedule configurable (course number, etc.)
+type: :feature
+component: ttime
+release: "0.9"
+reporter: Ohad Lutzky <ohad@lutzky.net>
+status: :unstarted
+disposition: 
+creation_time: 2008-08-12 10:42:43.538759 Z
+references: []
+
+id: ab06dcdd7a97708e6ff3557a430d4997829a8dc5
+log_events: 
+- - 2008-08-12 10:42:44.896565 Z
+  - Ohad Lutzky <ohad@lutzky.net>
+  - created
+  - ""
+git_branch: 
