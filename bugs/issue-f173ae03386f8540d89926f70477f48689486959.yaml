@@ -1,0 +1,21 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: "[de-]Select all for Group Constraints"
+desc: |-
+  Add an option to quickly [de-]select all groups for a particular group type 
+  in a particular course.
+type: :feature
+component: ttime
+release: "0.9"
+reporter: Ohad Lutzky <ohad@lutzky.net>
+status: :unstarted
+disposition: 
+creation_time: 2008-08-12 14:50:33.001660 Z
+references: []
+
+id: f173ae03386f8540d89926f70477f48689486959
+log_events: 
+- - 2008-08-12 14:50:34.355725 Z
+  - Ohad Lutzky <ohad@lutzky.net>
+  - created
+  - ""
+git_branch: 
