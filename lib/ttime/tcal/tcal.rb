@@ -54,15 +54,17 @@ module TCal
       self.signal_connect("button-press-event") do |calendar, e|
         day = day_at_x(e.x)
         hour = hour_at_y(e.y)
-        ratio = (e.x % step_width) / step_width.to_f
-        event = @events.find { |ev| ev.catches_click?(day, hour, ratio) }
-        @click_handlers.each do |handler|
-          handler.call({
-            :day => day,
-            :hour => TTime::Logic::Hour::float_to_military(hour),
-            :data => (event and event.data),
-            :gdk_event => e,
-          })
+        unless day.nil? or hour.nil?
+          ratio = (e.x % step_width) / step_width.to_f
+          event = @events.find { |ev| ev.catches_click?(day, hour, ratio) }
+          @click_handlers.each do |handler|
+            handler.call({
+              :day => day,
+              :hour => TTime::Logic::Hour::float_to_military(hour),
+              :data => (event and event.data),
+              :gdk_event => e,
+            })
+          end
         end
       end
     end
@@ -177,7 +179,7 @@ module TCal
     # The (1-indexed) day at the given x coordinate
     def day_at_x(x)
       day = days - (x / step_width).to_i
-      return nil if day < 0
+      return nil if day < 1
       day
     end
 
