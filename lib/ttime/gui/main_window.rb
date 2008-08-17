@@ -380,53 +380,23 @@ module TTime
           course = iter[2]
           next if course.first_test_date.nil?
           other_courses = @selected_courses - [ course ]
-          exam_dates_a = other_courses.collect { |c| c.first_test_date }.uniq
-          exam_dates_b = other_courses.collect { |c| c.second_test_date }.uniq
 
-          exam_dates_a.reject! { |d| d.nil? }
-          exam_dates_b.reject! { |d| d.nil? }
+          moed_a = course.first_test_date
+          moed_b = course.second_test_date
 
-          min_distance_a = exam_dates_a.collect do |d|
-            (d - course.first_test_date).abs
-          end.min
+          exam_dates_a = other_courses.collect { |c| c.first_test_date }
+          exam_dates_b = other_courses.collect { |c| c.second_test_date }
 
-          min_distance_b = (exam_dates_a + exam_dates_b).collect do |d|
-            d1 = d - course.first_test_date
+          exam_dates = Set.new(exam_dates_a + exam_dates_b)
 
-            unless course.second_test_date.nil?
-              d2 = d - course.second_test_date
-            else
-              d2 = 3650
-            end
-
-            [ d1.abs, d2.abs ].min
-          end.min
-
-          return if min_distance_a.nil? or min_distance_b.nil?
-
-          # TODO: Consider adding a tooltip
-          if min_distance_a < 1 or min_distance_b < 1
-            @colliding_courses = true
-            iter[3] = "red"
-            iter[0] = "*#{course.name}*"
-          # elsif min_distance_a < 3
-            # iter[3] = "orange"
-          # elsif min_distance_a < 5
-            # iter[3] = "green"
-          else
+          if exam_dates.intersection([moed_a, moed_b]).empty?
             iter[0] = course.name
             iter[3] = nil
+          else
+            @colliding_courses = true
+            iter[0] = "*%s*" % course.name
+            iter[3] = "red"
           end
-
-          # We've given up on the confusing notation thanks to exam_schedule
-
-          #if min_distance_b < 1
-          #  iter[0] = "#{course.name} [!!!]"
-          #elsif min_distance_b < 3
-          #  iter[0] = "#{course.name} [!!]"
-          #elsif min_distance_b < 5
-          #  iter[0] = "#{course.name} [!]"
-          #end
         end
 
         on_selected_course_selection
