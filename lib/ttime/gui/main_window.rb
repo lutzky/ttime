@@ -55,6 +55,7 @@ module TTime
         filter = Gtk::FileFilter.new
         filter.name = _("YAML files")
         filter.add_pattern "*.yml"
+        filter.add_pattern "*.yaml"
         fs = Gtk::FileChooserDialog.new(_("Load Settings"),
                                         nil, Gtk::FileChooser::ACTION_OPEN,
                                         nil,
@@ -75,6 +76,7 @@ module TTime
         filter = Gtk::FileFilter.new
         filter.name = _("YAML files")
         filter.add_pattern "*.yml"
+        filter.add_pattern "*.yaml"
         fs = Gtk::FileChooserDialog.new(_("Save Settings"),
                                         nil, Gtk::FileChooser::ACTION_SAVE,
                                         nil,
@@ -83,10 +85,14 @@ module TTime
                                           [Gtk::Stock::SAVE,
                                             Gtk::Dialog::RESPONSE_ACCEPT]
                                        )
-
         fs.add_filter filter
         if fs.run == Gtk::Dialog::RESPONSE_ACCEPT
-          save_settings(fs.filename)
+          if fs.filename =~ /\.ya?ml$/
+            filename = fs.filename
+          else
+            filename = "#{fs.filename}.yml"
+          end
+          save_settings(filename)
         end
         fs.destroy
       end
