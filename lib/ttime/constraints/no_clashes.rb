@@ -5,14 +5,15 @@ require 'ttime/gettext_settings'
 module TTime
   module Constraints
     class NoClashes < AbstractConstraint
+      settings_name :no_clashes
+
       def initialize
         super
-
-        @enabled = true
+        self.settings[:enabled] = true if self.settings[:enabled].nil?
       end
 
       def evaluate_schedule
-        return true unless @enabled
+        return true unless self.enabled
 
         # Note: Do not use Array.new(8,[]), that makes only one [] copy
         # and 8 pointers to it
@@ -43,10 +44,10 @@ module TTime
         vbox = Gtk::VBox.new
 
         btn_enabled = Gtk::CheckButton.new(_('Enable'))
-        btn_enabled.active = @enabled
+        btn_enabled.active = self.enabled
 
         btn_enabled.signal_connect('toggled') do
-          @enabled = btn_enabled.active?
+          self.enabled = btn_enabled.active?
         end
 
         vbox.pack_start btn_enabled, false, false

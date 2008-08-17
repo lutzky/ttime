@@ -5,20 +5,11 @@ require 'ttime/gettext_settings'
 module TTime
   module Constraints
     class NoRunning < AbstractConstraint
+      settings_name :no_running
+
       def initialize
         super
-
-        Settings.instance[:no_running] ||= {
-          :enabled => false
-        }
-      end
-
-      def enabled
-        Settings.instance[:no_running][:enabled]
-      end
-
-      def enabled=(new_enabled)
-        Settings.instance[:no_running][:enabled] = new_enabled
+        self.settings[:enabled] = false if self.settings[:enabled].nil?
       end
 
       def evaluate_schedule

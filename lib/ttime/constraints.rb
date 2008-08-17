@@ -8,6 +8,31 @@ module TTime
     class AbstractConstraint
       attr_reader :schedule
 
+      # A name for the settings object for the current constraint. Example:
+      #
+      #   class MyConstraint < AbstractConstraint
+      #     settings_name :my_constraint
+      #     ...
+      #   end
+      def AbstractConstraint.settings_name(settings_name = nil)
+        @settings_name = settings_name.to_sym unless settings_name.nil?
+        return @settings_name
+      end
+
+      # Quick access to the Settings class. Set settings_name beforehand.
+      def settings
+        settings_name = self.class.settings_name
+        unless settings_name
+          raise Exception.new("settings_name undefined for #{self.class}")
+        end
+        Settings.instance[settings_name] ||= {}
+        return Settings.instance[settings_name]
+      end
+
+      # Shorthand for the class's "enabled" setting
+      def enabled; self.settings[:enabled]; end
+      def enabled=(enabled); self.settings[:enabled] = enabled; end
+
       class ConstraintMenuItem
         attr_accessor :caption, :method_name
 
