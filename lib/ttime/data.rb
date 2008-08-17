@@ -51,11 +51,15 @@ module TTime
           @data = TTime::Parse::UDonkeyXML.convert_udonkey_xml UDonkey_XML_File
         elsif File::exists?(MARSHAL_File)
           report _("Loading technion data")
-          @data = File.open(MARSHAL_File) { |mf| Marshal.load(mf.read) }
-        elsif File::exists?(REPY_File)
-          @data = convert_repy
+		  begin
+		    @data = File.open(MARSHAL_File) { |mf| Marshal.load(mf.read) }
+          rescue ArgumentError
+		    warn "Failed to open marshal file, reconverting REPY" if $VERBOSE
+		    download_repy unless File::exists?(REPY_File)
+			@data = convert_repy
+		  end
         else
-          download_repy
+          download_repy unless File::exists?(REPY_File)
           @data = convert_repy
         end
       end

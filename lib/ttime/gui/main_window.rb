@@ -503,6 +503,7 @@ module TTime
       end
 
       def add_detail_to_buffer(buffer, iter, title, detail)
+	    return if detail.nil? or detail == ""
         tag = buffer.create_tag(nil, {
           :weight => Pango::FontDescription::WEIGHT_BOLD
         })

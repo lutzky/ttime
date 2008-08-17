@@ -314,14 +314,11 @@ module TTime
             end
 
             group.events << event
-          else
-            $stderr.write "Ignoring bad event line " \
+          elsif $VERBOSE
+		    warn "Ignoring bad event line " \
               "for course #{group.course.number}, " \
-              "group #{group.number} (#{group.description})"
-            if $DEBUG
-              $stderr.write ":\n#{raw_event}"
-            end
-            $stderr.write("\n")
+              "group #{group.number} (#{group.description}):"
+			warn raw_event
           end
         end
 
