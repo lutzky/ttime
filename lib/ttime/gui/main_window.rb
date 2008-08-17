@@ -51,6 +51,12 @@ module TTime
         load_data(true)
       end
 
+      def on_selected_courses_keypress obj, k
+        if k.keyval == Gdk::Keyval::GDK_Delete
+          on_remove_course
+        end
+      end
+
       def on_load_settings_activate
         filter = Gtk::FileFilter.new
         filter.name = _("YAML files")
@@ -215,7 +221,11 @@ module TTime
           on_available_course_selection
           on_selected_course_selection
           update_exam_collisions
+
+          return true
         end
+
+        return false
       end
 
       def on_available_course_selection
