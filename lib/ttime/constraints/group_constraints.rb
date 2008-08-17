@@ -5,6 +5,8 @@ require 'set'
 module TTime
   module Constraints
     class GroupConstraint < AbstractConstraint
+      RIGHT_BUTTON = 3
+
       COLUMNS = [
         [ :text, String ],
         [ :show_checkbox, TrueClass ],
@@ -155,11 +157,55 @@ module TTime
         forbidden_groups[course_number].add group_number
       end
 
+      def recursively_mark iter, marked
+        iter[col_index(:marked)] = marked
+        if iter.has_child?
+          sub_iter = iter.first_child
+          recursively_mark sub_iter, marked
+          while sub_iter.next!
+            recursively_mark sub_iter, marked
+          end
+        end
+      end
+
+      def select_all mark_with = true
+        selection = @treeview.selection
+        return if selection.nil?
+        if selection.selected.has_child?
+          iter = selection.selected
+        else
+          iter = selection.selected.parent
+        end
+
+        recursively_mark iter, mark_with
+      end
+
+      def select_none
+        select_all false
+      end
+
       def tree_setup
         @model = Gtk::TreeStore.new(*column_classes)
         @treeview = Gtk::TreeView.new(@model)
         @treeview.rules_hint = true
-        @treeview.selection.mode = Gtk::SELECTION_MULTIPLE
+        @treeview.selection.mode = Gtk::SELECTION_SINGLE
+
+        @treeview.signal_connect("button-press-event") do |treeview, e|
+          if e.button == RIGHT_BUTTON
+            menu = Gtk::Menu.new
+            [
+              [ _("Select all"),  lambda { select_all } ],
+              [ _("Select none"), lambda { select_none } ],
+            ].each do |label, block|
+              mi = Gtk::MenuItem.new label
+              mi.signal_connect("activate", &block)
+              menu.append mi
+            end
+            menu.show_all
+            menu.popup nil, nil, 3, e.time
+            false
+          end
+        end
 
         cellrend = Gtk::CellRendererToggle.new
 
