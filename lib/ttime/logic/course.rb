@@ -48,6 +48,10 @@ module TTime
         "#<Course #@number #{@name.inspect}>"
       end
 
+      def to_s
+        "#@number #@name"
+      end
+
       def each_group_selection(constraints = [])
         groups_by_type = []
         TTime::Data::GROUP_TYPES.keys.each do |type|

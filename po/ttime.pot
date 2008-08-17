@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ttime 0.x.x\n"
-"POT-Creation-Date: 2008-07-30 17:45+0300\n"
+"POT-Creation-Date: 2008-08-17 18:00+0300\n"
 "PO-Revision-Date: 2006-10-19 11:53+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,26 +16,30 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: lib/ttime/gui/main_window.rb:56 lib/ttime/gui/main_window.rb:76
+#: lib/ttime/gui/main_window.rb:62 lib/ttime/gui/main_window.rb:83
 msgid "YAML files"
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:58
+#: lib/ttime/gui/main_window.rb:65
 msgid "Load Settings"
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:78
+#: lib/ttime/gui/main_window.rb:86
 msgid "Save Settings"
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:165
+#: lib/ttime/gui/main_window.rb:177
 msgid "Please select some courses first."
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:180
+#: lib/ttime/gui/main_window.rb:192
 msgid ""
 "Sorry, but no schedules are possible with the selected courses and "
 "constraints."
+msgstr ""
+
+#: lib/ttime/gui/main_window.rb:216
+msgid "Are you sure you want to drop %s?"
 msgstr ""
 
 #: lib/ttime/gui/main_window.rb:407
@@ -54,77 +58,85 @@ msgstr ""
 msgid "Show alternatives to this event"
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:549
+#: lib/ttime/gui/main_window.rb:452
+msgid "Cancel this course"
+msgstr ""
+
+#: lib/ttime/gui/main_window.rb:558
 msgid "WARNING: The courses marked with * have colliding test dates!"
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:560
+#: lib/ttime/gui/main_window.rb:569
 msgid "Lecturer in charge"
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:561
+#: lib/ttime/gui/main_window.rb:570
 msgid "Academic points"
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:562
+#: lib/ttime/gui/main_window.rb:571
 msgid "Moed A"
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:563
+#: lib/ttime/gui/main_window.rb:572
 msgid "Moed B"
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:573
+#: lib/ttime/gui/main_window.rb:582
 msgid "Group %d\n"
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:577
+#: lib/ttime/gui/main_window.rb:586
 msgid "Lecturer: "
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:591
+#: lib/ttime/gui/main_window.rb:600
 msgid "* No data for this group *\n"
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:652
+#: lib/ttime/gui/main_window.rb:661
 msgid "Populating available courses"
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:710
+#: lib/ttime/gui/main_window.rb:719
 msgid "Course Name"
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:710
+#: lib/ttime/gui/main_window.rb:719
 msgid "Course Number"
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:750
+#: lib/ttime/gui/main_window.rb:759
 msgid "Constraints"
+msgstr ""
+
+#: lib/ttime/gui/main_window.rb:786
+msgid "No courses with tests are selected."
 msgstr ""
 
 #: lib/ttime/gui/progress_dialog.rb:10
 msgid "Progress"
 msgstr ""
 
-#: lib/ttime/gui/exam_schedule.rb:17 data/ttime/ttime.glade:233
+#: lib/ttime/gui/exam_schedule.rb:19 data/ttime/ttime.glade:233
 msgid "Exam Schedule"
 msgstr ""
 
-#: lib/ttime/gui/exam_schedule.rb:67
+#: lib/ttime/gui/exam_schedule.rb:69
 msgid "WARNING, collision on "
 msgid_plural "WARNING, collisions on: "
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/ttime/gui/exam_schedule.rb:84
+#: lib/ttime/gui/exam_schedule.rb:86
 msgid "Moed A: %s\n"
 msgstr ""
 
-#: lib/ttime/gui/exam_schedule.rb:90
+#: lib/ttime/gui/exam_schedule.rb:92
 msgid "Moed B: %s\n"
 msgstr ""
 
-#: lib/ttime/gui/exam_schedule.rb:177
+#: lib/ttime/gui/exam_schedule.rb:181
 msgid "Date"
 msgstr ""
 
@@ -152,15 +164,15 @@ msgstr ""
 msgid "Loading technion data"
 msgstr ""
 
-#: lib/ttime/data.rb:109
+#: lib/ttime/data.rb:113
 msgid "Loading data from REPY"
 msgstr ""
 
-#: lib/ttime/data.rb:118
+#: lib/ttime/data.rb:122
 msgid "Downloading REPY file from Technion"
 msgstr ""
 
-#: lib/ttime/data.rb:130
+#: lib/ttime/data.rb:134
 msgid "Extracting REPY file"
 msgstr ""
 
@@ -245,27 +257,27 @@ msgid ""
 "as you requested.\n"
 msgstr ""
 
-#: lib/ttime/constraints/no_clashes.rb:39
+#: lib/ttime/constraints/no_clashes.rb:40
 msgid "No clashes"
 msgstr ""
 
-#: lib/ttime/constraints/no_clashes.rb:45
-#: lib/ttime/constraints/no_running.rb:53
+#: lib/ttime/constraints/no_clashes.rb:46
+#: lib/ttime/constraints/no_running.rb:44
 msgid "Enable"
 msgstr ""
 
-#: lib/ttime/constraints/no_clashes.rb:54
+#: lib/ttime/constraints/no_clashes.rb:55
 msgid ""
 "WARNING! Disabling the 'no clashes' constraint will make scheduling take\n"
 "MUCH longer! You probably want to leave this on. (Coming soon: allow\n"
 "clashes only for specific courses)\n"
 msgstr ""
 
-#: lib/ttime/constraints/no_running.rb:47
+#: lib/ttime/constraints/no_running.rb:38
 msgid "No running"
 msgstr ""
 
-#: lib/ttime/constraints/no_running.rb:62
+#: lib/ttime/constraints/no_running.rb:53
 msgid ""
 "This constraint makes sure you don't have to run between buildings during a\n"
 "10-minute (in case the lecturer finishes on time) break.\n"
@@ -371,21 +383,21 @@ msgstr ""
 msgid "Available Courses"
 msgstr ""
 
-#: data/ttime/ttime.glade:504
+#: data/ttime/ttime.glade:505
 msgid "Selected Courses"
 msgstr ""
 
-#: data/ttime/ttime.glade:548
+#: data/ttime/ttime.glade:550
 msgid "Course List"
 msgstr ""
 
-#: data/ttime/ttime.glade:575
+#: data/ttime/ttime.glade:577
 msgid ""
 "Inspired by UDonkey and Marprog\n"
 "\n"
 "But we don't like C#"
 msgstr ""
 
-#: data/ttime/ttime.glade:579
+#: data/ttime/ttime.glade:581
 msgid "Git repository"
 msgstr ""

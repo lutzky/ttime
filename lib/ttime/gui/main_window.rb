@@ -63,7 +63,8 @@ module TTime
         filter.add_pattern "*.yml"
         filter.add_pattern "*.yaml"
         fs = Gtk::FileChooserDialog.new(_("Load Settings"),
-                                        nil, Gtk::FileChooser::ACTION_OPEN,
+                                        @glade["MainWindow"],
+                                        Gtk::FileChooser::ACTION_OPEN,
                                         nil,
                                         [Gtk::Stock::CANCEL,
                                           Gtk::Dialog::RESPONSE_CANCEL],
@@ -84,7 +85,8 @@ module TTime
         filter.add_pattern "*.yml"
         filter.add_pattern "*.yaml"
         fs = Gtk::FileChooserDialog.new(_("Save Settings"),
-                                        nil, Gtk::FileChooser::ACTION_SAVE,
+                                        @glade["MainWindow"],
+                                        Gtk::FileChooser::ACTION_SAVE,
                                         nil,
                                         [Gtk::Stock::CANCEL,
                                           Gtk::Dialog::RESPONSE_CANCEL],
@@ -178,7 +180,7 @@ module TTime
           return
         end
 
-        progress_dialog = ProgressDialog.new
+        progress_dialog = ProgressDialog.new @glade["MainWindow"]
 
         Thread.new do
           @scheduler = Logic::Scheduler.new @selected_courses,
@@ -213,6 +215,11 @@ module TTime
       def drop_course course
         return false unless course
 
+        unless are_you_sure_dialog(_("Are you sure you want to drop %s?") %
+                                     course)
+          return false
+        end
+
         @selected_courses.delete course
 
         @list_selected_courses.each do |model, path, iter|
@@ -234,12 +241,7 @@ module TTime
       def on_remove_course
         iter = currently_removable_course_iter
 
-        if iter
-          drop_course iter[2]
-          return true
-        end
-
-        return false
+        return iter ? drop_course(iter[2]) : false
       end
 
       def on_available_course_selection
@@ -451,9 +453,10 @@ module TTime
             end
             menu.add_with_callback _("Cancel this course") do
               course = params[:data][:event].course
-              drop_course course
-              reject_events_from_calendar! do |data|
-                data[:event].course == course
+              if drop_course(course)
+                reject_events_from_calendar! do |data|
+                  data[:event].course == course
+                end
               end
             end
           end
@@ -640,7 +643,7 @@ module TTime
 
         init_course_tree_views
 
-        progress_dialog = ProgressDialog.new
+        progress_dialog = ProgressDialog.new @glade["MainWindow"]
 
         Thread.new do
           @data = TTime::Data.new(force, &progress_dialog.get_status_proc)
@@ -656,7 +659,7 @@ module TTime
       def update_available_courses_tree
         @tree_available_courses.clear
 
-        progress_dialog = ProgressDialog.new
+        progress_dialog = ProgressDialog.new @glade["MainWindow"]
         progress_dialog.text = _('Populating available courses')
 
         Thread.new do
@@ -760,11 +763,20 @@ module TTime
       end
 
       def error_dialog(msg)
-        dialog = Gtk::MessageDialog.new nil,
+        dialog = Gtk::MessageDialog.new @glade["MainWindow"],
           Gtk::Dialog::MODAL | Gtk::Dialog::DESTROY_WITH_PARENT,
           Gtk::MessageDialog::ERROR, Gtk::MessageDialog::BUTTONS_OK, msg
         dialog.show
         dialog.signal_connect('response') { dialog.destroy }
+      end
+
+      def are_you_sure_dialog(msg)
+        dialog = Gtk::MessageDialog.new @glade["MainWindow"],
+          Gtk::Dialog::MODAL | Gtk::Dialog::DESTROY_WITH_PARENT,
+          Gtk::MessageDialog::QUESTION, Gtk::MessageDialog::BUTTONS_YES_NO, msg
+        response = (dialog.run == Gtk::Dialog::RESPONSE_YES)
+        dialog.destroy
+        return response
       end
 
       def on_ExamSchedule_clicked

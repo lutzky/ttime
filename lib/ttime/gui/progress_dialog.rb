@@ -4,15 +4,12 @@ require 'gtk2'
 module TTime
   module GUI
     class ProgressDialog < Gtk::Dialog
-      def initialize
-        super
-
-        self.title = _("Progress")
+      def initialize(parent = nil)
+        super _("Progress"), parent,
+              Gtk::Dialog::MODAL | Gtk::Dialog::DESTROY_WITH_PARENT
 
         @progressbar = Gtk::ProgressBar.new
         @label = Gtk::Label.new ''
-
-        self.modal = true
 
         @canceled = false
 
