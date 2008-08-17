@@ -210,18 +210,32 @@ module TTime
         end
       end
 
+      def drop_course course
+        return false unless course
+
+        @selected_courses.delete course
+
+        @list_selected_courses.each do |model, path, iter|
+          if iter[2] == course
+            model.remove iter
+            break
+          end
+        end
+
+        on_available_course_selection
+
+        on_available_course_selection
+        on_selected_course_selection
+        update_exam_collisions
+
+        return course
+      end
+
       def on_remove_course
         iter = currently_removable_course_iter
 
         if iter
-          @selected_courses.delete iter[2]
-          @list_selected_courses.remove iter
-          update_contraint_courses
-
-          on_available_course_selection
-          on_selected_course_selection
-          update_exam_collisions
-
+          drop_course iter[2]
           return true
         end
 
@@ -454,16 +468,23 @@ module TTime
 
         @calendar.add_rightclick_handler do |params|
           menu = Gtk::Menu.new
-          menu.add_with_callback _("Show all alternatives") do |*e|
+          menu.add_with_callback _("Show all alternatives") do
             for course in @selected_courses
               show_alternatives_for course
             end
           end
           unless params[:data].nil?
-            menu.add_with_callback _("Show alternatives to this event") do |*e|
+            menu.add_with_callback _("Show alternatives to this event") do
               course = params[:data][:event].course
               group = params[:data][:event].group
               show_alternatives_for course, group.type
+            end
+            menu.add_with_callback _("Cancel this course") do
+              course = params[:data][:event].course
+              drop_course course
+              reject_events_from_calendar! do |data|
+                data[:event].course == course
+              end
             end
           end
 
