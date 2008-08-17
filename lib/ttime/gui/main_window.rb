@@ -80,7 +80,7 @@ module TTime
                                         nil,
                                         [Gtk::Stock::CANCEL,
                                           Gtk::Dialog::RESPONSE_CANCEL],
-                                          [Gtk::Stock::OPEN,
+                                          [Gtk::Stock::SAVE,
                                             Gtk::Dialog::RESPONSE_ACCEPT]
                                        )
 
