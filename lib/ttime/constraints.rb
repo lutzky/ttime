@@ -16,7 +16,23 @@ module TTime
       #   end
       def AbstractConstraint.settings_name(settings_name = nil)
         @settings_name = settings_name.to_sym unless settings_name.nil?
+        @default_settings ||= nil
         return @settings_name
+      end
+
+      # Set default settings for this object. You probably want the form
+      # of a hash. Example:
+      #
+      #   class MyConstraint < AbstractConstraint
+      #     settings_name :my_constraint
+      #     default_settings :enabled => true
+      #     ...
+      #   end
+      def AbstractConstraint.default_settings(defaults = nil)
+        unless defaults.nil?
+          @default_settings = defaults
+        end
+        @default_settings
       end
 
       # Quick access to the Settings class. Set settings_name beforehand.
@@ -25,7 +41,9 @@ module TTime
         unless settings_name
           raise Exception.new("settings_name undefined for #{self.class}")
         end
-        Settings.instance[settings_name] ||= {}
+        if Settings.instance[settings_name].nil?
+          Settings.instance[settings_name] = self.class.default_settings
+        end
         return Settings.instance[settings_name]
       end
 

@@ -6,11 +6,7 @@ module TTime
   module Constraints
     class NoClashes < AbstractConstraint
       settings_name :no_clashes
-
-      def initialize
-        super
-        self.settings[:enabled] = true if self.settings[:enabled].nil?
-      end
+      default_settings :enabled => true
 
       def evaluate_schedule
         return true unless self.enabled

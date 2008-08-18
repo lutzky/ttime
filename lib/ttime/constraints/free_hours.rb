@@ -5,11 +5,6 @@ require 'ttime/gettext_settings'
 module TTime
   module Constraints
     class FreeHours < AbstractConstraint
-      def initialize
-        super
-
-      end
-
       def settings
         Settings.instance[:free_hours] ||= {}
         Settings.instance[:free_hours]

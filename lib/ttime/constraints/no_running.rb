@@ -6,11 +6,7 @@ module TTime
   module Constraints
     class NoRunning < AbstractConstraint
       settings_name :no_running
-
-      def initialize
-        super
-        self.settings[:enabled] = false if self.settings[:enabled].nil?
-      end
+      default_settings :enabled => false
 
       def evaluate_schedule
         return true unless self.enabled

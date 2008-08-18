@@ -4,10 +4,6 @@ require 'ttime/gettext_settings'
 module TTime
   module Constraints
     class FreeDays < AbstractConstraint
-      def initialize
-        super
-      end
-
       def requested_free_days
         Settings.instance[:free_days] ||= 0
         Settings.instance[:free_days]

@@ -5,6 +5,9 @@ require 'set'
 module TTime
   module Constraints
     class GroupConstraint < AbstractConstraint
+      settings_name :group_constraints
+      default_settings :enabled => true, :forbidden_groups => {}
+
       RIGHT_BUTTON = 3
 
       COLUMNS = [
@@ -50,15 +53,6 @@ module TTime
         update_forbidden_marks
       end
 
-      def initialize
-        super
-
-        Settings.instance[:group_constraints] ||= {
-          :enabled => true,
-          :forbidden_groups => {}
-        }
-      end
-
       def each_selection_iter(start_at = nil, &block)
         block.call start_at if start_at
         if start_at
@@ -87,10 +81,6 @@ module TTime
           iter[col_index(:marked)] = \
             !group_is_forbidden?(course_number, group_number)
         end
-      end
-
-      def settings
-        Settings.instance[:group_constraints]
       end
 
       def forbidden_groups
