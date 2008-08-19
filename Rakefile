@@ -71,7 +71,12 @@ end
 
 desc "Generate ditz html pages"
 task :ditz_html do
-  `ditz html ditz`
+  if File::exists?("../ditz/bin/ditz") and File::directory?("../ditz/lib")
+    # Git version seems available, use that
+    `ruby -I../ditz/lib ../ditz/bin/ditz html ditz`
+  else
+    `ditz html ditz`
+  end
 end
 
 # Base path for SSH uploads (in scp syntax)
