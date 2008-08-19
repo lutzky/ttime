@@ -4,6 +4,11 @@ require 'ttime/gettext_settings'
 module TTime
   module Constraints
     class FreeDays < AbstractConstraint
+      # This is the number of weekdays which "count" for the purpose of
+      # calculating Free Days. Specifically, if n free days are requested,
+      # then n days of the first WEEKDAYS days of the week have to be free.
+      WEEKDAYS = 5
+
       def requested_free_days
         Settings.instance[:free_days] ||= 0
         Settings.instance[:free_days]
@@ -16,12 +21,12 @@ module TTime
       def evaluate_schedule
         return true if requested_free_days == 0
 
-        day_grid = []
+        day_grid = [false] * (WEEKDAYS)
         event_list.each do |ev|
-          day_grid[ev.day] = true
+          day_grid[ev.day - 1] = true if ev.day - 1 < WEEKDAYS
         end
 
-        available_free_days = day_grid[1..5].select { |x| not x }.length
+        available_free_days = day_grid.select { |x| not x }.length
 
         return available_free_days >= self.requested_free_days
       end
