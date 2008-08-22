@@ -5,6 +5,7 @@ require 'tempfile'
 require 'singleton'
 
 require 'ttime/constraints'
+require 'ttime/ratings'
 require 'ttime/settings'
 require 'ttime/logic/course'
 require 'ttime/logic/scheduler'
@@ -144,12 +145,14 @@ module TTime
         notebook = @glade["notebook"]
 
         @constraints = []
+        @ratings = []
 
         # Touch the instance so nicknames get loaded
         @nicknames = Logic::Nicknames.instance
 
         init_schedule_view
         init_constraints
+        init_ratings
 
         # Quick hack around a bug - it seems that MozEmbed gets a little
         # shy when in a notebook, and only displays on the second time
@@ -185,6 +188,7 @@ module TTime
         Thread.new do
           @scheduler = Logic::Scheduler.new @selected_courses,
             @constraints,
+            @ratings,
             &progress_dialog.get_status_proc(:pulsating => true,
                                              :show_cancel_button => true)
 
@@ -759,6 +763,26 @@ module TTime
         notebook = @glade["notebook"]
         notebook.append_page constraints_notebook, 
           Gtk::Label.new(_("Constraints"))
+        notebook.show_all
+      end
+
+      def init_ratings
+        Ratings.initialize
+        @ratings = Ratings.get_ratings
+
+        ratings_notebook = Gtk::Notebook.new
+
+        @ratings.each do |c|
+          ratings_notebook.append_page c.preferences_panel,
+            Gtk::Label.new(c.name)
+        end
+
+        ratings_notebook.tab_pos = 0
+        ratings_notebook.border_width = 5
+
+        notebook = @glade["notebook"]
+        notebook.append_page ratings_notebook, 
+          Gtk::Label.new(_("Schedule ratings"))
         notebook.show_all
       end
 

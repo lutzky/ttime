@@ -27,9 +27,11 @@ module TTime
   module Logic
     class Schedule
       attr_reader :groups
+      attr_accessor :score
 
       def initialize(course_groups_arr)
         @groups = []
+        @rating = 0
 
         course_groups_arr.each do |course|
           @groups.concat course
@@ -54,9 +56,10 @@ module TTime
 
       REPORT_TIME = 0.5
 
-      def initialize(courses,constraints,&status_report_proc)
+      def initialize(courses,constraints,ratings,&status_report_proc)
         @courses = courses
         @constraints = constraints
+        @ratings = ratings
         @ok_schedules = []
 
         @status_report_proc = status_report_proc || proc {}
@@ -64,6 +67,7 @@ module TTime
         num_types_arr = []
 
         generate_ok_schedules
+        sort_schedules
       end
 
       def generate_ok_schedules
@@ -76,6 +80,17 @@ module TTime
           end
         end
       end
+
+      def sort_schedules
+        rate_scheduals
+        puts " sorting"
+        @ok_schedules.sort! {|a,b| -(a.score <=> b.score)}
+        puts "not  sorting"
+        @ok_schedules.each do |s|
+          puts "rating #{s.score}"
+        end
+      end
+
 
       private
       def each_schedule_recusively(courses,group_selections)
@@ -110,6 +125,18 @@ module TTime
                                              @ok_schedules.size)
         end
       end
+
+      def rate_scheduals
+        @ok_schedules.each do |sched|
+          sched.score = 0
+        end
+        @ratings.each do |r|
+          @ok_schedules.each do |sched|
+            sched.score+=r.rating(sched.groups)
+          end
+        end
+      end
+
     end
   end
 end
