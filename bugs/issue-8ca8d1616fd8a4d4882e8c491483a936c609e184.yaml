@@ -1,0 +1,25 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Rating system
+desc: |-
+  A system to rate schedules and sort them accordingly. Should also be
+  pluggable, like constraints.
+type: :feature
+component: ttime
+release: 
+reporter: Ohad Lutzky <ohad@lutzky.net>
+status: :in_progress
+disposition: 
+creation_time: 2008-08-23 08:40:26.729560 Z
+references: []
+
+id: 8ca8d1616fd8a4d4882e8c491483a936c609e184
+log_events: 
+- - 2008-08-23 08:40:28.020985 Z
+  - Ohad Lutzky <ohad@lutzky.net>
+  - created
+  - ""
+- - 2008-08-23 08:53:49.066596 Z
+  - Ohad Lutzky <ohad@rabbit>
+  - changed status from unstarted to in_progress
+  - ""
+git_branch: rating
