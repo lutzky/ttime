@@ -82,7 +82,7 @@ module TTime
       end
 
       def sort_schedules
-        rate_scheduals
+        rate_schedules
         puts " sorting"
         @ok_schedules.sort! {|a,b| -(a.score <=> b.score)}
         puts "not  sorting"
@@ -90,7 +90,6 @@ module TTime
           puts "rating #{s.score}"
         end
       end
-
 
       private
       def each_schedule_recusively(courses,group_selections)
@@ -126,7 +125,7 @@ module TTime
         end
       end
 
-      def rate_scheduals
+      def rate_schedules
         @ok_schedules.each do |sched|
           sched.score = 0
         end
