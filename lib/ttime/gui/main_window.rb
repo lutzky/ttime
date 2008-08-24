@@ -34,6 +34,14 @@ module TTime
       '/usr/local/share/ttime/',
     ]
 
+    EventDataMembers = {
+      :course_name => _("Course name"),
+      :course_number => _("Course number"),
+      :group_number => _("Group number"),
+      :lecturer => _("Lecturer"),
+      :place => _("Place"),
+    }
+
     class << self
       def find_data_file filename
         my_path = Pathname.new($0).dirname
@@ -158,6 +166,10 @@ module TTime
         notebook.page = 0
 
         load_data
+      end
+
+      def selected_event_data_members
+        [ :course_name, :group_number, :place, :lecturer ]
       end
 
       def on_quit_activate
@@ -291,7 +303,19 @@ module TTime
 
       def add_event_to_calendar ev
         name = @nicknames.beautify[ev.group.name] || ev.group.name
-        text = "<b>#{name}</b>\nקבוצה #{ev.group.number}\n#{ev.place}"
+
+        data_member_translation = {
+          :course_name => "<b>#{name}</b>",
+          :course_number => ev.course.number,
+          :group_number => "קבוצה %d" % ev.group.number,
+          :lecturer => ev.group.lecturer,
+          :place => ev.place,
+        }
+
+        text = selected_event_data_members.map do |s|
+          data_member_translation[s]
+        end.reject { |s| s.nil? or s.empty? }.join("\n")
+
         day = ev.day
         hour = ev.start_frac
         length = ev.end_frac - ev.start_frac
