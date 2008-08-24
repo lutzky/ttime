@@ -34,13 +34,15 @@ module TTime
       '/usr/local/share/ttime/',
     ]
 
-    EventDataMembers = {
-      :course_name => _("Course name"),
-      :course_number => _("Course number"),
-      :group_number => _("Group number"),
-      :lecturer => _("Lecturer"),
-      :place => _("Place"),
-    }
+    EventDataMembers = [
+      [ :course_name, _("Course name") ],
+      [ :course_number, _("Course number") ],
+      [ :group_number, _("Group number") ],
+      [ :place, _("Place") ],
+      [ :lecturer, _("Lecturer") ],
+    ]
+
+    DefaultEventDataMembers = [ :course_name, :group_number, :place ]
 
     class << self
       def find_data_file filename
@@ -169,7 +171,22 @@ module TTime
       end
 
       def selected_event_data_members
-        [ :course_name, :group_number, :place, :lecturer ]
+        Settings.instance[:shown_event_data] ||= DefaultEventDataMembers
+      end
+
+      def show_event_data_member symbol
+        return if selected_event_data_members.include? symbol
+        previously_selected = selected_event_data_members.dup
+        selected_event_data_members.clear
+        EventDataMembers.each do |orig_symbol, orig_name|
+          if orig_symbol == symbol or previously_selected.include? orig_symbol
+            selected_event_data_members << orig_symbol
+          end
+        end
+      end
+
+      def hide_event_data_member symbol
+        selected_event_data_members.reject! { |s| s == symbol }
       end
 
       def on_quit_activate
@@ -438,6 +455,8 @@ module TTime
 
         v = Gtk::VPaned.new
         s = Gtk::ScrolledWindow.new
+        h = Gtk::HBox.new
+        inner_vbox = Gtk::VBox.new
 
         s.shadow_type = Gtk::ShadowType::ETCHED_IN
 
@@ -451,8 +470,28 @@ module TTime
 
         s.add @calendar_info
 
+        h.pack_start s, true, true
+        h.pack_start inner_vbox, false, false
+
+        lbl = Gtk::Label.new("A label")
+        lbl.markup = "<b>%s:</b>" % _("Show details")
+        inner_vbox.pack_start lbl
+
+        EventDataMembers.each do |symbol, text|
+          check = Gtk::CheckButton.new(text)
+          check.active = selected_event_data_members.include? symbol
+          check.signal_connect('toggled') do
+            if check.active?
+              show_event_data_member symbol
+            else
+              hide_event_data_member symbol
+            end
+          end
+          inner_vbox.pack_start check
+        end
+
         v.pack1 @calendar, true, false
-        v.pack2 s, false, true
+        v.pack2 h, false, true
 
         notebook.append_page v, Gtk::Label.new(_("Schedule"))
 
