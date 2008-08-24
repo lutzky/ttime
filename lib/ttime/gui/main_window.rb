@@ -1,9 +1,7 @@
 require 'libglade2'
-require 'ttime/data'
-#require 'gtkmozembed'
-require 'tempfile'
 require 'singleton'
 
+require 'ttime/data'
 require 'ttime/constraints'
 require 'ttime/settings'
 require 'ttime/logic/course'
@@ -161,12 +159,6 @@ module TTime
         init_schedule_view
         init_constraints
 
-        # Quick hack around a bug - it seems that MozEmbed gets a little
-        # shy when in a notebook, and only displays on the second time
-        # we view it.
-        notebook.page = 1
-        notebook.page = 0
-
         load_data
       end
 
@@ -297,8 +289,8 @@ module TTime
       def on_change_current_schedule
         self.current_schedule =
           @glade["spin_current_schedule"].adjustment.value - 1
-        draw_current_schedule
         @glade["notebook"].page = 1
+        draw_current_schedule
       end
 
       def current_schedule=(n)
@@ -350,7 +342,6 @@ module TTime
 
       def matches_search?(iter)
         text = @glade["search_box"].text
-        #puts text
         ret=true
 
         if iter.has_child?
@@ -369,7 +360,6 @@ module TTime
           elsif iter[1] == ''
             ret=true
           elsif text =~ /^[0-9]/ # Key is numeric
-            #puts "|#{iter[1]}|"
             ret = (iter[1] =~ /^#{text}/)
           elsif @nicknames.beautify[iter[0]] =~ /#{text}/
             ret=true
@@ -476,7 +466,7 @@ module TTime
         h.pack_start s, true, true
         h.pack_start inner_vbox, false, false
 
-        lbl = Gtk::Label.new("A label")
+        lbl = Gtk::Label.new
         lbl.markup = "<b>%s:</b>" % _("Show details")
         inner_vbox.pack_start lbl
 
@@ -748,13 +738,8 @@ module TTime
           end
 
           progress_dialog.dispose
-
-#          @glade["treeview_available_courses"].expand_all
         end
       end
-
-
-
 
       def init_course_tree_views
         available_courses_view = @glade["treeview_available_courses"]
@@ -762,7 +747,7 @@ module TTime
 
         available_courses_view.set_search_equal_func do |m,c,key,iter|
           begin
-            if ('0'..'9').include? key[0..0] # Key is numeric
+            if key =~ /^[0-9]/
               not (iter[1] =~ /^#{key}/)
             else
               not (iter[0] =~ /#{key}/)
