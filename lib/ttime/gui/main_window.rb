@@ -318,21 +318,24 @@ module TTime
         @calendar.redraw
       end
 
-      def add_event_to_calendar ev
+      def text_for_event ev
         name = @nicknames.beautify[ev.group.name] || ev.group.name
 
         data_member_translation = {
-          :course_name => "<b>#{name}</b>",
+          :course_name => name,
           :course_number => ev.course.number,
           :group_number => "קבוצה %d" % ev.group.number,
           :lecturer => ev.group.lecturer,
           :place => ev.place,
         }
 
-        text = selected_event_data_members.map do |s|
+        selected_event_data_members.map do |s|
           data_member_translation[s]
         end.reject { |s| s.nil? or s.empty? }.join("\n")
+      end
 
+      def add_event_to_calendar ev
+        text = text_for_event(ev)
         day = ev.day
         hour = ev.start_frac
         length = ev.end_frac - ev.start_frac
@@ -486,6 +489,10 @@ module TTime
             else
               hide_event_data_member symbol
             end
+            @calendar.update_event_text do |data|
+              text_for_event data[:event]
+            end
+            @calendar.redraw
           end
           inner_vbox.pack_start check
         end
