@@ -3,7 +3,7 @@ title: PDF Export
 desc: Export current schedule and test exam to PDF
 type: :feature
 component: ttime
-release: "0.9"
+release: 
 reporter: Ohad Lutzky <ohad@lutzky.net>
 status: :unstarted
 disposition: 
@@ -16,4 +16,8 @@ log_events:
   - Ohad Lutzky <ohad@lutzky.net>
   - created
   - ""
+- - 2008-08-24 21:51:44.752894 Z
+  - Ohad Lutzky <ohad@lutzky.net>
+  - unassigned from release 0.9
+  - Looks like this feature is more troublesome than we'd like to think
 git_branch: 
