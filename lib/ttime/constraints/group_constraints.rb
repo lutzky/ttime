@@ -148,6 +148,13 @@ module TTime
       end
 
       def recursively_mark iter, marked
+        args = iter[col_index(:course)], iter[col_index(:group)]
+        if marked
+          allow_group *args
+        else
+          disallow_group *args
+        end
+
         iter[col_index(:marked)] = marked
         if iter.has_child?
           sub_iter = iter.first_child
