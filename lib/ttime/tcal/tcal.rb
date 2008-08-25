@@ -103,6 +103,17 @@ module TCal
       @computed_layers=false
     end
 
+    # Update event text for each event in the calendar. Your block should
+    # return a new "text" value for the event object in question, or +nil+ to
+    # leave the event unmodified. The yielded +data+ is whatever you sent as
+    # +data+ in add_event.
+    def update_event_text &blk # :yields: data
+      @events.each do |ev|
+        retval = blk.call ev.data
+        ev.text = retval unless retval.nil?
+      end
+    end
+
     # Remove all events from the calendar
     def clear_events
       @events = []

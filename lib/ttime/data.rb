@@ -3,6 +3,9 @@ require 'tempfile'
 require 'pathname'
 require 'ttime/parse/repy'
 require 'ttime/gettext_settings.rb'
+require 'ttime/logging'
+
+include TTime::Logging
 
 #require 'yaml'
 
@@ -52,12 +55,12 @@ module TTime
         elsif File::exists?(MARSHAL_File)
           report _("Loading technion data")
 		  begin
-		    @data = File.open(MARSHAL_File) { |mf| Marshal.load(mf.read) }
-          rescue ArgumentError
-		    warn "Failed to open marshal file, reconverting REPY" if $VERBOSE
-		    download_repy unless File::exists?(REPY_File)
-			@data = convert_repy
-		  end
+        @data = File.open(MARSHAL_File) { |mf| Marshal.load(mf.read) }
+      rescue ArgumentError
+        log.warn "Failed to open marshal file, reconverting REPY"
+        download_repy unless File::exists?(REPY_File)
+        @data = convert_repy
+      end
         else
           download_repy unless File::exists?(REPY_File)
           @data = convert_repy

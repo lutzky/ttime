@@ -5,8 +5,8 @@ type: :feature
 component: ttime
 release: "0.9"
 reporter: Ohad Lutzky <ohad@lutzky.net>
-status: :unstarted
-disposition: 
+status: :closed
+disposition: :fixed
 creation_time: 2008-08-12 10:42:43.538759 Z
 references: []
 
@@ -15,5 +15,13 @@ log_events:
 - - 2008-08-12 10:42:44.896565 Z
   - Ohad Lutzky <ohad@lutzky.net>
   - created
+  - ""
+- - 2008-08-24 15:04:10.969475 Z
+  - Ohad Lutzky <ohad@lutzky.net>
+  - changed status from unstarted to in_progress
+  - ""
+- - 2008-08-24 21:48:38.683786 Z
+  - Ohad Lutzky <ohad@lutzky.net>
+  - closed with disposition fixed
   - ""
 git_branch: 

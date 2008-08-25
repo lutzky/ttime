@@ -1,9 +1,7 @@
 require 'libglade2'
-require 'ttime/data'
-#require 'gtkmozembed'
-require 'tempfile'
 require 'singleton'
 
+require 'ttime/data'
 require 'ttime/constraints'
 require 'ttime/ratings'
 require 'ttime/settings'
@@ -34,6 +32,16 @@ module TTime
       '/usr/share/ttime/',
       '/usr/local/share/ttime/',
     ]
+
+    EventDataMembers = [
+      [ :course_name, _("Course name") ],
+      [ :course_number, _("Course number") ],
+      [ :group_number, _("Group number") ],
+      [ :place, _("Place") ],
+      [ :lecturer, _("Lecturer") ],
+    ]
+
+    DefaultEventDataMembers = [ :course_name, :group_number, :place ]
 
     class << self
       def find_data_file filename
@@ -154,13 +162,26 @@ module TTime
         init_constraints
         init_ratings
 
-        # Quick hack around a bug - it seems that MozEmbed gets a little
-        # shy when in a notebook, and only displays on the second time
-        # we view it.
-        notebook.page = 1
-        notebook.page = 0
-
         load_data
+      end
+
+      def selected_event_data_members
+        Settings.instance[:shown_event_data] ||= DefaultEventDataMembers
+      end
+
+      def show_event_data_member symbol
+        return if selected_event_data_members.include? symbol
+        previously_selected = selected_event_data_members.dup
+        selected_event_data_members.clear
+        EventDataMembers.each do |orig_symbol, orig_name|
+          if orig_symbol == symbol or previously_selected.include? orig_symbol
+            selected_event_data_members << orig_symbol
+          end
+        end
+      end
+
+      def hide_event_data_member symbol
+        selected_event_data_members.reject! { |s| s == symbol }
       end
 
       def on_quit_activate
@@ -272,8 +293,8 @@ module TTime
       def on_change_current_schedule
         self.current_schedule =
           @glade["spin_current_schedule"].adjustment.value - 1
-        draw_current_schedule
         @glade["notebook"].page = 1
+        draw_current_schedule
       end
 
       def current_schedule=(n)
@@ -293,9 +314,24 @@ module TTime
         @calendar.redraw
       end
 
-      def add_event_to_calendar ev
+      def text_for_event ev
         name = @nicknames.beautify[ev.group.name] || ev.group.name
-        text = "<b>#{name}</b>\nקבוצה #{ev.group.number}\n#{ev.place}"
+
+        data_member_translation = {
+          :course_name => name,
+          :course_number => ev.course.number,
+          :group_number => "קבוצה %d" % ev.group.number,
+          :lecturer => ev.group.lecturer,
+          :place => ev.place,
+        }
+
+        selected_event_data_members.map do |s|
+          data_member_translation[s]
+        end.reject { |s| s.nil? or s.empty? }.join("\n")
+      end
+
+      def add_event_to_calendar ev
+        text = text_for_event(ev)
         day = ev.day
         hour = ev.start_frac
         length = ev.end_frac - ev.start_frac
@@ -310,7 +346,6 @@ module TTime
 
       def matches_search?(iter)
         text = @glade["search_box"].text
-        #puts text
         ret=true
 
         if iter.has_child?
@@ -329,7 +364,6 @@ module TTime
           elsif iter[1] == ''
             ret=true
           elsif text =~ /^[0-9]/ # Key is numeric
-            #puts "|#{iter[1]}|"
             ret = (iter[1] =~ /^#{text}/)
           elsif @nicknames.beautify[iter[0]] =~ /#{text}/
             ret=true
@@ -418,6 +452,8 @@ module TTime
 
         v = Gtk::VPaned.new
         s = Gtk::ScrolledWindow.new
+        h = Gtk::HBox.new
+        inner_vbox = Gtk::VBox.new
 
         s.shadow_type = Gtk::ShadowType::ETCHED_IN
 
@@ -431,8 +467,34 @@ module TTime
 
         s.add @calendar_info
 
+        h.pack_start s, true, true
+        h.pack_start inner_vbox, false, false
+
+        lbl = Gtk::Label.new
+        lbl.markup = "<b>%s:</b>" % _("Show details")
+        inner_vbox.pack_start lbl
+
+        EventDataMembers.each do |symbol, text|
+          # You'd think the _(text) is redundant, but for some reason it seems
+          # to be required.
+          check = Gtk::CheckButton.new(_(text))
+          check.active = selected_event_data_members.include? symbol
+          check.signal_connect('toggled') do
+            if check.active?
+              show_event_data_member symbol
+            else
+              hide_event_data_member symbol
+            end
+            @calendar.update_event_text do |data|
+              text_for_event data[:event]
+            end
+            @calendar.redraw
+          end
+          inner_vbox.pack_start check
+        end
+
         v.pack1 @calendar, true, false
-        v.pack2 s, false, true
+        v.pack2 h, false, true
 
         notebook.append_page v, Gtk::Label.new(_("Schedule"))
 
@@ -682,13 +744,8 @@ module TTime
           end
 
           progress_dialog.dispose
-
-#          @glade["treeview_available_courses"].expand_all
         end
       end
-
-
-
 
       def init_course_tree_views
         available_courses_view = @glade["treeview_available_courses"]
@@ -696,7 +753,7 @@ module TTime
 
         available_courses_view.set_search_equal_func do |m,c,key,iter|
           begin
-            if ('0'..'9').include? key[0..0] # Key is numeric
+            if key =~ /^[0-9]/
               not (iter[1] =~ /^#{key}/)
             else
               not (iter[0] =~ /#{key}/)

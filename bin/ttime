@@ -6,6 +6,9 @@ require 'optparse'
 $LOAD_PATH.unshift((Pathname.new($0).dirname.parent + 'lib').to_s)
 
 require 'ttime/version'
+require 'ttime/logging'
+
+include TTime::Logging
 
 action = :run_gui
 
@@ -32,6 +35,10 @@ OptionParser.new do |opts|
     puts TTime::Version
     exit 0
   end
+
+  opts.on("-v", "--verbose", "Increase verbosity") do
+    log.level -= 1
+  end
 end.parse!
 
 begin
@@ -50,8 +57,11 @@ def run_gui
 
   Thread.abort_on_exception = true
 
+  log.debug { "Initializing GTK" }
   Gtk.init
+  log.debug { "Initializing main window" }
   a = TTime::GUI::MainWindow.instance
+  log.debug { "Entering mainloop" }
   Gtk.main
 end
 
@@ -60,7 +70,7 @@ def output_xml
 
   oldmsg = ""
   data = TTime::Data.new(:convert) do |msg,_|
-    $stderr.write "#{msg}\n" if msg != oldmsg
+    log.info msg if msg != oldmsg
     oldmsg = msg
   end
 
@@ -73,7 +83,7 @@ def repy_utf8
 
   oldmsg = ""
   data = TTime::Data.new(:output_unicode) do |msg,_|
-    $stderr.write "#{msg}\n" if msg != oldmsg
+    log.info msg if msg != oldmsg
     oldmsg = msg
   end
 end

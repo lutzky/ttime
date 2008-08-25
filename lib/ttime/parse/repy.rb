@@ -1,6 +1,9 @@
 require 'iconv'
 require 'ttime/logic/faculty'
 require 'ttime/gettext_settings'
+require 'ttime/logging'
+
+include TTime::Logging
 
 $KCODE='u'
 require 'jcode'
@@ -314,11 +317,11 @@ module TTime
             end
 
             group.events << event
-          elsif $VERBOSE
-		    warn "Ignoring bad event line " \
+          else
+            log.warn { "Ignoring bad event line " \
               "for course #{group.course.number}, " \
-              "group #{group.number} (#{group.description}):"
-			warn raw_event
+              "group #{group.number} (#{group.description}):" }
+            log.warn { raw_event.inspect }
           end
         end
 
@@ -345,19 +348,17 @@ module TTime
           event.place = place_convert(m[4])
           event.end = m[2].reverse.gsub(".","").to_i
         rescue
-          parse_error line, m
+          parse_error event_line, m
         end
 
         group.events << event
       end
 
       def parse_error line, match
-          $stderr.puts '-----------------------------------------------------'
-          $stderr.puts 'Parse error! Could not figure out the following line:'
-          $stderr.puts line
-          $stderr.puts 'Match object:'
-          $stderr.puts match.inspect
-          $stderr.puts '-----------------------------------------------------'
+        log.fatal 'Parse error! Could not figure out the following line:'
+        log.fatal line
+        log.fatal 'Match object:'
+        log.fatal match.inspect
         raise "Parse error when reading REPY file"
       end
 
