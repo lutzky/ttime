@@ -471,7 +471,9 @@ module TTime
         inner_vbox.pack_start lbl
 
         EventDataMembers.each do |symbol, text|
-          check = Gtk::CheckButton.new(text)
+          # You'd think the _(text) is redundant, but for some reason it seems
+          # to be required.
+          check = Gtk::CheckButton.new(_(text))
           check.active = selected_event_data_members.include? symbol
           check.signal_connect('toggled') do
             if check.active?
