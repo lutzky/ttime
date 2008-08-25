@@ -83,11 +83,9 @@ module TTime
 
       def sort_schedules
         rate_schedules
-        puts " sorting"
-        @ok_schedules.sort! {|a,b| -(a.score <=> b.score)}
-        puts "not  sorting"
-        @ok_schedules.each do |s|
-          puts "rating #{s.score}"
+        catch(:cancel) do
+          @status_report_proc.call _("Sorting schedules")
+          @ok_schedules.sort! {|a,b| -(a.score <=> b.score)}
         end
       end
 

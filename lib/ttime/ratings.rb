@@ -123,6 +123,7 @@ module TTime
           rating_name = File.basename(rating)
           unless already_loaded_ratings.include? rating_name
             already_loaded_ratings << rating_name
+            STDERR.puts "RATINGS: Loaded rating %p" % rating_name if $VERBOSE
             require rating
           end
         end
@@ -132,7 +133,6 @@ module TTime
     def Ratings.get_ratings
       rating_class_names = Ratings.constants - \
         [ "AbstractRating", "RatingPathCandidates" ]
-      y rating_class_names
 
       rating_classes = rating_class_names.collect do |c|
         Ratings.module_eval(c)
