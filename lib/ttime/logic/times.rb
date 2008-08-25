@@ -21,6 +21,10 @@ module TTime
 
     class Hour
       class << self
+        def military_to_fraction(military)
+          (military / 100) + ((military % 100) / 60.0)
+        end
+
         def military_to_grid(hour, granularity = 15)
           (60 / granularity) * (hour / 100) + (hour % 100) / granularity
         end

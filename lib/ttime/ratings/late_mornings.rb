@@ -5,45 +5,46 @@ require 'ttime/gettext_settings'
 module TTime
   module Ratings
     class LateMornings < AbstractRating
+      include Logic
+
       settings_name :sleep_late
       default_settings :enabled => false
+
+      # Earliest time (in military units) for wakeup
+      TooEarly = 600
+
+      # Latest time (in military units) for useful sleeping
+      LateEnough = 1200
 
       def rate_schedule
         return 0 unless self.enabled
 
-        first_start = Array.new(8) 
+        first_start = Array.new(8)
+
         event_list.each do |ev|
           start_time = ev.start
-
-          first_start[ev.day] = start_time if first_start[ev.day] == nil or start_time < first_start[ev.day] 
+          first_start[ev.day] ||= start_time
+          first_start[ev.day] = [ first_start[ev.day], start_time ].min
         end
-        rating=0
-        non_nil_day_count=0
+
+        first_start.reject! { |x| x.nil? }
+
+        return 0 if first_start.empty?
+
+        rating = 0
+
         first_start.each do |hour|
-          non_nil_day_count+=1
           if not hour.nil?
-            hour -= 600  #FIXME: 6:00 is insufferable, should it be constant?
-            if hour<0
-              hour=0
-            end
-            
-            if hour> 600 # FIXME after noon it's all the same. should this also be made an option
-              hour = 600
-            end
-            puts "hour computed #{hour}"
-            hour = (hour / 100)*100 + ((hour % 100) * 100 / 60)
-            puts "hour valued #{hour}"
-            rating += hour / 60 
-            puts "hour rated #{hour / 60}"
+            hour = TooEarly if hour < TooEarly
+            hour = LateEnough if hour > LateEnough
+
+            time_to_wake = Hour::military_to_fraction(hour - TooEarly)
+
+            rating += time_to_wake
           end
         end
 
-        if non_nil_day_count !=0
-            rating /= non_nil_day_count
-        end
-
-        puts " #{rating} "
-        rating
+        rating / first_start.size.to_f
       end
 
       def name
