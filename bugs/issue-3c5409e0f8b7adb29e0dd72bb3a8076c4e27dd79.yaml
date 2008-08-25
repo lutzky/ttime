@@ -8,7 +8,7 @@ desc: |-
    * Cannot fit within day-of-week constraints
 type: :feature
 component: ttime
-release: "0.9"
+release: 
 reporter: Ohad Lutzky <ohad@lutzky.net>
 status: :unstarted
 disposition: 
@@ -21,3 +21,8 @@ log_events:
   - Ohad Lutzky <ohad@lutzky.net>
   - created
   - ""
+- - 2008-08-25 20:34:32.212755 Z
+  - Ohad Lutzky <ohad@lutzky.net>
+  - unassigned from release 0.9
+  - Unassigned due to current inclarity of a proper implementation
+git_branch: 
