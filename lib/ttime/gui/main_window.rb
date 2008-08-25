@@ -42,6 +42,15 @@ module TTime
 
     DefaultEventDataMembers = [ :course_name, :group_number, :place ]
 
+    AvailableCoursesColumns = [ 
+      [:name, String],
+      [:number, String],
+      [:course, Logic::Course],
+      [:visible, TrueClass],
+    ]
+
+    AvailableCoursesColTypes = AvailableCoursesColumns.map { |x| x[1] }
+
     class << self
       def find_data_file filename
         my_path = Pathname.new($0).dirname
@@ -340,36 +349,36 @@ module TTime
 
       private
 
-      def matches_search?(iter)
+      def update_search_matches
         text = @glade["search_box"].text
-        ret=true
+        log.debug { "Starting search for \"%s\"" % text }
 
-        if iter.has_child?
-          child = iter.first_child
-          return true if matches_search?(child)
-          while child.next!
-            return true if matches_search?(child)
-          end
-          return false
-        end
+        @tree_available_courses.each do |model, path, iter|
+          iter[3] = false
+          matches = false
 
-
-        begin
+          begin
           if text == ''
-            ret=true
+            matches = true
           elsif iter[1] == ''
-            ret=true
+            matches = true
           elsif text =~ /^[0-9]/ # Key is numeric
-            ret = (iter[1] =~ /^#{text}/)
+            matches = (iter[1] =~ /^#{text}/)
           elsif @nicknames.beautify[iter[0]] =~ /#{text}/
-            ret=true
+            matches = true
           else
-            ret = (iter[0] =~ /#{text}/)
+            matches = (iter[0] =~ /#{text}/)
           end
-        rescue
-          ret = true
+          rescue
+            matches = true
+          end
+
+          if matches
+            iter[3] = true
+            iter.parent[3] = true unless iter.parent.nil?
+          end
         end
-        return ret
+        log.debug "Search complete"
       end
 
       def save_settings(settings_file = nil)
@@ -696,8 +705,8 @@ module TTime
       def load_data(force = false)
         @selected_courses = []
 
-        @tree_available_courses = Gtk::TreeStore.new String, String,
-          Logic::Course
+        @tree_available_courses = Gtk::TreeStore.new *AvailableCoursesColTypes
+
         @tree_available_search = Gtk::TreeModelFilter.new @tree_available_courses
         @list_selected_courses = Gtk::ListStore.new String, String,
           Logic::Course, String
@@ -730,12 +739,14 @@ module TTime
 
             iter = @tree_available_courses.append(nil)
             iter[0] = faculty.name
+            iter[3] = true
 
             faculty.courses.each do |course|
               child = @tree_available_courses.append(iter)
               child[0] = course.name
               child[1] = course.number
               child[2] = course
+              child[3] = true
             end
           end
 
@@ -759,18 +770,17 @@ module TTime
           end
         end
 
-
-
-        @tree_available_search.set_visible_func do |model, iter|
-          matches_search? iter
-        end
+        @tree_available_search.set_visible_column 3
 
         @glade["search_box"].signal_connect("activate") do |widget|
-          @glade["treeview_available_courses"].expand_all
-          @tree_available_search.refilter
-          @glade["treeview_available_courses"].expand_all
+          log.debug "Updating search matches"
+          update_search_matches
+          log.debug "Done searching"
+          unless @glade["search_box"].text.empty?
+            log.debug "Expanding available courses treeview"
+            @glade["treeview_available_courses"].expand_all
+          end
         end
-
 
         selected_courses_view = @glade["treeview_selected_courses"]
         selected_courses_view.model = @list_selected_courses

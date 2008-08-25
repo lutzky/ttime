@@ -15,8 +15,8 @@ type: :task
 component: ttime
 release: 
 reporter: Ohad Lutzky <ohad@lutzky.net>
-status: :unstarted
-disposition: 
+status: :closed
+disposition: :wontfix
 creation_time: 2008-07-25 16:22:03.141453 Z
 references: []
 
@@ -26,3 +26,8 @@ log_events:
   - Ohad Lutzky <ohad@lutzky.net>
   - created
   - ""
+- - 2008-08-25 21:30:11.241708 Z
+  - Ohad Lutzky <ohad@lutzky.net>
+  - closed with disposition wontfix
+  - This seems to be a bug in ruby-gnome2
+git_branch: 
