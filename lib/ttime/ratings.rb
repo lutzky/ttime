@@ -1,6 +1,7 @@
 require 'pp'
 require 'pathname'
 require 'ttime/gettext_settings'
+require 'ttime/logging'
 require 'set'
 require 'yaml'
 
@@ -123,7 +124,7 @@ module TTime
           rating_name = File.basename(rating)
           unless already_loaded_ratings.include? rating_name
             already_loaded_ratings << rating_name
-            STDERR.puts "RATINGS: Loaded rating %p" % rating_name if $VERBOSE
+            log.info "Loading rating #{rating}"
             require rating
           end
         end

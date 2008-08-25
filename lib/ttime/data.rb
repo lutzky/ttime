@@ -5,8 +5,6 @@ require 'ttime/parse/repy'
 require 'ttime/gettext_settings.rb'
 require 'ttime/logging'
 
-include TTime::Logging
-
 #require 'yaml'
 
 

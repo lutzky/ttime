@@ -4,8 +4,6 @@ require 'ttime/gettext_settings'
 require 'ttime/logging'
 require 'set'
 
-include TTime::Logging
-
 module TTime
   module Constraints
     class AbstractConstraint
@@ -125,7 +123,7 @@ module TTime
           constraint_name = File.basename(constraint)
           unless already_loaded_constraints.include? constraint_name
             already_loaded_constraints << constraint_name
-            log.info { "Loading constraint #{constraint_name}" }
+            log.info { "Loading constraint #{constraint}" }
             require constraint
           end
         end

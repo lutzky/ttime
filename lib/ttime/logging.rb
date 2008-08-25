@@ -16,3 +16,5 @@ module TTime::Logging
     TTime::Logging::Log.instance
   end
 end
+
+include TTime::Logging
