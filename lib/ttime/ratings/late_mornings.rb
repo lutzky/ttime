@@ -44,6 +44,7 @@ module TTime
           end
         end
 
+        log.debug { "Rating as %p" % [ rating / first_start.size.to_f ] }
         rating / first_start.size.to_f
       end
 

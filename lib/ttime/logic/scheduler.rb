@@ -27,11 +27,13 @@ module TTime
   module Logic
     class Schedule
       attr_reader :groups
+      attr_accessor :ratings
       attr_accessor :score
 
       def initialize(course_groups_arr)
         @groups = []
-        @rating = 0
+        @score = 0
+        @ratings = {}
 
         course_groups_arr.each do |course|
           @groups.concat course
@@ -55,6 +57,7 @@ module TTime
       attr_reader :ok_schedules
 
       REPORT_TIME = 0.5
+      MaxScore = 10
 
       def initialize(courses,constraints,ratings,&status_report_proc)
         @courses = courses
@@ -128,8 +131,27 @@ module TTime
           sched.score = 0
         end
         @ratings.each do |r|
+          log.debug { "Rating with %p" % r }
+          min, max = nil, nil
           @ok_schedules.each do |sched|
-            sched.score+=r.rating(sched.groups)
+            rating = r.rating(sched.groups)
+            sched.ratings[r.name.to_sym] = rating
+            min ||= rating
+            max ||= rating
+            min = [ rating, min ].min
+            max = [ rating, max ].max
+          end
+          log.debug { "Range given is %p" % [ min..max ] }
+          @ok_schedules.each do |sched|
+            orig_rating = sched.ratings[r.name.to_sym]
+            if min != max
+              normalized = MaxScore * ((orig_rating - min) / (max - min).to_f)
+            else
+              normalized = 0
+            end
+            weighted = normalized * r.weight
+            sched.ratings[r.name.to_sym] = weighted
+            sched.score += weighted
           end
         end
       end

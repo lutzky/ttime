@@ -83,7 +83,7 @@ module TTime
 
         @schedule = schedule
 
-        rate_schedule() * weight()
+        rate_schedule
       end
 
       # Is this constraint currently enabled?

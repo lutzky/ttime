@@ -601,6 +601,9 @@ module TTime
         #get current schedual to draw
         schedule = @scheduler.ok_schedules[@current_schedule]
 
+        log.info { "Score for current schedule: %p (%p)" % \
+          [ schedule.score, schedule.ratings ] }
+
         #clear the calendar
         @calendar.clear_events
 
