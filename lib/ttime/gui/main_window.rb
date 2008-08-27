@@ -499,9 +499,10 @@ module TTime
         notebook.append_page v, Gtk::Label.new(_("Schedule"))
 
         @calendar.add_click_handler do |params|
-          if params[:data]
-            set_calendar_info params[:data][:event]
-          end
+          event = params[:data] ? params[:data][:event] : nil
+          schedule = @scheduler ?
+            @scheduler.ok_schedules[@current_schedule] : nil
+          set_calendar_info event, schedule
         end
 
         @calendar.add_rightclick_handler do |params|
@@ -563,7 +564,7 @@ module TTime
       end
 
       # Update @calendar_info to display info about the given event
-      def set_calendar_info(event)
+      def set_calendar_info(event = nil, schedule = nil)
         buffer = @calendar_info.buffer
 
         buffer.text = ''
@@ -571,11 +572,29 @@ module TTime
 
         tag = buffer.create_tag(nil, { :font => 'Sans Bold 14' })
 
-        buffer.insert(iter, "#{event.group.name}\n", tag)
+        if event
+          buffer.insert(iter, "#{event.group.name}\n", tag)
 
-        add_detail_to_buffer(buffer, iter, "קבוצה", event.group.number)
-        add_detail_to_buffer(buffer, iter, "מקום", event.place)
-        add_detail_to_buffer(buffer, iter, "מרצה", event.group.lecturer)
+          add_detail_to_buffer(buffer, iter, "קבוצה", event.group.number)
+          add_detail_to_buffer(buffer, iter, "מקום", event.place)
+          add_detail_to_buffer(buffer, iter, "מרצה", event.group.lecturer)
+
+          buffer.insert(iter, "\n")
+        end
+
+        if schedule
+          buffer.insert(iter, _("Rating details for this schedule:"), tag)
+          buffer.insert(iter, "\n")
+
+          schedule.ratings.each do |rater, score|
+            add_detail_to_buffer buffer, iter, _("\"%s\" rating") % rater, \
+              "%.2f" % score
+          end
+          add_detail_to_buffer buffer, iter, _("Overall score"), \
+            "%.2f" % schedule.score
+
+          buffer.insert(iter, "\n")
+        end
       end
 
       def add_detail_to_buffer(buffer, iter, title, detail)
@@ -613,6 +632,7 @@ module TTime
 
         @calendar.redraw
 
+        set_calendar_info nil, schedule
       end
 
       def set_course_info(course)
