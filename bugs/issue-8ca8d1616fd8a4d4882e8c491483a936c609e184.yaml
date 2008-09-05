@@ -7,8 +7,8 @@ type: :feature
 component: ttime
 release: "0.9"
 reporter: Ohad Lutzky <ohad@lutzky.net>
-status: :in_progress
-disposition: 
+status: :closed
+disposition: :fixed
 creation_time: 2008-08-23 08:40:26.729560 Z
 references: []
 
@@ -25,5 +25,9 @@ log_events:
 - - 2008-08-25 20:34:01.039420 Z
   - Ohad Lutzky <ohad@lutzky.net>
   - assigned to release 0.9 from unassigned
+  - ""
+- - 2008-09-05 13:25:40.722501 Z
+  - Ohad Lutzky <ohad@rabbit>
+  - closed with disposition fixed
   - ""
 git_branch: rating
