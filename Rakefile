@@ -79,7 +79,7 @@ WebsiteSSHBasePath = "lutzky.net:public_html/ttime/"
 
 desc "Upload documentation and ditz pages"
 task :upload_html => [ :doc, :ditz_html ] do
-  `scp -r ditz doc #{WebsiteSSHBasePath}`
+  `rsync -r ditz doc #{WebsiteSSHBasePath}`
 end
 
 desc "Find all FIXME comments"
