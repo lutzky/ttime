@@ -857,6 +857,19 @@ module TTime
             Gtk::Label.new(c.name)
         end
 
+        priorities = Gtk::Table.new @ratings.length, 2
+        ratings_notebook.append_page priorities, Gtk::Label.new(_("Priorities"))
+
+        @ratings.each_with_index do |c,i|
+          scale = Gtk::HScale.new 1, 10, 1
+          scale.adjustment.value = c.weight
+          lbl = Gtk::Label.new(c.name)
+          lbl.justify = Gtk::JUSTIFY_LEFT
+          priorities.attach lbl, 0, 1, i, i+1, Gtk::FILL, Gtk::FILL, 5, 5
+          priorities.attach scale, 1, 2, i, i+1, \
+            Gtk::EXPAND | Gtk::FILL, Gtk::FILL, 5, 5
+        end
+
         ratings_notebook.tab_pos = 0
         ratings_notebook.border_width = 5
 
