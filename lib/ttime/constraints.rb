@@ -15,10 +15,12 @@ module TTime
       #     settings_name :my_constraint
       #     ...
       #   end
+      #
+      # Note: The default value is the class name, without module hierarchy.
       def AbstractConstraint.settings_name(settings_name = nil)
         @settings_name = settings_name.to_sym unless settings_name.nil?
         @default_settings ||= nil
-        return @settings_name
+        return @settings_name || self.name.split("::")[-1]
       end
 
       # Set default settings for this object. You probably want the form
