@@ -27,9 +27,13 @@ module TTime
   module Logic
     class Schedule
       attr_reader :groups
+      attr_accessor :ratings
+      attr_accessor :score
 
       def initialize(course_groups_arr)
         @groups = []
+        @score = 0
+        @ratings = {}
 
         course_groups_arr.each do |course|
           @groups.concat course
@@ -53,10 +57,12 @@ module TTime
       attr_reader :ok_schedules
 
       REPORT_TIME = 0.5
+      MaxScore = 10
 
-      def initialize(courses,constraints,&status_report_proc)
+      def initialize(courses,constraints,ratings,&status_report_proc)
         @courses = courses
         @constraints = constraints
+        @ratings = ratings
         @ok_schedules = []
 
         @status_report_proc = status_report_proc || proc {}
@@ -64,6 +70,7 @@ module TTime
         num_types_arr = []
 
         generate_ok_schedules
+        sort_schedules
       end
 
       def generate_ok_schedules
@@ -74,6 +81,14 @@ module TTime
           each_schedule_recusively(@courses,[]) do |groups|
             @ok_schedules << Schedule.new(groups)
           end
+        end
+      end
+
+      def sort_schedules
+        rate_schedules
+        catch(:cancel) do
+          @status_report_proc.call _("Sorting schedules")
+          @ok_schedules.sort! {|a,b| -(a.score <=> b.score)}
         end
       end
 
@@ -110,6 +125,37 @@ module TTime
                                              @ok_schedules.size)
         end
       end
+
+      def rate_schedules
+        @ok_schedules.each do |sched|
+          sched.score = 0
+        end
+        @ratings.each do |r|
+          log.debug { "Rating with %p" % r }
+          min, max = nil, nil
+          @ok_schedules.each do |sched|
+            rating = r.rating(sched.groups)
+            sched.ratings[r.name.to_sym] = rating
+            min ||= rating
+            max ||= rating
+            min = [ rating, min ].min
+            max = [ rating, max ].max
+          end
+          log.debug { "Range given is %p" % [ min..max ] }
+          @ok_schedules.each do |sched|
+            orig_rating = sched.ratings[r.name.to_sym]
+            if min != max
+              normalized = MaxScore * ((orig_rating - min) / (max - min).to_f)
+            else
+              normalized = 0
+            end
+            weighted = normalized * r.weight
+            sched.ratings[r.name.to_sym] = weighted
+            sched.score += weighted
+          end
+        end
+      end
+
     end
   end
 end

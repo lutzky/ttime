@@ -3,6 +3,7 @@ require 'singleton'
 
 require 'ttime/data'
 require 'ttime/constraints'
+require 'ttime/ratings'
 require 'ttime/settings'
 require 'ttime/logic/course'
 require 'ttime/logic/scheduler'
@@ -161,12 +162,14 @@ module TTime
         notebook = @glade["notebook"]
 
         @constraints = []
+        @ratings = []
 
         # Touch the instance so nicknames get loaded
         @nicknames = Logic::Nicknames.instance
 
         init_schedule_view
         init_constraints
+        init_ratings
 
         load_data
       end
@@ -215,6 +218,7 @@ module TTime
         Thread.new do
           @scheduler = Logic::Scheduler.new @selected_courses,
             @constraints,
+            @ratings,
             &progress_dialog.get_status_proc(:pulsating => true,
                                              :show_cancel_button => true)
 
@@ -504,9 +508,10 @@ module TTime
         notebook.append_page v, Gtk::Label.new(_("Schedule"))
 
         @calendar.add_click_handler do |params|
-          if params[:data]
-            set_calendar_info params[:data][:event]
-          end
+          event = params[:data] ? params[:data][:event] : nil
+          schedule = @scheduler ?
+            @scheduler.ok_schedules[@current_schedule] : nil
+          set_calendar_info event, schedule
         end
 
         @calendar.add_rightclick_handler do |params|
@@ -568,7 +573,7 @@ module TTime
       end
 
       # Update @calendar_info to display info about the given event
-      def set_calendar_info(event)
+      def set_calendar_info(event = nil, schedule = nil)
         buffer = @calendar_info.buffer
 
         buffer.text = ''
@@ -576,11 +581,29 @@ module TTime
 
         tag = buffer.create_tag(nil, { :font => 'Sans Bold 14' })
 
-        buffer.insert(iter, "#{event.group.name}\n", tag)
+        if event
+          buffer.insert(iter, "#{event.group.name}\n", tag)
 
-        add_detail_to_buffer(buffer, iter, "קבוצה", event.group.number)
-        add_detail_to_buffer(buffer, iter, "מקום", event.place)
-        add_detail_to_buffer(buffer, iter, "מרצה", event.group.lecturer)
+          add_detail_to_buffer(buffer, iter, "קבוצה", event.group.number)
+          add_detail_to_buffer(buffer, iter, "מקום", event.place)
+          add_detail_to_buffer(buffer, iter, "מרצה", event.group.lecturer)
+
+          buffer.insert(iter, "\n")
+        end
+
+        if schedule
+          buffer.insert(iter, _("Rating details for this schedule:"), tag)
+          buffer.insert(iter, "\n")
+
+          schedule.ratings.each do |rater, score|
+            add_detail_to_buffer buffer, iter, _("\"%s\" rating") % rater, \
+              "%.2f" % score
+          end
+          add_detail_to_buffer buffer, iter, _("Overall score"), \
+            "%.2f" % schedule.score
+
+          buffer.insert(iter, "\n")
+        end
       end
 
       def add_detail_to_buffer(buffer, iter, title, detail)
@@ -606,6 +629,9 @@ module TTime
         #get current schedual to draw
         schedule = @scheduler.ok_schedules[@current_schedule]
 
+        log.info { "Score for current schedule: %p (%p)" % \
+          [ schedule.score, schedule.ratings ] }
+
         #clear the calendar
         @calendar.clear_events
 
@@ -615,6 +641,7 @@ module TTime
 
         @calendar.redraw
 
+        set_calendar_info nil, schedule
       end
 
       def set_course_info(course)
@@ -826,6 +853,42 @@ module TTime
         notebook = @glade["notebook"]
         notebook.append_page constraints_notebook, 
           Gtk::Label.new(_("Constraints"))
+        notebook.show_all
+      end
+
+      def init_ratings
+        Ratings.initialize
+        @ratings = Ratings.get_ratings
+
+        ratings_notebook = Gtk::Notebook.new
+
+        @ratings.each do |c|
+          ratings_notebook.append_page c.preferences_panel,
+            Gtk::Label.new(c.name)
+        end
+
+        priorities = Gtk::Table.new @ratings.length, 2
+        ratings_notebook.append_page priorities, Gtk::Label.new(_("Priorities"))
+
+        @ratings.each_with_index do |c,i|
+          scale = Gtk::HScale.new 1, 10, 1
+          scale.adjustment.value = c.weight
+          scale.adjustment.signal_connect("value-changed") do |adj|
+            c.weight = adj.value
+          end
+          lbl = Gtk::Label.new(c.name)
+          lbl.justify = Gtk::JUSTIFY_LEFT
+          priorities.attach lbl, 0, 1, i, i+1, Gtk::FILL, Gtk::FILL, 5, 5
+          priorities.attach scale, 1, 2, i, i+1, \
+            Gtk::EXPAND | Gtk::FILL, Gtk::FILL, 5, 5
+        end
+
+        ratings_notebook.tab_pos = 0
+        ratings_notebook.border_width = 5
+
+        notebook = @glade["notebook"]
+        notebook.append_page ratings_notebook, 
+          Gtk::Label.new(_("Schedule ratings"))
         notebook.show_all
       end
 

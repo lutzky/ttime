@@ -3,8 +3,6 @@ require 'ttime/logic/faculty'
 require 'ttime/gettext_settings'
 require 'ttime/logging'
 
-include TTime::Logging
-
 $KCODE='u'
 require 'jcode'
 
