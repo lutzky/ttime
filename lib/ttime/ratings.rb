@@ -94,7 +94,13 @@ module TTime
       end
 
       def weight
-        5
+        Settings.instance[:weight] ||= {}
+        Settings.instance[:weight][self.class.settings_name] ||= 1
+      end
+
+      def weight= weight
+        Settings.instance[:weight] ||= {}
+        Settings.instance[:weight][self.class.settings_name] = weight
       end
 
       # Handles an update in the course list (if the constraint needs it)

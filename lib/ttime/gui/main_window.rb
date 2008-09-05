@@ -863,6 +863,9 @@ module TTime
         @ratings.each_with_index do |c,i|
           scale = Gtk::HScale.new 1, 10, 1
           scale.adjustment.value = c.weight
+          scale.adjustment.signal_connect("value-changed") do |adj|
+            c.weight = adj.value
+          end
           lbl = Gtk::Label.new(c.name)
           lbl.justify = Gtk::JUSTIFY_LEFT
           priorities.attach lbl, 0, 1, i, i+1, Gtk::FILL, Gtk::FILL, 5, 5

@@ -8,10 +8,6 @@ module TTime
       settings_name :minimal_running
       default_settings :enabled => false
 
-      def weight
-        1
-      end
-
       def rate_schedule
         return 0 unless self.enabled
 
