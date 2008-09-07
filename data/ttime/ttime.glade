@@ -51,6 +51,20 @@
                       </widget>
                     </child>
                     <child>
+                      <widget class="GtkImageMenuItem" id="pdf_export">
+                        <property name="visible">True</property>
+                        <property name="label" translatable="yes">Export _PDF...</property>
+                        <property name="use_underline">True</property>
+                        <signal name="activate" handler="export_pdf"/>
+                        <child internal-child="image">
+                          <widget class="GtkImage" id="menu-item-image10">
+                            <property name="visible">True</property>
+                            <property name="stock">gtk-print</property>
+                          </widget>
+                        </child>
+                      </widget>
+                    </child>
+                    <child>
                       <widget class="GtkSeparatorMenuItem" id="menuitem1">
                         <property name="visible">True</property>
                       </widget>
@@ -530,8 +544,8 @@
                     <child>
                       <widget class="GtkTextView" id="text_course_info">
                         <property name="visible">True</property>
-                        <property name="editable">False</property>
                         <property name="can_focus">True</property>
+                        <property name="editable">False</property>
                         <property name="cursor_visible">False</property>
                         <property name="accepts_tab">False</property>
                       </widget>

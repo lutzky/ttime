@@ -639,10 +639,47 @@ module TTime
           add_event_to_calendar ev
         end
 
-        @calendar.output_pdf("/home/ohad/sched.pdf")
         @calendar.redraw
 
         set_calendar_info nil, schedule
+      end
+
+      def export_pdf
+        unless scheduler_ready?
+          error_dialog(_("Please run \"Find Schedules\" first"))
+          return false
+        end
+
+        filter = Gtk::FileFilter.new
+        filter.name = _("PDF files")
+        filter.add_pattern "*.pdf"
+        fs = Gtk::FileChooserDialog.new(_("Export PDF"),
+                                        @glade["MainWindow"],
+                                        Gtk::FileChooser::ACTION_SAVE,
+                                        nil,
+                                        [Gtk::Stock::CANCEL,
+                                          Gtk::Dialog::RESPONSE_CANCEL],
+                                          [Gtk::Stock::SAVE,
+                                            Gtk::Dialog::RESPONSE_ACCEPT]
+                                       )
+        fs.add_filter filter
+
+        if fs.run == Gtk::Dialog::RESPONSE_ACCEPT
+          if fs.filename =~ /\.pdf$/
+            filename = fs.filename
+          else
+            filename = "#{fs.filename}.pdf"
+          end
+
+          schedule = @scheduler.ok_schedules[@current_schedule]
+          @calendar.clear_events
+          schedule.events.each do |ev|
+            add_event_to_calendar ev
+          end
+
+          @calendar.output_pdf(filename)
+        end
+        fs.destroy
       end
 
       def set_course_info(course)
