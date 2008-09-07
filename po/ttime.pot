@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ttime 0.x.x\n"
-"POT-Creation-Date: 2008-08-27 13:10+0300\n"
+"POT-Creation-Date: 2008-09-07 21:10+0300\n"
 "PO-Revision-Date: 2006-10-19 11:53+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37,121 +37,137 @@ msgstr ""
 msgid "Lecturer"
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:71 lib/ttime/gui/main_window.rb:93
+#: lib/ttime/gui/main_window.rb:80 lib/ttime/gui/main_window.rb:107
 msgid "YAML files"
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:74
+#: lib/ttime/gui/main_window.rb:83
 msgid "Load Settings"
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:96
+#: lib/ttime/gui/main_window.rb:110
 msgid "Save Settings"
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:203
+#: lib/ttime/gui/main_window.rb:217
 msgid "Please select some courses first."
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:219
+#: lib/ttime/gui/main_window.rb:233
 msgid ""
 "Sorry, but no schedules are possible with the selected courses and "
 "constraints."
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:243
+#: lib/ttime/gui/main_window.rb:257
 msgid "Are you sure you want to drop %s?"
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:447
+#: lib/ttime/gui/main_window.rb:466
 msgid " of %d"
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:474
+#: lib/ttime/gui/main_window.rb:493
 msgid "Show details"
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:499
+#: lib/ttime/gui/main_window.rb:518
 msgid "Schedule"
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:510
+#: lib/ttime/gui/main_window.rb:529
 msgid "Show all alternatives"
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:516
+#: lib/ttime/gui/main_window.rb:535
 msgid "Show alternatives to this event"
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:521
+#: lib/ttime/gui/main_window.rb:540
 msgid "Cancel this course"
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:586
+#: lib/ttime/gui/main_window.rb:605
 msgid "Rating details for this schedule:"
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:590
+#: lib/ttime/gui/main_window.rb:609
 msgid "\"%s\" rating"
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:592
+#: lib/ttime/gui/main_window.rb:612
 msgid "Overall score"
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:647
+#: lib/ttime/gui/main_window.rb:659
+msgid "Please run \"Find Schedules\" first"
+msgstr ""
+
+#: lib/ttime/gui/main_window.rb:664
+msgid "PDF files"
+msgstr ""
+
+#: lib/ttime/gui/main_window.rb:666
+msgid "Export PDF"
+msgstr ""
+
+#: lib/ttime/gui/main_window.rb:706
 msgid "WARNING: The courses marked with * have colliding test dates!"
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:658
+#: lib/ttime/gui/main_window.rb:717
 msgid "Lecturer in charge"
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:659
+#: lib/ttime/gui/main_window.rb:718
 msgid "Academic points"
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:660
+#: lib/ttime/gui/main_window.rb:719
 msgid "Moed A"
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:661
+#: lib/ttime/gui/main_window.rb:720
 msgid "Moed B"
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:671
+#: lib/ttime/gui/main_window.rb:730
 msgid "Group %d\n"
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:675
+#: lib/ttime/gui/main_window.rb:734
 msgid "Lecturer: "
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:689
+#: lib/ttime/gui/main_window.rb:748
 msgid "* No data for this group *\n"
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:750
+#: lib/ttime/gui/main_window.rb:809
 msgid "Populating available courses"
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:803
+#: lib/ttime/gui/main_window.rb:863
 msgid "Course Name"
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:803
+#: lib/ttime/gui/main_window.rb:863
 msgid "Course Number"
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:843
+#: lib/ttime/gui/main_window.rb:903
 msgid "Constraints"
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:863
+#: lib/ttime/gui/main_window.rb:919
+msgid "Priorities"
+msgstr ""
+
+#: lib/ttime/gui/main_window.rb:939
 msgid "Schedule ratings"
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:890
+#: lib/ttime/gui/main_window.rb:966
 msgid "No courses with tests are selected."
 msgstr ""
 
@@ -159,7 +175,7 @@ msgstr ""
 msgid "Progress"
 msgstr ""
 
-#: lib/ttime/gui/exam_schedule.rb:19 data/ttime/ttime.glade:233
+#: lib/ttime/gui/exam_schedule.rb:19 data/ttime/ttime.glade:260
 msgid "Exam Schedule"
 msgstr ""
 
@@ -222,13 +238,13 @@ msgid "Extra sleep"
 msgstr ""
 
 #: lib/ttime/ratings/late_mornings.rb:58
-#: lib/ttime/ratings/minimal_running.rb:41
+#: lib/ttime/ratings/minimal_running.rb:51
 #: lib/ttime/constraints/no_clashes.rb:42
 #: lib/ttime/constraints/no_running.rb:40
 msgid "Enable"
 msgstr ""
 
-#: lib/ttime/ratings/minimal_running.rb:25
+#: lib/ttime/ratings/minimal_running.rb:35
 msgid "Minimal running"
 msgstr ""
 
@@ -382,81 +398,89 @@ msgstr ""
 msgid "_Save Settings..."
 msgstr ""
 
-#: data/ttime/ttime.glade:61
+#: data/ttime/ttime.glade:56
+msgid "Export _PDF..."
+msgstr ""
+
+#: data/ttime/ttime.glade:75
 msgid "Auto _Update"
 msgstr ""
 
-#: data/ttime/ttime.glade:94
+#: data/ttime/ttime.glade:108
 msgid "_Schedules"
 msgstr ""
 
-#: data/ttime/ttime.glade:101
+#: data/ttime/ttime.glade:115
 msgid "E_xam Schedule"
 msgstr ""
 
-#: data/ttime/ttime.glade:114
+#: data/ttime/ttime.glade:128
 msgid "Find _schedules"
 msgstr ""
 
-#: data/ttime/ttime.glade:135 data/ttime/ttime.glade:301
+#: data/ttime/ttime.glade:149
+msgid "Show full _week"
+msgstr ""
+
+#: data/ttime/ttime.glade:162 data/ttime/ttime.glade:328
 msgid "Jump 10 back"
 msgstr ""
 
-#: data/ttime/ttime.glade:151
+#: data/ttime/ttime.glade:178
 msgid "_Previous"
 msgstr ""
 
-#: data/ttime/ttime.glade:167
+#: data/ttime/ttime.glade:194
 msgid "_Next"
 msgstr ""
 
-#: data/ttime/ttime.glade:183 data/ttime/ttime.glade:337
+#: data/ttime/ttime.glade:210 data/ttime/ttime.glade:364
 msgid "Jump 10 forward"
 msgstr ""
 
-#: data/ttime/ttime.glade:203
+#: data/ttime/ttime.glade:230
 msgid "_Help"
 msgstr ""
 
-#: data/ttime/ttime.glade:244
+#: data/ttime/ttime.glade:271
 msgid "Find Schedules"
 msgstr ""
 
-#: data/ttime/ttime.glade:273
+#: data/ttime/ttime.glade:300
 msgid " of 0"
 msgstr ""
 
-#: data/ttime/ttime.glade:313
+#: data/ttime/ttime.glade:340
 msgid "Previous"
 msgstr ""
 
-#: data/ttime/ttime.glade:325
+#: data/ttime/ttime.glade:352
 msgid "Next"
 msgstr ""
 
-#: data/ttime/ttime.glade:383
+#: data/ttime/ttime.glade:410
 msgid "Search "
 msgstr ""
 
-#: data/ttime/ttime.glade:446
+#: data/ttime/ttime.glade:473
 msgid "Available Courses"
 msgstr ""
 
-#: data/ttime/ttime.glade:505
+#: data/ttime/ttime.glade:532
 msgid "Selected Courses"
 msgstr ""
 
-#: data/ttime/ttime.glade:550
+#: data/ttime/ttime.glade:577
 msgid "Course List"
 msgstr ""
 
-#: data/ttime/ttime.glade:577
+#: data/ttime/ttime.glade:604
 msgid ""
 "Inspired by UDonkey and Marprog\n"
 "\n"
 "But we don't like C#"
 msgstr ""
 
-#: data/ttime/ttime.glade:581
+#: data/ttime/ttime.glade:608
 msgid "Git repository"
 msgstr ""
