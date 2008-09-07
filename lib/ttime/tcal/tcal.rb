@@ -429,7 +429,7 @@ module TCal
       cairo.fill()
 
       # Draw logo if selected
-      unless @logo.nil?
+      unless @logo.nil? or output_immediate
         cairo.translate 0,step_height
         cairo.render_rsvg_centered(width - step_width,height - step_height, @logo_handle)
         cairo.identity_matrix
@@ -488,12 +488,14 @@ module TCal
     end
 
     def draw_sched(pdf_filename = nil)
+      @use_pdf_measurements = !pdf_filename.nil?
+
       start_hours = @events.collect { |ev| ev.hour }
       start_hours << MAX_START_HOUR
       end_hours = @events.collect { |ev| ev.hour + ev.length }
       end_hours << MIN_END_HOUR
       busy_days = @events.collect { |ev| ev.day }
-      busy_days << MAX_START_DAY << MIN_END_DAY
+      busy_days << MAX_START_DAY << MIN_END_DAY unless @use_pdf_measurements
 
       @start_hour = start_hours.min
       @end_hour = end_hours.max
@@ -503,11 +505,9 @@ module TCal
       if pdf_filename
         surf = Cairo::PDFSurface.new(pdf_filename, PDF_Width, PDF_Height)
         @cairo = Cairo::Context.new(surf)
-        @use_pdf_measurements = true
         get_bg_image true
       else
         get_cairo
-        @use_pdf_measurements = false
         bg_grid = get_bg_image
         @cairo.set_source bg_grid
         @cairo.rectangle(0,0,width,height)
