@@ -144,6 +144,19 @@
                       </widget>
                     </child>
                     <child>
+                      <widget class="GtkCheckMenuItem" id="full_week">
+                        <property name="visible">True</property>
+                        <property name="label" translatable="yes">Show full _week</property>
+                        <property name="use_underline">True</property>
+                        <signal name="toggled" handler="on_full_week_toggled"/>
+                      </widget>
+                    </child>
+                    <child>
+                      <widget class="GtkSeparatorMenuItem" id="menuitem3">
+                        <property name="visible">True</property>
+                      </widget>
+                    </child>
+                    <child>
                       <widget class="GtkImageMenuItem" id="jump_back">
                         <property name="visible">True</property>
                         <property name="label" translatable="yes">Jump 10 back</property>

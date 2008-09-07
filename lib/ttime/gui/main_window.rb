@@ -97,6 +97,11 @@ module TTime
         fs.destroy
       end
 
+      def on_full_week_toggled menu_item
+        Settings.instance[:show_full_week] = menu_item.active?
+        draw_current_schedule
+      end
+
       def on_save_settings_activate
         filter = Gtk::FileFilter.new
         filter.name = _("YAML files")
@@ -393,6 +398,11 @@ module TTime
 
       def load_settings(settings_file = nil)
         Settings.instance.load_settings(settings_file)
+
+        if Settings.instance[:show_full_week].nil?
+          Settings.instance[:show_full_week] = true
+        end
+        @glade["full_week"].active = Settings.instance[:show_full_week]
 
         @list_selected_courses.clear
         @selected_courses.clear

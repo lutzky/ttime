@@ -495,7 +495,9 @@ module TCal
       end_hours = @events.collect { |ev| ev.hour + ev.length }
       end_hours << MIN_END_HOUR
       busy_days = @events.collect { |ev| ev.day }
-      busy_days << MAX_START_DAY << MIN_END_DAY unless @use_pdf_measurements
+      if TTime::Settings.instance[:show_full_week]
+        busy_days << MAX_START_DAY << MIN_END_DAY
+      end
 
       @start_hour = start_hours.min
       @end_hour = end_hours.max
