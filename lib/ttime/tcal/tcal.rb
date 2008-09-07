@@ -18,6 +18,10 @@ RIGHT_BUTTON = 3
 
 module TCal
   class Calendar < Gtk::DrawingArea
+    # Units for landscape A4. TODO: Not sure why the 4, 2 factors are required
+    PDF_Width = 210 * 4
+    PDF_Height = 297 * 2
+
     # Initialize a calendar. Possible parameters (within +params+) are:
     #
     # [<tt>:logo</tt>] An SVG filename to use as the background logo
@@ -124,6 +128,10 @@ module TCal
     def redraw
       # Send an invalidation event so the schedule gets redrawn
       self.window.invalidate(Gdk::Rectangle.new(0, 0, width, height),false)
+    end
+
+    def output_pdf(filename)
+      draw_sched(filename)
     end
 
     protected
@@ -347,14 +355,20 @@ module TCal
       return sprintf("%d:%02d",hours,mins)
     end
 
-    # Current window width
     def width
-      self.window.size[0]
+      if @use_pdf_measurements
+        return PDF_Width
+      else
+        return self.window.size[0]
+      end
     end
 
-    # Current window height
     def height
-      self.window.size[1]
+      if @use_pdf_measurements
+        return PDF_Height
+      else
+        self.window.size[1]
+      end
     end
 
     def step_width
@@ -377,7 +391,7 @@ module TCal
       [ @start_day, @end_day, @start_hour, @end_hour ]
     end
 
-    def get_bg_image
+    def get_bg_image output_immediate = false
       unless @bg_image.nil? or                                  \
         @bg_image_schedule_boundaries != schedule_boundaries or \
         width != @bg_image_width or height != @bg_image_height
@@ -391,9 +405,13 @@ module TCal
 
       @bg_image_schedule_boundaries = schedule_boundaries
 
-      # @bg_image itself will be generated from surf
-      surf = Cairo::ImageSurface.new(Cairo::FORMAT_ARGB32, width,height)
-      cairo = Cairo::Context.new(surf)
+      if output_immediate
+        cairo = @cairo
+      else
+        # @bg_image itself will be generated from surf
+        surf = Cairo::ImageSurface.new(Cairo::FORMAT_ARGB32, width,height)
+        cairo = Cairo::Context.new(surf)
+      end
 
       cairo.set_line_join(Cairo::LINE_JOIN_ROUND)
       cairo.set_line_cap(Cairo::LINE_CAP_ROUND)
@@ -463,11 +481,13 @@ module TCal
         cairo.pango_render_text((step_width)-6, font, hour_text)
       end
 
-      @bg_image = Cairo::SurfacePattern.new(surf)
-      return @bg_image
+      unless output_immediate
+        @bg_image = Cairo::SurfacePattern.new(surf)
+        return @bg_image
+      end
     end
 
-    def draw_sched
+    def draw_sched(pdf_filename = nil)
       start_hours = @events.collect { |ev| ev.hour }
       start_hours << MAX_START_HOUR
       end_hours = @events.collect { |ev| ev.hour + ev.length }
@@ -480,18 +500,28 @@ module TCal
       @start_day = busy_days.min
       @end_day = busy_days.max
 
-      get_cairo
-
-      # draw the grid background
-      bg_grid = get_bg_image
-      @cairo.set_source(bg_grid)
-      @cairo.rectangle(0,0,width,height)
-      @cairo.fill
+      if pdf_filename
+        surf = Cairo::PDFSurface.new(pdf_filename, PDF_Width, PDF_Height)
+        @cairo = Cairo::Context.new(surf)
+        @use_pdf_measurements = true
+        get_bg_image true
+      else
+        get_cairo
+        @use_pdf_measurements = false
+        bg_grid = get_bg_image
+        @cairo.set_source bg_grid
+        @cairo.rectangle(0,0,width,height)
+        @cairo.fill
+      end
 
       compute_layers unless @computed_layers
 
       @events.each do |i|
         draw_item i
+      end
+
+      if pdf_filename
+        surf.finish
       end
     end
   end

@@ -639,6 +639,7 @@ module TTime
           add_event_to_calendar ev
         end
 
+        @calendar.output_pdf("/home/ohad/sched.pdf")
         @calendar.redraw
 
         set_calendar_info nil, schedule
