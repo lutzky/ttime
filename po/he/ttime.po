@@ -435,11 +435,11 @@ msgstr "קפוץ 10 אחורה"
 
 #: data/ttime/ttime.glade:178
 msgid "_Previous"
-msgstr "_קודמת"
+msgstr "_הקודמת"
 
 #: data/ttime/ttime.glade:194
 msgid "_Next"
-msgstr "_באה"
+msgstr "_הבאה"
 
 #: data/ttime/ttime.glade:210 data/ttime/ttime.glade:364
 msgid "Jump 10 forward"
@@ -459,11 +459,11 @@ msgstr " מתוך 0"
 
 #: data/ttime/ttime.glade:340
 msgid "Previous"
-msgstr "קודמת"
+msgstr "הקודמת"
 
 #: data/ttime/ttime.glade:352
 msgid "Next"
-msgstr "באה"
+msgstr "הבאה"
 
 #: data/ttime/ttime.glade:410
 msgid "Search "

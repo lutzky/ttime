@@ -206,6 +206,7 @@ module TTime
 
       def on_about_activate
         @glade["AboutDialog"].version = TTime::Version
+        @glade["AboutDialog"].name = _("TTime")
         @glade["AboutDialog"].run
       end
 
