@@ -10,6 +10,7 @@ require 'ttime/logic/scheduler'
 require 'ttime/logic/nicknames'
 require 'ttime/gui/progress_dialog'
 require 'ttime/gui/exam_schedule'
+require 'ttime/gui/gtk_queue'
 require 'ttime/tcal/tcal'
 require 'ttime/gettext_settings'
 
@@ -300,10 +301,12 @@ module TTime
       end
 
       def on_change_current_schedule
-        self.current_schedule =
-          @glade["spin_current_schedule"].adjustment.value - 1
-        @glade["notebook"].page = 1
-        draw_current_schedule
+        Gtk.queue do
+          self.current_schedule =
+            @glade["spin_current_schedule"].adjustment.value - 1
+          @glade["notebook"].page = 1
+          draw_current_schedule
+        end
       end
 
       def current_schedule=(n)
@@ -452,8 +455,10 @@ module TTime
       end
 
       def set_num_schedules(n)
-        @glade["spin_current_schedule"].adjustment.upper = n
-        @glade["lbl_num_schedules"].text = sprintf(_(" of %d"), n)
+        Gtk.queue do
+          @glade["spin_current_schedule"].adjustment.upper = n
+          @glade["lbl_num_schedules"].text = sprintf(_(" of %d"), n)
+        end
       end
 
       def init_schedule_view
@@ -639,9 +644,10 @@ module TTime
           add_event_to_calendar ev
         end
 
-        @calendar.redraw
-
-        set_calendar_info nil, schedule
+        Gtk.queue do
+          @calendar.redraw
+	  set_calendar_info nil, schedule
+        end
       end
 
       def set_course_info(course)
