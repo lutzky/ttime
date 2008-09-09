@@ -1,0 +1,19 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Change language from within TTime
+desc: This feature is important for Windows users
+type: :feature
+component: ttime
+release: 
+reporter: Ohad Lutzky <ohad@lutzky.net>
+status: :unstarted
+disposition: 
+creation_time: 2008-09-09 10:23:32.456148 Z
+references: []
+
+id: f2bc201f64ded948d11d6cad9aa290655f55af2c
+log_events: 
+- - 2008-09-09 10:23:39.678527 Z
+  - Ohad Lutzky <ohad@lutzky.net>
+  - created
+  - Submitted by Tom Meiri
+git_branch: 
