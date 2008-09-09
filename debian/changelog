@@ -1,3 +1,14 @@
+ttime (0.9) unstable; urgency=low
+
+  * bugfix: Crash when clicking day title in schedule
+  * bugfix: Crash on "Display Exam Schedule" when no exams
+  * PDF Export
+  * Configurable details for schedule
+  * [de-]Select all for Group Constraints
+  * Rating system
+
+ -- Ohad Lutzky <ohad@lutzky.net>  Tue, 09 Sep 2008 12:28:49 +0300
+
 ttime (0.8.5) unstable; urgency=low
 
   * bugfix: File->Auto Update stopped working
