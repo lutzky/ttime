@@ -3,10 +3,10 @@ title: PDF Export
 desc: Export current schedule and test exam to PDF
 type: :feature
 component: ttime
-release: 
+release: "0.9"
 reporter: Ohad Lutzky <ohad@lutzky.net>
-status: :unstarted
-disposition: 
+status: :closed
+disposition: :fixed
 creation_time: 2008-08-12 15:09:51.203507 Z
 references: []
 
@@ -20,4 +20,12 @@ log_events:
   - Ohad Lutzky <ohad@lutzky.net>
   - unassigned from release 0.9
   - Looks like this feature is more troublesome than we'd like to think
+- - 2008-09-09 09:24:39.429955 Z
+  - Ohad Lutzky <ohad@lutzky.net>
+  - assigned to release 0.9 from unassigned
+  - ""
+- - 2008-09-09 09:25:13.119391 Z
+  - Ohad Lutzky <ohad@lutzky.net>
+  - closed with disposition fixed
+  - PDF Export does not currently work on Windows
 git_branch: 
