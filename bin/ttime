@@ -60,9 +60,13 @@ def run_gui
   log.debug { "Initializing GTK" }
   Gtk.init
   log.debug { "Initializing main window" }
-  a = TTime::GUI::MainWindow.instance
+
+  Gtk.init_add do
+    a = TTime::GUI::MainWindow.instance
+  end
+
   log.debug { "Entering mainloop" }
-  Gtk.main
+  Gtk.main_with_queue
 end
 
 def output_xml
