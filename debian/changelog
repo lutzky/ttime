@@ -1,3 +1,12 @@
+ttime (0.91) unstable; urgency=low
+
+  * bugfix: Fix for REPY parsing
+  * bugfix: Fix PDF Export for Windows
+  * bugfix: minimal_running: Fix for events in same building, different rooms
+  * Margins for PDF files
+
+ -- Ohad Lutzky <ohad@lutzky.net>  Sun, 14 Sep 2008 23:37:56 +0300
+
 ttime (0.9) unstable; urgency=low
 
   * bugfix: Crash when clicking day title in schedule
