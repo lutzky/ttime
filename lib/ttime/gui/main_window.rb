@@ -229,7 +229,9 @@ module TTime
             &progress_dialog.get_status_proc(:pulsating => true,
                                              :show_cancel_button => true)
 
-          progress_dialog.dispose
+          Gtk.queue do
+            progress_dialog.dispose
+          end
 
           if @scheduler.ok_schedules.empty?
             error_dialog _("Sorry, but no schedules are possible with the " \
@@ -318,11 +320,13 @@ module TTime
       def current_schedule=(n)
         @current_schedule = n
 
-        spinner = @glade["spin_current_schedule"]
+        Gtk.queue do
+          spinner = @glade["spin_current_schedule"]
 
-        spinner.sensitive = true
-        spinner.adjustment.lower = 1
-        spinner.adjustment.value = n + 1
+          spinner.sensitive = true
+          spinner.adjustment.lower = 1
+          spinner.adjustment.value = @current_schedule + 1
+        end
       end
 
       attr_reader :current_schedule
@@ -406,17 +410,19 @@ module TTime
         if Settings.instance[:show_full_week].nil?
           Settings.instance[:show_full_week] = true
         end
-        @glade["full_week"].active = Settings.instance[:show_full_week]
+        Gtk.queue do
+          @glade["full_week"].active = Settings.instance[:show_full_week]
 
-        @list_selected_courses.clear
-        @selected_courses.clear
+          @list_selected_courses.clear
+          @selected_courses.clear
 
-        Settings.instance.selected_courses.each do |course_num|
-          begin
-            add_selected_course @data.find_course_by_num(course_num)
-          rescue NoSuchCourse
-            error_dialog "There was a course with number \"#{course_num}\"" \
+          Settings.instance.selected_courses.each do |course_num|
+            begin
+              add_selected_course @data.find_course_by_num(course_num)
+            rescue NoSuchCourse
+              error_dialog "There was a course with number \"#{course_num}\"" \
               " in your preferences, but it doesn't seem to exist now."
+            end
           end
         end
       end
@@ -801,21 +807,21 @@ module TTime
         Thread.new do
           @data = TTime::Data.new(force, &progress_dialog.get_status_proc)
 
-          progress_dialog.dispose
-
-          update_available_courses_tree
-
-          load_settings
+          Gtk.queue do
+            progress_dialog.dispose
+            update_available_courses_tree
+            load_settings
+          end
         end
       end
 
       def update_available_courses_tree
-        @tree_available_courses.clear
+        Gtk.queue do
+          @tree_available_courses.clear
 
-        progress_dialog = ProgressDialog.new @glade["MainWindow"]
-        progress_dialog.text = _('Populating available courses')
+          progress_dialog = ProgressDialog.new @glade["MainWindow"]
+          progress_dialog.text = _('Populating available courses')
 
-        Thread.new do
           @data.each_with_index do |faculty,i|
             progress_dialog.fraction = i.to_f / @data.size.to_f
 
@@ -948,11 +954,13 @@ module TTime
       end
 
       def error_dialog(msg)
-        dialog = Gtk::MessageDialog.new @glade["MainWindow"],
-          Gtk::Dialog::MODAL | Gtk::Dialog::DESTROY_WITH_PARENT,
-          Gtk::MessageDialog::ERROR, Gtk::MessageDialog::BUTTONS_OK, msg
-        dialog.show
-        dialog.signal_connect('response') { dialog.destroy }
+        Gtk.queue do
+          dialog = Gtk::MessageDialog.new @glade["MainWindow"],
+            Gtk::Dialog::MODAL | Gtk::Dialog::DESTROY_WITH_PARENT,
+            Gtk::MessageDialog::ERROR, Gtk::MessageDialog::BUTTONS_OK, msg
+          dialog.show
+          dialog.signal_connect('response') { dialog.destroy }
+        end
       end
 
       def are_you_sure_dialog(msg)

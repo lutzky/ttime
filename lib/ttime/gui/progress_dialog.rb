@@ -1,4 +1,5 @@
 require 'ttime/gettext_settings'
+require 'ttime/gui/gtk_queue'
 require 'gtk2'
 
 module TTime
@@ -25,23 +26,29 @@ module TTime
 
       def get_status_proc(args = {})
         if args[:show_cancel_button]
-          btn_cancel = Gtk::Button.new(Gtk::Stock::STOP)
-          btn_cancel.signal_connect('clicked') { @canceled = true }
-          action_area.pack_end btn_cancel, false, false
-          show_all
+          Gtk.queue do
+            btn_cancel = Gtk::Button.new(Gtk::Stock::STOP)
+            btn_cancel.signal_connect('clicked') { @canceled = true }
+            action_area.pack_end btn_cancel, false, false
+            show_all
+          end
         end
 
         if args[:pulsating]
           Proc.new do |text|
             throw :cancel if @canceled
-            self.text = text
-            self.pulse
+            Gtk.queue do
+              self.text = text
+              self.pulse
+            end
           end
         else
           Proc.new do |text,fraction|
             throw :cancel if @canceled
-            self.text = text
-            self.fraction = fraction
+            Gtk.queue do
+              self.text = text
+              self.fraction = fraction
+            end
           end
         end
       end
@@ -67,13 +74,15 @@ module TTime
       end
 
       def dispose
-        begin
-          hide
-        rescue
-        end
-        begin
-          destroy
-        rescue
+        Gtk.queue do
+          begin
+            hide
+          rescue
+          end
+          begin
+            destroy
+          rescue
+          end
         end
       end
     end
