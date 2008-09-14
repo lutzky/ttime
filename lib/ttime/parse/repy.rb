@@ -255,7 +255,7 @@ module TTime
                 add_event_to_group(grp, m[1]) if m
               end
             else
-              (property,value) = /\| +(.*?) +\|/.match(line)[1].split(/:/)
+              (property,value) = /\| +(.*?) *\|/.match(line)[1].split(/:/)
               set_from_heb(grp, property, value)
             end
           end
