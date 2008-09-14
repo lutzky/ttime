@@ -523,6 +523,7 @@ module TCal
       end
 
       if pdf_filename
+        @cairo.show_page
         surf.finish
       end
     end
