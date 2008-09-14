@@ -1,0 +1,23 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Fix PDF Export for Windows
+desc: ""
+type: :bugfix
+component: ttime
+release: "0.91"
+reporter: Ohad Lutzky <ohad@lutzky.net>
+status: :closed
+disposition: :fixed
+creation_time: 2008-09-14 10:08:56.280868 Z
+references: []
+
+id: 8de5f4d2a91d5b0c4bec7ca27e3d3e29bf3c9e7c
+log_events: 
+- - 2008-09-14 10:08:57.642348 Z
+  - Ohad Lutzky <ohad@lutzky.net>
+  - created
+  - ""
+- - 2008-09-14 10:09:42.955378 Z
+  - Ohad Lutzky <ohad@lutzky.net>
+  - closed with disposition fixed
+  - ""
+git_branch: 

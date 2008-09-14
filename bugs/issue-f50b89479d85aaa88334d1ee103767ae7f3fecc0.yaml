@@ -1,0 +1,23 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Margins for PDF files
+desc: ""
+type: :task
+component: ttime
+release: "0.91"
+reporter: Ohad Lutzky <ohad@lutzky.net>
+status: :closed
+disposition: :fixed
+creation_time: 2008-09-14 10:09:08.985583 Z
+references: []
+
+id: f50b89479d85aaa88334d1ee103767ae7f3fecc0
+log_events: 
+- - 2008-09-14 10:09:09.724518 Z
+  - Ohad Lutzky <ohad@lutzky.net>
+  - created
+  - ""
+- - 2008-09-14 10:09:53.696034 Z
+  - Ohad Lutzky <ohad@lutzky.net>
+  - closed with disposition fixed
+  - ""
+git_branch: 

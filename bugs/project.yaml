@@ -44,3 +44,12 @@ releases:
     - Ohad Lutzky <ohad@lutzky.net>
     - released
     - ""
+- !ditz.rubyforge.org,2008-03-06/release 
+  name: "0.91"
+  status: :unreleased
+  release_time: 
+  log_events: 
+  - - 2008-09-14 10:08:38.129058 Z
+    - Ohad Lutzky <ohad@lutzky.net>
+    - created
+    - Bugfix release
