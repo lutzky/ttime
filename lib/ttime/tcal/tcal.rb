@@ -18,9 +18,13 @@ RIGHT_BUTTON = 3
 
 module TCal
   class Calendar < Gtk::DrawingArea
-    # Units for landscape A4. TODO: Not sure why the 4, 2 factors are required
-    PDF_Width = 210 * 4
-    PDF_Height = 297 * 2
+    # Units for landscape A4, in PS points (Adobe's A4Rotated)
+    PDF_Width = 842
+    PDF_Height = 595
+
+    # Margin in points (1 inch / 72)
+    Margin_TopBottom = 72
+    Margin_LeftRight = 72
 
     # Initialize a calendar. Possible parameters (within +params+) are:
     #
@@ -357,7 +361,7 @@ module TCal
 
     def width
       if @use_pdf_measurements
-        return PDF_Width
+        return PDF_Width - 2 * Margin_LeftRight
       else
         return self.window.size[0]
       end
@@ -365,7 +369,7 @@ module TCal
 
     def height
       if @use_pdf_measurements
-        return PDF_Height
+        return PDF_Height - 2 * Margin_TopBottom
       else
         self.window.size[1]
       end
@@ -506,6 +510,7 @@ module TCal
 
       if pdf_filename
         surf = Cairo::PDFSurface.new(pdf_filename, PDF_Width, PDF_Height)
+        surf.set_device_offset Margin_LeftRight, Margin_TopBottom
         @cairo = Cairo::Context.new(surf)
         get_bg_image true
       else
