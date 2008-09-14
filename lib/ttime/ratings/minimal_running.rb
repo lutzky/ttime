@@ -28,6 +28,9 @@ module TTime
           return 1 # No data, could be different places, don't know how bad
         elsif ev.place == follower.place
           return 0 # Exact same place
+        else
+          # Same building, different rooms
+          return 1 # TODO better metric for this
         end
       end
 
