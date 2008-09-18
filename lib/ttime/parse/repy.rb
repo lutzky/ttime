@@ -89,8 +89,9 @@ module TTime
         "הרצאה" => :lecture,
         "מעבדה" => :lab,
         "תרגיל" => :tutorial,
-        "קבוצה" => :set,
       }
+
+      GROUP_TYPES.default = :other
 
       DAY_NAMES = {
         'א' => 1,

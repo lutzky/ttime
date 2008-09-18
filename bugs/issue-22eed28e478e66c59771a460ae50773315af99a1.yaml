@@ -1,0 +1,23 @@
+--- !ditz.rubyforge.org,2008-03-06/issue 
+title: Fix parsing for unknown group types
+desc: ""
+type: :bugfix
+component: ttime
+release: 
+reporter: Ohad Lutzky <ohad@lutzky.net>
+status: :closed
+disposition: :fixed
+creation_time: 2008-09-18 13:33:45.834868 Z
+references: []
+
+id: 22eed28e478e66c59771a460ae50773315af99a1
+log_events: 
+- - 2008-09-18 13:33:47.218737 Z
+  - Ohad Lutzky <ohad@lutzky.net>
+  - created
+  - ""
+- - 2008-09-18 13:34:17.062308 Z
+  - Ohad Lutzky <ohad@lutzky.net>
+  - closed with disposition fixed
+  - ""
+git_branch: 

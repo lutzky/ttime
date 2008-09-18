@@ -21,7 +21,7 @@ module TTime
       :lecture => _('Lecture'),
       :tutorial => _('Tutorial'),
       :lab => _('Lab'),
-      :other => ('Other'),
+      :other => _('Other'),
     }
 
     def initialize(force = false, &status_report_proc)
