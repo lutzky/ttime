@@ -10,6 +10,10 @@ require 'ttime/logging'
 
 include TTime::Logging
 
+require 'ttime/settings'
+
+language = TTime::Settings.instance[:language] # nil by default is OK
+
 action = :run_gui
 
 OptionParser.new do |opts|
@@ -40,6 +44,8 @@ OptionParser.new do |opts|
     log.level -= 1
   end
 end.parse!
+
+ENV["LC_ALL"] = ENV["LANG"] = ENV["LANGUAGE"] = language
 
 begin
   require 'gettext'
