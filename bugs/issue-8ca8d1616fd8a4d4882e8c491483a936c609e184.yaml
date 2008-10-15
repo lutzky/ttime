@@ -30,4 +30,4 @@ log_events:
   - Ohad Lutzky <ohad@rabbit>
   - closed with disposition fixed
   - ""
-git_branch: rating
+git_branch:
