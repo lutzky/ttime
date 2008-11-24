@@ -262,7 +262,7 @@
                 <signal name="clicked" handler="on_ExamSchedule_clicked"/>
               </widget>
               <packing>
-                <property name="expand">False</property>
+                <property name="homogeneous">True</property>
               </packing>
             </child>
             <child>
@@ -275,7 +275,7 @@
                 <accelerator key="G" modifiers="GDK_CONTROL_MASK" signal="clicked"/>
               </widget>
               <packing>
-                <property name="expand">False</property>
+                <property name="homogeneous">True</property>
               </packing>
             </child>
             <child>
@@ -289,7 +289,7 @@
                         <property name="visible">True</property>
                         <property name="sensitive">False</property>
                         <property name="can_focus">True</property>
-                        <property name="adjustment">0 0 1 1 10 10</property>
+                        <property name="adjustment">0 0 1 1 10 0</property>
                         <property name="climb_rate">1</property>
                         <signal name="value_changed" handler="on_change_current_schedule"/>
                       </widget>
@@ -308,19 +308,11 @@
                   </widget>
                 </child>
               </widget>
-              <packing>
-                <property name="expand">False</property>
-                <property name="homogeneous">False</property>
-              </packing>
             </child>
             <child>
               <widget class="GtkSeparatorToolItem" id="separatortoolitem3">
                 <property name="visible">True</property>
               </widget>
-              <packing>
-                <property name="expand">False</property>
-                <property name="homogeneous">False</property>
-              </packing>
             </child>
             <child>
               <widget class="GtkToolButton" id="btn_jump_back">
@@ -331,7 +323,7 @@
                 <signal name="clicked" handler="on_jump_back_activate"/>
               </widget>
               <packing>
-                <property name="expand">False</property>
+                <property name="homogeneous">True</property>
               </packing>
             </child>
             <child>
@@ -343,7 +335,7 @@
                 <signal name="clicked" handler="on_previous_activate"/>
               </widget>
               <packing>
-                <property name="expand">False</property>
+                <property name="homogeneous">True</property>
               </packing>
             </child>
             <child>
@@ -355,7 +347,7 @@
                 <signal name="clicked" handler="on_next_activate"/>
               </widget>
               <packing>
-                <property name="expand">False</property>
+                <property name="homogeneous">True</property>
               </packing>
             </child>
             <child>
@@ -367,7 +359,7 @@
                 <signal name="clicked" handler="on_jump_forward_activate"/>
               </widget>
               <packing>
-                <property name="expand">False</property>
+                <property name="homogeneous">True</property>
               </packing>
             </child>
           </widget>
