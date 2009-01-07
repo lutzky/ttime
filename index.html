@@ -1,0 +1,97 @@
+<html>
+  <head>
+    <title>TTime - Technion TimeTable Utility</title>
+    <style>
+	    .screenshot {
+		    margin-left: 3em;
+	    }
+	    pre {
+		    border: 1px solid black;
+		    background: #eee;
+		    margin: 2em;
+		    padding: 1em;
+	    }
+    </style>
+  </head>
+
+  <body>
+    <h1>
+      <img alt="TTime - Technion Timetable Utility" src="ttime_logo.png" height="73" width="236" />
+    </h1>
+
+    <p>TTime is (breath) a rewrite of a fork of a replacement of an updated
+    version of software intended to help Technion students organize their
+    timetables. (That was UDonkey-mono, UDonkey.Net, Marprog-Windows,
+    Marprog-DOS). It automatically fetches its data from the Technion, and then
+    generates automated schedules for the user according to his selections. We
+    intend to make this program easy-to-use and extensible.</p>
+
+    <p>While this is technically a rewrite, a lot of concepts and code were
+    borrowed from UDonkey, so thanks!</p>
+
+    <h2>Download</h2>
+
+    <p>There are three options for downloading TTime:</p>
+
+    <ul>
+	    <li><a href="/ttime/windows/ttime-0.91.exe">Windows Binary</a>
+	    (7zip self-extractor, includes Ruby and additional libraries)</li>
+	    <li><a href="/ttime/debian/ttime_0.91_all.deb">Ubuntu/Debian package</a></li>
+	    <li><a href="http://github.com/lutzky/ttime/zipball/master">Git Snapshot</a> (even less stable!)</li>
+    </ul>
+
+    <h2>Developers</h2>
+
+    Want a crack at the source code? Interested in developing new Constraint or
+    Rating plugins? Check out
+    <a href="http://github.com/lutzky/ttime">the Git repository</a> for the
+    source code. To get hacking quickly,
+    <a href="http://git-scm.org">install git</a>
+    and clone the repository:
+
+    <pre>
+    git clone git://github.com/lutzky/ttime.git</pre>
+
+    <p>You should take a look at
+    <a href="/ttime/doc">the documentation</a>.</p>
+
+    <p>We use <a href="http://ditz.rubyforge.org">ditz</a> for issue tracking.
+    See <a href="/ttime/ditz">our ditz page</a>.</p>
+
+    <h2>Screenshots</h2>
+
+    <p>The following screenshots are from the Hebrew version.</p>
+
+    <p>The main view, displaying the course list (filtered by a search) and the
+    currently selected courses.  Note that the search was performed by the
+    course's nickname, not its full name.</p>
+
+    <img class="screenshot" src="secreenshot-main.png" width="817" height="673" alt="screenshot" />
+
+    <p>The exam schedule, generated from the selected courses.</p>
+
+    <img class="screenshot" src="screenshot-exam-sched.png" width="277" height="310" alt="Exam Schedule screenshot" />
+
+    <p>The Constraints tab allows you to show only schedules matching the
+    selected contraints. All constraints are optional, including the "<i>No
+	    clashes</i>" constraint (so schedules with clashes can be
+    found).</p>
+
+    <img class="screenshot" src="screenshot-group-selection.png" width="817" height="673" alt="screenshot" />
+
+    <p>The standard schedule view.</p>
+
+    <img class="screenshot" src="screenshot-sched.png" width="817" height="673" alt="screenshot" />
+
+    <p>The multi-schedule feature, showing alternatives for the "Intro to CS"
+    tutorial.</p>
+
+    <img class="screenshot" src="screenshot-multisched.png" width="817" height="673" alt="screenshot" />
+
+    <p>Schedule rating priorities allows you to decide which schedules will
+    be written first.</p>
+
+    <img class="screenshot" src="screenshot-sorting-prefs.png" width="817" height="673" alt="screenshot" />
+
+  </body>
+</html>
