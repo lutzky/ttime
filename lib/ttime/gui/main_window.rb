@@ -67,6 +67,7 @@ module TTime
       include Singleton
 
       def on_auto_update
+        save_settings
         load_data(true)
       end
 

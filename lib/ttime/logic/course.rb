@@ -44,6 +44,11 @@ module TTime
         @hours = []
       end
 
+      def == other
+        # We assume course numbers are unique identifiers for a course
+        return ((other.is_a? Course) and (@number == other.number))
+      end
+
       def inspect
         "#<Course #@number #{@name.inspect}>"
       end
