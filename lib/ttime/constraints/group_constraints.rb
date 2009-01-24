@@ -101,7 +101,9 @@ module TTime
       end
 
       def allow_group(course_number, group_number)
-        forbidden_groups[course_number].delete group_number
+        unless forbidden_groups[course_number].nil?
+          forbidden_groups[course_number].delete group_number
+        end
       end
 
       def update_courses(course_list)
