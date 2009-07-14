@@ -451,15 +451,19 @@ module TTime
           next if course.first_test_date.nil?
           other_courses = @selected_courses - [ course ]
 
-          moed_a = course.first_test_date
-          moed_b = course.second_test_date
+          my_test_dates = [course.first_test_date, course.second_test_date]
+
+          my_test_dates.reject! { |x| x.nil? }
 
           exam_dates_a = other_courses.collect { |c| c.first_test_date }
           exam_dates_b = other_courses.collect { |c| c.second_test_date }
 
+          exam_dates_a.reject! { |x| x.nil? }
+          exam_dates_b.reject! { |x| x.nil? }
+
           exam_dates = Set.new(exam_dates_a + exam_dates_b)
 
-          if exam_dates.intersection([moed_a, moed_b]).empty?
+          if exam_dates.intersection(my_test_dates).empty?
             iter[0] = course.name
             iter[3] = nil
           else
