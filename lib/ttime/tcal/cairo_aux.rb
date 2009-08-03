@@ -60,7 +60,7 @@ module Cairo
         def pango_render_text(width,font,text)
             pango = self.create_pango_layout
             pango.width = width*1000
-            pango.wrap=Pango::WRAP_CHAR
+            pango.wrap=Pango::WRAP_WORD
             pango.font_description = Pango::FontDescription.new(font)
             pango.markup=text
             self.show_pango_layout(pango)
