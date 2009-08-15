@@ -499,14 +499,30 @@
                                   </widget>
                                 </child>
                                 <child>
-                                  <widget class="GtkButton" id="btn_remove_course">
+                                  <widget class="GtkHBox" id="hbox2">
                                     <property name="visible">True</property>
-                                    <property name="sensitive">False</property>
-                                    <property name="can_focus">True</property>
-                                    <property name="label">gtk-remove</property>
-                                    <property name="use_stock">True</property>
-                                    <property name="response_id">0</property>
-                                    <signal name="clicked" handler="on_remove_course"/>
+                                    <child>
+                                      <widget class="GtkButton" id="btn_remove_course">
+                                        <property name="visible">True</property>
+                                        <property name="sensitive">False</property>
+                                        <property name="can_focus">True</property>
+                                        <property name="label">gtk-remove</property>
+                                        <property name="use_stock">True</property>
+                                        <property name="response_id">0</property>
+                                        <signal name="clicked" handler="on_remove_course"/>
+                                      </widget>
+                                    </child>
+                                    <child>
+                                      <widget class="GtkButton" id="btn_clear_courses">
+                                        <property name="visible">True</property>
+                                        <property name="sensitive">True</property>
+                                        <property name="can_focus">True</property>
+                                        <property name="label">gtk-clear</property>
+                                        <property name="use_stock">True</property>
+                                        <property name="response_id">0</property>
+                                        <signal name="clicked" handler="on_clear_courses"/>
+                                      </widget>
+                                    </child>
                                   </widget>
                                   <packing>
                                     <property name="expand">False</property>

@@ -288,6 +288,24 @@ module TTime
         return iter ? drop_course(iter[2]) : false
       end
 
+      def on_clear_courses
+        return false if @selected_courses.empty?
+
+        unless are_you_sure_dialog(
+          _("Are you sure you want to clear your selected courses?"))
+          return false
+        end
+
+        @selected_courses.clear
+        @list_selected_courses.clear
+
+        on_available_course_selection
+
+        update_exam_collisions
+
+        return true
+      end
+
       def on_available_course_selection
         course = currently_addable_course
 
