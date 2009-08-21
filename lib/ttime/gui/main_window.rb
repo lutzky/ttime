@@ -690,6 +690,70 @@ module TTime
         end
       end
 
+      def export_ical
+        require 'rubygems'
+        require 'ri_cal'
+        require 'tzinfo'
+        unless scheduler_ready?
+          error_dialog(_("Please run \"Find Schedules\" first"))
+          return false
+        end
+
+        filter = Gtk::FileFilter.new
+        filter.name = _("iCal files")
+        filter.add_pattern "*.ics"
+        fs = Gtk::FileChooserDialog.new(_("Export iCal"),
+                                        @glade["MainWindow"],
+                                        Gtk::FileChooser::ACTION_SAVE,
+                                        nil,
+                                        [Gtk::Stock::CANCEL,
+                                          Gtk::Dialog::RESPONSE_CANCEL],
+                                          [Gtk::Stock::SAVE,
+                                            Gtk::Dialog::RESPONSE_ACCEPT]
+                                       )
+        fs.add_filter filter
+        fs.do_overwrite_confirmation = true
+
+        if fs.run == Gtk::Dialog::RESPONSE_ACCEPT
+          if fs.filename =~ /\.ics$/
+            filename = fs.filename
+          else
+            filename = "#{fs.filename}.ics"
+          end
+
+          semester_dstart = DateTime.parse("10/18/2009")
+          semester_dend   = DateTime.parse("2/1/2010")
+          semester_start_weekday = semester_dstart.wday
+          schedule = @scheduler.ok_schedules[@current_schedule]
+          ical = RiCal.Calendar do |ical|
+            ical.default_tzid = "Asia/Jerusalem"
+            schedule.events.each do |ev|
+              ical.event do |ical_ev|
+                ical_ev.summary     = @nicknames.beautify[ev.group.name] || ev.group.name
+                ical_ev.description = text_for_event(ev)
+                start_time = DateTime.parse(Logic::Hour::military_to_human(ev.start))
+                end_time   = DateTime.parse(Logic::Hour::military_to_human(ev.end))
+                event_weekday = ev.day - 1
+                start_date = semester_dstart + ((event_weekday - semester_start_weekday) % 7)
+                ical_ev.dtstart = start_date + start_time.day_fraction
+                ical_ev.dtend   = start_date + end_time  .day_fraction
+                ical_ev.location = ev.place
+                ical_ev.rrule = {
+                  :freq => "WEEKLY",
+                  :interval => 1,
+                  :wkst => Logic::Day::numeric_to_ical(ev.day),
+                  :until => semester_dend
+                }
+              end
+            end
+          end
+          file = File.new(filename,"w")
+          print ical.export_to file
+          file.close
+        end
+        fs.destroy
+      end
+
       def export_pdf
         unless scheduler_ready?
           error_dialog(_("Please run \"Find Schedules\" first"))

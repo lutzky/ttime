@@ -7,7 +7,7 @@ Standards-Version: 3.7.2
 
 Package: ttime
 Architecture: all
-Depends: ruby (>= 1.8), libzip-ruby, libgettext-ruby, libglade2-ruby, libpango1-ruby, librsvg2-ruby, libcairo-ruby
+Depends: ruby (>= 1.8), libzip-ruby, libgettext-ruby, libglade2-ruby, libpango1-ruby, librsvg2-ruby, libcairo-ruby, libtzinfo-ruby
 Recommends: libxml-ruby1.8
 Description: Technion Timetable Scheduler
  TTime is a utility intended for students of the Technion IIT, which assists

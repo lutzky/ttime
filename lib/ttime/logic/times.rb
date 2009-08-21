@@ -12,9 +12,13 @@ module TTime
         _('Friday'),
         _('Saturday')
       ]
+      SHORT_ICAL_NAMES = %w{SU MO TU WE FR SA}
       class << self
         def numeric_to_human(i)
           DAY_NAMES[i-1]
+        end
+        def numeric_to_ical(i)
+          SHORT_ICAL_NAMES[i-1]
         end
       end
     end
