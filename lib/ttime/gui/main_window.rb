@@ -748,12 +748,28 @@ module TTime
                 }
               end
             end
+            @selected_courses.each do |course|
+              if not course.first_test_date.nil?
+                create_exam_event(ical, course, course.first_test_date,  true)
+              end
+              if not course.second_test_date.nil?
+                create_exam_event(ical, course, course.second_test_date, false)
+              end
+            end
           end
           file = File.new(filename,"w")
           print ical.export_to file
           file.close
         end
         fs.destroy
+      end
+
+      def create_exam_event(ical, course, exam_date, is_first_exam)
+        ical.event do |ev|
+            name = @nicknames.beautify[course.name] || course.name
+            ev.summary = name + " - " + (is_first_exam ? _("Moed A") : _("Moed B"))
+            ev.dtstart = ev.dtend = exam_date
+        end
       end
 
       def export_pdf
