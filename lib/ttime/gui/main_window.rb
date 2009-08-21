@@ -721,8 +721,10 @@ module TTime
             filename = "#{fs.filename}.ics"
           end
 
-          semester_dstart = DateTime.parse("10/18/2009")
-          semester_dend   = DateTime.parse("2/1/2010")
+          # TODO find a way to get the current dates automatically
+          semester_dstart = DateTime.parse("10/14/2009")
+          semester_dend   = DateTime.parse("1/21/2010")
+
           semester_start_weekday = semester_dstart.wday
           schedule = @scheduler.ok_schedules[@current_schedule]
           ical = RiCal.Calendar do |ical|
