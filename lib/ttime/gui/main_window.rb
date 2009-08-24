@@ -421,8 +421,13 @@ module TTime
       def save_settings(settings_file = nil)
         Settings.instance['selected_courses'] = \
           @selected_courses.collect { |course| course.number }
-        Settings.instance[:semester_start_date] = @semester_start_entry.text
-        Settings.instance[:semester_end_date] = @semester_end_entry.text
+        begin
+          Settings.instance[:semester_start_date] = Date.parse @semester_start_entry.text
+          Settings.instance[:semester_end_date]   = Date.parse @semester_end_entry.text
+        rescue ArgumentError
+          Settings.instance[:semester_start_date] = nil
+          Settings.instance[:semester_end_date]   = nil
+        end
         Settings.instance.save(settings_file)
       end
 
@@ -448,10 +453,10 @@ module TTime
           end
         end
         if not Settings.instance[:semester_start_date].nil?
-            @semester_start_entry.text = Settings.instance[:semester_start_date]
+            @semester_start_entry.text = Settings.instance[:semester_start_date].to_s
         end
         if not Settings.instance[:semester_end_date].nil?
-            @semester_end_entry.text = Settings.instance[:semester_end_date]
+            @semester_end_entry.text = Settings.instance[:semester_end_date].to_s
         end
       end
 
@@ -699,6 +704,16 @@ module TTime
         end
       end
 
+      def try_get_date(entry)
+        begin
+          return DateTime.parse(entry.text)
+        rescue ArgumentError
+          error_dialog(_("Invalid date. Please set semester start and end date first."))
+          entry.grab_focus
+          raise
+        end
+      end
+
       def export_ical
         require 'rubygems'
         require 'ri_cal'
@@ -707,6 +722,14 @@ module TTime
           error_dialog(_("Please run \"Find Schedules\" first"))
           return false
         end
+        begin
+          semester_dstart = try_get_date(@semester_start_entry)
+          semester_dend   = try_get_date(@semester_end_entry)
+        rescue ArgumentError
+          @glade["notebook"].page = 4 # last page
+          return false
+        end
+
 
         filter = Gtk::FileFilter.new
         filter.name = _("iCal files")
@@ -729,10 +752,6 @@ module TTime
           else
             filename = "#{fs.filename}.ics"
           end
-
-          # TODO find a way to get the current dates automatically
-          semester_dstart = DateTime.parse("10/14/2009")
-          semester_dend   = DateTime.parse("1/21/2010")
 
           semester_start_weekday = semester_dstart.wday
           schedule = @scheduler.ok_schedules[@current_schedule]
@@ -767,7 +786,7 @@ module TTime
             end
           end
           file = File.new(filename,"w")
-          print ical.export_to file
+          print ical.export_to(file)
           file.close
         end
         fs.destroy
