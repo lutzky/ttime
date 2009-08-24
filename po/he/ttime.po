@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ttime 0.x.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-08-21 08:44+0300\n"
+"POT-Creation-Date: 2009-08-24 18:32+0300\n"
 "PO-Revision-Date: 2008-09-18 16:31+0300\n"
 "Last-Translator: Ohad Lutzky <lutzky@gmail.com>\n"
 "Language-Team: Hebrew <eliz@gnu.org>\n"
@@ -15,6 +15,27 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: lib/ttime/constraints/no_clashes.rb:36
+msgid "No clashes"
+msgstr "ללא התנגשויות"
+
+#: lib/ttime/constraints/no_clashes.rb:42
+#: lib/ttime/constraints/no_running.rb:40
+#: lib/ttime/ratings/late_mornings.rb:58
+#: lib/ttime/ratings/minimal_running.rb:54
+msgid "Enable"
+msgstr "הפעל"
+
+#: lib/ttime/constraints/no_clashes.rb:51
+msgid ""
+"WARNING! Disabling the 'no clashes' constraint will make scheduling take\n"
+"MUCH longer! You probably want to leave this on. (Coming soon: allow\n"
+"clashes only for specific courses)\n"
+msgstr ""
+"אזהרה! ביטול הגבלת ה-'ללא התנגשויות' יגרום למציאת המערכות לקחת הרבה יותר\n"
+"זמן! אתם כנראה רוצים להשאיר את זה דולק. (בקרוב נאפשר לבחור לאיזה קורסים\n"
+"לאפשר התנגשויות)"
 
 #: lib/ttime/constraints/free_days.rb:35
 msgid "Free days"
@@ -36,13 +57,6 @@ msgstr ""
 msgid "No running"
 msgstr "ללא ריצות"
 
-#: lib/ttime/constraints/no_running.rb:40
-#: lib/ttime/constraints/no_clashes.rb:42
-#: lib/ttime/ratings/minimal_running.rb:54
-#: lib/ttime/ratings/late_mornings.rb:58
-msgid "Enable"
-msgstr "הפעל"
-
 #: lib/ttime/constraints/no_running.rb:49
 msgid ""
 "This constraint makes sure you don't have to run between buildings during a\n"
@@ -51,20 +65,6 @@ msgstr ""
 "ההגבלה הזו מוודאת שלא תצטרך/י לרוץ בין בניינים בזמן הפסקה של 10 דקות (וגם "
 "זה\n"
 "במקרה שהמרצה מסיים בזמן)\n"
-
-#: lib/ttime/constraints/no_clashes.rb:36
-msgid "No clashes"
-msgstr "ללא התנגשויות"
-
-#: lib/ttime/constraints/no_clashes.rb:51
-msgid ""
-"WARNING! Disabling the 'no clashes' constraint will make scheduling take\n"
-"MUCH longer! You probably want to leave this on. (Coming soon: allow\n"
-"clashes only for specific courses)\n"
-msgstr ""
-"אזהרה! ביטול הגבלת ה-'ללא התנגשויות' יגרום למציאת המערכות לקחת הרבה יותר\n"
-"זמן! אתם כנראה רוצים להשאיר את זה דולק. (בקרוב נאפשר לבחור לאיזה קורסים\n"
-"לאפשר התנגשויות)"
 
 #: lib/ttime/constraints/free_hours.rb:20
 #: lib/ttime/constraints/free_hours.rb:40
@@ -129,14 +129,6 @@ msgstr "מרצה"
 msgid "Use group constraints"
 msgstr "השתמש בדרישות ע\"פ קבוצות"
 
-#: lib/ttime/logic/scheduler.rb:78 lib/ttime/logic/scheduler.rb:123
-msgid "Generating schedules (%d so far)"
-msgstr "מייצר מערכות (%d עד כה)"
-
-#: lib/ttime/logic/scheduler.rb:90
-msgid "Sorting schedules"
-msgstr "ממיין מערכות"
-
 #: lib/ttime/logic/times.rb:7
 msgid "Sunday"
 msgstr "ראשון"
@@ -165,13 +157,35 @@ msgstr "שישי"
 msgid "Saturday"
 msgstr "שבת"
 
-#: lib/ttime/ratings/minimal_running.rb:38
-msgid "Minimal running"
-msgstr "מינימום ריצות"
+#: lib/ttime/logic/scheduler.rb:78 lib/ttime/logic/scheduler.rb:123
+msgid "Generating schedules (%d so far)"
+msgstr "מייצר מערכות (%d עד כה)"
 
-#: lib/ttime/ratings/late_mornings.rb:52
-msgid "Extra sleep"
-msgstr "תוספת שינה"
+#: lib/ttime/logic/scheduler.rb:90
+msgid "Sorting schedules"
+msgstr "ממיין מערכות"
+
+#: lib/ttime/gui/exam_schedule.rb:19 data/ttime/ttime.glade:384
+msgid "Exam Schedule"
+msgstr "לוח בחינות"
+
+#: lib/ttime/gui/exam_schedule.rb:69
+msgid "WARNING, collision on "
+msgid_plural "WARNING, collisions on: "
+msgstr[0] "אזהרה, התנגשות ב-"
+msgstr[1] "אזהרה, התנגשויות ב-"
+
+#: lib/ttime/gui/exam_schedule.rb:86
+msgid "Moed A: %s\n"
+msgstr "מועד א': %s\n"
+
+#: lib/ttime/gui/exam_schedule.rb:92
+msgid "Moed B: %s\n"
+msgstr "מועד ב': %s\n"
+
+#: lib/ttime/gui/exam_schedule.rb:181
+msgid "Date"
+msgstr "תאריך"
 
 #: lib/ttime/gui/progress_dialog.rb:9
 msgid "Progress"
@@ -205,165 +219,167 @@ msgstr "טען הגדרות"
 msgid "Save Settings"
 msgstr "שמור הגדרות"
 
-#: lib/ttime/gui/main_window.rb:210 data/ttime/ttime.glade:8
+#: lib/ttime/gui/main_window.rb:211 data/ttime/ttime.glade:8
 msgid "TTime"
 msgstr "TTime"
 
-#: lib/ttime/gui/main_window.rb:220
+#: lib/ttime/gui/main_window.rb:221
 msgid "Please select some courses first."
 msgstr "אנא בחר קורסים קודם."
 
-#: lib/ttime/gui/main_window.rb:238
+#: lib/ttime/gui/main_window.rb:239
 msgid ""
 "Sorry, but no schedules are possible with the selected courses and "
 "constraints."
 msgstr "אנחנו מצטערים, אך אין מערכות אפשריות עבור הקורסים וההגבלות שנבחרו."
 
-#: lib/ttime/gui/main_window.rb:262
+#: lib/ttime/gui/main_window.rb:263
 msgid "Are you sure you want to drop %s?"
 msgstr "האם אתה בטוח שאתה רוצה לבטל את %s?"
 
-#: lib/ttime/gui/main_window.rb:295
+#: lib/ttime/gui/main_window.rb:296
 msgid "Are you sure you want to clear your selected courses?"
 msgstr "האם אתה בטוח שאתה רוצה לבטל את הקורסים הנבחרים?"
 
-#: lib/ttime/gui/main_window.rb:500
+#: lib/ttime/gui/main_window.rb:509
 msgid " of %d"
 msgstr " מתוך %d"
 
-#: lib/ttime/gui/main_window.rb:528
+#: lib/ttime/gui/main_window.rb:537
 msgid "Show details"
 msgstr "הצג פרטים"
 
-#: lib/ttime/gui/main_window.rb:553
+#: lib/ttime/gui/main_window.rb:562
 msgid "Schedule"
 msgstr "מערכת שעות"
 
-#: lib/ttime/gui/main_window.rb:564
+#: lib/ttime/gui/main_window.rb:573
 msgid "Show all alternatives"
 msgstr "הצג חלופות להכל"
 
-#: lib/ttime/gui/main_window.rb:570
+#: lib/ttime/gui/main_window.rb:579
 msgid "Show alternatives to this event"
 msgstr "הצג חלופות לאירוע זה"
 
-#: lib/ttime/gui/main_window.rb:575
+#: lib/ttime/gui/main_window.rb:584
 msgid "Cancel this course"
 msgstr "בטל קורס"
 
-#: lib/ttime/gui/main_window.rb:640
+#: lib/ttime/gui/main_window.rb:649
 msgid "Rating details for this schedule:"
 msgstr "פרטי דירוג למערכת זו:"
 
-#: lib/ttime/gui/main_window.rb:644
+#: lib/ttime/gui/main_window.rb:653
 msgid "\"%s\" rating"
 msgstr "דירוג \"%s\""
 
-#: lib/ttime/gui/main_window.rb:647
+#: lib/ttime/gui/main_window.rb:656
 msgid "Overall score"
 msgstr "ניקוד כולל"
 
-#: lib/ttime/gui/main_window.rb:698 lib/ttime/gui/main_window.rb:759
+#: lib/ttime/gui/main_window.rb:707 lib/ttime/gui/main_window.rb:786
 msgid "Please run \"Find Schedules\" first"
 msgstr "אנא בנה מערכות שעות"
 
-#: lib/ttime/gui/main_window.rb:703
+#: lib/ttime/gui/main_window.rb:712
 msgid "iCal files"
 msgstr "קבצי iCal"
 
-#: lib/ttime/gui/main_window.rb:705
+#: lib/ttime/gui/main_window.rb:714
 msgid "Export iCal"
 msgstr "יצא iCal"
 
-#: lib/ttime/gui/main_window.rb:764
-msgid "PDF files"
-msgstr "קבצי PDF"
-
-#: lib/ttime/gui/main_window.rb:766
-msgid "Export PDF"
-msgstr "יצא PDF"
-
-#: lib/ttime/gui/main_window.rb:806
-msgid "WARNING: The courses marked with * have colliding test dates!"
-msgstr "אזהרה: לקורסים שמסומנים ב-* יש מבחנים מתנגשים!"
-
-#: lib/ttime/gui/main_window.rb:817
-msgid "Lecturer in charge"
-msgstr "מרצה אחראי"
-
-#: lib/ttime/gui/main_window.rb:818
-msgid "Academic points"
-msgstr "נקודות אקדמיות"
-
-#: lib/ttime/gui/main_window.rb:819
+#: lib/ttime/gui/main_window.rb:779 lib/ttime/gui/main_window.rb:846
 msgid "Moed A"
 msgstr "מועד א'"
 
-#: lib/ttime/gui/main_window.rb:820
+#: lib/ttime/gui/main_window.rb:779 lib/ttime/gui/main_window.rb:847
 msgid "Moed B"
 msgstr "מועד ב'"
 
-#: lib/ttime/gui/main_window.rb:830
+#: lib/ttime/gui/main_window.rb:791
+msgid "PDF files"
+msgstr "קבצי PDF"
+
+#: lib/ttime/gui/main_window.rb:793
+msgid "Export PDF"
+msgstr "יצא PDF"
+
+#: lib/ttime/gui/main_window.rb:833
+msgid "WARNING: The courses marked with * have colliding test dates!"
+msgstr "אזהרה: לקורסים שמסומנים ב-* יש מבחנים מתנגשים!"
+
+#: lib/ttime/gui/main_window.rb:844
+msgid "Lecturer in charge"
+msgstr "מרצה אחראי"
+
+#: lib/ttime/gui/main_window.rb:845
+msgid "Academic points"
+msgstr "נקודות אקדמיות"
+
+#: lib/ttime/gui/main_window.rb:857
 msgid "Group %d\n"
 msgstr "קבוצה %d\n"
 
-#: lib/ttime/gui/main_window.rb:834
+#: lib/ttime/gui/main_window.rb:861
 msgid "Lecturer: "
 msgstr "מרצה: "
 
-#: lib/ttime/gui/main_window.rb:848
+#: lib/ttime/gui/main_window.rb:875
 msgid "* No data for this group *\n"
 msgstr "* אין מידע עבור קבוצה זו *\n"
 
-#: lib/ttime/gui/main_window.rb:910
+#: lib/ttime/gui/main_window.rb:937
 msgid "Populating available courses"
 msgstr "ממלא את רשימת הקורסים הזמינים"
 
-#: lib/ttime/gui/main_window.rb:963
+#: lib/ttime/gui/main_window.rb:990
 msgid "Course Name"
 msgstr "שם קורס"
 
-#: lib/ttime/gui/main_window.rb:963
+#: lib/ttime/gui/main_window.rb:990
 msgid "Course Number"
 msgstr "מספר קורס"
 
-#: lib/ttime/gui/main_window.rb:1003
+#: lib/ttime/gui/main_window.rb:1030
 msgid "Constraints"
 msgstr "הגבלות"
 
-#: lib/ttime/gui/main_window.rb:1019
+#: lib/ttime/gui/main_window.rb:1046
 msgid "Priorities"
 msgstr "העדפות"
 
-#: lib/ttime/gui/main_window.rb:1039
+#: lib/ttime/gui/main_window.rb:1066
 msgid "Schedule ratings"
 msgstr "דירוגי מערכות"
 
-#: lib/ttime/gui/main_window.rb:1068
+#: lib/ttime/gui/main_window.rb:1073
+msgid "Semester start:"
+msgstr "תחילת הסמסטר:"
+
+#: lib/ttime/gui/main_window.rb:1076
+msgid "Semester end:"
+msgstr "סוף הסמסטר:"
+
+#: lib/ttime/gui/main_window.rb:1087
+msgid "Semester Information"
+msgstr "מידע על הסמסטר"
+
+#: lib/ttime/gui/main_window.rb:1116
 msgid "No courses with tests are selected."
 msgstr "לא נבחרו קורסים עם מבחנים."
 
-#: lib/ttime/gui/exam_schedule.rb:19 data/ttime/ttime.glade:384
-msgid "Exam Schedule"
-msgstr "לוח בחינות"
+#: lib/ttime/ratings/late_mornings.rb:52
+msgid "Extra sleep"
+msgstr "תוספת שינה"
 
-#: lib/ttime/gui/exam_schedule.rb:69
-msgid "WARNING, collision on "
-msgid_plural "WARNING, collisions on: "
-msgstr[0] "אזהרה, התנגשות ב-"
-msgstr[1] "אזהרה, התנגשויות ב-"
+#: lib/ttime/ratings/minimal_running.rb:38
+msgid "Minimal running"
+msgstr "מינימום ריצות"
 
-#: lib/ttime/gui/exam_schedule.rb:86
-msgid "Moed A: %s\n"
-msgstr "מועד א': %s\n"
-
-#: lib/ttime/gui/exam_schedule.rb:92
-msgid "Moed B: %s\n"
-msgstr "מועד ב': %s\n"
-
-#: lib/ttime/gui/exam_schedule.rb:181
-msgid "Date"
-msgstr "תאריך"
+#: lib/ttime/parse/repy.rb:161
+msgid "Loading REPY file..."
+msgstr "טוען קובץ REPY..."
 
 #: lib/ttime/data.rb:21
 msgid "Lecture"
@@ -404,10 +420,6 @@ msgstr "מוריד קובץ REPY מהטכניון"
 #: lib/ttime/data.rb:135
 msgid "Extracting REPY file"
 msgstr "מחלץ קובץ REPY..."
-
-#: lib/ttime/parse/repy.rb:161
-msgid "Loading REPY file..."
-msgstr "טוען קובץ REPY..."
 
 #: data/ttime/ttime.glade:41
 msgid "_File"

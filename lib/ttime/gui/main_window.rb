@@ -177,6 +177,7 @@ module TTime
         init_schedule_view
         init_constraints
         init_ratings
+        init_info
 
         load_data
       end
@@ -420,6 +421,8 @@ module TTime
       def save_settings(settings_file = nil)
         Settings.instance['selected_courses'] = \
           @selected_courses.collect { |course| course.number }
+        Settings.instance[:semester_start_date] = @semester_start_entry.text
+        Settings.instance[:semester_end_date] = @semester_end_entry.text
         Settings.instance.save(settings_file)
       end
 
@@ -443,6 +446,12 @@ module TTime
               " in your preferences, but it doesn't seem to exist now."
             end
           end
+        end
+        if not Settings.instance[:semester_start_date].nil?
+            @semester_start_entry.text = Settings.instance[:semester_start_date]
+        end
+        if not Settings.instance[:semester_end_date].nil?
+            @semester_end_entry.text = Settings.instance[:semester_end_date]
         end
       end
 
@@ -1055,6 +1064,27 @@ module TTime
         notebook = @glade["notebook"]
         notebook.append_page ratings_notebook, 
           Gtk::Label.new(_("Schedule ratings"))
+        notebook.show_all
+      end
+
+      def init_info
+        info_tab = Gtk::Table.new(2, 2)
+
+        lbl = Gtk::Label.new(_("Semester start:"))
+        lbl.justify = Gtk::JUSTIFY_LEFT
+        info_tab.attach lbl, 0, 1, 0, 1, Gtk::FILL, Gtk::FILL, 5, 5
+        lbl = Gtk::Label.new(_("Semester end:"))
+        lbl.justify = Gtk::JUSTIFY_LEFT
+        info_tab.attach lbl, 0, 1, 1, 2, Gtk::FILL, Gtk::FILL, 5, 5
+
+        @semester_start_entry = Gtk::Entry.new
+        info_tab.attach @semester_start_entry, 1, 2, 0, 1, Gtk::FILL, Gtk::FILL, 5, 5
+        @semester_end_entry = Gtk::Entry.new
+        info_tab.attach @semester_end_entry, 1, 2, 1, 2, Gtk::FILL, Gtk::FILL, 5, 5
+
+        notebook = @glade["notebook"]
+        notebook.append_page info_tab,
+          Gtk::Label.new(_("Semester Information"))
         notebook.show_all
       end
 
