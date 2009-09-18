@@ -1,4 +1,4 @@
-require 'libglade2'
+#require 'libglade2'
 require 'singleton'
 
 require 'ttime/data'
@@ -83,7 +83,7 @@ module TTime
         filter.add_pattern "*.yml"
         filter.add_pattern "*.yaml"
         fs = Gtk::FileChooserDialog.new(_("Load Settings"),
-                                        @glade["MainWindow"],
+                                        @ui["MainWindow"],
                                         Gtk::FileChooser::ACTION_OPEN,
                                         nil,
                                         [Gtk::Stock::CANCEL,
@@ -110,7 +110,7 @@ module TTime
         filter.add_pattern "*.yml"
         filter.add_pattern "*.yaml"
         fs = Gtk::FileChooserDialog.new(_("Save Settings"),
-                                        @glade["MainWindow"],
+                                        @ui["MainWindow"],
                                         Gtk::FileChooser::ACTION_SAVE,
                                         nil,
                                         [Gtk::Stock::CANCEL,
@@ -159,14 +159,21 @@ module TTime
       end
 
       def initialize
-        glade_file = GUI.find_data_file("ttime.glade")
-        @glade = GladeXML.new(glade_file,nil,"ttime") do |handler|
-          method(handler) 
+        ui_file = GUI.find_data_file("ttime.ui")
+        @ui = Gtk::Builder.new()
+        @ui.add(ui_file)
+        @ui.connect_signals do |handler|
+         method(handler)
         end
+
+#        glade_file = GUI.find_data_file("ttime.glade")
+#        @glade = GladeXML.new(glade_file,nil,"ttime") do |handler|
+#          method(handler) 
+#        end
 
         @colliding_courses = false
 
-        notebook = @glade["notebook"]
+        notebook = @ui["notebook"]
 
         @constraints = []
         @ratings = []
@@ -206,13 +213,13 @@ module TTime
       end
 
       def on_about_activate
-        @glade["AboutDialog"].version = TTime::Version
-        @glade["AboutDialog"].name = _("TTime")
-        @glade["AboutDialog"].run
+        @ui["AboutDialog"].version = TTime::Version
+        @ui["AboutDialog"].name = _("TTime")
+        @ui["AboutDialog"].run
       end
 
       def on_AboutDialog_response
-        @glade["AboutDialog"].hide
+        @ui["AboutDialog"].hide
       end
 
       def find_schedules
@@ -221,7 +228,7 @@ module TTime
           return
         end
 
-        progress_dialog = ProgressDialog.new @glade["MainWindow"]
+        progress_dialog = ProgressDialog.new @ui["MainWindow"]
 
         Thread.new do
           @scheduler = Logic::Scheduler.new @selected_courses,
@@ -309,7 +316,7 @@ module TTime
       def on_available_course_selection
         course = currently_addable_course
 
-        @glade["btn_add_course"].sensitive = 
+        @ui["btn_add_course"].sensitive = 
           course ? true : false
 
         set_course_info course
@@ -317,7 +324,7 @@ module TTime
 
       def on_selected_course_selection
         course_iter = currently_removable_course_iter
-        @glade["btn_remove_course"].sensitive =
+        @ui["btn_remove_course"].sensitive =
           course_iter ? true : false
 
         if course_iter
@@ -330,8 +337,8 @@ module TTime
       def on_change_current_schedule
         Gtk.queue do
           self.current_schedule =
-            @glade["spin_current_schedule"].adjustment.value - 1
-          @glade["notebook"].page = 1
+            @ui["spin_current_schedule"].adjustment.value - 1
+          @ui["notebook"].page = 1
           draw_current_schedule
         end
       end
@@ -340,7 +347,7 @@ module TTime
         @current_schedule = n
 
         Gtk.queue do
-          spinner = @glade["spin_current_schedule"]
+          spinner = @ui["spin_current_schedule"]
 
           spinner.sensitive = true
           spinner.adjustment.lower = 1
@@ -386,7 +393,7 @@ module TTime
       private
 
       def update_search_matches
-        text = @glade["search_box"].text
+        text = @ui["search_box"].text
         log.debug { "Starting search for \"%s\"" % text }
 
         @tree_available_courses.each do |model, path, iter|
@@ -430,7 +437,7 @@ module TTime
           Settings.instance[:show_full_week] = true
         end
         Gtk.queue do
-          @glade["full_week"].active = Settings.instance[:show_full_week]
+          @ui["full_week"].active = Settings.instance[:show_full_week]
 
           @list_selected_courses.clear
           @selected_courses.clear
@@ -496,13 +503,13 @@ module TTime
 
       def set_num_schedules(n)
         Gtk.queue do
-          @glade["spin_current_schedule"].adjustment.upper = n
-          @glade["lbl_num_schedules"].text = sprintf(_(" of %d"), n)
+          @ui["spin_current_schedule"].adjustment.upper = n
+          @ui["lbl_num_schedules"].text = sprintf(_(" of %d"), n)
         end
       end
 
       def init_schedule_view
-        notebook = @glade["notebook"]
+        notebook = @ui["notebook"]
 
         v = Gtk::VPaned.new
         s = Gtk::ScrolledWindow.new
@@ -700,7 +707,7 @@ module TTime
         filter.name = _("PDF files")
         filter.add_pattern "*.pdf"
         fs = Gtk::FileChooserDialog.new(_("Export PDF"),
-                                        @glade["MainWindow"],
+                                        @ui["MainWindow"],
                                         Gtk::FileChooser::ACTION_SAVE,
                                         nil,
                                         [Gtk::Stock::CANCEL,
@@ -729,7 +736,7 @@ module TTime
       end
 
       def set_course_info(course)
-        buf = @glade["text_course_info"].buffer
+        buf = @ui["text_course_info"].buffer
         buf.text = ""
         iter = buf.get_iter_at_offset(0)
 
@@ -788,7 +795,7 @@ module TTime
       end
 
       def currently_addable_course(params = {})
-        available_courses_view = @glade["treeview_available_courses"]
+        available_courses_view = @ui["treeview_available_courses"]
 
         selected_iter = available_courses_view.selection.selected
 
@@ -804,7 +811,7 @@ module TTime
       end
 
       def currently_removable_course_iter
-        selected_courses_view = @glade["treeview_selected_courses"]
+        selected_courses_view = @ui["treeview_selected_courses"]
 
         selected_iter = selected_courses_view.selection.selected
 
@@ -825,7 +832,7 @@ module TTime
 
         init_course_tree_views
 
-        progress_dialog = ProgressDialog.new @glade["MainWindow"]
+        progress_dialog = ProgressDialog.new @ui["MainWindow"]
 
         Thread.new do
           @data = TTime::Data.new(force, &progress_dialog.get_status_proc)
@@ -842,7 +849,7 @@ module TTime
         Gtk.queue do
           @tree_available_courses.clear
 
-          progress_dialog = ProgressDialog.new @glade["MainWindow"]
+          progress_dialog = ProgressDialog.new @ui["MainWindow"]
           progress_dialog.text = _('Populating available courses')
 
           @data.each_with_index do |faculty,i|
@@ -866,7 +873,7 @@ module TTime
       end
 
       def init_course_tree_views
-        available_courses_view = @glade["treeview_available_courses"]
+        available_courses_view = @ui["treeview_available_courses"]
         available_courses_view.model = @tree_available_search
 
         available_courses_view.set_search_equal_func do |m,c,key,iter|
@@ -883,17 +890,17 @@ module TTime
 
         @tree_available_search.set_visible_column 3
 
-        @glade["search_box"].signal_connect("activate") do |widget|
+        @ui["search_box"].signal_connect("activate") do |widget|
           log.debug "Updating search matches"
           update_search_matches
           log.debug "Done searching"
-          unless @glade["search_box"].text.empty?
+          unless @ui["search_box"].text.empty?
             log.debug "Expanding available courses treeview"
-            @glade["treeview_available_courses"].expand_all
+            @ui["treeview_available_courses"].expand_all
           end
         end
 
-        selected_courses_view = @glade["treeview_selected_courses"]
+        selected_courses_view = @ui["treeview_selected_courses"]
         selected_courses_view.model = @list_selected_courses
 
         [ _("Course Name"), _("Course Number") ].each_with_index do |label, i|
@@ -934,7 +941,7 @@ module TTime
         constraints_notebook.tab_pos = 0
         constraints_notebook.border_width = 5
 
-        notebook = @glade["notebook"]
+        notebook = @ui["notebook"]
         notebook.append_page constraints_notebook, 
           Gtk::Label.new(_("Constraints"))
         notebook.show_all
@@ -970,7 +977,7 @@ module TTime
         ratings_notebook.tab_pos = 0
         ratings_notebook.border_width = 5
 
-        notebook = @glade["notebook"]
+        notebook = @ui["notebook"]
         notebook.append_page ratings_notebook, 
           Gtk::Label.new(_("Schedule ratings"))
         notebook.show_all
@@ -978,7 +985,7 @@ module TTime
 
       def error_dialog(msg)
         Gtk.queue do
-          dialog = Gtk::MessageDialog.new @glade["MainWindow"],
+          dialog = Gtk::MessageDialog.new @ui["MainWindow"],
             Gtk::Dialog::MODAL | Gtk::Dialog::DESTROY_WITH_PARENT,
             Gtk::MessageDialog::ERROR, Gtk::MessageDialog::BUTTONS_OK, msg
           dialog.show
@@ -987,7 +994,7 @@ module TTime
       end
 
       def are_you_sure_dialog(msg)
-        dialog = Gtk::MessageDialog.new @glade["MainWindow"],
+        dialog = Gtk::MessageDialog.new @ui["MainWindow"],
           Gtk::Dialog::MODAL | Gtk::Dialog::DESTROY_WITH_PARENT,
           Gtk::MessageDialog::QUESTION, Gtk::MessageDialog::BUTTONS_YES_NO, msg
         response = (dialog.run == Gtk::Dialog::RESPONSE_YES)
@@ -997,7 +1004,7 @@ module TTime
 
       def on_ExamSchedule_clicked
         begin
-          exam_schedule = ExamSchedule.new(@selected_courses, @glade["MainWindow"])
+          exam_schedule = ExamSchedule.new(@selected_courses, @ui["MainWindow"])
           exam_schedule.run
           exam_schedule.destroy
         rescue ExamSchedule::NoTests
