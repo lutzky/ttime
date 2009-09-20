@@ -1,4 +1,3 @@
-#require 'libglade2'
 require 'singleton'
 
 require 'ttime/data'
@@ -163,13 +162,8 @@ module TTime
         @ui = Gtk::Builder.new()
         @ui.add(ui_file)
         @ui.connect_signals do |handler|
-         method(handler)
+          method(handler)
         end
-
-#        glade_file = GUI.find_data_file("ttime.glade")
-#        @glade = GladeXML.new(glade_file,nil,"ttime") do |handler|
-#          method(handler) 
-#        end
 
         @colliding_courses = false
 
