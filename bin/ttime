@@ -13,12 +13,6 @@ include TTime::Logging
 action = :run_gui
 
 OptionParser.new do |opts|
-  opts.on("--hebrew", "Force Hebrew locale") do
-    ENV["LC_ALL"]="he_IL.UTF-8"
-    ENV["LANG"]="he_IL.UTF-8"
-    ENV["LANGUAGE"]="he_IL.UTF-8"
-  end
-
   opts.on("--win32-hack", "Hack for win32 compatibility") do
     ENV["HOME"] = File::dirname($0)
   end
