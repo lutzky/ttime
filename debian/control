@@ -1,0 +1,14 @@
+Source: ttime
+Section: x11
+Priority: extra
+Maintainer: Ohad Lutzky <ohad@lutzky.net>
+Build-Depends: ruby (>= 1.8), cdbs, ruby-pkg-tools, debhelper (>= 5)
+Standards-Version: 3.8.0
+
+Package: ttime
+Architecture: all
+Depends: ${misc:Depends}, ruby (>= 1.8), libzip-ruby, libgettext-ruby1.8 | libgettext-ruby, libglade2-ruby, libpango1-ruby, librsvg2-ruby, libcairo-ruby
+Recommends: libxml-ruby1.8, ruby1.8
+Description: Technion Timetable Scheduler
+ TTime is a utility intended for students of the Technion IIT, which assists
+ in creation of weekly schedules by using technion-supplied course data.
