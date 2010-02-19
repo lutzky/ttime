@@ -1,4 +1,4 @@
-ttime (0.9.2) karmic; urgency=low
+ttime (0.9.2-1) karmic; urgency=low
 
   [ Ohad Lutzky ]
   * Fix parsing for unknown group types
