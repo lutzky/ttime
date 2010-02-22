@@ -4,47 +4,6 @@ require 'tempfile'
 
 VERSION_FILE = "lib/ttime/version.rb"
 
-module Git
-  class NotOnTag < Exception
-  end
-
-  class << self
-    def get_current_head
-      `git show-ref -s -h HEAD`.chomp
-    end
-
-    def get_tag_sha1s
-      Dir::glob(".git/refs/tags/*").collect do |filename|
-        ref = File::read(filename).chomp
-        commit = `git show #{ref} | grep ^commit | head -1`.split[1]
-        [ File::basename(filename), commit ]
-      end
-    end
-
-    def current_tag
-      current_head = get_current_head
-
-      get_tag_sha1s.each do |tag_name, sha1sum|
-        if sha1sum == current_head
-          return tag_name
-        end
-      end
-
-      raise NotOnTag
-    end
-  end
-end
-
-def debian_changelog_version
-  open("debian/changelog", "r").each do |l|
-    if l =~ /^ttime \((.*?)\)/
-      return $1
-    end
-  end
-
-  return nil
-end
-
 def write_version_file(version)
   open(VERSION_FILE, "w") do |f|
     f.puts <<-EOF
@@ -58,35 +17,28 @@ end
   end
 end
 
-def with_version
-  write_version_file Git::current_tag
-  begin
-    yield
-  ensure
-    write_version_file "(git)"
-  end
-end
-
-# Debuild with proper backup and restoration operations
-def safely_debuild(debuild_opts = "")
-  # Save bin/ttime, as setup.rb modifies the shebang and mode
-  tempd = `mktemp -d`.chomp
-  FileUtils.copy("bin/ttime",tempd)
-
-  begin
-    `debuild #{debuild_opts}`
-  ensure
-    FileUtils.move(File::join(tempd, "ttime"), "bin/")
-    Dir::rmdir(tempd)
-  end
-end
-
 Rake::RDocTask.new("doc") do |rdoc|
   rdoc.rdoc_dir = "doc"
   rdoc.title = "TTime -- A Technion Timetable utility"
   rdoc.main = "README.rdoc"
   rdoc.rdoc_files.include('README.rdoc')
   rdoc.rdoc_files.include('lib/**/*.rb')
+end
+
+desc "Update version number"
+task :update_version do
+  if `git status | grep -vE '^(#|nothing to commit)'` != ''
+    $stderr.puts "fatal: Working copy unclean"
+    system("git status")
+    raise "fatal: Working copy unclean"
+  end
+  new_version = ENV['TTIME_VERSION'].dup
+  raise "Usage: #{ARGV[0]} TTIME_VERSION=[version]" unless new_version
+  new_version.sub!(/^v/,'')
+  write_version_file(new_version)
+  system "git add #{VERSION_FILE} && " \
+         "git commit -m 'Update version number to #{new_version}' && " \
+         "git tag v#{new_version}"
 end
 
 desc "Generate ditz html pages"
@@ -118,31 +70,9 @@ task :updatepo do
   require 'gettext/utils'
   GetText.update_pofiles("ttime",
                          Dir.glob("lib/**/*.rb") +
-                         Dir.glob("data/ttime/*.glade") +
+                         Dir.glob("data/ttime/*.ui") +
                          [ "bin/ttime" ],
                          "ttime 0.x.x")
-end
-
-desc "Check that the debian version matches the current tag"
-task :check_debian_version do
-  unless "v#{debian_changelog_version}" == Git::current_tag
-    warn "WARNING: Debian version (#{debian_changelog_version}) doesn't " \
-      "match git tag #{Git::current_tag}"
-  end
-end
-
-desc "Build a debian package"
-task :debuild => [ :check_debian_version, :makemo ] do
-  with_version do
-    safely_debuild
-  end
-end
-
-desc "Build a debian package without signing"
-task :debuild_nosign => [ :check_debian_version, :makemo ] do
-  with_version do
-    safely_debuild "-uc -us"
-  end
 end
 
 desc "Zip up relevant windows package files (without Ruby)"
