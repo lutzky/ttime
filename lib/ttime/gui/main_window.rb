@@ -13,6 +13,8 @@ require 'ttime/gui/gtk_queue'
 require 'ttime/tcal/tcal'
 require 'ttime/gettext_settings'
 
+DATE_FORMAT="%d/%m/%y"
+
 module Gtk
   class Menu
     def add_with_callback label, &blk
@@ -178,6 +180,7 @@ module TTime
         init_schedule_view
         init_constraints
         init_ratings
+        init_info
 
         load_data
       end
@@ -421,6 +424,11 @@ module TTime
       def save_settings(settings_file = nil)
         Settings.instance['selected_courses'] = \
           @selected_courses.collect { |course| course.number }
+        begin
+          Settings.instance[:semester_start_date] = try_get_date @semester_start_entry
+          Settings.instance[:semester_end_date]   = try_get_date @semester_end_entry
+        rescue ArgumentError
+        end
         Settings.instance.save(settings_file)
       end
 
@@ -444,6 +452,12 @@ module TTime
               " in your preferences, but it doesn't seem to exist now."
             end
           end
+        end
+        if not Settings.instance[:semester_start_date].nil?
+            @semester_start_entry.text = Settings.instance[:semester_start_date].strftime(DATE_FORMAT)
+        end
+        if not Settings.instance[:semester_end_date].nil?
+            @semester_end_entry.text = Settings.instance[:semester_end_date].strftime(DATE_FORMAT)
         end
       end
 
@@ -688,6 +702,102 @@ module TTime
         Gtk.queue do
           @calendar.redraw
 	  set_calendar_info nil, schedule
+        end
+      end
+
+      def try_get_date(entry)
+        begin
+          return DateTime.strptime(entry.text, DATE_FORMAT)
+        rescue ArgumentError
+          error_dialog(_("Invalid date. Please set semester start and end date first."))
+          entry.grab_focus
+          raise
+        end
+      end
+
+      def export_ical
+        require 'rubygems'
+        require 'ri_cal'
+        require 'tzinfo'
+        unless scheduler_ready?
+          error_dialog(_("Please run \"Find Schedules\" first"))
+          return false
+        end
+        begin
+          semester_dstart = try_get_date(@semester_start_entry)
+          semester_dend   = try_get_date(@semester_end_entry)
+        rescue ArgumentError
+          @ui["notebook"].page = 4 # last page
+          return false
+        end
+
+
+        filter = Gtk::FileFilter.new
+        filter.name = _("iCal files")
+        filter.add_pattern "*.ics"
+        fs = Gtk::FileChooserDialog.new(_("Export iCal"),
+                                        @ui["MainWindow"],
+                                        Gtk::FileChooser::ACTION_SAVE,
+                                        nil,
+                                        [Gtk::Stock::CANCEL,
+                                          Gtk::Dialog::RESPONSE_CANCEL],
+                                          [Gtk::Stock::SAVE,
+                                            Gtk::Dialog::RESPONSE_ACCEPT]
+                                       )
+        fs.add_filter filter
+        fs.do_overwrite_confirmation = true
+
+        if fs.run == Gtk::Dialog::RESPONSE_ACCEPT
+          if fs.filename =~ /\.ics$/
+            filename = fs.filename
+          else
+            filename = "#{fs.filename}.ics"
+          end
+
+          semester_start_weekday = semester_dstart.wday
+          schedule = @scheduler.ok_schedules[@current_schedule]
+          ical = RiCal.Calendar do |ical|
+            ical.default_tzid = "Asia/Jerusalem"
+            schedule.events.each do |ev|
+              ical.event do |ical_ev|
+                ical_ev.summary     = @nicknames.beautify[ev.group.name] || ev.group.name
+                ical_ev.description = text_for_event(ev)
+                start_time = DateTime.parse(Logic::Hour::military_to_human(ev.start))
+                end_time   = DateTime.parse(Logic::Hour::military_to_human(ev.end))
+                event_weekday = ev.day - 1
+                start_date = semester_dstart + ((event_weekday - semester_start_weekday) % 7)
+                ical_ev.dtstart = start_date + start_time.day_fraction
+                ical_ev.dtend   = start_date + end_time  .day_fraction
+                ical_ev.location = ev.place
+                ical_ev.rrule = {
+                  :freq => "WEEKLY",
+                  :interval => 1,
+                  :wkst => Logic::Day::numeric_to_ical(ev.day),
+                  :until => semester_dend
+                }
+              end
+            end
+            @selected_courses.each do |course|
+              if not course.first_test_date.nil?
+                create_exam_event(ical, course, course.first_test_date,  true)
+              end
+              if not course.second_test_date.nil?
+                create_exam_event(ical, course, course.second_test_date, false)
+              end
+            end
+          end
+          file = File.new(filename,"w")
+          print ical.export_to(file)
+          file.close
+        end
+        fs.destroy
+      end
+
+      def create_exam_event(ical, course, exam_date, is_first_exam)
+        ical.event do |ev|
+            name = @nicknames.beautify[course.name] || course.name
+            ev.summary = name + " - " + (is_first_exam ? _("Moed A") : _("Moed B"))
+            ev.dtstart = ev.dtend = exam_date
         end
       end
 
@@ -974,6 +1084,27 @@ module TTime
         notebook = @ui["notebook"]
         notebook.append_page ratings_notebook, 
           Gtk::Label.new(_("Schedule ratings"))
+        notebook.show_all
+      end
+
+      def init_info
+        info_tab = Gtk::Table.new(2, 2)
+
+        lbl = Gtk::Label.new(_("Semester start:"))
+        lbl.justify = Gtk::JUSTIFY_LEFT
+        info_tab.attach lbl, 0, 1, 0, 1, Gtk::FILL, Gtk::FILL, 5, 5
+        lbl = Gtk::Label.new(_("Semester end:"))
+        lbl.justify = Gtk::JUSTIFY_LEFT
+        info_tab.attach lbl, 0, 1, 1, 2, Gtk::FILL, Gtk::FILL, 5, 5
+
+        @semester_start_entry = Gtk::Entry.new
+        info_tab.attach @semester_start_entry, 1, 2, 0, 1, Gtk::FILL, Gtk::FILL, 5, 5
+        @semester_end_entry = Gtk::Entry.new
+        info_tab.attach @semester_end_entry, 1, 2, 1, 2, Gtk::FILL, Gtk::FILL, 5, 5
+
+        notebook = @ui["notebook"]
+        notebook.append_page info_tab,
+          Gtk::Label.new(_("Semester Information"))
         notebook.show_all
       end
 
