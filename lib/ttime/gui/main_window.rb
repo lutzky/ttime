@@ -13,6 +13,8 @@ require 'ttime/gui/gtk_queue'
 require 'ttime/tcal/tcal'
 require 'ttime/gettext_settings'
 
+DATE_FORMAT="%d/%m/%y"
+
 module Gtk
   class Menu
     def add_with_callback label, &blk
@@ -423,11 +425,9 @@ module TTime
         Settings.instance['selected_courses'] = \
           @selected_courses.collect { |course| course.number }
         begin
-          Settings.instance[:semester_start_date] = Date.parse @semester_start_entry.text
-          Settings.instance[:semester_end_date]   = Date.parse @semester_end_entry.text
+          Settings.instance[:semester_start_date] = try_get_date @semester_start_entry
+          Settings.instance[:semester_end_date]   = try_get_date @semester_end_entry
         rescue ArgumentError
-          Settings.instance[:semester_start_date] = nil
-          Settings.instance[:semester_end_date]   = nil
         end
         Settings.instance.save(settings_file)
       end
@@ -454,10 +454,10 @@ module TTime
           end
         end
         if not Settings.instance[:semester_start_date].nil?
-            @semester_start_entry.text = Settings.instance[:semester_start_date].to_s
+            @semester_start_entry.text = Settings.instance[:semester_start_date].strftime(DATE_FORMAT)
         end
         if not Settings.instance[:semester_end_date].nil?
-            @semester_end_entry.text = Settings.instance[:semester_end_date].to_s
+            @semester_end_entry.text = Settings.instance[:semester_end_date].strftime(DATE_FORMAT)
         end
       end
 
@@ -707,7 +707,7 @@ module TTime
 
       def try_get_date(entry)
         begin
-          return DateTime.parse(entry.text)
+          return DateTime.strptime(entry.text, DATE_FORMAT)
         rescue ArgumentError
           error_dialog(_("Invalid date. Please set semester start and end date first."))
           entry.grab_focus
