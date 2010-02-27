@@ -61,8 +61,17 @@ end
 
 desc "Create mo-files for L10n"
 task :makemo do
-  require 'gettext/utils'
-  GetText.create_mofiles(true, "po", "data/locale")
+  require 'gettext'
+  require 'gettext/version'
+  if GetText::VERSION >= "2.1.0"
+    require 'gettext/tools'
+    GetText.create_mofiles({:verbose => true,
+                            :po_root => "po",
+                            :targetdir => "data/locale"})
+  else
+    require 'gettext/utils'
+    GetText.create_mofiles(true, "po", "data/locale")
+  end
 end
 
 desc "Update pot/po files to match new version"
