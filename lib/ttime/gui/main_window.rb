@@ -162,6 +162,7 @@ module TTime
       def initialize
         ui_file = GUI.find_data_file("ttime.ui")
         @ui = Gtk::Builder.new()
+        @ui.translation_domain = "ttime"
         @ui.add(ui_file)
         @ui.connect_signals do |handler|
           method(handler)

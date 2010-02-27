@@ -10,12 +10,23 @@ begin
   # scanned.
   locale_in_data_path = Pathname.new($0).dirname + \
     "../data/locale/%{locale}/LC_MESSAGES/%{name}.mo"
-  add_default_locale_path(locale_in_data_path.to_s)
+  if GetText::VERSION >= "2.1.0"
+    LocalePath.add_default_rule(locale_in_data_path.to_s)
+  else
+    add_default_locale_path(locale_in_data_path.to_s)
+  end
   bound_text_domain = bindtextdomain("ttime")
 
   # For Glade, however, it only seems to be possible to specify one path at
   # a time. Fortunately, gettext already found it for us.
-  my_current_mo = bound_text_domain.entries[0].current_mo
+  if GetText::VERSION >= "2.1.0"
+    _("_File")
+    lang = bound_text_domain.mofiles.keys[0]
+    print bound_text_domain.mofiles[lang].filename, "\n"
+    my_current_mo = bound_text_domain.mofiles[lang]
+  else
+    my_current_mo = bound_text_domain.entries[0].current_mo
+  end
   if my_current_mo
     ENV["GETTEXT_PATH"] = my_current_mo.filename.gsub(
       /locale\/[^\/]+\/LC_MESSAGES.*/,
