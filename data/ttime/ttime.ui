@@ -56,6 +56,14 @@
                       </object>
                     </child>
                     <child>
+                      <object class="GtkMenuItem" id="ical_export">
+                        <property name="visible">True</property>
+                        <property name="label" translatable="yes">Export _iCal...</property>
+                        <property name="use_underline">True</property>
+                        <signal name="activate" handler="export_ical"/>
+                      </object>
+                    </child>
+                    <child>
                       <object class="GtkSeparatorMenuItem" id="menuitem1">
                         <property name="visible">True</property>
                       </object>

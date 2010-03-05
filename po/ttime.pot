@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ttime 0.x.x\n"
-"POT-Creation-Date: 2008-09-18 16:31+0300\n"
+"POT-Creation-Date: 2009-08-24 18:32+0300\n"
 "PO-Revision-Date: 2006-10-19 11:53+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,170 +16,149 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: lib/ttime/gui/main_window.rb:38
-msgid "Course name"
+#: lib/ttime/constraints/no_clashes.rb:36
+msgid "No clashes"
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:39
-msgid "Course number"
+#: lib/ttime/constraints/no_clashes.rb:42
+#: lib/ttime/constraints/no_running.rb:40
+#: lib/ttime/ratings/late_mornings.rb:58
+#: lib/ttime/ratings/minimal_running.rb:54
+msgid "Enable"
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:40
-msgid "Group number"
+#: lib/ttime/constraints/no_clashes.rb:51
+msgid ""
+"WARNING! Disabling the 'no clashes' constraint will make scheduling take\n"
+"MUCH longer! You probably want to leave this on. (Coming soon: allow\n"
+"clashes only for specific courses)\n"
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:41
-msgid "Place"
+#: lib/ttime/constraints/free_days.rb:35
+msgid "Free days"
 msgstr ""
 
+#: lib/ttime/constraints/free_days.rb:52
+msgid " free days please"
+msgstr ""
+
+#: lib/ttime/constraints/free_days.rb:59
+msgid ""
+"This constraint makes sure your schedule has <b>at least</b> as many free "
+"days\n"
+"as you requested.\n"
+msgstr ""
+
+#: lib/ttime/constraints/no_running.rb:34
+msgid "No running"
+msgstr ""
+
+#: lib/ttime/constraints/no_running.rb:49
+msgid ""
+"This constraint makes sure you don't have to run between buildings during a\n"
+"10-minute (in case the lecturer finishes on time) break.\n"
+msgstr ""
+
+#: lib/ttime/constraints/free_hours.rb:20
+#: lib/ttime/constraints/free_hours.rb:40
+msgid "Add free hour"
+msgstr ""
+
+#: lib/ttime/constraints/free_hours.rb:60
+msgid "Start:"
+msgstr ""
+
+#: lib/ttime/constraints/free_hours.rb:64
+msgid "End:"
+msgstr ""
+
+#: lib/ttime/constraints/free_hours.rb:107
+msgid "Free Hours"
+msgstr ""
+
+#: lib/ttime/constraints/free_hours.rb:116
+#: lib/ttime/constraints/group_constraints.rb:231
+msgid "Time"
+msgstr ""
+
+#: lib/ttime/constraints/free_hours.rb:123
+msgid "Free hours"
+msgstr ""
+
+#: lib/ttime/constraints/free_hours.rb:129
+msgid "Remove"
+msgstr ""
+
+#: lib/ttime/constraints/group_constraints.rb:34
+msgid "Mark this group"
+msgstr ""
+
+#: lib/ttime/constraints/group_constraints.rb:100
+msgid "Group Constraints"
+msgstr ""
+
+#: lib/ttime/constraints/group_constraints.rb:196
+msgid "Select all"
+msgstr ""
+
+#: lib/ttime/constraints/group_constraints.rb:197
+msgid "Select none"
+msgstr ""
+
+#: lib/ttime/constraints/group_constraints.rb:224
+msgid "Allowed"
+msgstr ""
+
+#: lib/ttime/constraints/group_constraints.rb:228
+msgid "Group"
+msgstr ""
+
+#: lib/ttime/constraints/group_constraints.rb:234
 #: lib/ttime/gui/main_window.rb:42
-#: lib/ttime/constraints/group_constraints.rb:232
 msgid "Lecturer"
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:81 lib/ttime/gui/main_window.rb:108
-msgid "YAML files"
+#: lib/ttime/constraints/group_constraints.rb:256
+msgid "Use group constraints"
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:84
-msgid "Load Settings"
+#: lib/ttime/logic/times.rb:7
+msgid "Sunday"
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:111
-msgid "Save Settings"
+#: lib/ttime/logic/times.rb:8
+msgid "Monday"
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:209 data/ttime/ttime.glade:7
-msgid "TTime"
+#: lib/ttime/logic/times.rb:9
+msgid "Tuesday"
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:219
-msgid "Please select some courses first."
+#: lib/ttime/logic/times.rb:10
+msgid "Wednesday"
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:237
-msgid ""
-"Sorry, but no schedules are possible with the selected courses and "
-"constraints."
+#: lib/ttime/logic/times.rb:11
+msgid "Thursday"
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:261
-msgid "Are you sure you want to drop %s?"
+#: lib/ttime/logic/times.rb:12
+msgid "Friday"
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:477
-msgid " of %d"
+#: lib/ttime/logic/times.rb:13
+msgid "Saturday"
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:505
-msgid "Show details"
+#: lib/ttime/logic/scheduler.rb:78 lib/ttime/logic/scheduler.rb:123
+msgid "Generating schedules (%d so far)"
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:530
-msgid "Schedule"
+#: lib/ttime/logic/scheduler.rb:90
+msgid "Sorting schedules"
 msgstr ""
 
-#: lib/ttime/gui/main_window.rb:541
-msgid "Show all alternatives"
-msgstr ""
-
-#: lib/ttime/gui/main_window.rb:547
-msgid "Show alternatives to this event"
-msgstr ""
-
-#: lib/ttime/gui/main_window.rb:552
-msgid "Cancel this course"
-msgstr ""
-
-#: lib/ttime/gui/main_window.rb:617
-msgid "Rating details for this schedule:"
-msgstr ""
-
-#: lib/ttime/gui/main_window.rb:621
-msgid "\"%s\" rating"
-msgstr ""
-
-#: lib/ttime/gui/main_window.rb:624
-msgid "Overall score"
-msgstr ""
-
-#: lib/ttime/gui/main_window.rb:672
-msgid "Please run \"Find Schedules\" first"
-msgstr ""
-
-#: lib/ttime/gui/main_window.rb:677
-msgid "PDF files"
-msgstr ""
-
-#: lib/ttime/gui/main_window.rb:679
-msgid "Export PDF"
-msgstr ""
-
-#: lib/ttime/gui/main_window.rb:719
-msgid "WARNING: The courses marked with * have colliding test dates!"
-msgstr ""
-
-#: lib/ttime/gui/main_window.rb:730
-msgid "Lecturer in charge"
-msgstr ""
-
-#: lib/ttime/gui/main_window.rb:731
-msgid "Academic points"
-msgstr ""
-
-#: lib/ttime/gui/main_window.rb:732
-msgid "Moed A"
-msgstr ""
-
-#: lib/ttime/gui/main_window.rb:733
-msgid "Moed B"
-msgstr ""
-
-#: lib/ttime/gui/main_window.rb:743
-msgid "Group %d\n"
-msgstr ""
-
-#: lib/ttime/gui/main_window.rb:747
-msgid "Lecturer: "
-msgstr ""
-
-#: lib/ttime/gui/main_window.rb:761
-msgid "* No data for this group *\n"
-msgstr ""
-
-#: lib/ttime/gui/main_window.rb:823
-msgid "Populating available courses"
-msgstr ""
-
-#: lib/ttime/gui/main_window.rb:876
-msgid "Course Name"
-msgstr ""
-
-#: lib/ttime/gui/main_window.rb:876
-msgid "Course Number"
-msgstr ""
-
-#: lib/ttime/gui/main_window.rb:916
-msgid "Constraints"
-msgstr ""
-
-#: lib/ttime/gui/main_window.rb:932
-msgid "Priorities"
-msgstr ""
-
-#: lib/ttime/gui/main_window.rb:952
-msgid "Schedule ratings"
-msgstr ""
-
-#: lib/ttime/gui/main_window.rb:981
-msgid "No courses with tests are selected."
-msgstr ""
-
-#: lib/ttime/gui/progress_dialog.rb:9
-msgid "Progress"
-msgstr ""
-
-#: lib/ttime/gui/exam_schedule.rb:19 data/ttime/ttime.glade:260
+#: lib/ttime/gui/exam_schedule.rb:19 data/ttime/ttime.glade:384
 msgid "Exam Schedule"
 msgstr ""
 
@@ -199,6 +178,200 @@ msgstr ""
 
 #: lib/ttime/gui/exam_schedule.rb:181
 msgid "Date"
+msgstr ""
+
+#: lib/ttime/gui/progress_dialog.rb:9
+msgid "Progress"
+msgstr ""
+
+#: lib/ttime/gui/main_window.rb:38
+msgid "Course name"
+msgstr ""
+
+#: lib/ttime/gui/main_window.rb:39
+msgid "Course number"
+msgstr ""
+
+#: lib/ttime/gui/main_window.rb:40
+msgid "Group number"
+msgstr ""
+
+#: lib/ttime/gui/main_window.rb:41
+msgid "Place"
+msgstr ""
+
+#: lib/ttime/gui/main_window.rb:82 lib/ttime/gui/main_window.rb:109
+msgid "YAML files"
+msgstr ""
+
+#: lib/ttime/gui/main_window.rb:85
+msgid "Load Settings"
+msgstr ""
+
+#: lib/ttime/gui/main_window.rb:112
+msgid "Save Settings"
+msgstr ""
+
+#: lib/ttime/gui/main_window.rb:211 data/ttime/ttime.glade:8
+msgid "TTime"
+msgstr ""
+
+#: lib/ttime/gui/main_window.rb:221
+msgid "Please select some courses first."
+msgstr ""
+
+#: lib/ttime/gui/main_window.rb:239
+msgid ""
+"Sorry, but no schedules are possible with the selected courses and "
+"constraints."
+msgstr ""
+
+#: lib/ttime/gui/main_window.rb:263
+msgid "Are you sure you want to drop %s?"
+msgstr ""
+
+#: lib/ttime/gui/main_window.rb:296
+msgid "Are you sure you want to clear your selected courses?"
+msgstr ""
+
+#: lib/ttime/gui/main_window.rb:509
+msgid " of %d"
+msgstr ""
+
+#: lib/ttime/gui/main_window.rb:537
+msgid "Show details"
+msgstr ""
+
+#: lib/ttime/gui/main_window.rb:562
+msgid "Schedule"
+msgstr ""
+
+#: lib/ttime/gui/main_window.rb:573
+msgid "Show all alternatives"
+msgstr ""
+
+#: lib/ttime/gui/main_window.rb:579
+msgid "Show alternatives to this event"
+msgstr ""
+
+#: lib/ttime/gui/main_window.rb:584
+msgid "Cancel this course"
+msgstr ""
+
+#: lib/ttime/gui/main_window.rb:649
+msgid "Rating details for this schedule:"
+msgstr ""
+
+#: lib/ttime/gui/main_window.rb:653
+msgid "\"%s\" rating"
+msgstr ""
+
+#: lib/ttime/gui/main_window.rb:656
+msgid "Overall score"
+msgstr ""
+
+#: lib/ttime/gui/main_window.rb:707 lib/ttime/gui/main_window.rb:786
+msgid "Please run \"Find Schedules\" first"
+msgstr ""
+
+#: lib/ttime/gui/main_window.rb:712
+msgid "iCal files"
+msgstr ""
+
+#: lib/ttime/gui/main_window.rb:714
+msgid "Export iCal"
+msgstr ""
+
+#: lib/ttime/gui/main_window.rb:779 lib/ttime/gui/main_window.rb:846
+msgid "Moed A"
+msgstr ""
+
+#: lib/ttime/gui/main_window.rb:779 lib/ttime/gui/main_window.rb:847
+msgid "Moed B"
+msgstr ""
+
+#: lib/ttime/gui/main_window.rb:791
+msgid "PDF files"
+msgstr ""
+
+#: lib/ttime/gui/main_window.rb:793
+msgid "Export PDF"
+msgstr ""
+
+#: lib/ttime/gui/main_window.rb:833
+msgid "WARNING: The courses marked with * have colliding test dates!"
+msgstr ""
+
+#: lib/ttime/gui/main_window.rb:844
+msgid "Lecturer in charge"
+msgstr ""
+
+#: lib/ttime/gui/main_window.rb:845
+msgid "Academic points"
+msgstr ""
+
+#: lib/ttime/gui/main_window.rb:857
+msgid "Group %d\n"
+msgstr ""
+
+#: lib/ttime/gui/main_window.rb:861
+msgid "Lecturer: "
+msgstr ""
+
+#: lib/ttime/gui/main_window.rb:875
+msgid "* No data for this group *\n"
+msgstr ""
+
+#: lib/ttime/gui/main_window.rb:937
+msgid "Populating available courses"
+msgstr ""
+
+#: lib/ttime/gui/main_window.rb:990
+msgid "Course Name"
+msgstr ""
+
+#: lib/ttime/gui/main_window.rb:990
+msgid "Course Number"
+msgstr ""
+
+#: lib/ttime/gui/main_window.rb:1030
+msgid "Constraints"
+msgstr ""
+
+#: lib/ttime/gui/main_window.rb:1046
+msgid "Priorities"
+msgstr ""
+
+#: lib/ttime/gui/main_window.rb:1066
+msgid "Schedule ratings"
+msgstr ""
+
+#: lib/ttime/gui/main_window.rb:1073
+msgid "Semester start:"
+msgstr ""
+
+#: lib/ttime/gui/main_window.rb:1076
+msgid "Semester end:"
+msgstr ""
+
+#: lib/ttime/gui/main_window.rb:1087
+msgid "Semester Information"
+msgstr ""
+
+#: lib/ttime/gui/main_window.rb:1116
+msgid "No courses with tests are selected."
+msgstr ""
+
+#: lib/ttime/ratings/late_mornings.rb:52
+msgid "Extra sleep"
+msgstr ""
+
+#: lib/ttime/ratings/minimal_running.rb:38
+msgid "Minimal running"
+msgstr ""
+
+#: lib/ttime/parse/repy.rb:161
+msgid "Loading REPY file..."
 msgstr ""
 
 #: lib/ttime/data.rb:21
@@ -241,250 +414,109 @@ msgstr ""
 msgid "Extracting REPY file"
 msgstr ""
 
-#: lib/ttime/ratings/late_mornings.rb:52
-msgid "Extra sleep"
-msgstr ""
-
-#: lib/ttime/ratings/late_mornings.rb:58
-#: lib/ttime/ratings/minimal_running.rb:54
-#: lib/ttime/constraints/no_clashes.rb:42
-#: lib/ttime/constraints/no_running.rb:40
-msgid "Enable"
-msgstr ""
-
-#: lib/ttime/ratings/minimal_running.rb:38
-msgid "Minimal running"
-msgstr ""
-
-#: lib/ttime/logic/scheduler.rb:78 lib/ttime/logic/scheduler.rb:123
-msgid "Generating schedules (%d so far)"
-msgstr ""
-
-#: lib/ttime/logic/scheduler.rb:90
-msgid "Sorting schedules"
-msgstr ""
-
-#: lib/ttime/logic/times.rb:7
-msgid "Sunday"
-msgstr ""
-
-#: lib/ttime/logic/times.rb:8
-msgid "Monday"
-msgstr ""
-
-#: lib/ttime/logic/times.rb:9
-msgid "Tuesday"
-msgstr ""
-
-#: lib/ttime/logic/times.rb:10
-msgid "Wednesday"
-msgstr ""
-
-#: lib/ttime/logic/times.rb:11
-msgid "Thursday"
-msgstr ""
-
-#: lib/ttime/logic/times.rb:12
-msgid "Friday"
-msgstr ""
-
-#: lib/ttime/logic/times.rb:13
-msgid "Saturday"
-msgstr ""
-
-#: lib/ttime/parse/repy.rb:161
-msgid "Loading REPY file..."
-msgstr ""
-
-#: lib/ttime/constraints/free_hours.rb:20
-#: lib/ttime/constraints/free_hours.rb:40
-msgid "Add free hour"
-msgstr ""
-
-#: lib/ttime/constraints/free_hours.rb:60
-msgid "Start:"
-msgstr ""
-
-#: lib/ttime/constraints/free_hours.rb:64
-msgid "End:"
-msgstr ""
-
-#: lib/ttime/constraints/free_hours.rb:107
-msgid "Free Hours"
-msgstr ""
-
-#: lib/ttime/constraints/free_hours.rb:116
-#: lib/ttime/constraints/group_constraints.rb:229
-msgid "Time"
-msgstr ""
-
-#: lib/ttime/constraints/free_hours.rb:123
-msgid "Free hours"
-msgstr ""
-
-#: lib/ttime/constraints/free_hours.rb:129
-msgid "Remove"
-msgstr ""
-
-#: lib/ttime/constraints/free_days.rb:35
-msgid "Free days"
-msgstr ""
-
-#: lib/ttime/constraints/free_days.rb:52
-msgid " free days please"
-msgstr ""
-
-#: lib/ttime/constraints/free_days.rb:59
-msgid ""
-"This constraint makes sure your schedule has <b>at least</b> as many free "
-"days\n"
-"as you requested.\n"
-msgstr ""
-
-#: lib/ttime/constraints/no_clashes.rb:36
-msgid "No clashes"
-msgstr ""
-
-#: lib/ttime/constraints/no_clashes.rb:51
-msgid ""
-"WARNING! Disabling the 'no clashes' constraint will make scheduling take\n"
-"MUCH longer! You probably want to leave this on. (Coming soon: allow\n"
-"clashes only for specific courses)\n"
-msgstr ""
-
-#: lib/ttime/constraints/no_running.rb:34
-msgid "No running"
-msgstr ""
-
-#: lib/ttime/constraints/no_running.rb:49
-msgid ""
-"This constraint makes sure you don't have to run between buildings during a\n"
-"10-minute (in case the lecturer finishes on time) break.\n"
-msgstr ""
-
-#: lib/ttime/constraints/group_constraints.rb:34
-msgid "Mark this group"
-msgstr ""
-
-#: lib/ttime/constraints/group_constraints.rb:100
-msgid "Group Constraints"
-msgstr ""
-
-#: lib/ttime/constraints/group_constraints.rb:194
-msgid "Select all"
-msgstr ""
-
-#: lib/ttime/constraints/group_constraints.rb:195
-msgid "Select none"
-msgstr ""
-
-#: lib/ttime/constraints/group_constraints.rb:222
-msgid "Allowed"
-msgstr ""
-
-#: lib/ttime/constraints/group_constraints.rb:226
-msgid "Group"
-msgstr ""
-
-#: lib/ttime/constraints/group_constraints.rb:254
-msgid "Use group constraints"
-msgstr ""
-
-#: data/ttime/ttime.glade:21
+#: data/ttime/ttime.glade:41
 msgid "_File"
 msgstr ""
 
-#: data/ttime/ttime.glade:28
+#: data/ttime/ttime.glade:50
 msgid "_Load Settings..."
 msgstr ""
 
-#: data/ttime/ttime.glade:42
+#: data/ttime/ttime.glade:71
 msgid "_Save Settings..."
 msgstr ""
 
-#: data/ttime/ttime.glade:56
+#: data/ttime/ttime.glade:92
 msgid "Export _PDF..."
 msgstr ""
 
-#: data/ttime/ttime.glade:75
+#: data/ttime/ttime.glade:113
+msgid "Export _iCal..."
+msgstr ""
+
+#: data/ttime/ttime.glade:140
 msgid "Auto _Update"
 msgstr ""
 
-#: data/ttime/ttime.glade:108
+#: data/ttime/ttime.glade:181
 msgid "_Schedules"
 msgstr ""
 
-#: data/ttime/ttime.glade:115
+#: data/ttime/ttime.glade:190
 msgid "E_xam Schedule"
 msgstr ""
 
-#: data/ttime/ttime.glade:128
+#: data/ttime/ttime.glade:211
 msgid "Find _schedules"
 msgstr ""
 
-#: data/ttime/ttime.glade:149
+#: data/ttime/ttime.glade:239
 msgid "Show full _week"
 msgstr ""
 
-#: data/ttime/ttime.glade:162 data/ttime/ttime.glade:328
+#: data/ttime/ttime.glade:255 data/ttime/ttime.glade:499
 msgid "Jump 10 back"
 msgstr ""
 
-#: data/ttime/ttime.glade:178
+#: data/ttime/ttime.glade:277
 msgid "_Previous"
 msgstr ""
 
-#: data/ttime/ttime.glade:194
+#: data/ttime/ttime.glade:299
 msgid "_Next"
 msgstr ""
 
-#: data/ttime/ttime.glade:210 data/ttime/ttime.glade:364
+#: data/ttime/ttime.glade:321 data/ttime/ttime.glade:550
 msgid "Jump 10 forward"
 msgstr ""
 
-#: data/ttime/ttime.glade:230
+#: data/ttime/ttime.glade:347
 msgid "_Help"
 msgstr ""
 
-#: data/ttime/ttime.glade:271
+#: data/ttime/ttime.glade:401
 msgid "Find Schedules"
 msgstr ""
 
-#: data/ttime/ttime.glade:300
+#: data/ttime/ttime.glade:453
 msgid " of 0"
 msgstr ""
 
-#: data/ttime/ttime.glade:340
+#: data/ttime/ttime.glade:516
 msgid "Previous"
 msgstr ""
 
-#: data/ttime/ttime.glade:352
+#: data/ttime/ttime.glade:533
 msgid "Next"
 msgstr ""
 
-#: data/ttime/ttime.glade:410
+#: data/ttime/ttime.glade:626
 msgid "Search "
 msgstr ""
 
-#: data/ttime/ttime.glade:473
+#: data/ttime/ttime.glade:731
 msgid "Available Courses"
 msgstr ""
 
-#: data/ttime/ttime.glade:532
+#: data/ttime/ttime.glade:870
 msgid "Selected Courses"
 msgstr ""
 
-#: data/ttime/ttime.glade:577
+#: data/ttime/ttime.glade:947
 msgid "Course List"
 msgstr ""
 
-#: data/ttime/ttime.glade:604
+#: data/ttime/ttime.glade:992
+msgid "Application Name"
+msgstr ""
+
+#: data/ttime/ttime.glade:993
 msgid ""
 "Inspired by UDonkey and Marprog\n"
 "\n"
 "But we don't like C#"
 msgstr ""
 
-#: data/ttime/ttime.glade:608
+#: data/ttime/ttime.glade:998
 msgid "Git repository"
 msgstr ""
