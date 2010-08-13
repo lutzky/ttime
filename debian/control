@@ -2,7 +2,7 @@ Source: ttime
 Section: x11
 Priority: extra
 Maintainer: Ohad Lutzky <ohad@lutzky.net>
-Build-Depends: ruby (>= 1.8), cdbs, ruby-pkg-tools, debhelper (>= 5)
+Build-Depends: ruby (>= 1.8), cdbs, ruby-pkg-tools, debhelper (>= 5), libgettext-ruby1.8 | libgettext-ruby
 Standards-Version: 3.8.3
 
 Package: ttime
