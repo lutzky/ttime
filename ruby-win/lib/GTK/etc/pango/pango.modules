@@ -1,0 +1,27 @@
+# Pango Modules file
+# Automatically generated file, do not edit
+#
+# ModulesPath = E:\git\ttime\ruby-win\lib\GTK\lib\pango\1.5.0\modules
+#
+"E:\\git\\ttime\\ruby-win\\lib\\GTK\\lib\\pango\\1.5.0\\modules\\pango-arabic-fc.dll" ArabicScriptEngineFc PangoEngineShape PangoRenderFc arabic:*
+"E:\\git\\ttime\\ruby-win\\lib\\GTK\\lib\\pango\\1.5.0\\modules\\pango-arabic-lang.dll" ArabicScriptEngineLang PangoEngineLang PangoRenderNone arabic:*
+"E:\\git\\ttime\\ruby-win\\lib\\GTK\\lib\\pango\\1.5.0\\modules\\pango-basic-fc.dll" BasicScriptEngineFc PangoEngineShape PangoRenderFc armenian:* bopomofo:* cherokee:* coptic:* cyrillic:* deseret:* ethiopic:* georgian:* gothic:* greek:* han:* hiragana:* katakana:* latin:* ogham:* old-italic:* runic:* canadian-aboriginal:* yi:* braille:* cypriot:* limbu:* osmanya:* shavian:* linear-b:* ugaritic:* glagolitic:* cuneiform:* phoenician:* common:
+"E:\\git\\ttime\\ruby-win\\lib\\GTK\\lib\\pango\\1.5.0\\modules\\pango-basic-win32.dll" BasicScriptEngineWin32 PangoEngineShape PangoRenderWin32 armenian:* bopomofo:* cherokee:* coptic:* cyrillic:* deseret:* ethiopic:* georgian:* gothic:* greek:* han:* hangul:* hiragana:* katakana:* latin:* ogham:* old-italic:* runic:* thai:* canadian-aboriginal:* yi:* braille:* cypriot:* limbu:* osmanya:* shavian:* linear-b:* ugaritic:* common:
+"E:\\git\\ttime\\ruby-win\\lib\\GTK\\lib\\pango\\1.5.0\\modules\\pango-hangul-fc.dll" HangulScriptEngineFc PangoEngineShape PangoRenderFc hangul:*
+"E:\\git\\ttime\\ruby-win\\lib\\GTK\\lib\\pango\\1.5.0\\modules\\pango-hebrew-fc.dll" HebrewScriptEngineFc PangoEngineShape PangoRenderFc hebrew:*
+"E:\\git\\ttime\\ruby-win\\lib\\GTK\\lib\\pango\\1.5.0\\modules\\pango-indic-fc.dll" devaScriptEngineFc PangoEngineShape PangoRenderFc devanagari:*
+"E:\\git\\ttime\\ruby-win\\lib\\GTK\\lib\\pango\\1.5.0\\modules\\pango-indic-fc.dll" bengScriptEngineFc PangoEngineShape PangoRenderFc bengali:*
+"E:\\git\\ttime\\ruby-win\\lib\\GTK\\lib\\pango\\1.5.0\\modules\\pango-indic-fc.dll" guruScriptEngineFc PangoEngineShape PangoRenderFc gurmukhi:*
+"E:\\git\\ttime\\ruby-win\\lib\\GTK\\lib\\pango\\1.5.0\\modules\\pango-indic-fc.dll" gujrScriptEngineFc PangoEngineShape PangoRenderFc gujarati:*
+"E:\\git\\ttime\\ruby-win\\lib\\GTK\\lib\\pango\\1.5.0\\modules\\pango-indic-fc.dll" oryaScriptEngineFc PangoEngineShape PangoRenderFc oriya:*
+"E:\\git\\ttime\\ruby-win\\lib\\GTK\\lib\\pango\\1.5.0\\modules\\pango-indic-fc.dll" tamlScriptEngineFc PangoEngineShape PangoRenderFc tamil:*
+"E:\\git\\ttime\\ruby-win\\lib\\GTK\\lib\\pango\\1.5.0\\modules\\pango-indic-fc.dll" teluScriptEngineFc PangoEngineShape PangoRenderFc telugu:*
+"E:\\git\\ttime\\ruby-win\\lib\\GTK\\lib\\pango\\1.5.0\\modules\\pango-indic-fc.dll" kndaScriptEngineFc PangoEngineShape PangoRenderFc kannada:*
+"E:\\git\\ttime\\ruby-win\\lib\\GTK\\lib\\pango\\1.5.0\\modules\\pango-indic-fc.dll" mlymScriptEngineFc PangoEngineShape PangoRenderFc malayalam:*
+"E:\\git\\ttime\\ruby-win\\lib\\GTK\\lib\\pango\\1.5.0\\modules\\pango-indic-fc.dll" sinhScriptEngineFc PangoEngineShape PangoRenderFc sinhala:*
+"E:\\git\\ttime\\ruby-win\\lib\\GTK\\lib\\pango\\1.5.0\\modules\\pango-indic-lang.dll" devaIndicScriptEngineLang PangoEngineLang PangoRenderNone devanagari:*
+"E:\\git\\ttime\\ruby-win\\lib\\GTK\\lib\\pango\\1.5.0\\modules\\pango-indic-lang.dll" sinhIndicScriptEngineLang PangoEngineLang PangoRenderNone sinhala:*
+"E:\\git\\ttime\\ruby-win\\lib\\GTK\\lib\\pango\\1.5.0\\modules\\pango-khmer-fc.dll" KhmerScriptEngineFc PangoEngineShape PangoRenderFc khmer:*
+"E:\\git\\ttime\\ruby-win\\lib\\GTK\\lib\\pango\\1.5.0\\modules\\pango-syriac-fc.dll" SyriacScriptEngineFc PangoEngineShape PangoRenderFc syriac:*
+"E:\\git\\ttime\\ruby-win\\lib\\GTK\\lib\\pango\\1.5.0\\modules\\pango-thai-fc.dll" ThaiScriptEngineFc PangoEngineShape PangoRenderFc thai:* lao:*
+"E:\\git\\ttime\\ruby-win\\lib\\GTK\\lib\\pango\\1.5.0\\modules\\pango-tibetan-fc.dll" TibetanScriptEngineFc PangoEngineShape PangoRenderFc tibetan:*

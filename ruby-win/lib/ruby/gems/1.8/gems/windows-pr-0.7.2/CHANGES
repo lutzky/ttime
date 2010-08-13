@@ -1,0 +1,146 @@
+= 0.7.2 - 15-Oct-2007
+* Added the Windows::MSVCRT::Time module.
+* Added the Windows::MSVCRT::Directory module.
+* Added some SID related security constants to the Windows::Security module.
+* Added more constants and the HasOverlappedIoCompleted macro to the
+  Windows::Synchronize module.
+* Added some 'find' methods to the Windows::File module.
+* Some prototype fixes for the 'Virtual' functions in Windows::Memory.
+
+= 0.7.1 - 21-Sep-2007
+* Added USN (changejournal) macros to Windows::DeviceIO.
+* Added the Heap functions to Windows::Memory.
+* Added the Windows::Time module.
+* Added a Rakefile with tasks for installation and testing.
+* Added and refactored some tests.
+
+= 0.7.0 - 9-Aug-2007
+* All modules now use the windows-api library behind the scenes.
+* Added the Windows::NIO module. This contains native Windows IO functions.
+* Added several more functions to the Windows::GDI::PaintDrawing module.
+* Fixed the prototype for the GetWindowsDirectory function in the
+  Windows::SystemInfo module.
+
+= 0.6.6 - 3-May-2007
+* Added the Windows::MSVCRT::IO module.
+* Removed the SetConsoleCommandHistoryMode method from the Windows::Console
+  module. This was a preliminary function for Vista only, and it has since
+  been removed. Thanks go to Drew Colthorp for the spot.
+
+= 0.6.5 - 28-Feb-2007
+* Important bug fixes for the Windows::Directory, Windows::Memory,
+  Windows::Synchronize and Windows::Volume modules. These were either fixes
+  for the function declaration or the wrapper method. Thanks go to Katsuyuki
+  Miyamuko for the spot and the patches.
+
+= 0.6.4 - 28-Feb-2007
+* Add more string functions to the Windows::MSVCRT::String module.
+* Minor enhancement to the multi_to_wide and wide_to_multi helper methods in
+  the Windows::Unicode module. You can now pass an explicit encoding as an
+  optional second argument.
+* Added several more methods to the Windows::National module.
+* Finer grained method wrapping/checking for the Windows::Volume module.
+  Thanks go to Dave Rose for the spot.
+
+= 0.6.3 - 2-Feb-2007
+* Fixed the DLL for SetLastErrorEx in the Windows::Error module.
+* Fixed an unitialized constant bug in the Windows::DeviceIO module.
+* Fixed a bug in the NetWkstaSetInfo() method, from the
+  Windows::NetworkManagement module.  Thanks go to Richard (???) for the spot.
+* Added more security related methods and constants to the Windows::Security
+  module.
+* Fixed a bug in the GetComputerName method in the Windows::SystemInfo module.
+  Thanks go to Russell Christopher for the spot and the fix.
+* Changed method prototype for GetUserName and GetUserNameEx in the
+  Windows::SystemInfo module.
+* Added the PIPE_UNLIMITED_INSTANCES constant to the Windows::Pipe module.
+* Altered the prototype for the ConvertSidToStringSid() and
+  ConvertStringSidToSid() methods from the Windows::Security module.
+
+= 0.6.2 - 21-Dec-2006
+* Added file related constants from sys/stat.h to the Windows::MSVCRT::File
+  module.
+* Added the open_osfhandle method to the Windows::Handle module.
+* Changed the signatures for the VirtualFree and VirtualFreeEx functions in
+  the Windows::Memory module.
+* Added the Windows::GDI::Bitmap, Windows::GDI::DeviceContext and
+  Windows::GDI::PaintingDrawing modules.
+
+= 0.6.1 - 22-Nov-2006
+* Changed the signature for VirtualAlloc and VirtualAllocEx in the
+  Windows::Memory module (long instead of pointer for first argument).
+* Added the get_osfhandle method to the Windows::Handle module.
+
+= 0.6.0 - 5-Nov-2006
+* Added the Windows::Volume module.
+
+= 0.5.6 - 22-Oct-2006
+* Modified the memcpy method in Windows::MSVCRT::Buffer to do the right
+  thing based on the type of the parameters, as well as automatically
+  set the default size to the size of the source being copied.
+
+= 0.5.5 - 11-Oct-2006
+* Prototype modification for VirtualQuery and VirtualQueryEx in the
+  Windows::Memory module.
+
+= 0.5.4 - 8-Sep-2006
+* Added the Windows::NetworkManagement module, which contains methods like
+  NetUserAdd(), etc.
+* Fixed bugs in SetLastError and SetLastErrorEx declarations.
+* Finer grained method wrapping/checking for the Windows::Library module.
+* Finer grained method wrapping/checking for the Windows::Console module.
+* Added a test case for the Windows::Library module.
+* Added the LOCKFILE_EXCLUSIVE_LOCK and LOCKFILE_FAIL_IMMEDIATELY constants
+  to the Windows::File module.
+  
+= 0.5.3 - 10-Aug-2006
+* Added wide character functions to the EventLog module.
+* Added a test suite for the EventLog module.
+* Fixed method wrapper for MapViewOfFileEx.
+* Finer grained method wrapping/checking for the Windows::Registry module (the
+  RegSaveKeyEx might not be defined).
+
+= 0.5.2 - 29-Jul-2006
+* Prototype fixes/changes for CreateProcess, GlobalLock, GlobalMemoryStatusEx,
+  and CreateFileMapping.
+* Finer grained method wrapping/checking for the Windows::Process module (only
+  two methods might not be defined).
+* Added method wrappers for the Handle constants.
+* Added mmap related methods and constants.
+* Added more test cases.
+* Added wide character methods to the Windows::Directory class.
+* Added wide character helper methods.
+* Added a few more methods to MSVCRT::String. 
+
+= 0.5.1 - 26-May-2006
+* Minor updates and fixes for the Unicode and DeviceIO modules.
+* Added some wide character support, based on $KCODE values (which should
+  not be used at this time).
+
+= 0.5.0 - 23-May-2006
+* Added the Registry module
+* Added the EventLog module
+* Added the National module
+* Added the SystemInfo module
+
+= 0.4.0 - 7-May-2006
+* Bug fix for the WaitForMultipleObjects method in synchronize.rb
+* Added the Window module (just a few constants for now)
+* Added the Console module (AttachConsole, etc)
+* Added the Library module (LoadLibrary, etc)
+* Added the Directory module (CreateDirectory, etc)
+* Added the Shell module (some constants, a few methods for now)
+* Added the Unicode module (WideCharToMultiByte, etc)
+* Added process creation, priority and startf flags to the Process module
+
+= 0.3.0 - 22-Apr-2006
+* Added the Limits module.
+* Added the Security module.
+* Fixed a signature bug in the MSVCRT/Buffer module.
+
+= 0.2.0 - 13-Apr-2006
+* Added the FileSystem module.
+* Fixed signature and dll mistakes in the File module.
+
+= 0.1.0 - 4-Apr-2006
+* Initial release

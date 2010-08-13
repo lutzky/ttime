@@ -1,0 +1,341 @@
+Change Log
+==========
+
+2007-12-14 Release 26
+* Upgraded Ruby to 1.8.6 patch level 111
+* Upgraded RubyGems to 0.9.4
+* Upgraded Rake to 0.7.3
+* Upgraded FXRuby to 1.6.12
+* Upgraded hpricot to 0.6
+* Upgraded Ruby ODBC to 0.9995
+* Upgrade VRuby to vruby061102
+* Upgrade SWin to vrswin070409
+* Added win32-api 1.0.4
+* Added windows-api 0.2.0
+* Upgraded windows-pr to 0.7.2
+* Upgraded win32-file-stat to 1.2.7
+* Upgraded win32-file to 0.5.4
+* Upgraded win32-clipboard to 0.4.3
+* Upgraded win32-dir to 0.3.2
+* Upgraded win32-eventlog to 0.4.6
+* Upgraded win32-process to 0.5.3
+* Upgraded win32-sapi to 0.1.4
+* Upgraded win32-sound to 0.4.1
+* Added libfcgi 2.4.0
+* Added ruby-fcgi 0.8.7
+* Upgraded ruby-opengl to 0.50.0
+
+2007-03-15 Release 25
+* Upgraded Ruby to 1.8.6
+
+2007-03 Release 24
+* Upgraded SciTE to 1.72
+
+2007-02 Release 23
+* Fixed missing readline package
+* Upgraded FXRuby to 1.6.6
+* fxri no longer opens a console window
+
+2007-02 Release 22 (final)
+* Fixed rake.bat to use 'gem' instead of the
+  deprecated 'require_gem'
+
+2007-01 Release 22 (rc3)
+* Upgraded RubyGems to 0.9.2
+* Included the correct openssl.so file
+* rake.bat no longer closes the console window
+* "rake" file now included for easy configuration
+  of RadRails. 
+
+2007-01 Release 22 (rc1 & rc2)
+* Upgraded Ruby to ruby 1.8.5p12 
+  (2006-12-25 patchlevel 12)
+* Removed FreeRIDE (you can install separately from
+  htp://freeride.rubyforge.org/)
+* Removed FXRuby 1.2.6  
+* Upgraded FXRuby to 1.6.5
+* Upgraded fxri to 0.3.6  
+* Upgraded Expat XML Parser to 2.0.0
+* Replaced HTMLParser with Hpricot 0.4
+* Upgraded Ruby/DBI to 0.1.1
+* Upgraded Ruby ODBC to 0.9994
+* Upgraded Win32 Utils to their latest versions 
+  as of 1-7-2007 
+  (see http://rubyforge.org/projects/win32utils/)
+* Upgraded OpenSSL to 0.9.8d
+
+2006-08 Release 21 - stable release
+* Upgraded Ruby to ruby-1.8.5
+* Upgraded to win32-clipboard 0.4.1
+* Upgraded to win32-eventlog 0.4.2
+* Upgraded to win32-process 0.5.1
+
+2006-07 Release 20 - stable release
+* Updated the "src" directory to contain the correct
+  version of Ruby.
+* Stopped dialogs from popping up when installed in
+  silent mode (using the /S option).  
+* Upgraded FXRuby to 1.6.1  
+
+2006-07 Release 19 - final release for 1.8.4
+* Correct version of FreeRIDE is now included (0.9.6)
+* SciTE now invokes the Ruby Help file when editing
+  a ruby program.
+
+2006-07 Release 18
+* Included all Win32-Util packages that are available
+  as RubyGems.
+* Updated RubyGems to 0.9.0
+* All sample programs now reside under the "samples"
+  directory.
+* Updated FreeRIDE to 0.9.6
+* Upgrade FXRuby to 1.6.0
+* Added option for European keyboard to properly map 
+  certain input characters in IRB.  
+* Uninstaller now informs you that the entire 
+  installation dir will be deleted and gives 
+  you the option to abort.
+* Upgraded Ruby to ruby-1.8.4-20060414
+* Log4r is now installed via RubyGems
+
+
+2006-05 Release 17
+* Start menu items are now removed on uninstall
+* Upgrade VRuby to vruby060223
+* Upgrade SWin to vrswin060205
+* Upgrade FXRuby to 1.4.6
+* Upgraded zlib to 1.2.3.
+* RUBYOPT is now properly handled on install and
+  uninstall when adding the -rubygems option.
+
+2006-03
+* SciTe now defaults, for ruby file, to two-space tabs
+  and indent, and shows line numbers.
+* Standalone "ri" and "rdoc" ruby files are now included
+  (in addition to ri.bat and rdoc.bat) because these are
+  needed for the RDT Eclipse plugin.
+* Fixed file association and icons for *.rb & *.rbw
+* XML Parser is now included again.
+
+2006-02
+* DBI is now included again, but only with the ODBC
+  driver.
+* Fix a problem where fxri and ri did not work properly
+  (the ri database was being duplicated).
+* Updated release notes to mention that the install now
+  only contains bindings to Tcl/Tk and that to use Tcl/Tk
+  you must install it (recommending ActiveTcl).
+* <ruby>\bin now added to beginning of the system
+  path instead of the end.
+
+2006-01
+
+* Switched back to SciTE from Notepad++
+* Upgraded FXRuby to 1.4.4.
+* Completely rewrote build system to build on top of
+  the ruby-mswin32 distribution, and use rake to run
+  the build process.
+
+2005-12
+
+* RubyMock removed, it is no longer publicly available.
+* Packages included as preinstalled RubyGems can no
+  longer be optional in the installer. This now includes
+  fxri and FXRuby, and RubyGems itself.
+* Added FXRuby 1.4.3 (in addition to 1.2.6, which is
+  required by FreeRIDE).
+* FXRuby 1.2.6 now instaled via RubyGems
+* Fxri now installed via RubyGems.
+* Upgraded build system to be able to directly install
+  extensions using RubyGem.
+
+2005-11
+
+* Upgraded RubyGems to 0.8.11
+
+2005-05-12
+* Went back to installing FXRuby through its
+  installer instead of its RubyGem.
+
+2005-05-01 Curt
+
+* Included ruby/misc/ruby-electric.el from Ruby 1.9 
+* Included new build of readline 4.3.2 
+  (I hope this fixes readline problems)
+* included testunit patch needed by Rails
+* Updated FreeRIDE to 0.9.4
+* Included fxri 0.3.2
+* Updated FXRuby 1.2.6
+* Updated RubyGems to 0.8.10
+* Created start menu shortcuts for RubyGems gem_server 
+  and viewing the RDoc for installed gems.
+* Included user-submitted irb patch
+
+2004-12-25 Curt
+
+* Built from Ruby 1.8.2 final
+* OpenSSL 0.9.7e
+* Updated RubyGems to 0.8.3
+* Updated FreeRIDE to 0.9.2
+* Updated GnuWin32ZLib to 1.2.1
+
+
+2004-12-05 Curt:
+
+* Updated FXRuby to 1.2.2
+
+2004-11-28 Curt:
+
+* Updated FreeRIDE to 0.9.0
+* RUBYOPT environment var is prepended and not replaced.
+
+2004-11-08 Curt:
+
+* Built from Ruby 1.8.2 preview3
+
+2004-08-31 17:47 CURT
+
+* Fixed build script to download and build FreeRIDE
+from the tarball (I hacked in the FreeRIDE build earlier).
+
+* Added a registry entry that allows you to right click
+in windows explorer and select "New>Ruby Program" to create
+and empty ruby file.
+
+2004-08-17 13:51 CURT
+
+* Compiled with vc++ 7.1 (required for FreeRIDE debugger)
+
+* Added FreeRIDE 0.7.0 (prerelease)
+
+* Changed TCL/TK support by compileing Ruby
+  with the --enable-tcltk_stubs option, and
+  eliminated the need to set any TCL environment
+  variables.
+  
+* Upgraded Ruby-odbc to version 0.994
+
+2004-07-30 13:51 CURT
+
+* Built from Ruby 1.8.2 preview2
+
+2004-07-29 08:29 CURT
+
+* Built from Ruby 1.8.2 preview1
+
+* Added Start Menu shortcuts to documentation on ruby-doc.org.
+
+* Fixed IRB so that tab completion would work by picking up the
+  Windows port of readline.dll and readline.so (v4.3.2) from
+  ActiveScriptRuby 1.8.1.2 (http://arton.hp.infoseek.co.jp/).
+  Copies of these files are now in the directory:
+     ...\installer\local\irb-readline-4.3.2
+  However, tab completion only works for english keyboards.
+     
+* Eliminated the installer dialog message that warned you might
+  need to reboot your system. This was only true on older versions
+  of Windows 98, and prevented an unattended install. For the record,
+  an unattended install can be performed using the following command
+  line arguments to the installer:
+      /S /D=<install dir>     
+
+2004-07-21 12:48 curt
+
+* Changed the layout of the Windows registry entries. 
+
+* Minor fixes in preparation for 182-14
+
+* Built from Ruby 1.8.2 stable snapshot date 2004-06-29
+
+* Fixed Bug #643 - fixed a typo in a registry entry.
+
+* Upgraded Expat to version 1.95.7
+
+* Upgraded Ruby-odbc to version 0.993
+
+* Upgraded DBI to 0.23
+
+* Upgraded FXRuby to version 1.0.29
+
+2004-05-04 22:17 curt
+
+* Log4R, as distributed in Ruby 1.8.1 had a known error that prevented
+  it from being used in even simple cases (reported as bug #552). A fix
+  had been posted to ruby-talk:
+
+    http://blade.nagaokaut.ac.jp/cgi-bin/scat.rb/ruby/ruby-talk/80495
+
+  I applied this fix and added it to our 181 patch.
+
+2004-04-30 23:55  curt
+
+* Created a Patch-181 directory that contains the ri database and
+  win32ole patches for this release. These patch files must be manually copied
+  to the "stable" directory *after* the build, and *before* running
+  NSIS.
+
+2004-04-30 23:50  curt
+
+* Pulled the win32ole out of 181-10 as a tempoary workaround to
+   win32ole being broken in the official 1.8.1 release.
+
+2004-04-25 23:35  curt
+
+* Hand generated the ri database from a post 1.8.1 Ruby snapshot
+  (because ri in the Ruby 1.8.1 release tarball was broken).
+
+* Fixed the bad paths in the *.bat files in ruby\bin.
+
+2004-04-01 22:52  curt
+
+* I had to back out my 2004-03-30 change where I removed the installer
+  directory. It containsn ruby_env.exe which must be executed to set
+  enviroment vars (some day I want to get rid of this program because
+  we should be able to do this from the NSIS script).
+
+2004-03-31 23:00  curt
+
+* Upgraded SciTE to the latest version (1.59), which includes support
+  for YAML highlighting and Tools menu commands for Ruby syntax checking,
+  code profiling, and irb.
+
+2004-03-30 23:00  curt
+
+* The Ruby Installer included and installed a copy of the ruby installer
+  NSIS script and some (but not all) of the resources needed to build
+  the installer. I removed this because it didn't server any purpose
+  (it was incomplete and people can get the ruby installer off of
+  rubyforge if they ant it).
+
+ * Fix the problem where "irb.bat", "erb.bat" and "rdoc.bat" had the
+   wrong path in them.
+
+2004-03-29 22:34  curt
+
+* I created the file ...\installer\ChangeLog.txt (this file) to log
+  all changes made to the Ruby Installer. Many of these changes are
+  relevant only to those of us who are working on the installer.
+
+  Changes the are relevant to the end-user of the Ruby Installer
+  should be copied to ...\installer\stable\ReleaseNotes notice that
+  there is *no* ".txt" extension). The content of this file is copied
+  to ReleaseNotes.txt during the build.
+
+* You can now specify a proxy server to be used for the downloads by
+  setting the environment variable "http_proxy", like this:
+     set http_proxy=http://myproxy:8080/
+
+* You skip building the RI Database by setting this environment variable:
+     set build_ri=false
+  Buiding the RI Database is very time consuming, and temporarily disabling
+  this can be used to speed up the edit-build-debug cycle.
+
+* I renamed the README file to ReadMe.txt for make it easier to edit
+  this file on windows (this *is* a windows installer, you know!  :-)
+
+2004-03-28 18:50  curt
+
+* The build process is now completely free of cygwin ans the NSIS
+install script has been updated to work properly with NSIS 2.0 final.
+
+

@@ -1,0 +1,10 @@
+have_header: checking for windows.h... -------------------- no
+
+"cl -I. -Ie:/ruby/lib/ruby/1.8/i386-mswin32 -I.  -MD -Zi -O2b2xg- -G6  conftest.c -P"
+checked program was:
+/* begin */
+1: #include <windows.h>
+/* end */
+
+--------------------
+

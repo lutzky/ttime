@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Model Version="1.0" Id="GNOME-PDF-WRITER">
+  <Name>PDF writer</Name>
+  <Vendor>GNOME</Vendor>
+  <ModelVersion>0.0.1</ModelVersion>
+  <Options>
+    <Option Id="Engine">
+      <Option Type="List" Id="Backend" Default="gnome">
+        <Item Id="gnome">
+          <Name>GNOME</Name>
+          <Key Value="gnome-print-pdf" Id="Driver"/>
+        </Item>
+      </Option>
+    </Option>
+    <Option Id="Output">
+      <Option Id="Media">
+        <Option Type="List" Id="PhysicalSize" Default="USLetter">
+          <Fill Ref="Globals.Media.PhysicalSize"/>
+        </Option>
+        <Option Type="List" Id="PhysicalOrientation" Default="R0">
+          <Fill Ref="Globals.Media.PhysicalOrientation"/>
+        </Option>
+      </Option>
+      <Option Id="Job">
+        <Option Type="String" Id="NumCopies" Default="1"/>
+        <Option Type="String" Id="NonCollatedCopiesHW" Default="true"/>
+        <Option Type="String" Id="CollatedCopiesHW" Default="false"/>
+        <Option Type="String" Id="Collate" Default="false"/>
+        <Option Type="String" Id="Duplex" Default="true"/>
+        <Option Type="String" Id="Tumble" Default="false"/>
+        <Option Type="String" Locked="true" Id="PrintToFile" Default="true"/>
+        <Option Type="String" Id="FileName" Default="output.pdf"/>
+      </Option>
+    </Option>
+    <Option Id="Transport">
+      <Option Type="List" Id="Backend" Default="file">
+        <Item Id="file">
+          <Name>File</Name>
+          <Key Value="libgnomeprint-file.dll" Id="Module"/>
+          <Option Type="String" Id="FileName" Default="output.pdf"/>
+        </Item>
+      </Option>
+    </Option>
+    <Option Id="Icon">
+      <Option Type="String" Id="Filename" Default="gnome-mime-application-pdf"/>
+    </Option>
+  </Options>
+</Model>

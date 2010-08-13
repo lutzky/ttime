@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Model Version="1.0" Id="GNOME-GENERIC-PS">
+ <Name>PS Writer</Name>
+  <Vendor>GNOME</Vendor>
+  <ModelVersion>0.0.1</ModelVersion>
+  <Options>
+    <Option Id="Engine">
+      <Option Type="List" Id="Backend" Default="gnome">
+        <Item Id="gnome">
+          <Name>GNOME</Name>
+          <Key Value="gnome-print-ps" Id="Driver">
+            <Key Value="2.0" Id="LanguageLevel"/>
+          </Key>
+        </Item>
+      </Option>
+    </Option>
+    <Option Id="Output">
+      <Option Id="Media">
+        <Option Type="List" Id="PhysicalSize" Default="USLetter">
+          <Fill Ref="Globals.Media.PhysicalSize"/>
+        </Option>
+
+
+        <Option Type="List" Id="PhysicalOrientation" Default="R0">
+          <Fill Ref="Globals.Media.PhysicalOrientation"/>
+        </Option>
+
+
+
+
+        <Key Id="Margins">
+          <Key Value="0" Id="Left"/>
+          <Key Value="0" Id="Right"/>
+          <Key Value="0" Id="Top"/>
+          <Key Value="0" Id="Bottom"/>
+        </Key>
+      </Option>
+      <Option Id="Job">
+        <Option Type="String" Id="NumCopies" Default="1"/>
+        <Option Type="String" Id="NonCollatedCopiesHW" Default="true"/>
+        <Option Type="String" Id="CollatedCopiesHW" Default="false"/>
+        <Option Type="String" Id="Collate" Default="false"/>
+        <Option Type="String" Id="Duplex" Default="true"/>
+        <Option Type="String" Id="Tumble" Default="false"/>
+        <Option Type="String" Id="PrintToFile" Default="false"/>
+        <Option Type="String" Id="FileName" Default="output.ps"/>
+	<Option Type="String" Id="Filter" Default="frgba"/>
+      </Option>
+    </Option>
+    <Option Id="Transport">
+      <Option Type="List" Id="Backend" Default="lpr">
+        <Item Id="file">
+          <Name>File</Name>
+          <Key Value="libgnomeprint-file.dll" Id="Module"/>
+          <Option Type="String" Id="FileName" Default="output.ps"/>
+        </Item>
+        <Item Id="lpr">
+          <Name>lpr</Name>
+          <Key Value="libgnomeprint-lpr.dll" Id="Module"/>
+          <Option Type="String" Id="Printer" Default=""/>
+        </Item>
+        <Item Id="custom">
+          <Name>Custom</Name>
+          <Key Value="libgnomeprint-custom.dll" Id="Module"/>
+          <Option Type="String" Id="Command" Default="lpr"/>
+        </Item>
+      </Option>
+    </Option>
+    <Option Id="Icon">
+      <Option Type="String" Id="Filename" Default="gnome-mime-application-postscript"/>
+    </Option>
+  </Options>
+</Model>

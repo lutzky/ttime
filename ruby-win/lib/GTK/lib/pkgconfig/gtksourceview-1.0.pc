@@ -1,0 +1,11 @@
+prefix=c:/devel/target/gtksourceview-1.7.2
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: gtksourceview
+Description: GTK+ 2.0 Source Editing Widget
+Version: 1.7.2
+Requires: gtk+-2.0 libxml-2.0 libgnomeprint-2.2
+Libs: -L${libdir} -lgtksourceview-1.0
+Cflags: -I${includedir}/gtksourceview-1.0

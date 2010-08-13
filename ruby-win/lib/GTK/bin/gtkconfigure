@@ -1,0 +1,15 @@
+#!/bin/sh
+
+if test "x$CC" = x; then
+  CC="gcc"
+fi
+CC="$CC -mms-bitfields"
+OPT=
+
+case `uname -a` in
+  CYGWIN*)
+    CC="$CC -mno-cygwin"
+    OPT="$OPT --host=i386-pc-mingw32 --build=i386-pc-mingw32"
+esac
+
+env CC="$CC" ./configure $OPT $*

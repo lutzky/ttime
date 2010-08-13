@@ -1,0 +1,11 @@
+prefix=c:/devel/target/libgnomeprintui-2.12.1
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: libgnomeprintui-2.2
+Description: libgnomeprint - Printing library for gtk+ based applications
+Requires: libgnomeprint-2.2 libgnomecanvas-2.0
+Version: 2.12.1
+Libs: -L${libdir} -lgnomeprintui-2-2
+Cflags: -I${includedir}/libgnomeprintui-2.2

@@ -1,0 +1,36 @@
+<%
+# blog.rhtml - a sample script for Ruby on Rails
+#
+# Copyright (C) 2005 Masao Mutoh
+#
+# This file is distributed under the same license as Ruby-GetText-Package.
+
+# Views are bound a textdomain which is bound in application.rb or 
+# blog_controller.rb.
+# So you don't need to call bindtextdomain here.
+%>
+<html>
+<head>
+  <title><%= _('GetText Sample Blog on RoR') %></title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <%= stylesheet_link_tag 'scaffold' %>
+  <%= stylesheet_link_tag 'blog' %>
+</head>
+<body>
+<div class="main">
+<% if flash[:notice] %>
+<p class="notice"><%= flash[:notice] %></p>
+<% end %>
+
+<%= @content_for_layout %>
+
+<div class="copyright">
+Copyright (C) 2005,2006 Masao Mutoh
+</div>
+
+</div>
+
+<%= show_navigation %>
+
+</body>
+</html>

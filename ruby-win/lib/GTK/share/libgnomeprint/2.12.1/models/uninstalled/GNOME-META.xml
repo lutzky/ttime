@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<Model Id="GNOME-META" Version="1.0">
+  <Name>Metadata writer</Name>
+  <Vendor>GNOME</Vendor>
+  <ModelVersion>0.0.1</ModelVersion>
+  <Options>
+    <Option Id="Engine">
+      <Option Id="Backend" Type="List" Default="gnome">
+        <Item Id="gnome">
+          <Name>GNOME</Name>
+          <Key Id="Driver" Value="gnome-print-meta"/>
+        </Item>
+      </Option>
+    </Option>
+    <Option Id="Output">
+      <Option Id="Media">
+        <Option Id="PhysicalSize" Type="List" Default="A4">
+          <Item Id="A4">
+            <Name>A4</Name>
+            <Key Id="Width" Value="595.2755906"/>
+            <Key Id="Height" Value="841.8897638"/>
+          </Item>
+          <Item Id="USLetter">
+            <Name>US Letter</Name>
+            <Key Id="Width" Value="612"/>
+            <Key Id="Height" Value="792"/>
+          </Item>
+          <Item Id="USLegal">
+            <Name>US Legal</Name>
+            <Key Id="Width" Value="612"/>
+            <Key Id="Height" Value="1008"/>
+          </Item>
+          <Item Id="Executive">
+            <Name>Executive</Name>
+            <Key Id="Width" Value="522"/>
+            <Key Id="Height" Value="756"/>
+          </Item>
+        </Option>
+      </Option>
+      <Option Id="Job">
+        <Option Id="NumCopies" Type="String" Default="1"/>
+        <Option Id="NonCollatedCopiesHW" Type="String" Default="true"/>
+        <Option Id="CollatedCopiesHW" Type="String" Default="false"/>
+        <Option Id="Collate" Type="String" Default="false"/>
+        <Option Id="Duplex" Type="String" Default="false"/>
+        <Option Id="Tumble" Type="String" Default="false"/>
+        <Option Id="PrintToFile" Type="String" Default="true" Locked="true"/>
+        <Option Id="FileName" Type="String" Default="output.meta"/>
+      </Option>
+    </Option>
+    <Option Id="Transport">
+      <Option Id="Backend" Type="List" Default="file">
+        <Item Id="file">
+          <Name>File</Name>
+          <Key Id="Module" Value="libgnomeprint-file.dll"/>
+          <Option Id="FileName" Type="String" Default="output.meta"/>
+        </Item>
+      </Option>
+    </Option>
+    <Option Id="Icon">
+      <Option Id="Filename" Type="String" Default="gnome-print-meta.png"/>
+    </Option>
+  </Options>
+</Model>

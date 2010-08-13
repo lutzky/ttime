@@ -1,0 +1,9 @@
+* CHANGES
+* MANIFEST
+* README
+* Rakefile
+* win32-api.gemspec
+* ext/extconf.rb
+* ext/win32/api.c
+* test/tc_win32_api_callback.rb
+* test/tc_win32_api.rb

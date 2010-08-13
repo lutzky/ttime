@@ -1,0 +1,6 @@
+#! D:/Users/Luis/projects/oss/installer2-trunk/ruby/bin/ruby.exe
+
+require 'rubygems/server'
+
+Gem::Server.run ARGV
+

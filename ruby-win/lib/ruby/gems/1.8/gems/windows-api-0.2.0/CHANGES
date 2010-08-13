@@ -1,0 +1,9 @@
+= 0.2.0 - 20-Sep-2007
+* Now requires the win32-api library.
+* Replaced class variables with class instance variables to prevent conflicts.
+
+= 0.1.1 - 25-May-2007
+* Fixed a void parameter bug.
+
+= 0.1.0 - 24-May-2007
+* Initial release

@@ -1,0 +1,25 @@
+<%
+# _form.rhtml - a sample script for Ruby on Rails
+#
+# Copyright (C) 2005 Masao Mutoh
+#
+# This file is distributed under the same license as Ruby-GetText-Package.
+
+# Views are bound a textdomain which is bound in application.rb or 
+# blog_controller.rb.
+# So you don't need to call bindtextdomain here.
+%>
+
+<%= error_messages_for 'article' %>
+
+<!--[form:article]-->
+<p><label for="article_lastupdate"><%= _("Lastupdate") %></label><br/>
+<%= date_select 'article', 'lastupdate', :use_month_numbers => true  %></p>
+<p><label for="article_title"><%= _("Title: Required.") %></label><br/>
+<%= text_field 'article', 'title'  %></p>
+
+<p><label for="article_description"><%= _("Description: More than 10 characters.") %></label><br/>
+<%= text_area 'article', 'description'  %></p>
+
+<!--[eoform:article]-->
+

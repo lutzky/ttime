@@ -1,0 +1,27 @@
+<ui>
+  <toolbar name="StandardToolbar">
+    <toolitem action="close"/>
+    <toolitem action="print"/>
+    <separator/>
+   <toolitem action="cut"/>
+    <toolitem action="copy"/>
+    <toolitem action="paste"/>
+    <separator/>
+    <toolitem action="undo"/>
+    <toolitem action="redo"/>
+    <separator/>
+    <toolitem action="first"/>
+    <toolitem action="previous"/>
+    <toolitem action="next"/>
+    <toolitem action="last"/>
+    <separator/>
+    <toolitem action="zoom_100"/>
+    <toolitem action="zoom_fit"/>
+    <toolitem action="zoom_in"/>
+    <toolitem action="zoom_out"/>
+    <separator/>
+    <toolitem action="multi"/>
+    <toolitem action="edit"/>
+    <toolitem action="theme"/>
+  </toolbar>
+</ui>

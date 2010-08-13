@@ -1,0 +1,115 @@
+
+                            Ruby Installer for Windows
+                               Ruby Version 1.8.6
+                              Installer Version 186-26
+                         ------------------------------
+                                 RELEASE NOTES
+                         ------------------------------
+    
+                         Contents:           Version:
+                         --------            --------
+    
+                         ruby-mswin32        ruby-1.8.6-p111
+                         zlib-lib            1.2.3
+                         ZLib                0.6.0
+                         RubyGems            0.9.4
+                         Rake                0.7.3
+                         RubySrc             1.8.6-p111
+                         OpenSSL             0.9.8d
+                         FXRuby              1.6.12
+                         FXri                0.3.6
+                         SciTE               1.72
+                         OpenGL              0.50.0
+                         GLUT                3.7.6
+                         SWin                070409
+                         VRuby               061102
+                         Expat               2.0.0
+                         XMLParser           0.6.8
+                         Hpricot             0.6
+                         RubyDBI             0.1.1
+                         DBD/ODBC            0.9995
+                         win32-api           1.0.4
+                         windows-api         0.2.0
+                         windows-pr          0.7.2
+                         win32-file-stat     1.2.7
+                         win32-file          0.5.4
+                         win32-clipboard     0.4.3
+                         win32-dir           0.3.2
+                         win32-eventlog      0.4.6
+                         win32-process       0.5.3
+                         win32-sapi          0.1.4
+                         win32-sound         0.4.1
+                         log4r               1.0.5
+                         Programming Ruby    1st Edition
+                         libfcgi             2.4.0
+                         ruby-fcgi           0.8.7
+                         Iconv               1.8
+                         readline            4.3-2
+                         PDCurses            2.60-1
+                         GDBM                1.8.3-1
+                         Installer-Patches   1.8.6
+
+
+1. This version was compiled using Microsoft Visual C++ 6, not Cygwin.
+As a result, some I/O functionality -- particularly those involving
+the Unix fork() system call and pipes -- will not work. The benefit
+of using MSVC is to have a more stable and reliable version of Ruby.
+
+2. Previous versions of the One-Click Installer contained an (old)
+version of Tcl/Tk. Now this installer only contains the Ruby bindings
+to whatever version of Tcl/Tk you wish to install. We recommend
+ActiveTcl: http://www.activestate.com/Products/ActiveTcl/
+
+
+Reporting Bugs
+--------------
+
+Bugs in Ruby itself should be e-mailed to ruby-bugs@ruby-lang.org.
+
+Bugs in the installer should be reported at:
+
+   http://rubyforge.org/tracker/?atid=715&group_id=167&func=browse
+
+Make sure your problem has not already been reported, then click
+on "Submit New" to create a new bug report.
+
+
+Disclaimer
+----------
+
+THIS SOFTWARE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS OR
+IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+PURPOSE.
+
+
+Credits:
+--------
+
+    Yukihiro Matsumoto, a.k.a Matz <matz@netlab.co.jp> created
+    Ruby in the first place.
+
+    Andy Hunt <andy@pragmaticprogrammer.com> did the original packaging
+    of this installer using the Nullsoft installer (www.nullsoft.com).
+
+    Curt Hibbs <curt@hibbs.com> has been maintaining the one-click
+    installer since it moved to RubyForge.org in early 2004.
+    
+    Shashank Date & Ryan Leavengood have been assisting since 2006.
+
+    Dave Thomas <dave@pragmaticprogrammer.com> translated
+    the original LaTeX of "Programming Ruby" into XML
+    and arranged its release under the Open Publication License.
+
+    Bernard Delmée <bdelmee@advalvas.be> created the Windows Help
+    version of our "Programming Ruby" book.
+
+    Martin Ankerl <martin.ankerl@gmail.com> created fxri, a GUI 
+    interface to the ri documentation database.
+    
+    Martin DeMello <martindemello@yahoo.com> created fxirb, a GUI
+    version of Ruby's console based irb (interactive ruby). fxirb 
+    is incorporated into Martin Ankerl's fxri. 
+
+    Lyle Johnson <ljohnson@resgen.com> ported and provides the
+    FXRuby GUI extension.

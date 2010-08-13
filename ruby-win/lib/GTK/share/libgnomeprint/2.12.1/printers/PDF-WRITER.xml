@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Printer Version="1.0" Id="PDF">
+  <Name>Create a PDF document</Name>
+  <Name xml:lang="ar">إنشاء مستند PDF</Name>
+  <Name xml:lang="az">PDF sənədi yarat</Name>
+  <Name xml:lang="be">Стварыць PDF дакумэнт</Name>
+  <Name xml:lang="bg">Създаване на PDF документ</Name>
+  <Name xml:lang="bn">পিডিএফ ফাইল তৈরি করুন</Name>
+  <Name xml:lang="bs">Kreiraj PDF dokument</Name>
+  <Name xml:lang="ca">Crea un document PDF</Name>
+  <Name xml:lang="cs">Vytvořit dokument PDF</Name>
+  <Name xml:lang="cy">Creu dogfen PDF</Name>
+  <Name xml:lang="da">Opret et PDF-dokument</Name>
+  <Name xml:lang="de">Ein PDF-Dokument erstellen</Name>
+  <Name xml:lang="el">Δημιουργία εγγράφου PDF</Name>
+  <Name xml:lang="en_CA">Create a PDF document</Name>
+  <Name xml:lang="en_GB">Create a PDF document</Name>
+  <Name xml:lang="es">Crear un documento PDF</Name>
+  <Name xml:lang="et">Loo PDF dokument</Name>
+  <Name xml:lang="eu">Sortu PDF dokumentua</Name>
+  <Name xml:lang="fa">ایجاد یک نوشتار PDF</Name>
+  <Name xml:lang="fi">Luo PDF-asiakirja</Name>
+  <Name xml:lang="fr">Créer un document PDF</Name>
+  <Name xml:lang="ga">Chruthaigh doiciméad PDF</Name>
+  <Name xml:lang="gl">Crear un documento PDF</Name>
+  <Name xml:lang="gu">PDF દસ્તાવેજ બનાવો</Name>
+  <Name xml:lang="he">צור מסמך PDF</Name>
+  <Name xml:lang="hi">नया पीडीएफ़ दस्तावेज़ बनाएँ</Name>
+  <Name xml:lang="hr">Stvori PDF dokument</Name>
+  <Name xml:lang="hu">PDF-dokumentum létrehozása</Name>
+  <Name xml:lang="id">Jadikan berkas PDF</Name>
+  <Name xml:lang="is">Búa til PDF skjal</Name>
+  <Name xml:lang="it">Crea un documento PDF</Name>
+  <Name xml:lang="ja">PDF ドキュメントの作成</Name>
+  <Name xml:lang="ko">PDF 문서 만들기</Name>
+  <Name xml:lang="lt">Sukurti PDF dokumentą</Name>
+  <Name xml:lang="lv">Izveidot PDF dokumentu</Name>
+  <Name xml:lang="mk">Создади PDF документ</Name>
+  <Name xml:lang="ml">പി.ഡി.എഫ് രചന ഉണ്ടാക്കുക</Name>
+  <Name xml:lang="mn">PDF-баримт үүсгэх</Name>
+  <Name xml:lang="ms">Cipta dokumen PDF</Name>
+  <Name xml:lang="nb">Opprett ett PDF-dokument</Name>
+  <Name xml:lang="ne">एउटा पि डि यफ कागजात सिर्जना गर</Name>
+  <Name xml:lang="nl">Een PDF-document maken</Name>
+  <Name xml:lang="nn">Lag eit PDF-dokument</Name>
+  <Name xml:lang="no">Opprett ett PDF-dokument</Name>
+  <Name xml:lang="pa">ਪੀਡੀਐਫ ਦਸਤਾਵੇਜ਼ ਬਣਾਉ</Name>
+  <Name xml:lang="pl">Utworzenie dokumentu PDF</Name>
+  <Name xml:lang="pt">Criar um documento PDF</Name>
+  <Name xml:lang="pt_BR">Criar um documento PDF</Name>
+  <Name xml:lang="ro">Creează un document PDF</Name>
+  <Name xml:lang="ru">документ формата PDF</Name>
+  <Name xml:lang="sk">Vytvoriť PDF dokument</Name>
+  <Name xml:lang="sl">Ustvari dokument PDF</Name>
+  <Name xml:lang="sq">Krijo një dokument PDF</Name>
+  <Name xml:lang="sr">Направи ПДФ документ</Name>
+  <Name xml:lang="sr@Latn">Napravi PDF dokument</Name>
+  <Name xml:lang="sv">Skapa ett PDF-dokument</Name>
+  <Name xml:lang="ta">PDF ஆவணத்தை உருவாக்கு</Name>
+  <Name xml:lang="te">పిడిఎఫ్ పత్రమును సృష్టించుము </Name>
+  <Name xml:lang="th">สร้างเอกสาร PDF</Name>
+  <Name xml:lang="tr">PDF belgesi yarat</Name>
+  <Name xml:lang="uk">Створити документ у форматі PDF</Name>
+  <Name xml:lang="vi">Tạo tài liệu PDF</Name>
+  <Name xml:lang="wa">Ahiver on documint PDF</Name>
+  <Name xml:lang="xh">Dala uxwebhu lwe-PDF</Name>
+  <Name xml:lang="zh_CN">创建 PDF 文档</Name>
+  <Name xml:lang="zh_TW">製作 PDF 文件</Name>
+  <Model>GNOME-PDF-WRITER</Model>
+  <Settings Id="SETTINGS-000123456789123456789012">
+    <Name>Default</Name>
+    <Key Id="Engine">
+      <Key Value="gnome" Id="Backend"/>
+    </Key>
+    <Key Id="Output">
+      <Key Id="Media">
+        <Key Value="A4" Id="PhysicalSize"/>
+      </Key>
+      <Key Value="360x360" Id="Resolution"/>
+    </Key>
+    <Key Id="Transport">
+      <Key Value="file" Id="Backend"/>
+    </Key>
+  </Settings>
+</Printer>

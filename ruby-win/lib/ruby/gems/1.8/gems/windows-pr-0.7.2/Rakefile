@@ -1,0 +1,42 @@
+require 'rake'
+require 'rake/testtask'
+require 'rbconfig'
+include Config
+
+desc "Install the windows-pr package (non-gem)"
+task :install do
+   sitelibdir        = CONFIG["sitelibdir"]
+	installdir        = File.join(sitelibdir, 'windows')
+	installdir_msvcrt = File.join(installdir, 'msvcrt')
+   installdir_gdi    = File.join(installdir, 'gdi')
+   
+   Dir.mkdir(installdir) unless File.exists?(installdir)
+   Dir.mkdir(installdir_msvcrt) unless File.exists?(installdir_msvcrt)
+   Dir.mkdir(installdir_gdi) unless File.exists?(installdir_gdi)
+   
+   Dir["lib/windows/*.rb"].each{ |file|
+      FileUtils.cp(file, installdir, :verbose => true)
+   }
+   
+   Dir["lib/windows/msvcrt/*.rb"].each{ |file|
+      FileUtils.cp(file, installdir_msvcrt, :verbose => true)
+   }
+   
+   Dir["lib/windows/gdi/*.rb"].each{ |file|
+      FileUtils.cp(file, installdir_gdi, :verbose => true)
+   }      
+end
+
+desc "Install the windows-pr package as a gem"
+task :install_gem do
+   ruby 'windows-pr.gemspec'
+   file = Dir["*.gem"].first
+   sh "gem install #{file}"
+end
+
+Rake::TestTask.new do |t|
+   t.libs << 'lib'
+   t.libs << 'lib/windows'
+   t.warning = true
+   t.test_files = FileList['test/tc*']
+end

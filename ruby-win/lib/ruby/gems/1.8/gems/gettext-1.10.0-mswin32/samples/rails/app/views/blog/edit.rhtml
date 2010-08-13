@@ -1,0 +1,22 @@
+<%
+# edit.rhtml - a sample script for Ruby on Rails
+#
+# Copyright (C) 2005 Masao Mutoh
+#
+# This file is distributed under the same license as Ruby-GetText-Package.
+
+# Views are bound a textdomain which is bound in application.rb or 
+# blog_controller.rb.
+# So you don't need to call bindtextdomain here.
+%>
+<h1><%= _('Editing article') %></h1>
+
+<%= start_form_tag :action => 'update', :id => @article %>
+  <%= render_partial 'form' %>
+  <p><%= submit_tag _('Edit') %></p>
+<%= end_form_tag %>
+<p>
+<%= link_to _('Show'), :action => 'show', :id => @article %> |
+<%= link_to _('Destroy'), {:action => 'destroy', :id => @article}, :confirm => _('Are you sure?') %> |
+<%= link_to _('Back'), :action => 'list' %>
+</p>

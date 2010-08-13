@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Printer Version="1.0" Id="GENERIC">
+  <Name>Generic Postscript</Name>
+  <Name xml:lang="ar">Postscript أصلي</Name>
+  <Name xml:lang="az">Ümumi Postscript</Name>
+  <Name xml:lang="be">Звычайны Postscript</Name>
+  <Name xml:lang="bg">Стандартен Postscript</Name>
+  <Name xml:lang="bn">সাধারন পোস্টস্ক্রিপ্ট</Name>
+  <Name xml:lang="bs">Generička Postskripta</Name>
+  <Name xml:lang="ca">Postscript genèric</Name>
+  <Name xml:lang="cs">Obecný Postscript</Name>
+  <Name xml:lang="cy">Postscript Generig</Name>
+  <Name xml:lang="da">Generel Postscript</Name>
+  <Name xml:lang="de">PostScript, allgemein</Name>
+  <Name xml:lang="el">Generic Postscript</Name>
+  <Name xml:lang="en_CA">Generic Postscript</Name>
+  <Name xml:lang="en_GB">Generic Postscript</Name>
+  <Name xml:lang="es">PostScript genérico</Name>
+  <Name xml:lang="et">Üldine postskript</Name>
+  <Name xml:lang="eu">Postscript orokorra</Name>
+  <Name xml:lang="fa">پست‌اسکریپت عام</Name>
+  <Name xml:lang="fi">Yleinen Postscript</Name>
+  <Name xml:lang="fr">PostScript générique</Name>
+  <Name xml:lang="ga">Postscript Ginearálta</Name>
+  <Name xml:lang="gl">Postscript xenérico</Name>
+  <Name xml:lang="gu">સામાન્ય પોસ્ટસ્ક્રિપ્ટ</Name>
+  <Name xml:lang="he">Postscript כללי</Name>
+  <Name xml:lang="hi">ज़ेनेरिक पोस्टस्क्रिप्ट</Name>
+  <Name xml:lang="hr">Generički postscript</Name>
+  <Name xml:lang="hu">Általános Postscript</Name>
+  <Name xml:lang="id">Postscript generik</Name>
+  <Name xml:lang="is">Almennt Postscript</Name>
+  <Name xml:lang="it">Postscript generica</Name>
+  <Name xml:lang="ja">通常のポストスクリプト</Name>
+  <Name xml:lang="ko">일반 포스트스크립트</Name>
+  <Name xml:lang="lt">Standartinis Postscript</Name>
+  <Name xml:lang="lv">Parasts Postscript</Name>
+  <Name xml:lang="mk">Општ PostScript</Name>
+  <Name xml:lang="mn">PostScript, ерөнхий</Name>
+  <Name xml:lang="ms">Postscript Generik</Name>
+  <Name xml:lang="nb">Vanlig Postscript</Name>
+  <Name xml:lang="ne">जातीगत पाश्चलिपि</Name>
+  <Name xml:lang="nl">Generiek Postscript</Name>
+  <Name xml:lang="nn">Vanleg Postscript</Name>
+  <Name xml:lang="no">Vanlig Postscript</Name>
+  <Name xml:lang="pa">ਸਧਾਰਨ ਪੋਸਟਸਕ੍ਰਿਪਟ:</Name>
+  <Name xml:lang="pl">Zwykły PostScript</Name>
+  <Name xml:lang="pt">Postscript Genérico</Name>
+  <Name xml:lang="pt_BR">Postscript Genérico</Name>
+  <Name xml:lang="ro">Postscript generic</Name>
+  <Name xml:lang="ru">общий Постскрипт (Postscript)</Name>
+  <Name xml:lang="sk">všeobecný PostScript</Name>
+  <Name xml:lang="sl">Generični Postscript</Name>
+  <Name xml:lang="sq">Postscript e përgjithshme</Name>
+  <Name xml:lang="sr">Општи ПостСкрипт</Name>
+  <Name xml:lang="sr@Latn">Opšti PostSkript</Name>
+  <Name xml:lang="sv">Generisk Postscript</Name>
+  <Name xml:lang="ta">பொது போஸ்ட்ஸ்கிரிப்ட்</Name>
+  <Name xml:lang="te">సాధారణ పోస్ట్స్ర్కిప్ట్</Name>
+  <Name xml:lang="th">โพสต์สคริปต์ทั่วไป</Name>
+  <Name xml:lang="tr">Genel Postscript</Name>
+  <Name xml:lang="uk">Загальний Postscript</Name>
+  <Name xml:lang="vi">Postscript chung</Name>
+  <Name xml:lang="wa">PostScript djenerike</Name>
+  <Name xml:lang="xh">i-Postcript Yohlobo oluthile</Name>
+  <Name xml:lang="zh_CN">普通 Postscript</Name>
+  <Name xml:lang="zh_TW">一般 Postscript</Name>
+  <Model>GNOME-GENERIC-PS</Model>
+  <Settings Id="SETTINGS-000989541673031997000001">
+    <Name>Default</Name>
+    <Key Id="Engine">
+      <Key Value="gnome" Id="Backend"/>
+    </Key>
+    <Key Id="Output">
+      <Key Id="Media">
+        <Key Value="A4" Id="PhysicalSize"/>
+      </Key>
+      <Key Value="360x360" Id="Resolution"/>
+    </Key>
+    <Key Id="Transport">
+      <Key Value="lpr" Id="Backend"/>
+    </Key>
+  </Settings>
+</Printer>

@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<Printer Id="META" Version="1.0">
+  <Name>Metadata generator</Name>
+  <Model>GNOME-META</Model>
+  <Settings Id="SETTINGS-000989541673031997012345">
+    <Name>Default</Name>
+    <Key Id="Engine">
+      <Key Id="Backend" Value="gnome"/>
+    </Key>
+    <Key Id="Output">
+      <Key Id="Media">
+        <Key Id="PhysicalSize" Value="USLetter"/>
+      </Key>
+    </Key>
+    <Key Id="Transport">
+      <Key Id="Backend" Value="file"/>
+    </Key>
+  </Settings>
+</Printer>

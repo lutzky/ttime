@@ -1,0 +1,198 @@
+style "clearlooks-LemonGraphite"
+{
+  GtkMenuItem::selected_shadow_type = out
+  GtkWidget::interior_focus = 1
+  GtkButton::default_border = { 0, 0, 0, 0 }
+  GtkButton::default_outside_border = { 0, 0, 0, 0 }
+  GtkRange::trough_border = 0
+
+  GtkWidget::focus_padding = 1
+
+  GtkPaned::handle_size = 6
+
+  GtkRange::slider_width = 15
+  GtkRange::stepper_size = 15 #toolbar arrows
+  GtkScrollbar::min_slider_length = 30
+  GtkCheckButton::indicator_size = 12
+  GtkMenuBar::internal-padding = 0
+
+  GtkTreeView::expander_size = 14
+  GtkTreeView::odd_row_color = "#f0f0f0"
+  GtkExpander::expander_size = 16
+
+  xthickness = 1
+  ythickness = 1
+
+  fg[NORMAL]        = "#28292b" 
+  fg[PRELIGHT]      = "#28292b"
+  fg[ACTIVE]        = "#28292b"
+  fg[SELECTED]      = "#28292b" 
+  fg[INSENSITIVE]   = "#666666" 
+
+  bg[NORMAL]		= "#F8F8F8" # entire background
+  bg[PRELIGHT]		= "#FBFFE3" # button prelights
+  bg[ACTIVE]		= "#FBFFE3" # selected taskbar items
+  bg[SELECTED]		= "#EAFF91" # dark highlight was #676864
+  bg[INSENSITIVE]	= "#F8F8F8" # greyed buttons
+
+  base[NORMAL]		= "#FDFDFD" # window background
+  base[PRELIGHT]	= "#EAFF91" # menu bar colour  ####
+  base[ACTIVE]		= "#EAFF91" # selected background
+  base[SELECTED]	= "#EAFF91" # dark highlight
+  base[INSENSITIVE]	= "#ffffff" # greyed sliders
+
+  text[NORMAL]		= "#28292b"
+  text[PRELIGHT]	= "#808080"
+  text[ACTIVE]		= "#4B4B4B" # text
+  text[SELECTED]	= "#4B4B4B" # selected text
+  text[INSENSITIVE]	= "#666666" # greyed text
+
+  engine "clearlooks" 
+  {
+    contrast 				= 1.0
+    sunkenmenubar 		= 1
+    menuitemstyle     	= 0       # 0 = flat, 1 = 3d-ish (gradient), 2 = 3d-ish (button)
+    listviewitemstyle 	= 0       # 0 = flat, 1 = 3d-ish (gradient)
+    progressbarstyle  	= 0       # 0 = candy bar, 1 = flat
+    #animation				= TRUE
+  }
+}
+
+
+style "clearlooks-progressbar" = "clearlooks-LemonGraphite"
+{
+  xthickness = 1
+  ythickness = 1
+}
+
+style "clearlooks-wide" = "clearlooks-LemonGraphite"
+{
+  xthickness = 2
+  ythickness = 2
+}
+
+style "clearlooks-radiobutton" = "clearlooks-wide"
+{
+  bg[SELECTED]		= "#A0C018"
+}
+
+style "clearlooks-radiolist" = "clearlooks-wide"
+{
+  base[NORMAL]		= "#B9B9B9"  #SELECTED
+}
+
+style "clearlooks-notebook" = "clearlooks-wide"
+{
+  bg[NORMAL] = "#E3E3E3"
+  bg[ACTIVE] = "#f0f0f0"
+}
+
+style "clearlooks-tasklist" = "clearlooks-LemonGraphite"
+{
+  xthickness = 5
+  ythickness = 3
+}
+
+style "clearlooks-menu" = "clearlooks-LemonGraphite"
+{
+  xthickness = 2
+  ythickness = 1
+  bg[NORMAL] = "#F8F8F8"
+}
+
+style "clearlooks-menu-item" = "clearlooks-LemonGraphite"
+{
+  xthickness = 2
+  ythickness = 3 
+}
+
+style "clearlooks-menu-itembar" = "clearlooks-LemonGraphite"
+{
+  xthickness = 3
+  ythickness = 3
+}
+
+style "clearlooks-tree" = "clearlooks-LemonGraphite"
+{
+  xthickness = 2
+  ythickness = 2
+}
+
+style "clearlooks-frame-title" = "clearlooks-LemonGraphite"
+{
+  fg[NORMAL] = "#28292b"
+}
+
+style "clearlooks-panel" = "clearlooks-LemonGraphite"
+{
+  xthickness = 3
+  ythickness = 3
+}
+
+style "clearlooks-tooltips" = "clearlooks-LemonGraphite"
+{
+  xthickness = 4
+  ythickness = 4
+  bg[NORMAL] = "#EAFF91"
+}
+
+style "clearlooks-combo" = "clearlooks-LemonGraphite"
+{
+  xthickness = 1
+  ythickness = 2
+}
+
+style "metacity-frame"
+{
+  # Focused icon color
+  fg[NORMAL]  = "#28292b"
+
+  # Focused title background color
+  bg[SELECTED]  = "#616161" 
+
+  # Focused title text color
+  fg[SELECTED]  = "#ECECEC"
+}
+
+class "GtkWidget" style "clearlooks-LemonGraphite"
+class "GtkButton" style "clearlooks-wide"
+
+class "GtkRadioButton" style "clearlooks-radiobutton"
+class "GtkCheckButton" style "clearlooks-radiobutton"
+class "GtkCheckMenuItem" style "clearlooks-radiolist" 
+class "GtkListItem" style "clearlooks-radiolist" 
+class "GtkTreeView" style "clearlooks-radiobutton"
+
+class "GtkRange" style "clearlooks-wide"
+class "GtkFrame" style "clearlooks-wide"
+class "GtkStatusbar" style "clearlooks-wide"
+class "GtkMenu" style "clearlooks-menu"
+class "GtkMenuItem" style "clearlooks-menu-item" 
+class "GtkEntry" style "clearlooks-wide"
+class "GtkNotebook" style "clearlooks-notebook"
+class "GtkProgressBar" style "clearlooks-progressbar"
+
+
+widget_class "*MenuItem.*" style "clearlooks-menu-item"
+widget_class "*.GtkAccelMenuItem.*" style "clearlooks-menu-item"
+widget_class "*.GtkRadioMenuItem.*" style "clearlooks-menu-item"
+widget_class "*.GtkCheckMenuItem.*" style "clearlooks-menu-item"
+widget_class "*.GtkImageMenuItem.*" style "clearlooks-menu-item"
+widget_class "*.GtkSeparatorMenuItem.*" style "clearlooks-menu-item"
+
+widget_class "*.tooltips.*.GtkToggleButton" style "clearlooks-tasklist"
+widget_class "*.GtkTreeView.GtkButton" style "clearlooks-tree"
+widget_class "*.GtkCTree.GtkButton" style "clearlooks-tree"
+widget_class "*.GtkList.GtkButton" style "clearlooks-tree"
+widget_class "*.GtkCList.GtkButton" style "clearlooks-tree"
+widget_class "*.GtkFrame.GtkLabel" style "clearlooks-frame-title"
+widget_class "BasePWidget.GtkEventBox.GtkTable.GtkFrame" style "clearlooks-panel"
+
+widget "gtk-tooltips" style "clearlooks-tooltips"
+
+widget_class "*.GtkComboBox.GtkButton" style "clearlooks-combo"
+widget_class "*.GtkCombo.GtkButton" style "clearlooks-combo"
+
+class "MetaFrames" style "metacity-frame"
+class "GtkRadioButton" style "clearlooks-radiobutton"
+class "GtkCheckButton" style "clearlooks-radiobutton"
