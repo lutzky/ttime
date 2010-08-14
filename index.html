@@ -29,6 +29,8 @@
     <p>While this is technically a rewrite, a lot of concepts and code were
     borrowed from UDonkey, so thanks!</p>
 
+    <p><a href="#vs_udonkey">More about TTime vs. UDonkey</a></p>
+
     <h2>Download</h2>
 
     <p>There are three options for downloading TTime:</p>
@@ -91,5 +93,69 @@
 
     <img class="screenshot" src="screenshot-sorting-prefs.png" width="817" height="673" alt="screenshot" />
 
+    <h2><a name="vs_udonkey" />More about TTime vs. UDonkey</h2>
+
+	    <p>In the beginning, there was MarProg, an ancient program for
+	    working with REPY files, for which the lore (and source code) have
+	    been lost in the mists of time... This program was available for DOS
+	    and WIN32 (essentially, Windows 95).</p>
+
+	    <p>Then there was UDonkey, written by Yehuda Arkin, Alon Jacobi,
+	    Yaniv Raziel and Yaniv Gardi, as a project for the Technion EE
+	    faculty, under the supervision of Nissim Natanov and Dr. Ilana
+	    David. This program was written in C#, but has only been tested
+	    under Windows (e.g., not on Linux). The source code for UDonkey was
+	    made available.</p>
+
+	    <p>A group of students - namely, Haggai Eran, Boaz Goldstein and
+	    myself (Ohad Lutzky), started hacking at UDonkey to get it to work
+	    under Linux (using Mono), but eventually decided to rewrite it in
+	    Ruby. This was a hobbyist project (i.e., no academic points were
+	    granted).</p>
+
+	    <p>Since we get asked about this a lot, here is a summary of the
+	    differences between UDonkey (as described on September 18th, 2009)
+	    and TTime 0.9.1.</p>
+
+	    <p>Here are some things UDonkey does better than TTime:</p>
+	    <ul>
+		    <li>Better Windows compatibility - written in C#, which is a
+		    first-class citizen on modern Windows operating
+		    systems.</li>
+		    <li>Full XML support - the REPY file gets converted into an
+		    XML file first, which UDonkey operates directly on. The
+		    support for this in TTime is experimental, and considered
+		    second-class (at least until the Technion starts offering
+		    compatible XML files officially).</li>
+		    <li>Export schedule to HTML for easy printing using a
+		    browser. (TTime exports to PDF for printing).</li>
+		    <li>Export course information to HTML.</li>
+		    <li>Allows users to define their own events.</li>
+		    <li>Allows the inclusion of any set of days in the schedule,
+		    including Friday and Saturday.</li>
+		    <li>Automatically joins parallel lectures and tutorials held
+		    in the same day at the same time.</a>
+	    </ul>
+
+	    <p>Here are some things TTime does better than UDonkey:</p>
+
+	    <ul>
+		    <li>Better Linux support, with very easy installation on
+		    Debian and Ubuntu systems (dependencies are managed
+		    automatically).</li>
+		    <li>Much, <i>much</i> faster parsing of REPY files.</li>
+		    <li>Simpler, friendlier user interface, written according to
+		    the Human Interface Guidelines. Also, supports window
+		    resizing.</li>
+		    <li>Very flexible constraint and sorting system, right up to
+		    optimizing the schedule for minimal running between
+		    buildings (when there is no break).</li>
+		    <li>Manual-Dynamic style schedule building, as suggested by
+		    Tom Meiri - all options are displayed side-by-side, and the
+		    user manually makes his choice. This has been compared to
+		    planning your schedule using Excel or slides, but without
+		    errors copying from the UG site.</li>
+		    <li>UI available in English and Hebrew.</li>
+	    </ul>
   </body>
 </html>
