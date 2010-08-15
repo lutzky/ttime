@@ -25,8 +25,7 @@ public class TTime {
             // TODO Auto-generated catch block
             System.err.printf("Parse error in REPY line %d: %s\n", e
                     .getErrorOffset(), e.getMessage());
-            System.err.printf("Source line: %s\n", e.getStackTrace()[0]);
+            e.printStackTrace();
         }
     }
-
 }
