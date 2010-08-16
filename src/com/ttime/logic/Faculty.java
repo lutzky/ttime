@@ -19,4 +19,9 @@ public class Faculty {
     public String getName() {
         return this.name;
     }
+
+    @Override
+    public String toString() {
+        return String.format("<Faculty name=\"%s\" size=(%d courses)>", this.name, this.getCourses().size());
+    }
 }

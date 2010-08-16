@@ -10,6 +10,7 @@ import java.text.ParseException;
 import java.util.HashSet;
 import java.util.NoSuchElementException;
 import java.util.Set;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -64,6 +65,12 @@ public class Repy {
         final static Pattern ANYTHING = Pattern.compile("\\| +(.*?) +\\|");
     }
 
+    static class SportsExpressions {
+        final static String SEPARATOR = "+===============================================================+";
+        final static Pattern SPORTS_HEADER = Pattern
+                .compile("^\\|\\s*מקצועות ספורט\\s.*\\|$");
+    }
+
     enum CourseParserState {
         START, THING, DETAILS
     }
@@ -90,17 +97,44 @@ public class Repy {
     public Repy(File filename) throws IOException, ParseException {
         log = Logger.getLogger("global");
 
+        log.setLevel(Level.INFO);
+
         REPY_file = new LineNumberReader(new InputStreamReader(
                 new FileInputStream(filename), Charset.forName("cp862")));
         System.out.printf("Constructing a Repy from %s\n", filename);
 
         faculties = new HashSet<Faculty>();
 
-        while (readRepyLine() != null) {
-            if (current_line.equals(Expressions.FACULTY_SEPARATOR)) {
-                log.fine("Read faculty separator, parsing a faculty.");
-                parse_a_faculty();
-            }
+        while (readRepyLine().isEmpty()) {
+            // Skip leading blank lines
+        }
+
+        while (current_line.equals(Expressions.FACULTY_SEPARATOR)) {
+            log.fine("Read faculty separator, parsing a faculty.");
+            parse_a_faculty();
+            readRepyLine();
+        }
+
+        log.setLevel(Level.ALL);
+
+        log.fine("Done reading faculties, skipping blank lines...");
+
+        while (readRepyLine().isEmpty()) {
+            // Skip leading blank lines
+        }
+
+        if (!current_line.equals(SportsExpressions.SEPARATOR)) {
+            throw parseError("Expected separator for sports section", SportsExpressions.SEPARATOR);
+        }
+
+        if (!SportsExpressions.SPORTS_HEADER.matcher(readRepyLine()).matches()) {
+            throw parseError("Invalid sports header");
+        }
+
+        readRepyLine();
+
+        if (!current_line.equals(SportsExpressions.SEPARATOR)) {
+            throw parseError("Expected separator for sports section", SportsExpressions.SEPARATOR);
         }
 
         System.out.println("Got the following faculties:");
@@ -154,7 +188,8 @@ public class Repy {
         Matcher m = Expressions.COURSE_NAME_NUMBER.matcher(current_line);
 
         if (!m.matches()) {
-            throw parseError("Invalid course name-and-number line", current_line);
+            throw parseError("Invalid course name-and-number line",
+                    current_line);
         }
 
         int course_number = Integer.valueOf(reverse(m.group(1)));
@@ -162,7 +197,8 @@ public class Repy {
 
         Course course = new Course(course_number, course_name);
 
-        log.fine(String.format("Got course name and number %d - %s", course_number, course_name));
+        log.fine(String.format("Got course name and number %d - %s",
+                course_number, course_name));
 
         readRepyLine();
 
@@ -174,10 +210,12 @@ public class Repy {
 
         course.setPoints(Float.valueOf(reverse(m.group(2))));
 
-        log.fine(String.format("This is a %.1f-point course", course.getPoints()));
+        log.fine(String.format("This is a %.1f-point course", course
+                .getPoints()));
 
         if (!readRepyLine().equals(Expressions.COURSE_SEPARATOR)) {
-            throw parseError("Expected course separator line", Expressions.COURSE_SEPARATOR);
+            throw parseError("Expected course separator line",
+                    Expressions.COURSE_SEPARATOR);
         }
 
         log.fine("Got end of course header");
@@ -229,11 +267,14 @@ public class Repy {
 
                     if (!m.group(1).isEmpty()) {
                         group_number = Integer.valueOf(m.group(1));
-                        log.fine(String.format("Got group number %d", group_number));
+                        log.fine(String.format("Got group number %d",
+                                group_number));
                     } else {
                         group_number = 10 * current_lecture_group_number;
                         current_lecture_group_number += 1;
-                        log.fine(String.format("Got no group number, guessing by count to %d", group_number));
+                        log.fine(String.format(
+                                "Got no group number, guessing by count to %d",
+                                group_number));
                     }
 
                     group = new Group(group_number,
@@ -263,8 +304,7 @@ public class Repy {
                             course.getGroups().add(group);
                             group = null;
                             log.fine("Group is non-empty, adding it.");
-                        }
-                        else {
+                        } else {
                             log.fine("No or empty group to add, not adding");
                         }
 
