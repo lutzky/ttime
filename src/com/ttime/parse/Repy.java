@@ -10,11 +10,8 @@ import java.text.ParseException;
 import java.util.HashSet;
 import java.util.NoSuchElementException;
 import java.util.Set;
-import java.util.logging.ConsoleHandler;
-import java.util.logging.Handler;
-import java.util.logging.LogRecord;
-import java.util.logging.Logger;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -151,16 +148,12 @@ public class Repy {
         if (current_line.isEmpty()) {
             throw new NoSuchElementException();
         }
-        if (!current_line.equals(Expressions.COURSE_SEPARATOR)) {
-            throw parseError("Expected course header");
-        }
 
         readRepyLine();
         Matcher m = Expressions.COURSE_NAME_NUMBER.matcher(current_line);
 
         if (!m.matches()) {
-            throw parseError(String.format(
-                    "Invalid course name-and-number line: %s", current_line));
+            throw parseError("Invalid course name-and-number line", current_line);
         }
 
         int course_number = Integer.valueOf(reverse(m.group(1)));
@@ -180,6 +173,12 @@ public class Repy {
 
         log.fine(String.format("This is a %.1f-point course", course.getPoints()));
 
+        if (!readRepyLine().equals(Expressions.COURSE_SEPARATOR)) {
+            throw parseError("Expected course separator line", Expressions.COURSE_SEPARATOR);
+        }
+
+        log.fine("Got end of course header");
+
         log.fine(String.format("Starting to parse course %d - %s",
                 course_number, course_name));
 
@@ -191,7 +190,7 @@ public class Repy {
 
         Group group = null;
 
-        while (readRepyLine() != null) {
+        while (!readRepyLine().equals(Expressions.COURSE_SEPARATOR)) {
             log.fine(String.format("State is %s", state));
             switch (state) {
             case START:
@@ -243,7 +242,11 @@ public class Repy {
                         throw parseError("Invalid event line", m.group(3));
                     }
 
+                    log.fine("Got a valid event line.");
+
                     group.getEvents().add(e);
+
+                    log.fine("Setting state to DETAILS.");
 
                     state = CourseParserState.DETAILS;
                 }
@@ -252,19 +255,29 @@ public class Repy {
                     if (current_line.equals(Expressions.BLANK)
                             || current_line.contains("++++++")
                             || current_line.contains("----")) {
+                        log.fine("Got an end-of-group marker.");
                         if ((group != null) && (!group.getEvents().isEmpty())) {
                             course.getGroups().add(group);
+                            group = null;
+                            log.fine("Group is non-empty, adding it.");
                         }
+                        else {
+                            log.fine("No or empty group to add, not adding");
+                        }
+
+                        log.fine("Setting state to THING.");
                         state = CourseParserState.THING;
                     } else {
                         m = Expressions.ANYTHING.matcher(current_line);
                         if (m.matches()) {
                             group.getEvents().add(parse_event_line(m.group(1)));
+                            log.fine("Added a valid event line.");
                         }
                     }
                 } else if ((m = Expressions.GROUP_LECTURER
                         .matcher(current_line)).matches()) {
                     group.setLecturer(m.group(1).trim());
+                    log.fine("Got a valid group lecturer.");
                 }
             }
         }
