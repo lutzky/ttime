@@ -15,4 +15,8 @@ public class Faculty {
         this.name = name;
         this.courses = new HashSet<Course>();
     }
+
+    public String getName() {
+        return this.name;
+    }
 }

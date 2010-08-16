@@ -5,7 +5,7 @@ public class Event {
     int startTime;
     int endTime;
     String place;
-    
+
     public Event(int day, int startTime, int endTime, String place) {
         this.day = day;
         this.startTime = startTime;

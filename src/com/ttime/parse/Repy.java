@@ -10,6 +10,11 @@ import java.text.ParseException;
 import java.util.HashSet;
 import java.util.NoSuchElementException;
 import java.util.Set;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.Handler;
+import java.util.logging.LogRecord;
+import java.util.logging.Logger;
+import java.util.logging.Level;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -69,7 +74,7 @@ public class Repy {
 
     /**
      * Reverse a string (you'd think Java would have a method to do this...)
-     * 
+     *
      * @param s
      *            string to reverse
      * @return s, reversed.
@@ -84,15 +89,22 @@ public class Repy {
 
     Set<Faculty> faculties;
 
+    Logger log;
+
     public Repy(File filename) throws IOException, ParseException {
+        log = Logger.getLogger("global");
+        log.getParent().getHandlers()[0].setLevel(Level.ALL);
+        log.getParent().getHandlers()[0].setFormatter(new java.util.logging.SimpleFormatter());
+        log.setLevel(Level.ALL);
         REPY_file = new LineNumberReader(new InputStreamReader(
                 new FileInputStream(filename), Charset.forName("cp862")));
         System.out.printf("Constructing a Repy from %s\n", filename);
 
         faculties = new HashSet<Faculty>();
 
-        while ((current_line = REPY_file.readLine()) != null) {
+        while (readRepyLine() != null) {
             if (current_line.equals(Expressions.FACULTY_SEPARATOR)) {
+                log.fine("Read faculty separator, parsing a faculty.");
                 parse_a_faculty();
             }
         }
@@ -103,13 +115,26 @@ public class Repy {
         }
     }
 
+    String readRepyLine() throws IOException {
+        current_line = reverse(REPY_file.readLine());
+        log.finer(String.format("REPY: %s", current_line));
+        return current_line;
+    }
+
     void parse_a_faculty() throws IOException, ParseException {
         Course current_course;
 
         current_faculty = new Faculty(parse_faculty_header());
 
+        log.fine(String.format(
+                "Got a faculty, %s, and finished parsing its header.",
+                current_faculty.getName()));
+
         try {
             while ((current_course = parse_a_course()) != null) {
+                log.fine(String.format(
+                        "Done parsing course <%d - %s>, adding it",
+                        current_course.getNumber(), current_course.getName()));
                 current_faculty.getCourses().add(current_course);
             }
         } catch (NoSuchElementException e) {
@@ -121,7 +146,7 @@ public class Repy {
 
     Course parse_a_course() throws NoSuchElementException, IOException,
             ParseException {
-        current_line = REPY_file.readLine();
+        readRepyLine();
 
         if (current_line.isEmpty()) {
             throw new NoSuchElementException();
@@ -130,7 +155,7 @@ public class Repy {
             throw parseError("Expected course header");
         }
 
-        current_line = reverse(REPY_file.readLine());
+        readRepyLine();
         Matcher m = Expressions.COURSE_NAME_NUMBER.matcher(current_line);
 
         if (!m.matches()) {
@@ -143,39 +168,51 @@ public class Repy {
 
         Course course = new Course(course_number, course_name);
 
-        current_line = reverse(REPY_file.readLine());
+        readRepyLine();
+
         m = Expressions.COURSE_HOURS_POINTS.matcher(current_line);
 
         if (!m.matches()) {
             throw parseError("Invalid course hours-and-points line");
         }
 
-        course.setPoints(Float.valueOf(m.group(2)));
+        course.setPoints(Float.valueOf(reverse(m.group(2))));
 
+        log.fine(String.format("This is a %.1f-point course", course.getPoints()));
+
+        log.fine(String.format("Starting to parse course %d - %s",
+                course_number, course_name));
+
+        log.fine("Setting state to START");
         CourseParserState state = CourseParserState.START;
 
+        log.fine("Setting current lecture group number to 1");
         int current_lecture_group_number = 1;
 
         Group group = null;
 
-        while (current_line != null) {
-            current_line = reverse(REPY_file.readLine());
+        while (readRepyLine() != null) {
+            log.fine(String.format("State is %s", state));
             switch (state) {
             case START:
                 if (current_line.charAt(3) != '-') {
                     if ((m = Expressions.LECTURER_IN_CHARGE
                             .matcher(current_line)).matches()) {
+                        log.fine("Got valid lecturer in charge");
                         course.setLecturerInCharge(m.group(1).trim()
                                 .replaceAll("\\s+", " "));
                     } else if ((m = Expressions.FIRST_TEST_DATE
                             .matcher(current_line)).matches()) {
+                        log.fine("Got valid first test date");
                         course.setFirstTestDate(m.group(1));
                     } else if ((m = Expressions.SECOND_TEST_DATE
                             .matcher(current_line)).matches()) {
+                        log.fine("Got valid second test date");
                         course.setSecondTestDate(m.group(1));
                     } else if (current_line
                             .equals(Expressions.REGISTRATION_BLANK)
                             || current_line.equals(Expressions.BLANK)) {
+                        log.fine("Changing state to THING");
                         state = CourseParserState.THING;
                     }
                 }
@@ -190,9 +227,11 @@ public class Repy {
 
                     if (!m.group(1).isEmpty()) {
                         group_number = Integer.valueOf(m.group(1));
+                        log.fine(String.format("Got group number %d", group_number));
                     } else {
                         group_number = 10 * current_lecture_group_number;
                         current_lecture_group_number += 1;
+                        log.fine(String.format("Got no group number, guessing by count to %d", group_number));
                     }
 
                     group = new Group(group_number,
@@ -248,14 +287,11 @@ public class Repy {
         Matcher m = Expressions.EVENT_LINE.matcher(event_line);
 
         if (!m.matches()) {
-            throw new ParseException(String.format(
-                    "Could not figure out the following line: %s", event_line),
-                    REPY_file.getLineNumber());
+            throw parseError("Could not figure out the event line", event_line);
         }
 
         if (m.group(1).length() != 1) {
-            throw new ParseException(String.format("Invalid day name '%s'", m
-                    .group(1)), REPY_file.getLineNumber());
+            throw parseError("Invalid day name", m.group(1));
         } else {
             day_letter = m.group(1).charAt(0);
         }
@@ -273,7 +309,7 @@ public class Repy {
     /**
      * Places are halfway reversed in REPY: We treat all lines as reversed to
      * fix the Hebrew, but then we get reversed numbers.
-     * 
+     *
      * @param s
      *            - A "place" string in the form "PLACE\s+REVERSENUMBER"
      * @return "PLACE NUMBER"
@@ -300,7 +336,7 @@ public class Repy {
     }
 
     String parse_faculty_header() throws IOException, ParseException {
-        String name_line = reverse(REPY_file.readLine());
+        String name_line = readRepyLine();
         String faculty_name;
         Matcher m = Expressions.FACULTY_NAME.matcher(name_line);
 
@@ -311,9 +347,9 @@ public class Repy {
         }
 
         // Read unused line describing the current semester
-        REPY_file.readLine();
+        readRepyLine();
 
-        if (!REPY_file.readLine().equals(Expressions.FACULTY_SEPARATOR)) {
+        if (!readRepyLine().equals(Expressions.FACULTY_SEPARATOR)) {
             throw parseError("Expected end of faculty header");
         }
 

@@ -8,17 +8,17 @@ public class Course {
     String name;
     float points;
     String lecturerInCharge;
-    
+
     Set<Group> groups;
-    
+
     // TODO These need to be represented as dates
     String firstTestDate;
     String secondTestDate;
-    
+
     public Set<Group> getGroups() {
         return this.groups;
     }
-    
+
     public String getLecturerInCharge() {
         return lecturerInCharge;
     }
@@ -55,5 +55,13 @@ public class Course {
         this.number = number;
         this.name = name;
         this.groups = new HashSet<Group>();
+    }
+
+    public int getNumber() {
+        return this.number;
+    }
+
+    public String getName() {
+        return this.name;
     }
 }
