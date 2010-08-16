@@ -10,7 +10,6 @@ import java.text.ParseException;
 import java.util.HashSet;
 import java.util.NoSuchElementException;
 import java.util.Set;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -90,9 +89,7 @@ public class Repy {
 
     public Repy(File filename) throws IOException, ParseException {
         log = Logger.getLogger("global");
-        log.getParent().getHandlers()[0].setLevel(Level.ALL);
-        log.getParent().getHandlers()[0].setFormatter(new java.util.logging.SimpleFormatter());
-        log.setLevel(Level.ALL);
+
         REPY_file = new LineNumberReader(new InputStreamReader(
                 new FileInputStream(filename), Charset.forName("cp862")));
         System.out.printf("Constructing a Repy from %s\n", filename);
@@ -165,7 +162,7 @@ public class Repy {
 
         Course course = new Course(course_number, course_name);
 
-        log.info(String.format("Got course name and number %d - %s", course_number, course_name));
+        log.fine(String.format("Got course name and number %d - %s", course_number, course_name));
 
         readRepyLine();
 
@@ -245,7 +242,7 @@ public class Repy {
                     Event e = parse_event_line(m.group(3));
 
                     if (e == null) {
-                        throw parseError("Invalid event line", m.group(3));
+                        log.fine("Blank event line, ignoring.");
                     }
 
                     log.fine("Got a valid event line.");
@@ -334,11 +331,17 @@ public class Repy {
      * @return "PLACE NUMBER"
      */
     String place_fix(String s) {
+        log.fine(String.format("Running place_fix(\"%s\")", s));
+        if (s.trim().isEmpty()) {
+            return null;
+        }
         String[] bits;
         StringBuilder sb = new StringBuilder();
         bits = s.split("\\s+");
         sb.append(bits[0]);
-        sb.append(reverse(bits[1]));
+        if (bits.length > 1) {
+            sb.append(reverse(bits[1]));
+        }
         return sb.toString();
     }
 
