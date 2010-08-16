@@ -36,7 +36,7 @@ public class Repy {
                 .compile("\\| +שעות הוראה בשבוע:( *[א-ת].+?[0-9]+)* +נק: (\\d\\.?\\d) *\\|");
 
         final static Pattern LECTURER_IN_CHARGE = Pattern
-                .compile("\\| מורה אחראי :(.*?) *\\|");
+                .compile("\\| מורה\\s+אחראי :(.*?) *\\|");
 
         final static Pattern GROUP_LECTURER = Pattern
                 .compile("\\|\\s*מרצה\\s*:(.*?)\\s*\\|");
@@ -149,7 +149,11 @@ public class Repy {
             throw new NoSuchElementException();
         }
 
-        readRepyLine();
+        if (current_line.equals(Expressions.COURSE_SEPARATOR)) {
+            log.fine("Throwing away extraneous course separator line.");
+            readRepyLine();
+        }
+
         Matcher m = Expressions.COURSE_NAME_NUMBER.matcher(current_line);
 
         if (!m.matches()) {
@@ -160,6 +164,8 @@ public class Repy {
         String course_name = m.group(2).trim();
 
         Course course = new Course(course_number, course_name);
+
+        log.info(String.format("Got course name and number %d - %s", course_number, course_name));
 
         readRepyLine();
 
