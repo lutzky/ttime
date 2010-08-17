@@ -134,7 +134,7 @@ public class Repy {
 
         while (current_line.equals(Expressions.FACULTY_SEPARATOR)) {
             log.finer("Read faculty separator, parsing a faculty.");
-            parse_a_faculty();
+            parseFaculty();
             readRepyLine();
         }
 
@@ -315,7 +315,7 @@ public class Repy {
             throw parseError("Invalid sports group event details");
         }
 
-        Event e = new Event(day_letter_to_number(m.group(1).charAt(0)),
+        Event e = new Event(dayLetterToNumber(m.group(1).charAt(0)),
                 parseTime(m.group(2)), parseTime(m.group(3)), m.group(4).trim());
 
         log.fine(String.format("Got event %s", e));
@@ -346,16 +346,16 @@ public class Repy {
         return current_line;
     }
 
-    void parse_a_faculty() throws IOException, ParseException {
+    void parseFaculty() throws IOException, ParseException {
         Course current_course;
 
-        current_faculty = new Faculty(parse_faculty_header());
+        current_faculty = new Faculty(parseFacultyHeader());
 
         log.fine(String.format(
                 "Got a faculty, %s, and finished parsing its header.",
                 current_faculty.getName()));
 
-        while ((current_course = parse_a_course()) != null) {
+        while ((current_course = parseCourse()) != null) {
             log.fine(String.format("Done parsing course <%d - %s>, adding it",
                     current_course.getNumber(), current_course.getName()));
             current_faculty.getCourses().add(current_course);
@@ -364,7 +364,7 @@ public class Repy {
         faculties.add(current_faculty);
     }
 
-    Course parse_a_course() throws NoSuchElementException, IOException,
+    Course parseCourse() throws NoSuchElementException, IOException,
             ParseException {
         // TODO parseSportsCourse is done better, consider using a similar style
         readRepyLine();
@@ -467,9 +467,9 @@ public class Repy {
                     }
 
                     group = new Group(group_number,
-                            parse_group_type(m.group(2)));
+                            parseGroupType(m.group(2)));
 
-                    Event e = parse_event_line(m.group(3));
+                    Event e = parseEventLine(m.group(3));
 
                     if (e == null) {
                         log.fine("Blank event line, ignoring.");
@@ -502,7 +502,7 @@ public class Repy {
                     } else {
                         m = Expressions.ANYTHING.matcher(current_line);
                         if (m.matches()) {
-                            group.getEvents().add(parse_event_line(m.group(1)));
+                            group.getEvents().add(parseEventLine(m.group(1)));
                             log.fine("Added a valid event line.");
                         }
                     }
@@ -548,7 +548,7 @@ public class Repy {
         }
     }
 
-    Event parse_event_line(String event_line) throws ParseException {
+    Event parseEventLine(String event_line) throws ParseException {
         if (Expressions.BLANK_WITH_DASH.matcher(event_line).matches()) {
             return null;
         }
@@ -566,12 +566,12 @@ public class Repy {
             day_letter = m.group(1).charAt(0);
         }
 
-        return new Event(day_letter_to_number(day_letter),
+        return new Event(dayLetterToNumber(day_letter),
                 parseTime(m.group(3)), parseTime(m.group(2)), place_fix(m
                         .group(4)));
     }
 
-    int day_letter_to_number(Character day_letter) {
+    int dayLetterToNumber(Character day_letter) {
         return (day_letter - 'א') + 1;
     }
 
@@ -611,7 +611,7 @@ public class Repy {
         return sb.toString();
     }
 
-    Group.Type parse_group_type(String s) {
+    Group.Type parseGroupType(String s) {
         if (s.equals(Expressions.GROUP_TYPE_LAB)) {
             return Group.Type.LAB;
         } else if (s.equals(Expressions.GROUP_TYPE_LECTURE)) {
@@ -623,7 +623,7 @@ public class Repy {
         }
     }
 
-    String parse_faculty_header() throws IOException, ParseException {
+    String parseFacultyHeader() throws IOException, ParseException {
         String name_line = readRepyLine();
         String faculty_name;
         Matcher m = Expressions.FACULTY_NAME.matcher(name_line);
