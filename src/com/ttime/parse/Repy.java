@@ -10,7 +10,6 @@ import java.text.ParseException;
 import java.util.HashSet;
 import java.util.NoSuchElementException;
 import java.util.Set;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -19,6 +18,7 @@ import com.ttime.logic.Course;
 import com.ttime.logic.Event;
 import com.ttime.logic.Faculty;
 import com.ttime.logic.Group;
+import com.ttime.logic.Group.Type;
 
 public class Repy {
     static class Expressions {
@@ -36,10 +36,10 @@ public class Repy {
                 .compile("\\| +שעות הוראה בשבוע:( *[א-ת].+?[0-9]+)* +נק: (\\d\\.?\\d) *\\|");
 
         final static Pattern LECTURER_IN_CHARGE = Pattern
-                .compile("\\| מורה\\s+אחראי :(.*?) *\\|");
+                .compile("\\| *מורה +אחראי :(.*?) *\\|");
 
         final static Pattern GROUP_LECTURER = Pattern
-                .compile("\\|\\s*מרצה\\s*:(.*?)\\s*\\|");
+                .compile("\\| *מרצה *:(.*?) *\\|");
 
         final static Pattern FIRST_TEST_DATE = Pattern
                 .compile("\\| מועד ראשון :(.*?) *\\|");
@@ -66,13 +66,38 @@ public class Repy {
     }
 
     static class SportsExpressions {
-        final static String SEPARATOR = "+===============================================================+";
+        final static String FACULTY_SEPARATOR = "+===============================================================+";
+
+        final static String COURSE_SEPARATOR = "+---------------------------------------------------------------+";
+
+        final static String GROUP_SEPARATOR = "|            -----                                              |";
+
+        final static String BLANK = "|                                                               |";
+
+        final static String FIRST_COMMENT_LINE = "|       1.";
+
         final static Pattern SPORTS_HEADER = Pattern
-                .compile("^\\|\\s*מקצועות ספורט\\s.*\\|$");
+                .compile("^\\| *מקצועות ספורט .*\\|$");
+
+        static final String FACULTY_NAME = "מקצועות ספורט";
+
+        final static Pattern SPORTS_EVENT_DETAILS = Pattern
+                .compile("\\| {8}.{20}([אבגדהוש])' *(\\d{2}\\.\\d{1,2}) *- *(\\d{2}\\.\\d{1,2}) *(.*?) +\\|");
+
+        public static final int GROUP_NUMBER_START_INDEX = 9;
+
+        public static final int GROUP_NUMBER_END_INDEX = 11;
+
+        public static final int GROUP_TITLE_START_INDEX = 12;
+
+        public static final int GROUP_TITLE_END_INDEX = 29;
+
+        final static Pattern GROUP_INSTRUCTOR = Pattern
+                .compile("\\| *מדריך *:(.*?) *\\|");
     }
 
     enum CourseParserState {
-        START, THING, DETAILS
+        START, THING, DETAILS, COMMENTS
     }
 
     /**
@@ -97,8 +122,6 @@ public class Repy {
     public Repy(File filename) throws IOException, ParseException {
         log = Logger.getLogger("global");
 
-        log.setLevel(Level.INFO);
-
         REPY_file = new LineNumberReader(new InputStreamReader(
                 new FileInputStream(filename), Charset.forName("cp862")));
         System.out.printf("Constructing a Repy from %s\n", filename);
@@ -110,12 +133,10 @@ public class Repy {
         }
 
         while (current_line.equals(Expressions.FACULTY_SEPARATOR)) {
-            log.fine("Read faculty separator, parsing a faculty.");
+            log.finer("Read faculty separator, parsing a faculty.");
             parse_a_faculty();
             readRepyLine();
         }
-
-        log.setLevel(Level.ALL);
 
         log.fine("Done reading faculties, skipping blank lines...");
 
@@ -123,29 +144,205 @@ public class Repy {
             // Skip leading blank lines
         }
 
-        if (!current_line.equals(SportsExpressions.SEPARATOR)) {
-            throw parseError("Expected separator for sports section", SportsExpressions.SEPARATOR);
-        }
+        parseSportsFaculty();
+    }
+
+    void parseSportsFaculty() throws IOException, ParseException {
+        log.fine("Parsing the sports section.");
+
+        expectCurrent(SportsExpressions.FACULTY_SEPARATOR);
 
         if (!SportsExpressions.SPORTS_HEADER.matcher(readRepyLine()).matches()) {
             throw parseError("Invalid sports header");
         }
 
-        readRepyLine();
+        expect(SportsExpressions.FACULTY_SEPARATOR);
 
-        if (!current_line.equals(SportsExpressions.SEPARATOR)) {
-            throw parseError("Expected separator for sports section", SportsExpressions.SEPARATOR);
-        }
+        Faculty f = new Faculty(SportsExpressions.FACULTY_NAME);
 
-        System.out.println("Got the following faculties:");
-        for (Faculty f : faculties) {
-            System.out.println(f);
+        expect(SportsExpressions.COURSE_SEPARATOR);
+
+        log.fine("Done reading sports faculty header");
+
+        Course course;
+
+        while ((current_line != null)
+                && ((course = parseSportsCourse()) != null)) {
+            f.getCourses().add(course);
         }
     }
 
+    Course parseSportsCourse() throws IOException, ParseException {
+        Matcher m;
+        Course course;
+
+        CourseParserState state = CourseParserState.START;
+
+        log.fine("Starting to parse a sports course.");
+
+        readRepyLine();
+
+        if (current_line == null) {
+            log.fine("Null line means no more sports courses.");
+            return null;
+        }
+
+        if (current_line.isEmpty()) {
+            log.fine("Got an empty line - returning a null course (SPORTS)");
+            return null;
+        }
+
+        if (!(m = Expressions.COURSE_NAME_NUMBER.matcher(current_line))
+                .matches()) {
+            throw parseError("Invalid course number-and-name line (SPORTS)");
+        }
+
+        course = new Course(Integer.valueOf(reverse(m.group(1))), m.group(2));
+
+        log.fine(String.format("Parsing sports course %s", course));
+
+        if (!(m = Expressions.COURSE_HOURS_POINTS.matcher(readRepyLine()))
+                .matches()) {
+            throw parseError("Invalid course hours-and-points line (SPORTS)");
+        }
+
+        course.setPoints(Float.valueOf(reverse(m.group(2))));
+
+        expect(SportsExpressions.COURSE_SEPARATOR);
+
+        log.fine(String.format("%s is a %.1f-point course", course, course
+                .getPoints()));
+
+        Group group = null;
+
+        while (!readRepyLine().equals(SportsExpressions.COURSE_SEPARATOR)) {
+            if (current_line.equals(SportsExpressions.GROUP_SEPARATOR)) {
+                log.finer("Skipping meaningless dash line");
+                continue;
+            }
+
+            log.finer(String.format("State is %s", state));
+
+            switch (state) {
+            case START:
+                if ((m = Expressions.LECTURER_IN_CHARGE.matcher(current_line))
+                        .matches()) {
+                    course.setLecturerInCharge(squeeze(m.group(1)));
+                    log.fine(String.format("Lecturer in charge is %s", course
+                            .getLecturerInCharge()));
+                } else if (current_line
+                        .startsWith(SportsExpressions.FIRST_COMMENT_LINE)) {
+                    log.finer("Skipping comments...");
+                    state = CourseParserState.COMMENTS;
+                } else if (current_line.equals(SportsExpressions.BLANK)) {
+                    state = CourseParserState.THING;
+                }
+                break;
+            case COMMENTS:
+                // TODO make use of the comments?
+                if (current_line.equals(SportsExpressions.BLANK)) {
+                    state = CourseParserState.THING;
+                }
+                break;
+            case THING:
+                if (current_line.equals(SportsExpressions.BLANK)) {
+                    continue;
+                }
+
+                Integer groupNumber = Integer.valueOf(current_line.substring(
+                        SportsExpressions.GROUP_NUMBER_START_INDEX,
+                        SportsExpressions.GROUP_NUMBER_END_INDEX));
+
+                String groupTitle = current_line.substring(
+                        SportsExpressions.GROUP_TITLE_START_INDEX,
+                        SportsExpressions.GROUP_TITLE_END_INDEX).trim();
+
+                group = new Group(groupNumber, Type.SPORTS);
+
+                course.getGroups().add(group);
+
+                group.setTitle(groupTitle);
+
+                log.fine(String.format("Parsing group %d - \"%s\"",
+                        groupNumber, groupTitle));
+
+                try {
+                    group.getEvents().add(parseSportsEventLine());
+                } catch (ParseException e) {
+                    log
+                            .warning(String
+                                    .format(
+                                            "Ignoring group %s (REPY line %d), as it has no valid details",
+                                            group, REPY_file.getLineNumber()));
+                    group = null;
+                }
+
+                state = CourseParserState.DETAILS;
+                break;
+            case DETAILS:
+                if (current_line.equals(SportsExpressions.BLANK)) {
+                    state = CourseParserState.THING;
+                    continue;
+                }
+
+                if (group == null) {
+                    throw parseError("Got group details before a start-of-group line (SPORTS)");
+                }
+
+                if ((m = SportsExpressions.GROUP_INSTRUCTOR
+                        .matcher(current_line)).matches()) {
+                    group.setLecturer(squeeze(m.group(1).trim()));
+                    log.fine(String.format("Group lecturer for %s is %s",
+                            group, group.getLecturer()));
+                } else {
+                    group.getEvents().add(parseSportsEventLine());
+                }
+                break;
+            }
+        }
+
+        return course;
+    }
+
+    Event parseSportsEventLine() throws ParseException {
+        // TODO this has a lot of shared code with parsing of normal event
+        // lines, do some merging
+
+        Matcher m = SportsExpressions.SPORTS_EVENT_DETAILS
+                .matcher(current_line);
+
+        if (!m.matches()) {
+            throw parseError("Invalid sports group event details");
+        }
+
+        Event e = new Event(day_letter_to_number(m.group(1).charAt(0)),
+                parseTime(m.group(2)), parseTime(m.group(3)), m.group(4).trim());
+
+        log.fine(String.format("Got event %s", e));
+
+        return e;
+    }
+
+    void expectCurrent(String s) throws IOException, ParseException {
+        if (!current_line.equals(s)) {
+            throw parseError(String.format("Expected \"%s\"", s));
+        }
+    }
+
+    void expect(String s) throws IOException, ParseException {
+        readRepyLine();
+        expectCurrent(s);
+    }
+
     String readRepyLine() throws IOException {
-        current_line = reverse(REPY_file.readLine());
-        log.finer(String.format("REPY: %s", current_line));
+        String backwards_line = REPY_file.readLine();
+        if (backwards_line == null) {
+            log.finer("End of REPY file");
+            current_line = null;
+            return null;
+        }
+        current_line = reverse(backwards_line);
+        log.finest(String.format("REPY: %s", current_line));
         return current_line;
     }
 
@@ -158,15 +355,10 @@ public class Repy {
                 "Got a faculty, %s, and finished parsing its header.",
                 current_faculty.getName()));
 
-        try {
-            while ((current_course = parse_a_course()) != null) {
-                log.fine(String.format(
-                        "Done parsing course <%d - %s>, adding it",
-                        current_course.getNumber(), current_course.getName()));
-                current_faculty.getCourses().add(current_course);
-            }
-        } catch (NoSuchElementException e) {
-            // No more courses in this faculty. Next!
+        while ((current_course = parse_a_course()) != null) {
+            log.fine(String.format("Done parsing course <%d - %s>, adding it",
+                    current_course.getNumber(), current_course.getName()));
+            current_faculty.getCourses().add(current_course);
         }
 
         faculties.add(current_faculty);
@@ -174,10 +366,11 @@ public class Repy {
 
     Course parse_a_course() throws NoSuchElementException, IOException,
             ParseException {
+        // TODO parseSportsCourse is done better, consider using a similar style
         readRepyLine();
 
         if (current_line.isEmpty()) {
-            throw new NoSuchElementException();
+            return null;
         }
 
         if (current_line.equals(Expressions.COURSE_SEPARATOR)) {
@@ -213,34 +406,30 @@ public class Repy {
         log.fine(String.format("This is a %.1f-point course", course
                 .getPoints()));
 
-        if (!readRepyLine().equals(Expressions.COURSE_SEPARATOR)) {
-            throw parseError("Expected course separator line",
-                    Expressions.COURSE_SEPARATOR);
-        }
+        expect(Expressions.COURSE_SEPARATOR);
 
-        log.fine("Got end of course header");
+        log.finer("Got end of course header");
 
-        log.fine(String.format("Starting to parse course %d - %s",
+        log.finer(String.format("Starting to parse course %d - %s",
                 course_number, course_name));
 
-        log.fine("Setting state to START");
+        log.finer("Setting state to START");
         CourseParserState state = CourseParserState.START;
 
-        log.fine("Setting current lecture group number to 1");
+        log.finer("Setting current lecture group number to 1");
         int current_lecture_group_number = 1;
 
         Group group = null;
 
         while (!readRepyLine().equals(Expressions.COURSE_SEPARATOR)) {
-            log.fine(String.format("State is %s", state));
+            log.finer(String.format("State is %s", state));
             switch (state) {
             case START:
                 if (current_line.charAt(3) != '-') {
                     if ((m = Expressions.LECTURER_IN_CHARGE
                             .matcher(current_line)).matches()) {
                         log.fine("Got valid lecturer in charge");
-                        course.setLecturerInCharge(m.group(1).trim()
-                                .replaceAll("\\s+", " "));
+                        course.setLecturerInCharge(squeeze(m.group(1)));
                     } else if ((m = Expressions.FIRST_TEST_DATE
                             .matcher(current_line)).matches()) {
                         log.fine("Got valid first test date");
@@ -252,7 +441,7 @@ public class Repy {
                     } else if (current_line
                             .equals(Expressions.REGISTRATION_BLANK)
                             || current_line.equals(Expressions.BLANK)) {
-                        log.fine("Changing state to THING");
+                        log.finer("Changing state to THING");
                         state = CourseParserState.THING;
                     }
                 }
@@ -290,7 +479,7 @@ public class Repy {
 
                     group.getEvents().add(e);
 
-                    log.fine("Setting state to DETAILS.");
+                    log.finer("Setting state to DETAILS.");
 
                     state = CourseParserState.DETAILS;
                 }
@@ -308,7 +497,7 @@ public class Repy {
                             log.fine("No or empty group to add, not adding");
                         }
 
-                        log.fine("Setting state to THING.");
+                        log.finer("Setting state to THING.");
                         state = CourseParserState.THING;
                     } else {
                         m = Expressions.ANYTHING.matcher(current_line);
@@ -319,7 +508,7 @@ public class Repy {
                     }
                 } else if ((m = Expressions.GROUP_LECTURER
                         .matcher(current_line)).matches()) {
-                    group.setLecturer(m.group(1).trim());
+                    group.setLecturer(squeeze(m.group(1).trim()));
                     log.fine("Got a valid group lecturer.");
                 }
             }
@@ -332,6 +521,31 @@ public class Repy {
         }
 
         return course;
+    }
+
+    String squeeze(String s) {
+        return s.trim().replaceAll(" +", " ");
+    }
+
+    /**
+     * @param s
+     *            Time string in the form HH.MM, 24-hour, HH may be single-digit
+     *            (MM may not)
+     * @return Seconds from midnight to s
+     * @throws ParseException
+     */
+    int parseTime(String s) throws ParseException {
+        try {
+            String bits[] = reverse(s).split("\\.");
+            if (bits.length != 2) {
+                throw new ParseException("", 0);
+            }
+            int seconds = Integer.valueOf(bits[0]) * 3600
+                    + Integer.valueOf(bits[1]) * 60;
+            return seconds;
+        } catch (Exception e) {
+            throw parseError("Could not parse time", s);
+        }
     }
 
     Event parse_event_line(String event_line) throws ParseException {
@@ -352,10 +566,9 @@ public class Repy {
             day_letter = m.group(1).charAt(0);
         }
 
-        return new Event(day_letter_to_number(day_letter), Integer
-                .valueOf(reverse(m.group(3)).replaceAll("\\.", "")), Integer
-                .valueOf(reverse(m.group(2)).replaceAll("\\.", "")),
-                place_fix(m.group(4)));
+        return new Event(day_letter_to_number(day_letter),
+                parseTime(m.group(3)), parseTime(m.group(2)), place_fix(m
+                        .group(4)));
     }
 
     int day_letter_to_number(Character day_letter) {
@@ -371,17 +584,30 @@ public class Repy {
      * @return "PLACE NUMBER"
      */
     String place_fix(String s) {
-        log.fine(String.format("Running place_fix(\"%s\")", s));
         if (s.trim().isEmpty()) {
             return null;
         }
         String[] bits;
         StringBuilder sb = new StringBuilder();
-        bits = s.split("\\s+");
+        bits = s.split(" +");
         sb.append(bits[0]);
+        sb.append(" ");
         if (bits.length > 1) {
-            sb.append(reverse(bits[1]));
+            try {
+                if (String.valueOf(Integer.valueOf(bits[1])).equals(bits[1])) {
+                    // bits[1] is numeric, we need to reverse it
+                    sb.append(reverse(bits[1]));
+                } else {
+                    sb.append(bits[1]);
+                }
+            } catch (NumberFormatException e) {
+                log.finest(String.format(
+                        "place_fix(aaa \"%s\" aaa) == aaa \"%s\" aaa", s, s));
+                return s;
+            }
         }
+        log.finest(String.format("place_fix(aaa \"%s\" aaa) == aaa \"%s\" aaa",
+                s, sb.toString()));
         return sb.toString();
     }
 
@@ -411,9 +637,7 @@ public class Repy {
         // Read unused line describing the current semester
         readRepyLine();
 
-        if (!readRepyLine().equals(Expressions.FACULTY_SEPARATOR)) {
-            throw parseError("Expected end of faculty header");
-        }
+        expect(Expressions.FACULTY_SEPARATOR);
 
         return faculty_name;
     }

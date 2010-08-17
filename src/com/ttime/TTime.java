@@ -15,7 +15,7 @@ public class TTime {
     public static void main(String[] args) {
         Logger log = Logger.getLogger("global").getParent();
         log.getHandlers()[0].setLevel(Level.ALL);
-        log.setLevel(Level.ALL);
+        log.setLevel(Level.INFO);
 
         try {
             com.ttime.parse.Repy r = new com.ttime.parse.Repy(new File(

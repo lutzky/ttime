@@ -64,4 +64,10 @@ public class Course {
     public String getName() {
         return this.name;
     }
+
+    @Override
+    public String toString() {
+        return String.format("<Course number=%06d name=\"%s\">",
+                this.number, this.name);
+    }
 }

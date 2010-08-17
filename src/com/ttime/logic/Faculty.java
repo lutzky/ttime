@@ -22,6 +22,7 @@ public class Faculty {
 
     @Override
     public String toString() {
-        return String.format("<Faculty name=\"%s\" size=(%d courses)>", this.name, this.getCourses().size());
+        return String.format("<Faculty name=\"%s\" size=(%d courses)>",
+                this.name, this.getCourses().size());
     }
 }
