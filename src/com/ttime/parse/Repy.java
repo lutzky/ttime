@@ -117,6 +117,10 @@ public class Repy {
 
     Set<Faculty> faculties;
 
+    public Set<Faculty> getFaculties() {
+        return faculties;
+    }
+
     Logger log;
 
     public Repy(File filename) throws IOException, ParseException {

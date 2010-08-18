@@ -1,11 +1,14 @@
 package com.ttime.gui;
 
 import java.awt.BorderLayout;
+import java.awt.ComponentOrientation;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.util.Set;
+import java.util.TreeSet;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -20,12 +23,27 @@ import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextPane;
+import javax.swing.JTree;
 import javax.swing.KeyStroke;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreePath;
+
+import com.ttime.logic.Course;
+import com.ttime.logic.Faculty;
 
 public class MainWindow extends JFrame {
     private static final long serialVersionUID = 1L;
 
     JEditorPane courseInfo;
+
+    DefaultMutableTreeNode availableCoursesRoot = new DefaultMutableTreeNode(
+            "Available Courses");
+    DefaultTreeModel availableCoursesModel = new DefaultTreeModel(
+            availableCoursesRoot);
+    JTree availableCoursesTree = new JTree(availableCoursesModel);
 
     JMenuBar createMenuBar() {
         JMenuBar menuBar = new JMenuBar();
@@ -61,7 +79,8 @@ public class MainWindow extends JFrame {
 
         courseInfo = new JEditorPane();
         courseInfo.setContentType("text/html");
-        courseInfo.setText("<h1>Hello, world!</h1><p>How's about some courses?</p>");
+        courseInfo
+                .setText("<h1>Hello, world!</h1><p>How's about some courses?</p>");
         courseInfo.setEditable(false);
 
         courseInfo.setPreferredSize(new Dimension(50, 50));
@@ -69,7 +88,7 @@ public class MainWindow extends JFrame {
         JPanel availableCoursesPanel = new JPanel(new BorderLayout());
         availableCoursesPanel.setBorder(BorderFactory
                 .createTitledBorder("Available courses"));
-        availableCoursesPanel.add(new JScrollPane(new JTextPane()),
+        availableCoursesPanel.add(new JScrollPane(availableCoursesTree),
                 BorderLayout.CENTER);
 
         JPanel selectedCoursesPanel = new JPanel(new BorderLayout());
@@ -86,6 +105,23 @@ public class MainWindow extends JFrame {
         splitPane.add(new JScrollPane(courseInfo));
 
         splitPane.setDividerLocation(400);
+
+        availableCoursesTree
+                .addTreeSelectionListener(new TreeSelectionListener() {
+
+                    @Override
+                    public void valueChanged(TreeSelectionEvent ev) {
+                        try {
+                        DefaultMutableTreeNode node = (DefaultMutableTreeNode) availableCoursesTree
+                                .getLastSelectedPathComponent();
+                        Course course = (Course) node.getUserObject();
+                        courseInfo.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+                        courseInfo.setText(course.getHtmlInfo());
+                        } catch (ClassCastException e) {
+                            // Do nothing
+                        }
+                    }
+                });
 
         return splitPane;
     }
@@ -125,4 +161,23 @@ public class MainWindow extends JFrame {
         setVisible(true);
     }
 
+    public void populateFaculties(Set<Faculty> faculties) {
+        for (Faculty faculty : new TreeSet<Faculty>(faculties)) {
+            DefaultMutableTreeNode facultyNode = new DefaultMutableTreeNode(
+                    faculty);
+
+            availableCoursesModel.insertNodeInto(facultyNode,
+                    availableCoursesRoot, availableCoursesRoot.getChildCount());
+
+            for (Course course : new TreeSet<Course>(faculty.getCourses())) {
+                DefaultMutableTreeNode courseNode = new DefaultMutableTreeNode(
+                        course);
+                availableCoursesModel.insertNodeInto(courseNode, facultyNode,
+                        facultyNode.getChildCount());
+            }
+        }
+
+        availableCoursesTree.expandPath(new TreePath(availableCoursesRoot
+                .getPath()));
+    }
 }

@@ -3,7 +3,7 @@ package com.ttime.logic;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Course {
+public class Course implements Comparable<Course> {
     int number;
     String name;
     float points;
@@ -67,7 +67,34 @@ public class Course {
 
     @Override
     public String toString() {
-        return String.format("<Course number=%06d name=\"%s\">",
-                this.number, this.name);
+        return this.name;
+    }
+
+    @Override
+    public int compareTo(Course rhs) {
+        return new Integer(number).compareTo(rhs.getNumber());
+    }
+
+    public String getHtmlInfo() {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(String.format("<h1>[%d] %s</h1>", number, name));
+
+        String[][] items = {
+                { String.valueOf(points), "נקודות אקדמיות" },
+                { lecturerInCharge, "מרצה אחראי" },
+                { firstTestDate, "מועד א'" },
+                { secondTestDate, "מועד ב'" }
+        };
+
+        for (String[] pair : items) {
+            if (pair[0] != null) {
+                sb.append(String.format("<div><b>%s:</b> %s", pair[1], pair[0]));
+            }
+        }
+
+        // TODO Add group and event details
+
+        return sb.toString();
     }
 }

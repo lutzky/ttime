@@ -3,7 +3,7 @@ package com.ttime.logic;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Faculty {
+public class Faculty implements Comparable<Faculty> {
     String name;
     Set<Course> courses;
 
@@ -22,7 +22,11 @@ public class Faculty {
 
     @Override
     public String toString() {
-        return String.format("<Faculty name=\"%s\" size=(%d courses)>",
-                this.name, this.getCourses().size());
+        return this.name;
+    }
+
+    @Override
+    public int compareTo(Faculty o) {
+        return name.compareTo(o.getName());
     }
 }

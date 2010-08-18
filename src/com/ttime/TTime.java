@@ -4,14 +4,16 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.swing.UIManager;
-
 import com.ttime.gui.MainWindow;
+import com.ttime.logic.Faculty;
 
 public class TTime {
+
+    private static Set<Faculty> faculties;
 
     /**
      * @param args
@@ -24,7 +26,7 @@ public class TTime {
         try {
             com.ttime.parse.Repy r = new com.ttime.parse.Repy(new File(
                     "/home/ohad/.ttime/data/REPY"));
-            System.out.println(r);
+            faculties = r.getFaculties();
         } catch (FileNotFoundException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -39,7 +41,7 @@ public class TTime {
         }
 
         try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            //UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -48,8 +50,8 @@ public class TTime {
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                @SuppressWarnings("unused")
                 MainWindow mw = new MainWindow();
+                mw.populateFaculties(faculties);
             }
         });
     }
