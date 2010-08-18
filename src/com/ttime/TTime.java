@@ -7,6 +7,10 @@ import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.swing.UIManager;
+
+import com.ttime.gui.MainWindow;
+
 public class TTime {
 
     /**
@@ -33,5 +37,20 @@ public class TTime {
                     .getErrorOffset(), e.getMessage());
             e.printStackTrace();
         }
+
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                @SuppressWarnings("unused")
+                MainWindow mw = new MainWindow();
+            }
+        });
     }
 }
