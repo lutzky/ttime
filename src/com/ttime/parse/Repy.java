@@ -113,7 +113,6 @@ public class Repy {
 
     LineNumberReader REPY_file;
     String current_line;
-    Faculty current_faculty;
 
     Set<Faculty> faculties;
 
@@ -138,7 +137,7 @@ public class Repy {
 
         while (current_line.equals(Expressions.FACULTY_SEPARATOR)) {
             log.finer("Read faculty separator, parsing a faculty.");
-            parseFaculty();
+            faculties.add(parseFaculty());
             readRepyLine();
         }
 
@@ -148,10 +147,10 @@ public class Repy {
             // Skip leading blank lines
         }
 
-        parseSportsFaculty();
+        faculties.add(parseSportsFaculty());
     }
 
-    void parseSportsFaculty() throws IOException, ParseException {
+    Faculty parseSportsFaculty() throws IOException, ParseException {
         log.fine("Parsing the sports section.");
 
         expectCurrent(SportsExpressions.FACULTY_SEPARATOR);
