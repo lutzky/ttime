@@ -112,11 +112,14 @@ public class MainWindow extends JFrame {
                     @Override
                     public void valueChanged(TreeSelectionEvent ev) {
                         try {
-                        DefaultMutableTreeNode node = (DefaultMutableTreeNode) availableCoursesTree
-                                .getLastSelectedPathComponent();
-                        Course course = (Course) node.getUserObject();
-                        courseInfo.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-                        courseInfo.setText(course.getHtmlInfo());
+                            DefaultMutableTreeNode node = (DefaultMutableTreeNode) availableCoursesTree
+                                    .getLastSelectedPathComponent();
+                            if (node != null) {
+                                Course course = (Course) node.getUserObject();
+                                courseInfo
+                                        .setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+                                courseInfo.setText(course.getHtmlInfo());
+                            }
                         } catch (ClassCastException e) {
                             // Do nothing
                         }
