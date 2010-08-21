@@ -173,6 +173,8 @@ public class Repy {
                 && ((course = parseSportsCourse()) != null)) {
             f.getCourses().add(course);
         }
+
+        return f;
     }
 
     Course parseSportsCourse() throws IOException, ParseException {
@@ -349,22 +351,22 @@ public class Repy {
         return current_line;
     }
 
-    void parseFaculty() throws IOException, ParseException {
+    Faculty parseFaculty() throws IOException, ParseException {
         Course current_course;
 
-        current_faculty = new Faculty(parseFacultyHeader());
+        Faculty faculty = new Faculty(parseFacultyHeader());
 
         log.fine(String.format(
                 "Got a faculty, %s, and finished parsing its header.",
-                current_faculty.getName()));
+                faculty.getName()));
 
         while ((current_course = parseCourse()) != null) {
             log.fine(String.format("Done parsing course <%d - %s>, adding it",
                     current_course.getNumber(), current_course.getName()));
-            current_faculty.getCourses().add(current_course);
+            faculty.getCourses().add(current_course);
         }
 
-        faculties.add(current_faculty);
+        return faculty;
     }
 
     Course parseCourse() throws NoSuchElementException, IOException,
@@ -486,6 +488,7 @@ public class Repy {
 
                     state = CourseParserState.DETAILS;
                 }
+                break;
             case DETAILS:
                 if (!current_line.contains(":")) {
                     if (current_line.equals(Expressions.BLANK)
@@ -514,6 +517,7 @@ public class Repy {
                     group.setLecturer(squeeze(m.group(1).trim()));
                     log.fine("Got a valid group lecturer.");
                 }
+                break;
             }
         }
 
