@@ -21,6 +21,22 @@ public class Event {
         this.place = place;
     }
 
+    public int getDay() {
+        return day;
+    }
+
+    public int getStartTime() {
+        return startTime;
+    }
+
+    public int getEndTime() {
+        return endTime;
+    }
+
+    public String getPlace() {
+        return place;
+    }
+
     @Override
     public String toString() {
         return String.format("<Event day=%d startTime~\"%02d:%02d\" endTime~\"%02d:%02d\" place=\"%s\">",
