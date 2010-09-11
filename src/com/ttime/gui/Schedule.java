@@ -3,7 +3,6 @@ package com.ttime.gui;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.FontMetrics;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -11,9 +10,14 @@ import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.geom.RectangularShape;
 import java.awt.geom.RoundRectangle2D;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.LinkedList;
 
 import javax.swing.JPanel;
 
+import com.ttime.TTime;
 import com.ttime.logic.Event;
 
 public class Schedule extends JPanel {
@@ -23,8 +27,35 @@ public class Schedule extends JPanel {
 
     Graphics2D g;
 
+    Collection<Event> events = new ArrayList<Event>();
+
     int getDurationHeight(int seconds) {
         return seconds * g.getClipBounds().height / (endTime - startTime);
+    }
+
+    Schedule() {
+        super();
+
+        Event[] initEvents = {
+                new Event(4, TTime.seconds("9:30"), TTime.seconds("10:30"),
+                        "אולמן 305"),
+                new Event(4, TTime.seconds("10:00"), TTime.seconds("10:50"),
+                        "אולמן 305"),
+                new Event(4, TTime.seconds("10:40"), TTime.seconds("12:00"),
+                        "אולמן 305"),
+                new Event(3, TTime.seconds("10:30"), TTime.seconds("12:30"),
+                        "אולמן 305"),
+                new Event(3, TTime.seconds("12:30"), TTime.seconds("13:30"),
+                        "אולמן 305"),
+                new Event(2, TTime.seconds("10:30"), TTime.seconds("12:30"),
+                        "אולמן 305"),
+                new Event(2, TTime.seconds("11:30"), TTime.seconds("13:30"),
+                        "אולמן 305"), };
+
+        events.clear();
+        for (Event e : initEvents) {
+            events.add(e);
+        }
     }
 
     void drawEvent(Event e, int numLayers, int layer) {
@@ -84,7 +115,6 @@ public class Schedule extends JPanel {
         g = (Graphics2D) g1;
 
         g.setFont(new Font("Dialog", Font.BOLD, 40));
-        FontMetrics fm = g.getFontMetrics();
 
         Rectangle bounds = g.getClipBounds();
 
@@ -100,14 +130,51 @@ public class Schedule extends JPanel {
             g.drawLine(0, y, (int) bounds.getWidth(), y);
         }
 
-        drawEvent(
-                new Event(4, 10 * 3600 + 1800, 12 * 3600 + 1800, "אולמן 305"),
-                1, 0);
-        drawEvent(
-                new Event(3, 10 * 3600 + 1800, 12 * 3600 + 1800, "אולמן 305"),
-                1, 0);
-        drawEvent(
-                new Event(2, 10 * 3600 + 1800, 12 * 3600 + 1800, "אולמן 305"),
-                2, 0);
+        drawEvents();
+    }
+
+    synchronized private void drawEvents() {
+        /*
+         * TODO consider optimizing for these cases:
+         *
+         * A: 0:00-2:00, B: 1:00-3:00, C: 2:00-4:00
+         *
+         * (This set can be of width 2, C immediately following A)
+         */
+
+        // Credit: Algorithm by Boaz Goldstein
+
+        LinkedList<Event> remainingEvents = new LinkedList<Event>(events);
+
+        while (!remainingEvents.isEmpty()) {
+            Event kernel = null;
+            Collection<Event> currentCollidingSet = new HashSet<Event>();
+            boolean fixedPointReached = false;
+
+            kernel = remainingEvents.getFirst();
+
+            remainingEvents.remove(kernel);
+            currentCollidingSet.add(kernel);
+
+            fixedPoint:
+            while (!fixedPointReached) {
+                fixedPointReached = true;
+                for (Event e : remainingEvents) {
+                    if (Event.collides(currentCollidingSet, e)) {
+                        remainingEvents.remove(e);
+                        currentCollidingSet.add(e);
+                        fixedPointReached = false;
+                        continue fixedPoint;
+                    }
+                }
+            }
+
+            int i = 0;
+            for (Event e : currentCollidingSet) {
+                drawEvent(e, currentCollidingSet.size(), i);
+                i += 1;
+            }
+
+        }
     }
 }

@@ -15,6 +15,19 @@ public class TTime {
 
     private static Set<Faculty> faculties;
 
+    public static int seconds(String time) {
+        int result = 0;
+        String[] split = time.split(":");
+        assert (split.length == 3 || split.length == 2);
+        result += new Integer(split[0]) * 3600;
+        result += new Integer(split[1]) * 60;
+        if (split.length == 3) {
+            result += new Integer(split[2]);
+        }
+
+        return result;
+    }
+
     /**
      * @param args
      */

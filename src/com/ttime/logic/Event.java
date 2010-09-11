@@ -1,5 +1,7 @@
 package com.ttime.logic;
 
+import java.util.Collection;
+
 public class Event {
     int day;
 
@@ -19,6 +21,14 @@ public class Event {
         this.startTime = startTime;
         this.endTime = endTime;
         this.place = place;
+    }
+
+    public boolean collides(Event rhs) {
+        // Momentary "collisions" do not count, we always assume an implicit
+        // ten-minute break at the end of the lesson. Sadly, lecturers don't
+        // always give it...
+        return this.day == rhs.day
+                && !(this.endTime <= rhs.startTime || this.startTime >= rhs.endTime);
     }
 
     public int getDay() {
@@ -46,5 +56,23 @@ public class Event {
                 this.endTime / 3600,
                 (this.endTime / 60) % 60,
                 this.place);
+    }
+
+    /**
+     * Check whether an event collides with any event in a collection of events.
+     *
+     * @param c
+     *            A collection of events
+     * @param e
+     *            A single event
+     * @return true if e collides with any of the events in c, false otherwise.
+     */
+    public static boolean collides(Collection<Event> c, Event e) {
+        for (Event ce : c) {
+            if (ce.collides(e)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
