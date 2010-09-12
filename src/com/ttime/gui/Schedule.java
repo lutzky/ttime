@@ -12,7 +12,6 @@ import java.awt.geom.RectangularShape;
 import java.awt.geom.RoundRectangle2D;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.LinkedList;
 
 import javax.swing.JPanel;
@@ -48,6 +47,14 @@ public class Schedule extends JPanel {
                 new Event(3, TTime.seconds("12:30"), TTime.seconds("13:30"),
                         "אולמן 305"),
                 new Event(2, TTime.seconds("10:30"), TTime.seconds("12:30"),
+                        "אולמן 305"),
+                new Event(1, TTime.seconds("10:30"), TTime.seconds("12:30"),
+                        "אולמן 305"),
+                new Event(1, TTime.seconds("11:30"), TTime.seconds("13:30"),
+                        "אולמן 305"),
+                new Event(1, TTime.seconds("12:30"), TTime.seconds("14:30"),
+                        "אולמן 305"),
+                new Event(1, TTime.seconds("13:00"), TTime.seconds("15:30"),
                         "אולמן 305"),
                 new Event(2, TTime.seconds("11:30"), TTime.seconds("13:30"),
                         "אולמן 305"), };
@@ -135,20 +142,16 @@ public class Schedule extends JPanel {
 
     synchronized private void drawEvents() {
         /*
-         * TODO consider optimizing for these cases:
-         *
-         * A: 0:00-2:00, B: 1:00-3:00, C: 2:00-4:00
-         *
-         * (This set can be of width 2, C immediately following A)
+         * TODO optimize for speed by sorting by start time
          */
 
-        // Credit: Algorithm by Boaz Goldstein
+        // Credit: Basic algorithm by Boaz Goldstein
 
         LinkedList<Event> remainingEvents = new LinkedList<Event>(events);
 
         while (!remainingEvents.isEmpty()) {
             Event kernel = null;
-            Collection<Event> currentCollidingSet = new HashSet<Event>();
+            LinkedList<Event> currentCollidingSet = new LinkedList<Event>();
             boolean fixedPointReached = false;
 
             kernel = remainingEvents.getFirst();
@@ -160,7 +163,7 @@ public class Schedule extends JPanel {
             while (!fixedPointReached) {
                 fixedPointReached = true;
                 for (Event e : remainingEvents) {
-                    if (Event.collides(currentCollidingSet, e)) {
+                    if (e.collides(currentCollidingSet)) {
                         remainingEvents.remove(e);
                         currentCollidingSet.add(e);
                         fixedPointReached = false;
@@ -169,12 +172,36 @@ public class Schedule extends JPanel {
                 }
             }
 
-            int i = 0;
-            for (Event e : currentCollidingSet) {
-                drawEvent(e, currentCollidingSet.size(), i);
-                i += 1;
+            LinkedList<LinkedList<Event>> layers = new LinkedList<LinkedList<Event>>();
+
+            while (!currentCollidingSet.isEmpty()) {
+                fixedPointReached = false;
+                LinkedList<Event> layer = new LinkedList<Event>();
+                layer.add(currentCollidingSet.getFirst());
+                currentCollidingSet.removeFirst();
+
+                fixedPoint: while (!fixedPointReached) {
+                    fixedPointReached = true;
+
+                    for (Event e : currentCollidingSet) {
+                        if (!e.collides(layer)) {
+                            layer.add(e);
+                            currentCollidingSet.remove(e);
+                            fixedPointReached = false;
+                            continue fixedPoint;
+                        }
+                    }
+                }
+                layers.add(layer);
             }
 
+            int i = 0;
+            for (LinkedList<Event> layer : layers) {
+                for (Event e : layer) {
+                    drawEvent(e, layers.size(), i);
+                }
+                i += 1;
+            }
         }
     }
 }

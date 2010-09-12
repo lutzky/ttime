@@ -31,6 +31,15 @@ public class Event {
                 && !(this.endTime <= rhs.startTime || this.startTime >= rhs.endTime);
     }
 
+    public boolean collides(Collection<Event> c) {
+        for (Event ce : c) {
+            if (collides(ce)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public int getDay() {
         return day;
     }
@@ -56,23 +65,5 @@ public class Event {
                 this.endTime / 3600,
                 (this.endTime / 60) % 60,
                 this.place);
-    }
-
-    /**
-     * Check whether an event collides with any event in a collection of events.
-     *
-     * @param c
-     *            A collection of events
-     * @param e
-     *            A single event
-     * @return true if e collides with any of the events in c, false otherwise.
-     */
-    public static boolean collides(Collection<Event> c, Event e) {
-        for (Event ce : c) {
-            if (ce.collides(e)) {
-                return true;
-            }
-        }
-        return false;
     }
 }
