@@ -67,7 +67,7 @@ public class Course implements Comparable<Course> {
 
     @Override
     public String toString() {
-        return this.name;
+        return String.format("%d %s", this.number, this.name);
     }
 
     @Override

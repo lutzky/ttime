@@ -5,6 +5,8 @@ import java.util.Collection;
 public class Event {
     int day;
 
+    Course course;
+
     /**
      * Stored as seconds since midnight
      */
@@ -16,11 +18,17 @@ public class Event {
     int endTime;
     String place;
 
-    public Event(int day, int startTime, int endTime, String place) {
+    public Event(Course course, int day, int startTime, int endTime,
+            String place) {
+        this.course = course;
         this.day = day;
         this.startTime = startTime;
         this.endTime = endTime;
         this.place = place;
+    }
+
+    public Course getCourse() {
+        return this.course;
     }
 
     public boolean collides(Event rhs) {

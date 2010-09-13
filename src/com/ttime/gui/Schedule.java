@@ -8,8 +8,13 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
+import java.awt.font.FontRenderContext;
+import java.awt.font.LineBreakMeasurer;
+import java.awt.font.TextAttribute;
+import java.awt.font.TextLayout;
 import java.awt.geom.RectangularShape;
 import java.awt.geom.RoundRectangle2D;
+import java.text.AttributedString;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
@@ -17,6 +22,7 @@ import java.util.LinkedList;
 import javax.swing.JPanel;
 
 import com.ttime.TTime;
+import com.ttime.logic.Course;
 import com.ttime.logic.Event;
 
 public class Schedule extends JPanel {
@@ -35,28 +41,41 @@ public class Schedule extends JPanel {
     Schedule() {
         super();
 
+        Course c1 = new Course(12345, "ניסוי מערכות");
+        Course c2 = new Course(31415, "מספרים אי-רציונאליים 1מ'");
+
         Event[] initEvents = {
-                new Event(4, TTime.seconds("9:30"), TTime.seconds("10:30"),
+                new Event(c1, 4, TTime.seconds("9:30"), TTime.seconds("10:30"),
                         "אולמן 305"),
-                new Event(4, TTime.seconds("10:00"), TTime.seconds("10:50"),
+                new Event(c2, 4, TTime.seconds("10:00"),
+                        TTime.seconds("10:50"),
                         "אולמן 305"),
-                new Event(4, TTime.seconds("10:40"), TTime.seconds("12:00"),
+                new Event(c1, 4, TTime.seconds("10:40"),
+                        TTime.seconds("12:00"),
                         "אולמן 305"),
-                new Event(3, TTime.seconds("10:30"), TTime.seconds("12:30"),
+                new Event(c2, 3, TTime.seconds("10:30"),
+                        TTime.seconds("12:30"),
                         "אולמן 305"),
-                new Event(3, TTime.seconds("12:30"), TTime.seconds("13:30"),
+                new Event(c1, 3, TTime.seconds("12:30"),
+                        TTime.seconds("13:30"),
                         "אולמן 305"),
-                new Event(2, TTime.seconds("10:30"), TTime.seconds("12:30"),
+                new Event(c2, 2, TTime.seconds("10:30"),
+                        TTime.seconds("12:30"),
                         "אולמן 305"),
-                new Event(1, TTime.seconds("10:30"), TTime.seconds("12:30"),
+                new Event(c1, 1, TTime.seconds("10:30"),
+                        TTime.seconds("12:30"),
                         "אולמן 305"),
-                new Event(1, TTime.seconds("11:30"), TTime.seconds("13:30"),
+                new Event(c2, 1, TTime.seconds("11:30"),
+                        TTime.seconds("13:30"),
                         "אולמן 305"),
-                new Event(1, TTime.seconds("12:30"), TTime.seconds("14:30"),
+                new Event(c1, 1, TTime.seconds("12:30"),
+                        TTime.seconds("14:30"),
                         "אולמן 305"),
-                new Event(1, TTime.seconds("13:00"), TTime.seconds("15:30"),
+                new Event(c2, 1, TTime.seconds("13:00"),
+                        TTime.seconds("15:30"),
                         "אולמן 305"),
-                new Event(2, TTime.seconds("11:30"), TTime.seconds("13:30"),
+                new Event(c1, 2, TTime.seconds("11:30"),
+                        TTime.seconds("13:30"),
                         "אולמן 305"), };
 
         events.clear();
@@ -71,15 +90,20 @@ public class Schedule extends JPanel {
         // which usually means we subtract one more "day". Similarly, we have
         // one extra "hour" for the days row.
 
-        int width = (g.getClipBounds().width / (days + 1) / numLayers);
-        int daysX = days - e.getDay() - 1;
-        int dayWidth = g.getClipBounds().width / (days + 1);
+        // TODO Avoid magic numbers for rounded corners, padding
 
-        int x = daysX * dayWidth + width * (numLayers - layer - 1);
+        // Create a new graphics context so our clipping doesn't last
+        Graphics2D g = (Graphics2D) this.g.create();
 
-        int y = getDurationHeight(e.getStartTime() - startTime + 3600);
+        float width = (g.getClipBounds().width / (days + 1) / numLayers);
+        float daysX = days - e.getDay() - 1;
+        float dayWidth = g.getClipBounds().width / (days + 1);
 
-        int height = getDurationHeight(e.getEndTime() - e.getStartTime());
+        float x = daysX * dayWidth + width * (numLayers - layer - 1);
+
+        float y = getDurationHeight(e.getStartTime() - startTime + 3600);
+
+        float height = getDurationHeight(e.getEndTime() - e.getStartTime());
 
         g.setStroke(new BasicStroke(2.0f));
 
@@ -92,6 +116,38 @@ public class Schedule extends JPanel {
         g.fill(r);
         g.setColor(Color.BLACK);
         g.draw(r);
+
+        g.setClip(r);
+        FontRenderContext frc = g.getFontRenderContext();
+
+        y += 5;
+
+        AttributedString attributedTitle = new AttributedString(e.getCourse()
+                .toString());
+        attributedTitle.addAttribute(TextAttribute.WEIGHT,
+                TextAttribute.WEIGHT_BOLD);
+        LineBreakMeasurer lbmTitle = new LineBreakMeasurer(attributedTitle
+                .getIterator(), frc);
+
+        while (lbmTitle.getPosition() < attributedTitle.getIterator()
+                .getEndIndex()) {
+            TextLayout tl = lbmTitle.nextLayout(width - 10);
+            tl.draw(g, x + width - tl.getAdvance() - 5, y + tl.getAscent());
+            y += tl.getAscent();
+        }
+
+        AttributedString attributedPlace = new AttributedString(e.getPlace());
+        attributedTitle.addAttribute(TextAttribute.POSTURE,
+                TextAttribute.POSTURE_OBLIQUE);
+        LineBreakMeasurer lbmPlace = new LineBreakMeasurer(attributedPlace
+                .getIterator(), frc);
+
+        while (lbmPlace.getPosition() < attributedPlace.getIterator()
+                .getEndIndex()) {
+            TextLayout tl = lbmPlace.nextLayout(width - 10);
+            tl.draw(g, x + width - tl.getAdvance() - 5, y + tl.getAscent());
+            y += tl.getAscent();
+        }
     }
 
     void computeTimeLimits(int earliestStart, int latestFinish) {
@@ -159,8 +215,7 @@ public class Schedule extends JPanel {
             remainingEvents.remove(kernel);
             currentCollidingSet.add(kernel);
 
-            fixedPoint:
-            while (!fixedPointReached) {
+            fixedPoint: while (!fixedPointReached) {
                 fixedPointReached = true;
                 for (Event e : remainingEvents) {
                     if (e.collides(currentCollidingSet)) {

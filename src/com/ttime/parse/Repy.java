@@ -272,7 +272,7 @@ public class Repy {
                         groupNumber, groupTitle));
 
                 try {
-                    group.getEvents().add(parseSportsEventLine());
+                    group.getEvents().add(parseSportsEventLine(course));
                 } catch (ParseException e) {
                     log
                             .warning(String
@@ -300,7 +300,7 @@ public class Repy {
                     log.fine(String.format("Group lecturer for %s is %s",
                             group, group.getLecturer()));
                 } else {
-                    group.getEvents().add(parseSportsEventLine());
+                    group.getEvents().add(parseSportsEventLine(course));
                 }
                 break;
             }
@@ -309,7 +309,7 @@ public class Repy {
         return course;
     }
 
-    Event parseSportsEventLine() throws ParseException {
+    Event parseSportsEventLine(Course course) throws ParseException {
         // TODO this has a lot of shared code with parsing of normal event
         // lines, do some merging
 
@@ -320,7 +320,7 @@ public class Repy {
             throw parseError("Invalid sports group event details");
         }
 
-        Event e = new Event(dayLetterToNumber(m.group(1).charAt(0)),
+        Event e = new Event(course, dayLetterToNumber(m.group(1).charAt(0)),
                 parseTime(m.group(2)), parseTime(m.group(3)), m.group(4).trim());
 
         log.fine(String.format("Got event %s", e));
@@ -474,7 +474,7 @@ public class Repy {
                     group = new Group(group_number,
                             parseGroupType(m.group(2)));
 
-                    Event e = parseEventLine(m.group(3));
+                    Event e = parseEventLine(course, m.group(3));
 
                     if (e == null) {
                         log.fine("Blank event line, ignoring.");
@@ -508,7 +508,8 @@ public class Repy {
                     } else {
                         m = Expressions.ANYTHING.matcher(current_line);
                         if (m.matches()) {
-                            group.getEvents().add(parseEventLine(m.group(1)));
+                            group.getEvents().add(
+                                    parseEventLine(course, m.group(1)));
                             log.fine("Added a valid event line.");
                         }
                     }
@@ -555,7 +556,8 @@ public class Repy {
         }
     }
 
-    Event parseEventLine(String event_line) throws ParseException {
+    Event parseEventLine(Course course, String event_line)
+            throws ParseException {
         if (Expressions.BLANK_WITH_DASH.matcher(event_line).matches()) {
             return null;
         }
@@ -573,7 +575,7 @@ public class Repy {
             day_letter = m.group(1).charAt(0);
         }
 
-        return new Event(dayLetterToNumber(day_letter),
+        return new Event(course, dayLetterToNumber(day_letter),
                 parseTime(m.group(3)), parseTime(m.group(2)), place_fix(m
                         .group(4)));
     }
