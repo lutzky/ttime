@@ -64,7 +64,7 @@ public class TTime {
             @Override
             public void run() {
                 MainWindow mw = new MainWindow();
-                mw.populateFaculties(faculties);
+                mw.setFaculties(faculties);
             }
         });
     }
