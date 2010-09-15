@@ -6,7 +6,7 @@ import java.awt.Graphics2D;
 import javax.swing.JPanel;
 
 public class SchedulePanel extends JPanel {
-    Schedule schedule = new Schedule();
+    Schedule schedule = Schedule.getInstance();
 
     @Override
     synchronized protected void paintComponent(Graphics g) {

@@ -37,6 +37,23 @@ public class Schedule {
         return seconds * g.getClipBounds().height / (endTime - startTime);
     }
 
+    static Schedule instance = null;
+
+    // FIXME this shouldn't be a singleton, we're only using it for convenience
+    static Schedule getInstance() {
+        if (instance == null) {
+            instance = new Schedule();
+        }
+
+        return instance;
+    }
+
+    void setEvents(Collection<Event> events) {
+        this.events.clear();
+        this.events.addAll(events);
+    }
+
+    private
     Schedule() {
         super();
 
@@ -135,17 +152,20 @@ public class Schedule {
             y += tl.getAscent();
         }
 
-        AttributedString attributedPlace = new AttributedString(e.getPlace());
-        attributedTitle.addAttribute(TextAttribute.POSTURE,
-                TextAttribute.POSTURE_OBLIQUE);
-        LineBreakMeasurer lbmPlace = new LineBreakMeasurer(attributedPlace
-                .getIterator(), frc);
+        if (e.getPlace() != null) {
+            AttributedString attributedPlace = new AttributedString(e
+                    .getPlace());
+            attributedTitle.addAttribute(TextAttribute.POSTURE,
+                    TextAttribute.POSTURE_OBLIQUE);
+            LineBreakMeasurer lbmPlace = new LineBreakMeasurer(attributedPlace
+                    .getIterator(), frc);
 
-        while (lbmPlace.getPosition() < attributedPlace.getIterator()
-                .getEndIndex()) {
-            TextLayout tl = lbmPlace.nextLayout(width - 10);
-            tl.draw(g, x + width - tl.getAdvance() - 5, y + tl.getAscent());
-            y += tl.getAscent();
+            while (lbmPlace.getPosition() < attributedPlace.getIterator()
+                    .getEndIndex()) {
+                TextLayout tl = lbmPlace.nextLayout(width - 10);
+                tl.draw(g, x + width - tl.getAdvance() - 5, y + tl.getAscent());
+                y += tl.getAscent();
+            }
         }
     }
 
