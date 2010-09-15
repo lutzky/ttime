@@ -478,11 +478,10 @@ public class Repy {
 
                     if (e == null) {
                         log.fine("Blank event line, ignoring.");
+                    } else {
+                        log.fine("Got a valid event line.");
+                        group.getEvents().add(e);
                     }
-
-                    log.fine("Got a valid event line.");
-
-                    group.getEvents().add(e);
 
                     log.finer("Setting state to DETAILS.");
 
@@ -508,9 +507,20 @@ public class Repy {
                     } else {
                         m = Expressions.ANYTHING.matcher(current_line);
                         if (m.matches()) {
-                            group.getEvents().add(
-                                    parseEventLine(course, m.group(1)));
-                            log.fine("Added a valid event line.");
+                            Event e = parseEventLine(course, m.group(1));
+                            if (e != null) {
+                                group.getEvents().add(e);
+                                parseEventLine(course, m.group(1));
+                                log.fine("Added a valid event line.");
+                            } else {
+                                log
+                                        .warning(String
+                                                .format(
+                                                        "Got an unexpectedly null event line (REPY line %d):",
+                                                        REPY_file
+                                                                .getLineNumber()));
+                                log.warning(current_line);
+                            }
                         }
                     }
                 } else if ((m = Expressions.GROUP_LECTURER
