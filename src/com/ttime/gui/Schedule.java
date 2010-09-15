@@ -17,7 +17,9 @@ import java.awt.geom.RoundRectangle2D;
 import java.text.AttributedString;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedList;
+import java.util.ListIterator;
 
 import javax.swing.JPanel;
 
@@ -197,56 +199,67 @@ public class Schedule extends JPanel {
     }
 
     synchronized private void drawEvents() {
-        /*
-         * TODO optimize for speed by sorting by start time
-         */
-
         // Credit: Basic algorithm by Boaz Goldstein
 
         LinkedList<Event> remainingEvents = new LinkedList<Event>(events);
+        Collections.sort(remainingEvents);
 
         while (!remainingEvents.isEmpty()) {
-            Event kernel = null;
-            LinkedList<Event> currentCollidingSet = new LinkedList<Event>();
-            boolean fixedPointReached = false;
+            LinkedList<Event> collidingEvents = new LinkedList<Event>();
 
-            kernel = remainingEvents.getFirst();
+            collidingEvents.add(remainingEvents.getFirst());
+            remainingEvents.removeFirst();
 
-            remainingEvents.remove(kernel);
-            currentCollidingSet.add(kernel);
+            int collisionDay = collidingEvents.getFirst().getDay();
+            int collisionEndTime = collidingEvents.getFirst().getEndTime();
 
-            fixedPoint: while (!fixedPointReached) {
-                fixedPointReached = true;
-                for (Event e : remainingEvents) {
-                    if (e.collides(currentCollidingSet)) {
-                        remainingEvents.remove(e);
-                        currentCollidingSet.add(e);
-                        fixedPointReached = false;
-                        continue fixedPoint;
-                    }
-                }
+            // Expand the collidingEvents set with all colliding events. Since
+            // remainingEvents is sorted by startTime, we only need to check
+            // equality of the day and that endTime falls within our collision
+            // block.
+            while (!remainingEvents.isEmpty()
+                    && remainingEvents.getFirst().getDay() == collisionDay
+                    && remainingEvents.getFirst().getStartTime() < collisionEndTime) {
+                Event newCollider = remainingEvents.getFirst();
+                collisionEndTime = Math.max(collisionEndTime, newCollider
+                        .getEndTime());
+                collidingEvents.add(newCollider);
+                remainingEvents.removeFirst();
             }
+
+            // collidingEvents need to be split into layers. We do this
+            // greedily.
 
             LinkedList<LinkedList<Event>> layers = new LinkedList<LinkedList<Event>>();
 
-            while (!currentCollidingSet.isEmpty()) {
-                fixedPointReached = false;
+            // collidingEvents is sorted, as it is a prefix of the sorted
+            // remainingEvents.
+            // We will create each layer by taking the first event in
+            // collidingEvents,
+            // all events which don't collide with it (they start later, we only
+            // need
+            // to check that they start after it ends), and removing all of
+            // those events.
+
+            while (!collidingEvents.isEmpty()) {
                 LinkedList<Event> layer = new LinkedList<Event>();
-                layer.add(currentCollidingSet.getFirst());
-                currentCollidingSet.removeFirst();
 
-                fixedPoint: while (!fixedPointReached) {
-                    fixedPointReached = true;
+                layer.add(collidingEvents.getFirst());
+                int layerEnd = layer.getFirst().getEndTime();
+                collidingEvents.removeFirst();
 
-                    for (Event e : currentCollidingSet) {
-                        if (!e.collides(layer)) {
-                            layer.add(e);
-                            currentCollidingSet.remove(e);
-                            fixedPointReached = false;
-                            continue fixedPoint;
-                        }
+                ListIterator<Event> it = collidingEvents.listIterator();
+
+                while (it.hasNext()) {
+                    Event e = it.next();
+                    if (e.getStartTime() >= layerEnd) {
+                        // e does not collide.
+                        it.remove();
+                        layer.add(e);
+                        layerEnd = e.getEndTime();
                     }
                 }
+
                 layers.add(layer);
             }
 

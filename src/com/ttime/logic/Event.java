@@ -2,7 +2,7 @@ package com.ttime.logic;
 
 import java.util.Collection;
 
-public class Event {
+public class Event implements Comparable<Event> {
     int day;
 
     Course course;
@@ -73,5 +73,14 @@ public class Event {
                 this.endTime / 3600,
                 (this.endTime / 60) % 60,
                 this.place);
+    }
+
+    @Override
+    public int compareTo(Event o) {
+        if (this.day != o.day) {
+            return (new Integer(this.day).compareTo(o.day));
+        } else {
+            return (new Integer(this.startTime).compareTo(o.startTime));
+        }
     }
 }
