@@ -4,7 +4,6 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GradientPaint;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
@@ -21,13 +20,11 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.ListIterator;
 
-import javax.swing.JPanel;
-
 import com.ttime.TTime;
 import com.ttime.logic.Course;
 import com.ttime.logic.Event;
 
-public class Schedule extends JPanel {
+public class Schedule {
     int days;
     int startTime;
     int endTime;
@@ -170,14 +167,11 @@ public class Schedule extends JPanel {
         }
     }
 
-    @Override
-    synchronized protected void paintComponent(Graphics g1) {
-        super.paintComponent(g1);
-
+    synchronized protected void paint(Graphics2D g) {
+        this.g = g;
         days = 5; // TODO this should be based on the events we actually get,
         computeTimeLimits(8 * 3600, 18 * 3600);
         // but a minimum of 5
-        g = (Graphics2D) g1;
 
         g.setFont(new Font("Dialog", Font.BOLD, 40));
 

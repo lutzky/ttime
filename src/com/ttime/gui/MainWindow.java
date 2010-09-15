@@ -39,7 +39,7 @@ public class MainWindow extends JFrame {
 
     JEditorPane courseInfo;
 
-    Schedule schedule = new Schedule();
+    SchedulePanel schedulePanel = new SchedulePanel();
 
     DefaultMutableTreeNode availableCoursesRoot = new DefaultMutableTreeNode(
             "Available Courses");
@@ -136,7 +136,7 @@ public class MainWindow extends JFrame {
 
         tabbedPane.addTab("Course List", createCourseListTab());
 
-        tabbedPane.addTab("Schedule", schedule);
+        tabbedPane.addTab("Schedule", schedulePanel);
 
         JButton constraintsTab = new JButton("Constraints");
 
