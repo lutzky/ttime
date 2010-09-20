@@ -1,5 +1,6 @@
 package com.ttime.logic;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -96,5 +97,15 @@ public class Course implements Comparable<Course> {
         // TODO Add group and event details
 
         return sb.toString();
+    }
+
+    public Collection<Group> getGroupsByType(Group.Type t) {
+        HashSet<Group> result = new HashSet<Group>();
+        for (Group g : groups) {
+            if (g.getType() == t) {
+                result.add(g);
+            }
+        }
+        return result;
     }
 }

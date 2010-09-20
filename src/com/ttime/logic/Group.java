@@ -10,6 +10,11 @@ public class Group {
 
     int number;
     Type type;
+
+    public Type getType() {
+        return type;
+    }
+
     Set<Event> events;
     String lecturer;
 
