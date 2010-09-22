@@ -101,14 +101,23 @@ public class Repy {
     }
 
     /**
-     * Reverse a string (you'd think Java would have a method to do this...)
+     * Reverse a string, dropping leading 0s
      *
      * @param s
      *            string to reverse
      * @return s, reversed.
      */
     static String reverse(String s) {
-        return new StringBuffer(s).reverse().toString();
+        String result = new StringBuffer(s).reverse().toString();
+        int i;
+
+        for (i = 0; i < result.length(); i++) {
+            if (result.charAt(i) != '0') {
+                break;
+            }
+        }
+
+        return result.substring(i);
     }
 
     LineNumberReader REPY_file;
@@ -608,24 +617,28 @@ public class Repy {
         }
         String[] bits;
         StringBuilder sb = new StringBuilder();
-        bits = s.split(" +");
-        sb.append(bits[0]);
-        sb.append(" ");
+        bits = s.split("\\s+");
+
         if (bits.length > 1) {
+            sb.append(bits[1]);
+            sb.append(" ");
             try {
-                if (String.valueOf(Integer.valueOf(bits[1])).equals(bits[1])) {
-                    // bits[1] is numeric, we need to reverse it
-                    sb.append(reverse(bits[1]));
+                if (String.valueOf(Integer.valueOf(bits[0])).equals(bits[0])) {
+                    // bits[0] is numeric, we need to reverse it
+                    sb.append(reverse(bits[0]));
                 } else {
-                    sb.append(bits[1]);
+                    sb.append(bits[0]);
                 }
             } catch (NumberFormatException e) {
                 log.finest(String.format(
                         "place_fix(aaa \"%s\" aaa) == aaa \"%s\" aaa", s, s));
                 return s;
             }
+        } else {
+            sb.append(bits[0]);
         }
-        log.finest(String.format("place_fix(aaa \"%s\" aaa) == aaa \"%s\" aaa",
+        log.finest(String
+                .format("place_fix(aaa \"%s\" aaa) == aaa \"%s\" aaa",
                 s, sb.toString()));
         return sb.toString();
     }
