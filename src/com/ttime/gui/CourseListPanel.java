@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Set;
 import java.util.TreeSet;
@@ -27,9 +28,7 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 
 import com.ttime.logic.Course;
-import com.ttime.logic.Event;
 import com.ttime.logic.Faculty;
-import com.ttime.logic.Group;
 
 public class CourseListPanel extends JSplitPane {
     JEditorPane courseInfo = new JEditorPane();
@@ -44,6 +43,8 @@ public class CourseListPanel extends JSplitPane {
     JList selectedCoursesList = new JList(selectedCoursesModel);
 
     Set<Faculty> faculties;
+
+    private final Collection<Course> selectedCourses = new LinkedList<Course>();
 
     CourseListPanel() {
         super(JSplitPane.VERTICAL_SPLIT);
@@ -119,15 +120,12 @@ public class CourseListPanel extends JSplitPane {
     void addCurrentCourse() {
         if (getSelectedCourse() != null) {
             selectedCoursesModel.addElement(getSelectedCourse());
-            LinkedList<Event> allEvents = new LinkedList<Event>();
-            for (Object o : selectedCoursesModel.toArray()) {
-                for (Group g : ((Course) o).getGroups()) {
-                    allEvents.addAll(g.getEvents());
-                }
-            }
-
-            Schedule.getInstance().setEvents(allEvents);
+            selectedCourses.add(getSelectedCourse());
         }
+    }
+
+    Collection<Course> getSelectedCourses() {
+        return selectedCourses;
     }
 
     Course getSelectedCourse() {

@@ -4,6 +4,7 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GradientPaint;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
@@ -20,11 +21,11 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.ListIterator;
 
-import com.ttime.TTime;
-import com.ttime.logic.Course;
+import javax.swing.JComponent;
+
 import com.ttime.logic.Event;
 
-public class Schedule {
+public class ScheduleView extends JComponent {
     int days;
     int startTime;
     int endTime;
@@ -37,67 +38,10 @@ public class Schedule {
         return seconds * g.getClipBounds().height / (endTime - startTime);
     }
 
-    static Schedule instance = null;
-
-    // FIXME this shouldn't be a singleton, we're only using it for convenience
-    static Schedule getInstance() {
-        if (instance == null) {
-            instance = new Schedule();
-        }
-
-        return instance;
-    }
-
     void setEvents(Collection<Event> events) {
         this.events.clear();
         this.events.addAll(events);
-    }
-
-    private
-    Schedule() {
-        super();
-
-        Course c1 = new Course(12345, "ניסוי מערכות");
-        Course c2 = new Course(31415, "מספרים אי-רציונאליים 1מ'");
-
-        Event[] initEvents = {
-                new Event(c1, 4, TTime.seconds("9:30"), TTime.seconds("10:30"),
-                        "אולמן 305"),
-                new Event(c2, 4, TTime.seconds("10:00"),
-                        TTime.seconds("10:50"),
-                        "אולמן 305"),
-                new Event(c1, 4, TTime.seconds("10:40"),
-                        TTime.seconds("12:00"),
-                        "אולמן 305"),
-                new Event(c2, 3, TTime.seconds("10:30"),
-                        TTime.seconds("12:30"),
-                        "אולמן 305"),
-                new Event(c1, 3, TTime.seconds("12:30"),
-                        TTime.seconds("13:30"),
-                        "אולמן 305"),
-                new Event(c2, 2, TTime.seconds("10:30"),
-                        TTime.seconds("12:30"),
-                        "אולמן 305"),
-                new Event(c1, 1, TTime.seconds("10:30"),
-                        TTime.seconds("12:30"),
-                        "אולמן 305"),
-                new Event(c2, 1, TTime.seconds("11:30"),
-                        TTime.seconds("13:30"),
-                        "אולמן 305"),
-                new Event(c1, 1, TTime.seconds("12:30"),
-                        TTime.seconds("14:30"),
-                        "אולמן 305"),
-                new Event(c2, 1, TTime.seconds("13:00"),
-                        TTime.seconds("15:30"),
-                        "אולמן 305"),
-                new Event(c1, 2, TTime.seconds("11:30"),
-                        TTime.seconds("13:30"),
-                        "אולמן 305"), };
-
-        events.clear();
-        for (Event e : initEvents) {
-            events.add(e);
-        }
+        this.repaint();
     }
 
     void drawEvent(Event e, int numLayers, int layer) {
@@ -187,8 +131,9 @@ public class Schedule {
         }
     }
 
-    synchronized protected void paint(Graphics2D g) {
-        this.g = g;
+    @Override
+    synchronized protected void paintComponent(Graphics g1) {
+        this.g = (Graphics2D) g1;
         days = 5; // TODO this should be based on the events we actually get,
         computeTimeLimits(8 * 3600, 18 * 3600);
         // but a minimum of 5
