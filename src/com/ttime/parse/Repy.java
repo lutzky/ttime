@@ -600,7 +600,7 @@ public class Repy {
     }
 
     int dayLetterToNumber(Character day_letter) {
-        return (day_letter - 'א') + 1;
+        return (day_letter - 'א');
     }
 
     /**
