@@ -1,8 +1,13 @@
 package com.ttime.logic;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
+
+import com.ttime.logic.Group.Type;
 
 public class Course implements Comparable<Course> {
     int number;
@@ -107,5 +112,48 @@ public class Course implements Comparable<Course> {
             }
         }
         return result;
+    }
+
+    private HashMap<Type, LinkedList<Group>> groupsByType = null;
+
+    private HashMap<Type, LinkedList<Group>> getGroupsByType() {
+        if (groupsByType != null) {
+            return groupsByType;
+        }
+
+        groupsByType = new HashMap<Group.Type, LinkedList<Group>>();
+        for (Group g : this.groups) {
+            if (!groupsByType.containsKey(g.getType())) {
+                groupsByType.put(g.getType(), new LinkedList<Group>());
+            }
+            groupsByType.get(g.getType()).add(g);
+        }
+
+        return groupsByType;
+    }
+
+    public List<Schedule> getSchedulingOptions() {
+        LinkedList<Schedule> schedulingOptions = new LinkedList<Schedule>();
+        addPartialSchedulingOptions(new Schedule(), schedulingOptions,
+                new LinkedList<Group.Type>(getGroupsByType().keySet()));
+        return schedulingOptions;
+    }
+
+    private void addPartialSchedulingOptions(Schedule subSchedule,
+            LinkedList<Schedule> results, List<Group.Type> types) {
+        if (types.isEmpty()) {
+            results.add(subSchedule);
+            return;
+        }
+
+        Group.Type currentType = types.get(0);
+        List<Group.Type> remainingTypes = types.subList(1, types
+                .size());
+
+        for (Group g : getGroupsByType(currentType)) {
+            Schedule amendedSchedule = (Schedule) subSchedule.clone();
+            amendedSchedule.addAll(g.getEvents());
+            addPartialSchedulingOptions(amendedSchedule, results, remainingTypes);
+        }
     }
 }

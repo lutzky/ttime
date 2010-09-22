@@ -12,8 +12,10 @@ public class Scheduler {
     private final List<Comparator<Schedule>> comparators;
     private final Collection<Constraint> constraints;
     private final Comparator<Schedule> combinedComparator;
+    private final Constraint combinedConstraint;
 
-    Scheduler(Collection<Course> courses, Collection<Constraint> constraints,
+    public Scheduler(Collection<Course> courses,
+            Collection<Constraint> constraints,
             List<Comparator<Schedule>> comparators) {
         this.courses = new LinkedList<Course>(courses);
         this.constraints = constraints;
@@ -32,10 +34,24 @@ public class Scheduler {
                 return 0;
             }
         };
+
+        combinedConstraint = new Constraint() {
+            @Override
+            public boolean accepts(Schedule s) {
+                for (Constraint c : Scheduler.this.constraints) {
+                    if (!c.accepts(s)) {
+                        return false;
+                    }
+                }
+                return true;
+            }
+        };
     }
 
     public List<Schedule> findSchedules() {
         LinkedList<Schedule> results = new LinkedList<Schedule>();
+
+        buildSchedules(new Schedule(), results, courses);
 
         Collections.sort(results, combinedComparator);
         return results;
@@ -44,12 +60,23 @@ public class Scheduler {
     private void buildSchedules(Schedule subSchedule,
             LinkedList<Schedule> results,
             List<Course> courses) {
+
+        if (!combinedConstraint.accepts(subSchedule)) {
+            return;
+        }
+
+        if (courses.isEmpty()) {
+            results.add(subSchedule);
+            return;
+        }
+
         Course c = courses.get(0);
         List<Course> remainingCourses = courses.subList(1, courses.size());
 
-        Schedule add = new Schedule(subSchedule);
-
-        // TODO implement selective Cartesian product of all getGroupTypes
-
+        for (Schedule schedulingOption : c.getSchedulingOptions()) {
+            Schedule amendedSchedule = (Schedule) subSchedule.clone();
+            amendedSchedule.addAll(schedulingOption);
+            buildSchedules(amendedSchedule, results, remainingCourses);
+        }
     }
 }
