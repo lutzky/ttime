@@ -64,6 +64,13 @@ public class CourseListPanel extends JSplitPane {
             }
         });
 
+        btnRemove.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                removeCurrentCourse();
+            }
+        });
+
         courseInfo.setContentType("text/html");
         courseInfo
                 .setText("<h1>Hello, world!</h1><p>How's about some courses?</p>");
@@ -117,10 +124,18 @@ public class CourseListPanel extends JSplitPane {
                 });
     }
 
+    protected void removeCurrentCourse() {
+        if (!selectedCoursesList.isSelectionEmpty()) {
+            Course c = (Course) selectedCoursesList.getSelectedValue();
+            selectedCoursesModel.remove(selectedCoursesList.getSelectedIndex());
+            selectedCourses.remove(c);
+        }
+    }
+
     void addCurrentCourse() {
-        if (getSelectedCourse() != null) {
-            selectedCoursesModel.addElement(getSelectedCourse());
-            selectedCourses.add(getSelectedCourse());
+        if (getSelectedAddableCourse() != null) {
+            selectedCoursesModel.addElement(getSelectedAddableCourse());
+            selectedCourses.add(getSelectedAddableCourse());
         }
     }
 
@@ -128,7 +143,7 @@ public class CourseListPanel extends JSplitPane {
         return selectedCourses;
     }
 
-    Course getSelectedCourse() {
+    Course getSelectedAddableCourse() {
         try {
             DefaultMutableTreeNode node = (DefaultMutableTreeNode) availableCoursesTree
                     .getLastSelectedPathComponent();
@@ -141,10 +156,10 @@ public class CourseListPanel extends JSplitPane {
     }
 
     void onTreeSelect(TreeSelectionEvent ev) {
-        if (getSelectedCourse() != null) {
+        if (getSelectedAddableCourse() != null) {
             courseInfo
                     .setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-            courseInfo.setText(getSelectedCourse().getHtmlInfo());
+            courseInfo.setText(getSelectedAddableCourse().getHtmlInfo());
         }
     }
 
