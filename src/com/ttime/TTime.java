@@ -1,6 +1,5 @@
 package com.ttime;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
@@ -10,6 +9,7 @@ import java.util.logging.Logger;
 
 import com.ttime.gui.MainWindow;
 import com.ttime.logic.Faculty;
+import com.ttime.parse.Repy;
 
 public class TTime {
 
@@ -37,9 +37,25 @@ public class TTime {
         log.setLevel(Level.INFO);
 
         try {
-            com.ttime.parse.Repy r = new com.ttime.parse.Repy(new File(
-                    "/home/ohad/.ttime/data/REPY"));
+            Repy.DEFAULT_PATH.getParentFile().mkdirs();
+            Update.downloadRepy();
+            Repy r = new Repy(Repy.DEFAULT_PATH);
             faculties = r.getFaculties();
+
+            try {
+                // UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            } catch (Exception e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
+            javax.swing.SwingUtilities.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    MainWindow mw = new MainWindow();
+                    mw.setFaculties(faculties);
+                }
+            });
         } catch (FileNotFoundException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -52,20 +68,5 @@ public class TTime {
                     .getErrorOffset(), e.getMessage());
             e.printStackTrace();
         }
-
-        try {
-            //UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
-        javax.swing.SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                MainWindow mw = new MainWindow();
-                mw.setFaculties(faculties);
-            }
-        });
     }
 }

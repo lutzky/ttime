@@ -21,6 +21,8 @@ import com.ttime.logic.Group;
 import com.ttime.logic.Group.Type;
 
 public class Repy {
+    public final static File DEFAULT_PATH = new File(new File(new File(System
+            .getProperty("user.home"), ".ttime"), "data"), "REPY");
     static class Expressions {
         final static String FACULTY_SEPARATOR = "+==========================================+";
 
