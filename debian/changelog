@@ -1,3 +1,10 @@
+ttime (0.9.3-2) maverick; urgency=low
+
+  [ Amit Elbaz ]
+  * added dependency on libglade2-ruby which was missing.
+
+ -- Ohad Lutzky <ohad@lutzky.net>  Fri, 14 Jan 2011 14:43:22 +0200
+
 ttime (0.9.3-1) lucid; urgency=low
 
   [ Haggai Eran ]
