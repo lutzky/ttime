@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.logging.Logger;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -15,6 +16,8 @@ public class Update {
     static final int BLOCKSIZE = 1024;
 
     static void downloadRepy() throws IOException {
+        Logger log = Logger.getLogger("global");
+        log.info(String.format("Downloading REPY file from %s", REPY_URI));
         URL u;
 
         try {
