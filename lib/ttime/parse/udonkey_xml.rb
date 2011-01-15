@@ -88,7 +88,11 @@ module TTime
 
         def UDonkeyXML.output_xml faculties
           doc = XML::Document.new
-          doc.encoding = 'UTF-8'
+          begin
+            doc.encoding = 'UTF-8'
+          rescue TypeError
+            doc.encoding = XML::Encoding::UTF_8
+          end
           doc.root = XML::Node.new('CourseDB')
           faculties.each do |faculty|
             faculty_node = XML::Node.new('Faculty')
