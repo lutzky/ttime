@@ -15,7 +15,6 @@ import javax.swing.event.ChangeListener;
 import com.ttime.logic.Schedule;
 
 public class SchedulePanel extends JPanel {
-
     final ScheduleView scheduleView = new ScheduleView();
     List<Schedule> schedules = new LinkedList<Schedule>();
     final JSpinner scheduleSpinner = new JSpinner(new SpinnerNumberModel(0, 0,
@@ -32,7 +31,8 @@ public class SchedulePanel extends JPanel {
 
             @Override
             public void stateChanged(ChangeEvent arg0) {
-                scheduleView.setEvents(schedules.get((Integer) scheduleSpinner.getModel().getValue() - 1));
+                scheduleView.setEvents(schedules.get((Integer) scheduleSpinner
+                        .getModel().getValue() - 1));
             }
         });
 

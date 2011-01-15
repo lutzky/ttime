@@ -10,12 +10,13 @@ import java.util.Set;
 import com.ttime.logic.Group.Type;
 
 public class Course implements Comparable<Course> {
-
     int number;
     String name;
     float points;
     String lecturerInCharge;
+
     Set<Group> groups;
+
     // TODO These need to be represented as dates
     String firstTestDate;
     String secondTestDate;
@@ -86,10 +87,10 @@ public class Course implements Comparable<Course> {
         sb.append(String.format("<h1>[%d] %s</h1>", number, name));
 
         String[][] items = {
-            {String.valueOf(points), "נקודות אקדמיות"},
-            {lecturerInCharge, "מרצה אחראי"},
-            {firstTestDate, "מועד א'"},
-            {secondTestDate, "מועד ב'"}
+                { String.valueOf(points), "נקודות אקדמיות" },
+                { lecturerInCharge, "מרצה אחראי" },
+                { firstTestDate, "מועד א'" },
+                { secondTestDate, "מועד ב'" }
         };
 
         for (String[] pair : items) {
@@ -112,6 +113,7 @@ public class Course implements Comparable<Course> {
         }
         return result;
     }
+
     private HashMap<Type, LinkedList<Group>> groupsByType = null;
 
     private HashMap<Type, LinkedList<Group>> getGroupsByType() {
@@ -145,7 +147,8 @@ public class Course implements Comparable<Course> {
         }
 
         Group.Type currentType = types.get(0);
-        List<Group.Type> remainingTypes = types.subList(1, types.size());
+        List<Group.Type> remainingTypes = types.subList(1, types
+                .size());
 
         for (Group g : getGroupsByType(currentType)) {
             Schedule amendedSchedule = (Schedule) subSchedule.clone();

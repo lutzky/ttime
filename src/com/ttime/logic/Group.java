@@ -4,19 +4,20 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Group {
-
     public enum Type {
-
         LECTURE, TUTORIAL, LAB, OTHER, SPORTS
     }
+
     int number;
     Type type;
 
     public Type getType() {
         return type;
     }
+
     Set<Event> events;
     String lecturer;
+
     /**
      * Title of sports group
      *

@@ -50,7 +50,6 @@ public class TTime {
             }
 
             javax.swing.SwingUtilities.invokeLater(new Runnable() {
-
                 @Override
                 public void run() {
                     MainWindow mw = new MainWindow();
@@ -65,7 +64,8 @@ public class TTime {
             e.printStackTrace();
         } catch (ParseException e) {
             // TODO Auto-generated catch block
-            System.err.printf("Parse error in REPY line %d: %s\n", e.getErrorOffset(), e.getMessage());
+            System.err.printf("Parse error in REPY line %d: %s\n", e
+                    .getErrorOffset(), e.getMessage());
             e.printStackTrace();
         }
     }

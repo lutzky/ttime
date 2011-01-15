@@ -26,11 +26,12 @@ import javax.swing.JComponent;
 import com.ttime.logic.Event;
 
 public class ScheduleView extends JComponent {
-
     int days;
     int startTime;
     int endTime;
+
     Graphics2D g;
+
     Collection<Event> events = new ArrayList<Event>();
 
     int getDurationHeight(int seconds) {
@@ -81,24 +82,30 @@ public class ScheduleView extends JComponent {
 
         y += 5;
 
-        AttributedString attributedTitle = new AttributedString(e.getCourse().toString());
+        AttributedString attributedTitle = new AttributedString(e.getCourse()
+                .toString());
         attributedTitle.addAttribute(TextAttribute.WEIGHT,
                 TextAttribute.WEIGHT_BOLD);
-        LineBreakMeasurer lbmTitle = new LineBreakMeasurer(attributedTitle.getIterator(), frc);
+        LineBreakMeasurer lbmTitle = new LineBreakMeasurer(attributedTitle
+                .getIterator(), frc);
 
-        while (lbmTitle.getPosition() < attributedTitle.getIterator().getEndIndex()) {
+        while (lbmTitle.getPosition() < attributedTitle.getIterator()
+                .getEndIndex()) {
             TextLayout tl = lbmTitle.nextLayout(width - 10);
             tl.draw(g, x + width - tl.getAdvance() - 5, y + tl.getAscent());
             y += tl.getAscent();
         }
 
         if (e.getPlace() != null) {
-            AttributedString attributedPlace = new AttributedString(e.getPlace());
+            AttributedString attributedPlace = new AttributedString(e
+                    .getPlace());
             attributedTitle.addAttribute(TextAttribute.POSTURE,
                     TextAttribute.POSTURE_OBLIQUE);
-            LineBreakMeasurer lbmPlace = new LineBreakMeasurer(attributedPlace.getIterator(), frc);
+            LineBreakMeasurer lbmPlace = new LineBreakMeasurer(attributedPlace
+                    .getIterator(), frc);
 
-            while (lbmPlace.getPosition() < attributedPlace.getIterator().getEndIndex()) {
+            while (lbmPlace.getPosition() < attributedPlace.getIterator()
+                    .getEndIndex()) {
                 TextLayout tl = lbmPlace.nextLayout(width - 10);
                 tl.draw(g, x + width - tl.getAdvance() - 5, y + tl.getAscent());
                 y += tl.getAscent();
@@ -173,7 +180,8 @@ public class ScheduleView extends JComponent {
                     && remainingEvents.getFirst().getDay() == collisionDay
                     && remainingEvents.getFirst().getStartTime() < collisionEndTime) {
                 Event newCollider = remainingEvents.getFirst();
-                collisionEndTime = Math.max(collisionEndTime, newCollider.getEndTime());
+                collisionEndTime = Math.max(collisionEndTime, newCollider
+                        .getEndTime());
                 collidingEvents.add(newCollider);
                 remainingEvents.removeFirst();
             }

@@ -23,7 +23,6 @@ import com.ttime.logic.Schedule;
 import com.ttime.logic.Scheduler;
 
 public class MainWindow extends JFrame {
-
     SchedulePanel schedulePanel = new SchedulePanel();
     CourseListPanel courseListPanel = new CourseListPanel();
 
@@ -41,7 +40,6 @@ public class MainWindow extends JFrame {
                 KeyEvent.CTRL_MASK));
 
         quit.addActionListener(new ActionListener() {
-
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 System.exit(0);
@@ -66,7 +64,8 @@ public class MainWindow extends JFrame {
                 Scheduler scheduler = new Scheduler(courseListPanel.getSelectedCourses(),
                         // TODO pass appropriate comparators and constraints
                         new LinkedList<Constraint>(),
-                        new LinkedList<Comparator<Schedule>>());
+                        new LinkedList<Comparator<Schedule>>()
+                        );
                 List<Schedule> schedules = scheduler.findSchedules();
                 schedulePanel.setSchedules(schedules);
             }

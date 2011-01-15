@@ -31,16 +31,19 @@ import com.ttime.logic.Course;
 import com.ttime.logic.Faculty;
 
 public class CourseListPanel extends JSplitPane {
-
     JEditorPane courseInfo = new JEditorPane();
+
     DefaultMutableTreeNode availableCoursesRoot = new DefaultMutableTreeNode(
             "Available Courses");
     DefaultTreeModel availableCoursesModel = new DefaultTreeModel(
             availableCoursesRoot);
     JTree availableCoursesTree = new JTree(availableCoursesModel);
+
     DefaultListModel selectedCoursesModel = new DefaultListModel();
     JList selectedCoursesList = new JList(selectedCoursesModel);
+
     Set<Faculty> faculties;
+
     private final Collection<Course> selectedCourses = new LinkedList<Course>();
 
     CourseListPanel() {
@@ -55,7 +58,6 @@ public class CourseListPanel extends JSplitPane {
         btnRemove.setMnemonic(KeyEvent.VK_R);
 
         btnAdd.addActionListener(new ActionListener() {
-
             @Override
             public void actionPerformed(ActionEvent e) {
                 addCurrentCourse();
@@ -63,7 +65,6 @@ public class CourseListPanel extends JSplitPane {
         });
 
         btnRemove.addActionListener(new ActionListener() {
-
             @Override
             public void actionPerformed(ActionEvent e) {
                 removeCurrentCourse();
@@ -71,48 +72,56 @@ public class CourseListPanel extends JSplitPane {
         });
 
         courseInfo.setContentType("text/html");
-        courseInfo.setText("<h1>Hello, world!</h1><p>How's about some courses?</p>");
+        courseInfo
+                .setText("<h1>Hello, world!</h1><p>How's about some courses?</p>");
         courseInfo.setEditable(false);
 
         courseInfo.setPreferredSize(new Dimension(50, 50));
 
         JPanel availableCoursesPanel = new JPanel(new BorderLayout());
-        availableCoursesPanel.setBorder(BorderFactory.createTitledBorder("Available courses"));
+        availableCoursesPanel.setBorder(BorderFactory
+                .createTitledBorder("Available courses"));
         availableCoursesPanel.add(new JScrollPane(availableCoursesTree),
                 BorderLayout.CENTER);
 
         JPanel selectedCoursesPanel = new JPanel(new BorderLayout());
-        selectedCoursesPanel.setBorder(BorderFactory.createTitledBorder("Selected courses"));
+        selectedCoursesPanel.setBorder(BorderFactory
+                .createTitledBorder("Selected courses"));
         selectedCoursesPanel.add(new JScrollPane(selectedCoursesList),
                 BorderLayout.CENTER);
 
         layout.setHorizontalGroup(layout.createSequentialGroup().addGroup(
-                layout.createParallelGroup().addComponent(availableCoursesPanel).addComponent(
-                btnAdd, GroupLayout.DEFAULT_SIZE,
-                GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)).addGroup(
-                layout.createParallelGroup().addComponent(
-                selectedCoursesPanel).addComponent(btnRemove,
-                GroupLayout.DEFAULT_SIZE,
-                GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+                layout.createParallelGroup()
+                        .addComponent(availableCoursesPanel).addComponent(
+                                btnAdd, GroupLayout.DEFAULT_SIZE,
+                                GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(
+                        layout.createParallelGroup().addComponent(
+                                selectedCoursesPanel).addComponent(btnRemove,
+                                GroupLayout.DEFAULT_SIZE,
+                                GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 
         layout.setVerticalGroup(layout.createSequentialGroup().addGroup(
-                layout.createParallelGroup().addComponent(availableCoursesPanel).addComponent(
-                selectedCoursesPanel)).addGroup(
+                layout.createParallelGroup()
+                        .addComponent(availableCoursesPanel).addComponent(
+                                selectedCoursesPanel)
+
+        ).addGroup(
                 layout.createParallelGroup().addComponent(btnAdd).addComponent(
-                btnRemove)));
+                        btnRemove)));
 
         this.add(topHalf);
         this.add(new JScrollPane(courseInfo));
 
         this.setDividerLocation(400);
 
-        availableCoursesTree.addTreeSelectionListener(new TreeSelectionListener() {
-
-            @Override
-            public void valueChanged(TreeSelectionEvent ev) {
-                onTreeSelect(ev);
-            }
-        });
+        availableCoursesTree
+                .addTreeSelectionListener(new TreeSelectionListener() {
+                    @Override
+                    public void valueChanged(TreeSelectionEvent ev) {
+                        onTreeSelect(ev);
+                    }
+                });
     }
 
     protected void removeCurrentCourse() {
@@ -136,7 +145,8 @@ public class CourseListPanel extends JSplitPane {
 
     Course getSelectedAddableCourse() {
         try {
-            DefaultMutableTreeNode node = (DefaultMutableTreeNode) availableCoursesTree.getLastSelectedPathComponent();
+            DefaultMutableTreeNode node = (DefaultMutableTreeNode) availableCoursesTree
+                    .getLastSelectedPathComponent();
             if (node != null) {
                 return (Course) node.getUserObject();
             }
@@ -147,7 +157,8 @@ public class CourseListPanel extends JSplitPane {
 
     void onTreeSelect(TreeSelectionEvent ev) {
         if (getSelectedAddableCourse() != null) {
-            courseInfo.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+            courseInfo
+                    .setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
             courseInfo.setText(getSelectedAddableCourse().getHtmlInfo());
         }
     }
@@ -173,6 +184,7 @@ public class CourseListPanel extends JSplitPane {
             }
         }
 
-        availableCoursesTree.expandPath(new TreePath(availableCoursesRoot.getPath()));
+        availableCoursesTree.expandPath(new TreePath(availableCoursesRoot
+                .getPath()));
     }
 }

@@ -36,7 +36,6 @@ public class Scheduler {
         };
 
         combinedConstraint = new Constraint() {
-
             @Override
             public boolean accepts(Schedule s) {
                 for (Constraint c : Scheduler.this.constraints) {
