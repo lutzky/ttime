@@ -3,15 +3,13 @@ package com.ttime.logic;
 import java.util.Collection;
 
 public class Event implements Comparable<Event> {
+
     int day;
-
     Course course;
-
     /**
      * Stored as seconds since midnight
      */
     int startTime;
-
     /**
      * Stored as seconds since midnight
      */

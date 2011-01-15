@@ -11,6 +11,7 @@ import java.util.zip.ZipInputStream;
 import com.ttime.parse.Repy;
 
 public class Update {
+
     static final String REPY_URI = "http://ug.technion.ac.il/rep/REPFILE.zip";
     static final int BLOCKSIZE = 1024;
 
