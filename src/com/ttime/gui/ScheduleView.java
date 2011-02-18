@@ -58,9 +58,8 @@ public class ScheduleView extends JComponent {
 
         float width = (g.getClipBounds().width / (days + 1) / numLayers);
         float daysX = days - e.getDay() - 1;
-        float dayWidth = g.getClipBounds().width / (days + 1);
 
-        float x = daysX * dayWidth + width * (numLayers - layer - 1);
+        float x = daysX * dayWidth() + width * (numLayers - layer - 1);
 
         float y = getDurationHeight(e.getStartTime() - startTime + 3600);
 
@@ -114,6 +113,10 @@ public class ScheduleView extends JComponent {
         }
     }
 
+    private float dayWidth() {
+        return g.getClipBounds().width / (days + 1);
+    }
+
     void computeTimeLimits(int earliestStart, int latestFinish) {
         // We work on an hour-long, offset-by-30-minute grid, so we want to
         // start and end on the half-hour.
@@ -153,6 +156,13 @@ public class ScheduleView extends JComponent {
         for (int i = 0; i < (endTime - startTime) / 3600; i++) {
             int y = getDurationHeight(3600 * i);
             g.drawLine(0, y, (int) bounds.getWidth(), y);
+        }
+
+        for (int i = 1; i <= days; i++) {
+            // i goes from 1 to days - no left border is needed, but we have
+            // an extra "day" as the hours list on the right.
+            g.drawLine((int) (i * dayWidth()), 0, (int) (i * dayWidth()),
+                    (int) bounds.getHeight());
         }
 
         drawEvents();
