@@ -6,6 +6,8 @@ import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.ttime.constraints.Constraint;
+
 public class Scheduler {
 
     private final LinkedList<Course> courses;

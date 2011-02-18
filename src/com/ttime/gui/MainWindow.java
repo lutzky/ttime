@@ -17,7 +17,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JTabbedPane;
 import javax.swing.KeyStroke;
 
-import com.ttime.logic.Constraint;
+import com.ttime.constraints.ConstraintManager;
 import com.ttime.logic.Faculty;
 import com.ttime.logic.Schedule;
 import com.ttime.logic.Scheduler;
@@ -63,7 +63,7 @@ public class MainWindow extends JFrame {
                 // TODO This needs to happen in a separate thread
                 Scheduler scheduler = new Scheduler(courseListPanel.getSelectedCourses(),
                         // TODO pass appropriate comparators and constraints
-                        new LinkedList<Constraint>(),
+                        ConstraintManager.getInstance().getConstraints(),
                         new LinkedList<Comparator<Schedule>>()
                         );
                 List<Schedule> schedules = scheduler.findSchedules();
@@ -74,7 +74,6 @@ public class MainWindow extends JFrame {
         schedules.add(findSchedules);
 
         menuBar.add(schedules);
-
 
         return menuBar;
     }
