@@ -30,6 +30,7 @@ import javax.swing.tree.TreePath;
 import com.ttime.logic.Course;
 import com.ttime.logic.Faculty;
 
+@SuppressWarnings("serial")
 public class CourseListPanel extends JSplitPane {
     JEditorPane courseInfo = new JEditorPane();
 

@@ -14,6 +14,7 @@ import javax.swing.event.ChangeListener;
 
 import com.ttime.logic.Schedule;
 
+@SuppressWarnings("serial")
 public class SchedulePanel extends JPanel {
     final ScheduleView scheduleView = new ScheduleView();
     List<Schedule> schedules = new LinkedList<Schedule>();

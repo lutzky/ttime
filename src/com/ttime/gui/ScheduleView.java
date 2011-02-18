@@ -25,6 +25,7 @@ import javax.swing.JComponent;
 
 import com.ttime.logic.Event;
 
+@SuppressWarnings("serial")
 public class ScheduleView extends JComponent {
     int days;
     int startTime;

@@ -22,6 +22,7 @@ import com.ttime.logic.Faculty;
 import com.ttime.logic.Schedule;
 import com.ttime.logic.Scheduler;
 
+@SuppressWarnings("serial")
 public class MainWindow extends JFrame {
     SchedulePanel schedulePanel = new SchedulePanel();
     CourseListPanel courseListPanel = new CourseListPanel();
