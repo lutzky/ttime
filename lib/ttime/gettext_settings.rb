@@ -35,8 +35,11 @@ begin
 rescue Exception => e
   puts "WARNING: Could not activate localized UI: #{e}"
   puts "WARNING: Trace ends at #{e.backtrace[0]}"
-  def _ s #:nodoc:
-    # No gettext? No problem.
-    s
+  module GetText
+    def _ s #:nodoc:
+      # No gettext? No problem.
+      s
+    end
   end
+  include GetText
 end

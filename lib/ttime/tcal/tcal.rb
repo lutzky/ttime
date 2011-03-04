@@ -15,6 +15,8 @@ require 'ttime/tcal/cairo_aux'
 
 LEFT_BUTTON = 1
 RIGHT_BUTTON = 3
+TYPE_PDF = 0
+TYPE_SCR = 1
 
 module TCal
   class Calendar < Gtk::DrawingArea
@@ -23,8 +25,8 @@ module TCal
     PDF_Height = 595
 
     # Margin in points (1 inch / 72)
-    Margin_TopBottom = 72
-    Margin_LeftRight = 72
+    Margin_TopBottom = 20
+    Margin_LeftRight = 20
 
     # Initialize a calendar. Possible parameters (within +params+) are:
     #
@@ -292,8 +294,8 @@ module TCal
       end
     end
 
-    # Draw a TCal::Event in the appropriate position
-    def draw_item item
+    # Draw a TCal::Event in the appropriate position, type represents output type.
+    def draw_item (item, type)
       get_cairo if @cairo.nil?
 
       # set internal line width for this function
@@ -344,7 +346,12 @@ module TCal
       @cairo.move_to(3+(layer_width*item.layer),3)
 
       #draw text
-      @cairo.pango_render_text((layer_width-6),"Sans 8",item.markup)
+	  if(type == TYPE_SCR)
+		text = "Sans 8"
+	  else
+		text = "Sans 5"
+	  end
+      @cairo.pango_render_text((layer_width-6),text,item.markup)
 
       #reset damage
       @cairo.reset_clip
@@ -512,10 +519,12 @@ module TCal
         surf = Cairo::PDFSurface.new(pdf_filename, PDF_Width, PDF_Height)
         surf.set_device_offset Margin_LeftRight, Margin_TopBottom
         @cairo = Cairo::Context.new(surf)
-        get_bg_image true
+        media = TYPE_PDF
+		get_bg_image true
       else
         get_cairo
         bg_grid = get_bg_image
+		media = TYPE_SCR
         @cairo.set_source bg_grid
         @cairo.rectangle(0,0,width,height)
         @cairo.fill
@@ -524,7 +533,7 @@ module TCal
       compute_layers unless @computed_layers
 
       @events.each do |i|
-        draw_item i
+        draw_item (i,media)
       end
 
       if pdf_filename
