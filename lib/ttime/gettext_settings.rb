@@ -33,8 +33,11 @@ begin
       "locale/")
   end
 rescue LoadError
-  def _ s #:nodoc:
-    # No gettext? No problem.
-    s
+  module GetText
+    def _ s #:nodoc:
+      # No gettext? No problem.
+      s
+    end
   end
+  include GetText
 end
