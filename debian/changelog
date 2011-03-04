@@ -1,3 +1,18 @@
+ttime (0.9.4-1) maverick; urgency=low
+
+  [ Ohad Lutzky ]
+  * Fix XML export
+
+  [ Haggai Eran ]
+  * Allow working without gettext.
+
+  [ Alon Amster ]
+  * Make the pdf font and margins smaller.
+
+  [ Ohad Lutzky ]
+
+ -- Ohad Lutzky <ohad@lutzky.net>  Fri, 04 Mar 2011 16:27:36 +0200
+
 ttime (0.9.3-2) maverick; urgency=low
 
   [ Amit Elbaz ]
