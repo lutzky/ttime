@@ -32,7 +32,9 @@ begin
       /locale\/[^\/]+\/LC_MESSAGES.*/,
       "locale/")
   end
-rescue LoadError
+rescue Exception => e
+  puts "WARNING: Could not activate localized UI: #{e}"
+  puts "WARNING: Trace ends at #{e.backtrace[0]}"
   module GetText
     def _ s #:nodoc:
       # No gettext? No problem.
