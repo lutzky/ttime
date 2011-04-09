@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Collection;
@@ -150,26 +151,57 @@ public class CourseListPanel extends JSplitPane {
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				int selRow = availableCoursesTree.getRowForLocation(e.getX(), e.getY());
-				if(selRow != -1 && e.getClickCount() == 2) {
+				if (e.getClickCount() == 2) {
 					addCurrentCourse();
 				}
+			}
+		});
+
+		availableCoursesTree.addKeyListener(new KeyListener() {
+
+			@Override
+			public void keyPressed(KeyEvent arg0) {
+				if (arg0.getKeyCode() == KeyEvent.VK_ENTER) {
+					addCurrentCourse();
+				}
+			}
+
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+			}
+
+			@Override
+			public void keyTyped(KeyEvent arg0) {
 			}
 		});
 	}
 
 	protected void removeCurrentCourse() {
 		if (!selectedCoursesList.isSelectionEmpty()) {
-			Course c = (Course) selectedCoursesList.getSelectedValue();
-			selectedCoursesModel.remove(selectedCoursesList.getSelectedIndex());
-			selectedCourses.remove(c);
+			Object[] selectedRemovalCourses = selectedCoursesList
+					.getSelectedValues();
+			int[] selectedRemovalIndices = selectedCoursesList.getSelectedIndices();
+
+			for (Object o : selectedRemovalCourses) {
+				selectedCourses.remove(o);
+			}
+
+			for (int i = selectedRemovalIndices.length - 1; i >= 0; i--) {
+				/*
+				 * Remove from list in reverse order, to avoid removing the
+				 * wrong element due to renumbering on delete.
+				 */
+				selectedCoursesModel.remove(selectedRemovalIndices[i]);
+			}
 		}
 	}
 
 	void addCurrentCourse() {
-		if (getSelectedAddableCourse() != null) {
-			selectedCoursesModel.addElement(getSelectedAddableCourse());
-			selectedCourses.add(getSelectedAddableCourse());
+		for (Course c : getSelectedAddableCourses()) {
+			if (c != null) {
+				selectedCoursesModel.addElement(c);
+				selectedCourses.add(c);
+			}
 		}
 	}
 
@@ -177,23 +209,29 @@ public class CourseListPanel extends JSplitPane {
 		return selectedCourses;
 	}
 
-	Course getSelectedAddableCourse() {
-		try {
-			DefaultMutableTreeNode node = (DefaultMutableTreeNode) availableCoursesTree
-					.getLastSelectedPathComponent();
-			if (node != null) {
-				return (Course) node.getUserObject();
+	Course[] getSelectedAddableCourses() {
+		TreePath[] selectedPaths = availableCoursesTree.getSelectionPaths();
+		Course[] result = new Course[selectedPaths.length];
+		for (int i = 0; i < selectedPaths.length; i++) {
+			DefaultMutableTreeNode node = (DefaultMutableTreeNode) selectedPaths[i]
+					.getLastPathComponent();
+
+			try {
+				result[i] = (node == null) ? null : (Course) node
+						.getUserObject();
+			} catch (ClassCastException e) {
+				result[i] = null;
 			}
-		} catch (ClassCastException e) {
 		}
-		return null;
+
+		return result;
 	}
 
 	void onTreeSelect(TreeSelectionEvent ev) {
-		if (getSelectedAddableCourse() != null) {
+		if (getSelectedAddableCourses()[0] != null) {
 			courseInfo
 					.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-			courseInfo.setText(getSelectedAddableCourse().getHtmlInfo());
+			courseInfo.setText(getSelectedAddableCourses()[0].getHtmlInfo());
 		}
 	}
 
