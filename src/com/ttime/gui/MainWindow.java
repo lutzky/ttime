@@ -24,95 +24,95 @@ import com.ttime.logic.Scheduler;
 
 @SuppressWarnings("serial")
 public class MainWindow extends JFrame {
-    SchedulePanel schedulePanel = new SchedulePanel();
-    CourseListPanel courseListPanel = new CourseListPanel();
+	SchedulePanel schedulePanel = new SchedulePanel();
+	CourseListPanel courseListPanel = new CourseListPanel();
 
-    JMenuBar createMenuBar() {
-        JMenuBar menuBar = new JMenuBar();
+	JMenuBar createMenuBar() {
+		JMenuBar menuBar = new JMenuBar();
 
-        JMenu file;
+		JMenu file;
 
-        file = new JMenu("File");
-        file.setMnemonic(KeyEvent.VK_F);
+		file = new JMenu("File");
+		file.setMnemonic(KeyEvent.VK_F);
 
-        JMenuItem quit = new JMenuItem("Quit");
-        quit.setMnemonic(KeyEvent.VK_Q);
-        quit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q,
-                KeyEvent.CTRL_MASK));
+		JMenuItem quit = new JMenuItem("Quit");
+		quit.setMnemonic(KeyEvent.VK_Q);
+		quit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q,
+				KeyEvent.CTRL_MASK));
 
-        quit.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                System.exit(0);
-            }
-        });
+		quit.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				System.exit(0);
+			}
+		});
 
-        file.add(quit);
+		file.add(quit);
 
-        menuBar.add(file);
+		menuBar.add(file);
 
-        JMenu schedules = new JMenu("Schedules");
-        schedules.setMnemonic(KeyEvent.VK_S);
+		JMenu schedules = new JMenu("Schedules");
+		schedules.setMnemonic(KeyEvent.VK_S);
 
-        JMenuItem findSchedules = new JMenuItem("Find schedules");
-        findSchedules.setMnemonic(KeyEvent.VK_S);
+		JMenuItem findSchedules = new JMenuItem("Find schedules");
+		findSchedules.setMnemonic(KeyEvent.VK_S);
 
-        findSchedules.addActionListener(new ActionListener() {
+		findSchedules.addActionListener(new ActionListener() {
 
-            @Override
-            public void actionPerformed(ActionEvent arg0) {
-                // TODO This needs to happen in a separate thread
-                Scheduler scheduler = new Scheduler(courseListPanel.getSelectedCourses(),
-                        // TODO pass appropriate comparators and constraints
-                        ConstraintManager.getInstance().getConstraints(),
-                        new LinkedList<Comparator<Schedule>>()
-                        );
-                List<Schedule> schedules = scheduler.findSchedules();
-                schedulePanel.setSchedules(schedules);
-            }
-        });
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO This needs to happen in a separate thread
+				Scheduler scheduler = new Scheduler(courseListPanel.getSelectedCourses(),
+						// TODO pass appropriate comparators and constraints
+						ConstraintManager.getInstance().getConstraints(),
+						new LinkedList<Comparator<Schedule>>()
+						);
+				List<Schedule> schedules = scheduler.findSchedules();
+				schedulePanel.setSchedules(schedules);
+			}
+		});
 
-        schedules.add(findSchedules);
+		schedules.add(findSchedules);
 
-        menuBar.add(schedules);
+		menuBar.add(schedules);
 
-        return menuBar;
-    }
+		return menuBar;
+	}
 
-    JTabbedPane createTabbedPane() {
-        JTabbedPane tabbedPane = new JTabbedPane();
+	JTabbedPane createTabbedPane() {
+		JTabbedPane tabbedPane = new JTabbedPane();
 
-        tabbedPane.addTab("Course List", courseListPanel);
+		tabbedPane.addTab("Course List", courseListPanel);
 
-        tabbedPane.addTab("Schedule", schedulePanel);
+		tabbedPane.addTab("Schedule", schedulePanel);
 
-        JButton constraintsTab = new JButton("Constraints");
+		JButton constraintsTab = new JButton("Constraints");
 
-        tabbedPane.addTab("Constraints", constraintsTab);
+		tabbedPane.addTab("Constraints", constraintsTab);
 
-        JButton ratingsTab = new JButton("Schedule ratings");
+		JButton ratingsTab = new JButton("Schedule ratings");
 
-        tabbedPane.addTab("Schedule ratings", ratingsTab);
+		tabbedPane.addTab("Schedule ratings", ratingsTab);
 
-        return tabbedPane;
-    }
+		return tabbedPane;
+	}
 
-    public MainWindow() {
-        super("TTime");
-        setPreferredSize(new Dimension(800, 600));
+	public MainWindow() {
+		super("TTime");
+		setPreferredSize(new Dimension(800, 600));
 
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        getContentPane().add(createTabbedPane());
+		getContentPane().add(createTabbedPane());
 
-        setJMenuBar(createMenuBar());
+		setJMenuBar(createMenuBar());
 
-        pack();
+		pack();
 
-        setVisible(true);
-    }
+		setVisible(true);
+	}
 
-    public void setFaculties(Set<Faculty> faculties) {
-        courseListPanel.setFaculties(faculties);
-    }
+	public void setFaculties(Set<Faculty> faculties) {
+		courseListPanel.setFaculties(faculties);
+	}
 }
