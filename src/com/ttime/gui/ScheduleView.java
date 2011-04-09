@@ -23,10 +23,15 @@ import java.util.ListIterator;
 
 import javax.swing.JComponent;
 
+import com.ttime.Utils;
 import com.ttime.logic.Event;
 
 @SuppressWarnings("serial")
 public class ScheduleView extends JComponent {
+    protected static final float SMALL_MARGIN = 5;
+    protected static final String[] DAY_NAMES = { "ראשון", "שני", "שלישי",
+        "רביעי", "חמישי", "שישי", "שבת" };
+
     int days;
     int startTime;
     int endTime;
@@ -117,9 +122,30 @@ public class ScheduleView extends JComponent {
         return g.getClipBounds().width / (days + 1);
     }
 
-    void computeTimeLimits(int earliestStart, int latestFinish) {
+    void computeTimeLimits() {
         // We work on an hour-long, offset-by-30-minute grid, so we want to
         // start and end on the half-hour.
+
+        int earliestStart;
+        int latestFinish;
+        days = 5;
+
+        if (events.isEmpty()) {
+            earliestStart = 8 * 3600;
+            latestFinish = 16 * 3600;
+        } else {
+            Event firstEvent = events.iterator().next();
+            earliestStart = firstEvent.getStartTime();
+            latestFinish = firstEvent.getEndTime();
+        }
+
+        for (Event e : events) {
+            earliestStart = java.lang.Math.min(e.getStartTime(), earliestStart);
+            latestFinish = java.lang.Math.max(e.getEndTime(), latestFinish);
+            if (e.getDay() >= 5) {
+                days = e.getDay();
+            }
+        }
 
         startTime = 3600 * (earliestStart / 3600) + 1800;
 
@@ -129,7 +155,7 @@ public class ScheduleView extends JComponent {
 
         endTime = 3600 * (latestFinish / 3600) + 1800;
 
-        if (latestFinish % 3600 > 1800) {
+        if (latestFinish % 3600 >= 1800) {
             // Ends after the half-hour - add one hour
             endTime += 3600;
         }
@@ -138,11 +164,9 @@ public class ScheduleView extends JComponent {
     @Override
     synchronized protected void paintComponent(Graphics g1) {
         this.g = (Graphics2D) g1;
-        days = 5; // TODO this should be based on the events we actually get,
-        computeTimeLimits(8 * 3600, 18 * 3600);
-        // but a minimum of 5
+        computeTimeLimits();
 
-        g.setFont(new Font("Dialog", Font.BOLD, 40));
+        g.setFont(new Font("Dialog", Font.BOLD, 16));
 
         Rectangle bounds = g.getClipBounds();
 
@@ -153,9 +177,25 @@ public class ScheduleView extends JComponent {
 
         g.setStroke(new BasicStroke(1.0f));
 
+        g.setFont(new Font("Dialog", Font.BOLD, 16));
+
         for (int i = 0; i < (endTime - startTime) / 3600; i++) {
             int y = getDurationHeight(3600 * i);
             g.drawLine(0, y, (int) bounds.getWidth(), y);
+
+            if (i == 0) {
+                // Don't draw the time under the first line, that's just the
+                // top border.
+                continue;
+            }
+
+            String lineTime = Utils.formatTime(startTime + (i - 1) * 3600);
+
+            TextLayout tl = new TextLayout(lineTime, g.getFont(), g
+                    .getFontRenderContext());
+
+            g.drawString(lineTime, days * dayWidth() + SMALL_MARGIN, y
+                    + tl.getAscent() + SMALL_MARGIN);
         }
 
         for (int i = 1; i <= days; i++) {
@@ -163,6 +203,13 @@ public class ScheduleView extends JComponent {
             // an extra "day" as the hours list on the right.
             g.drawLine((int) (i * dayWidth()), 0, (int) (i * dayWidth()),
                     (int) bounds.getHeight());
+
+            String dayName = DAY_NAMES[days - i];
+
+            TextLayout tl = new TextLayout(dayName, g.getFont(), g
+                    .getFontRenderContext());
+            g.drawString(dayName, (i) * dayWidth() - tl.getAdvance()
+                    - SMALL_MARGIN, tl.getAscent() + SMALL_MARGIN);
         }
 
         drawEvents();

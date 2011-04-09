@@ -2,6 +2,8 @@ package com.ttime.logic;
 
 import java.util.Collection;
 
+import com.ttime.Utils;
+
 public class Event implements Comparable<Event> {
 	int day;
 
@@ -75,12 +77,10 @@ public class Event implements Comparable<Event> {
 
 	@Override
 	public String toString() {
-		return String.format("<Event day=%d startTime~\"%02d:%02d\" endTime~\"%02d:%02d\" place=\"%s\">",
+		return String.format("<Event day=%d startTime~\"%s\" endTime~\"%s\" place=\"%s\">",
 				this.day,
-				this.startTime / 3600,
-				(this.startTime / 60) % 60,
-				this.endTime / 3600,
-				(this.endTime / 60) % 60,
+				Utils.formatTime(this.startTime),
+				Utils.formatTime(this.endTime),
 				this.place);
 	}
 }
