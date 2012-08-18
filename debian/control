@@ -2,12 +2,26 @@ Source: ttime
 Section: x11
 Priority: extra
 Maintainer: Ohad Lutzky <ohad@lutzky.net>
-Build-Depends: ruby (>= 1.8), cdbs, ruby-pkg-tools, debhelper (>= 5), libgettext-ruby1.8 | libgettext-ruby
+Build-Depends: ruby (>= 1.8),
+ cdbs,
+ ruby-pkg-tools,
+ debhelper (>= 5),
+ libgettext-ruby1.8 | libgettext-ruby,
+ rake
 Standards-Version: 3.9.1
 
 Package: ttime
 Architecture: all
-Depends: ${misc:Depends}, ruby (>= 1.8), libzip-ruby1.8 | libzip-ruby, libgettext-ruby1.8 | libgettext-ruby, libpango1-ruby, librsvg2-ruby, libcairo-ruby, libtzinfo-ruby, rubygems, libglade2-ruby
+Depends: ${misc:Depends},
+ libcairo-ruby,
+ libgettext-ruby1.8 | libgettext-ruby,
+ libpango1-ruby,
+ librsvg2-ruby,
+ libtzinfo-ruby,
+ libzip-ruby1.8 | libzip-ruby,
+ ruby (>= 1.8),
+ rubygems,
+ ruby-gtk2 | libglade2-ruby,
 Recommends: libxml-ruby1.8, ruby1.8
 Description: Technion Timetable Scheduler
  TTime is a utility intended for students of the Technion IIT, which assists
