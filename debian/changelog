@@ -1,3 +1,9 @@
+ttime (0.9.4-2) precise; urgency=low
+
+  * Update dependencies for Natty
+
+ -- Ohad Lutzky <ohad@lutzky.net>  Sat, 18 Aug 2012 11:24:40 +0300
+
 ttime (0.9.4-1) maverick; urgency=low
 
   [ Ohad Lutzky ]
