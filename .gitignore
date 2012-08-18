@@ -1,3 +1,11 @@
-doc
-ruby-win
+.config-ttime
+data
+debian/files
+debian/*.log
+debian-setup.rb
+debian/*.substvars
+debian/ttime
 ditz
+doc
+InstalledFiles
+ruby-win
