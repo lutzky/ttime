@@ -1,10 +1,24 @@
-require 'iconv'
+# encoding: utf-8
+
 require 'ttime/logic/faculty'
 require 'ttime/gettext_settings'
 require 'ttime/logging'
 
-$KCODE='u'
-require 'jcode'
+if RUBY_VERSION < "1.9"
+  require 'iconv'
+
+  $KCODE = 'u'
+  require 'jcode'
+
+  $utf8_converter = Iconv.new('utf-8', 'cp862')
+
+  class String
+    def encode encoding
+      # Ignore encoding, assume utf-8. This is just a shim.
+      $utf8_converter.iconv self
+    end
+  end
+end
 
 class String
   def u_leftchop! n
@@ -146,12 +160,9 @@ module TTime
       private
 
       def convert_to_unicode
-        converter = Iconv.new('utf-8', 'cp862')
-        @unicode = ""
-        @raw.each_line do |l|
-          @unicode << converter.iconv(l.chomp.reverse) << "\n"
-        end
-        @unicode
+        @unicode = @raw.lines.collect do |l|
+          l.chomp.reverse.encode("utf-8")
+        end.join("\n")
       end
 
       def each_raw_faculty #:yields: name, raw_faculty, is_sports?

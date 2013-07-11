@@ -1,4 +1,4 @@
-#!/usr/bin/env ruby1.8
+#!/usr/bin/env ruby
 
 require 'pathname'
 require 'optparse'
@@ -42,9 +42,10 @@ rescue LoadError
   def _ s; s; end
 end
 
-# Standard unicode support activation
-require 'jcode'
-$KCODE = 'u'
+if RUBY_VERSION < "1.9"
+  require 'jcode'
+  $KCODE = 'u'
+end
 
 def run_gui
   require 'ttime/gui/main_window'

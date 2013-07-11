@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 require 'ttime/constraints'
 require 'ttime/gettext_settings'
 require 'set'

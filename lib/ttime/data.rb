@@ -146,7 +146,13 @@ module TTime
     end
 
     def load_repy
-      Parse::Repy.new(open(REPY_File) { |f| f.read }, &@status_report_proc)
+      if RUBY_VERSION < "1.9"
+        file_contents = open(REPY_File, "r") { |f| f.read }
+      else
+        file_contents = open(REPY_File, "r:ibm862") { |f| f.read }
+      end
+
+      Parse::Repy.new(file_contents, &@status_report_proc)
     end
 
     def update_yaml
