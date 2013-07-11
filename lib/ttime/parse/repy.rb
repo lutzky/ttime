@@ -393,7 +393,7 @@ module TTime
 
         # TODO: This will only work until 2068, as years are given in two
         # digits. Let's hope REPY doesn't survive until then.
-        Date.parse(american_date, true)
+        Date.strptime(american_date, "%m/%d/%y")
       end
 
     end
