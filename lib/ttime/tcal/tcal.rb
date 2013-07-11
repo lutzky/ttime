@@ -533,7 +533,7 @@ module TCal
       compute_layers unless @computed_layers
 
       @events.each do |i|
-        draw_item (i,media)
+        draw_item i, media
       end
 
       if pdf_filename
