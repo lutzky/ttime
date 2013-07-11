@@ -225,9 +225,9 @@ module TTime
 
         state = :start
         #puts contents.body
-        contents.body.each do |line|
+        contents.body.each_line do |line|
           case state
-          when :start:
+          when :start
             if line[3] != '-'
               if m=/\| מורה  אחראי :(.*?) *\|/.match(line)
                 course.lecturer_in_charge = m[1].strip.squeeze(" ")
@@ -239,7 +239,7 @@ module TTime
                 state = :thing
               end
             end
-          when :thing:
+          when :thing
             line.strip!
             if line =~ /----/
               #this should not happen
@@ -257,7 +257,7 @@ module TTime
               add_event_to_group(grp, m[3])
               state = :details
             end
-          when :details:
+          when :details
             if line !~ /:/
               if line =~ /\| +\|/ || line =~ /\+\+\+\+\+\+/ || line =~ /----/
                 course.groups << grp unless grp.events.empty?

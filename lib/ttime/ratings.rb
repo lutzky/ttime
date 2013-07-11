@@ -131,20 +131,21 @@ module TTime
         Dir.glob(path + '*.rb').each do |rating|
           rating_name = File.basename(rating)
           unless already_loaded_ratings.include? rating_name
-            already_loaded_ratings << rating_name
             log.info "Loading rating #{rating}"
-            require rating
+            require Pathname.new(rating).realpath
+            already_loaded_ratings << rating_name
           end
         end
       end
     end
 
     def Ratings.get_ratings
+      excludes = [ "AbstractRating", "RatingPathCandidates" ]
       rating_class_names = Ratings.constants - \
-        [ "AbstractRating", "RatingPathCandidates" ]
+        excludes - excludes.collect { |e| e.to_sym }
 
       rating_classes = rating_class_names.collect do |c|
-        Ratings.module_eval(c)
+        Ratings.module_eval(c.to_s)
       end
 
       rating_classes.collect do |c|

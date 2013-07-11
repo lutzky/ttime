@@ -124,20 +124,21 @@ module TTime
         Dir.glob(path + '*.rb').each do |constraint|
           constraint_name = File.basename(constraint)
           unless already_loaded_constraints.include? constraint_name
-            already_loaded_constraints << constraint_name
             log.info { "Loading constraint #{constraint}" }
-            require constraint
+            require Pathname.new(constraint).realpath
+            already_loaded_constraints << constraint_name
           end
         end
       end
     end
 
     def Constraints.get_constraints
+      excludes = [ "AbstractConstraint", "ConstraintPathCandidates" ]
       constraint_class_names = Constraints.constants - \
-        [ "AbstractConstraint", "ConstraintPathCandidates" ]
+        excludes - excludes.collect { |e| e.to_sym }
 
       constraint_classes = constraint_class_names.collect do |c|
-        Constraints.module_eval(c)
+        Constraints.module_eval(c.to_s)
       end
 
       constraint_classes.collect do |c|

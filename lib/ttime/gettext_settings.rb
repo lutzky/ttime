@@ -9,7 +9,7 @@ begin
   # Ruby's gettext acts in a sane method - add a path to the set of paths
   # scanned.
   locale_in_data_path = Pathname.new($0).dirname + \
-    "../data/locale/%{locale}/LC_MESSAGES/%{name}.mo"
+    "../data/locale/%{lang}/LC_MESSAGES/%{name}.mo"
   if GetText::VERSION >= "2.1.0"
     LocalePath.add_default_rule(locale_in_data_path.to_s)
   else
