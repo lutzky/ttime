@@ -1,6 +1,7 @@
-require 'rake/rdoctask'
+require 'rdoc/task'
 require 'fileutils'
 require 'tempfile'
+require 'rake/testtask'
 
 VERSION_FILE = "lib/ttime/version.rb"
 
@@ -39,6 +40,12 @@ task :update_version do
   system "git add #{VERSION_FILE} && " \
          "git commit -m 'Update version number to #{new_version}' && " \
          "git tag v#{new_version}"
+end
+
+Rake::TestTask.new do |t|
+  t.libs << "test"
+  t.test_files = FileList['test/test*.rb']
+  t.verbose = true
 end
 
 desc "Generate ditz html pages"
