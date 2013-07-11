@@ -22,12 +22,11 @@ begin
   if GetText::VERSION >= "2.1.0"
     _("_File")
     lang = bound_text_domain.mofiles.keys[0]
-    print bound_text_domain.mofiles[lang].filename, "\n"
     my_current_mo = bound_text_domain.mofiles[lang]
   else
     my_current_mo = bound_text_domain.entries[0].current_mo
   end
-  if my_current_mo
+  if my_current_mo and my_current_mo != :empty
     ENV["GETTEXT_PATH"] = my_current_mo.filename.gsub(
       /locale\/[^\/]+\/LC_MESSAGES.*/,
       "locale/")
