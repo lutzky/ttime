@@ -258,7 +258,12 @@ module TTime
               state = :details
             end
           when :details
-            if line !~ /:/
+            if m=/\| *[א-ת]+ ?: ?([א-ו]'?[0-9]{2}\.[0-9]{1,2}-[0-9]{2}\.[0-9]{1,2}) *\|/.match(line)
+              # Extra event for the same group, of a different type. Since we
+              # only have types at the whole-group level, we'll count it into
+              # the same group, ignoring the new type.
+              add_event_to_group(grp, m[1])
+            elsif line !~ /:/
               if line =~ /\| +\|/ || line =~ /\+\+\+\+\+\+/ || line =~ /----/
                 course.groups << grp unless grp.events.empty?
                 state = :thing
