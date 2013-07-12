@@ -1,7 +1,8 @@
 # encoding: utf-8
 
-require './lib/ttime/parse/repy'
+require 'ttime/parse/repy'
 require 'test/unit'
+require 'ttime/encoding'
 
 TTimeDays = {
   :sunday => 1,
@@ -13,11 +14,21 @@ TTimeDays = {
   :saturday => 7
 }
 
-TTimeSunday = 1
+# For use with Date#wday
+WDays = {
+  :sunday => 0,
+  :monday => 1,
+  :tuesday => 2,
+  :wednesday => 3,
+  :thursday => 4,
+  :friday => 5,
+  :saturday => 6
+}
 
 class TestParse < Test::Unit::TestCase
   def load_hash_from unicode_string
-    repy = TTime::Parse::Repy.new(unicode_string.encode(Encoding::IBM862))
+    encoded = unicode_string.encode(Encoding::IBM862)
+    repy = TTime::Parse::Repy.new(encoded)
     repy.hash
   end
 
@@ -68,10 +79,11 @@ class TestParse < Test::Unit::TestCase
     assert_equal "סטטיסטיקה", course.name
     assert_equal 3.0, course.academic_points
     assert_equal "31 ב.פישביין", course.lecturer_in_charge
-    assert_equal Date.new(2014,2,3), course.first_test_date
-    assert course.first_test_date.monday?
-    assert_equal Date.new(2014,3,9), course.second_test_date
-    assert course.second_test_date.sunday?
+
+    assert_equal Date.new(2014,2,3),  course.first_test_date
+    assert_equal WDays[:monday],      course.first_test_date.wday
+    assert_equal Date.new(2014,3,9),  course.second_test_date
+    assert_equal WDays[:sunday],      course.second_test_date.wday
 
     assert_equal :lecture,            course.groups[0].type
     assert_equal "פרופ/מ ב.פישביין",  course.groups[0].lecturer

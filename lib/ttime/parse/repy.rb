@@ -3,22 +3,7 @@
 require 'ttime/logic/faculty'
 require 'ttime/gettext_settings'
 require 'ttime/logging'
-
-if RUBY_VERSION < "1.9"
-  require 'iconv'
-
-  $KCODE = 'u'
-  require 'jcode'
-
-  $utf8_converter = Iconv.new('utf-8', 'cp862')
-
-  class String
-    def encode encoding
-      # Ignore encoding, assume utf-8. This is just a shim.
-      $utf8_converter.iconv self
-    end
-  end
-end
+require 'ttime/encoding'
 
 class String
   def u_leftchop! n

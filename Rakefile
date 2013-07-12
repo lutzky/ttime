@@ -2,6 +2,8 @@ begin
   require 'rdoc/task'
 rescue LoadError
   require 'rake/rdoctask'
+rescue
+  warn "Could not load rdoc task... trying to continue anyway"
 end
 
 require 'fileutils'
