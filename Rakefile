@@ -1,9 +1,8 @@
 begin
   require 'rdoc/task'
 rescue LoadError
-  require 'rake/rdoctask'
-rescue
   warn "Could not load rdoc task... trying to continue anyway"
+  Rake::RDocTask = nil
 end
 
 require 'fileutils'
@@ -31,7 +30,7 @@ Rake::RDocTask.new("doc") do |rdoc|
   rdoc.main = "README.rdoc"
   rdoc.rdoc_files.include('README.rdoc')
   rdoc.rdoc_files.include('lib/**/*.rb')
-end
+end unless Rake::RDocTask.nil?
 
 desc "Update version number"
 task :update_version do
