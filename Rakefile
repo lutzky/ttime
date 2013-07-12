@@ -1,8 +1,9 @@
-if RUBY_VERSION < '1.9'
-  require 'rake/rdoctask'
-else
+begin
   require 'rdoc/task'
+rescue LoadError
+  require 'rake/rdoctask'
 end
+
 require 'fileutils'
 require 'tempfile'
 require 'rake/testtask'
