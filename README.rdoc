@@ -1,4 +1,4 @@
-= TTime -- A Technion Timetable utility
+= TTime -- A Technion Timetable utility {<img src="https://travis-ci.org/lutzky/ttime.png?branch=master" alt="Build Status" />}[https://travis-ci.org/lutzky/ttime]
 
 TTime is (breath) a rewrite of a fork of a replacement of an updated version of
 software intended to help Technion students organize their timetables. (That
