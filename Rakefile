@@ -1,4 +1,8 @@
-require 'rdoc/task'
+if RUBY_VERSION < '1.9'
+  require 'rake/rdoctask'
+else
+  require 'rdoc/task'
+end
 require 'fileutils'
 require 'tempfile'
 require 'rake/testtask'
