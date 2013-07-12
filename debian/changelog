@@ -1,0 +1,150 @@
+ttime (0.9.4-2) precise; urgency=low
+
+  * Update dependencies for Natty
+
+ -- Ohad Lutzky <ohad@lutzky.net>  Sat, 18 Aug 2012 11:24:40 +0300
+
+ttime (0.9.4-1) maverick; urgency=low
+
+  [ Ohad Lutzky ]
+  * Fix XML export
+
+  [ Haggai Eran ]
+  * Allow working without gettext.
+
+  [ Alon Amster ]
+  * Make the pdf font and margins smaller.
+
+  [ Ohad Lutzky ]
+
+ -- Ohad Lutzky <ohad@lutzky.net>  Fri, 04 Mar 2011 16:27:36 +0200
+
+ttime (0.9.3-2) maverick; urgency=low
+
+  [ Amit Elbaz ]
+  * added dependency on libglade2-ruby which was missing.
+
+ -- Ohad Lutzky <ohad@lutzky.net>  Fri, 14 Jan 2011 14:43:22 +0200
+
+ttime (0.9.3-1) lucid; urgency=low
+
+  [ Haggai Eran ]
+  * Add feature to export a schedule in iCal format.
+  * Try to get the code working with gettext 2.1
+
+  [ Ohad Lutzky ]
+  * More robust error handling for gettext
+
+ -- Ohad Lutzky <ohad@lutzky.net>  Sat, 14 Aug 2010 00:49:55 +0300
+
+ttime (0.9.2-1) karmic; urgency=low
+
+  [ Ohad Lutzky ]
+  * Fix parsing for unknown group types
+  * Fix warning for Ubuntu 8.10
+  * Fix crash for browsing schedules after auto update
+  * Fix crash for "Select All" in Group Constraints
+  * Fix false test collision for courses without Moed B
+
+  [ Haggai Eran ]
+  * Wrap calendar text at word boundaries.
+
+  [ Ohad Lutzky ]
+  * Add a "clear courses" option
+
+  [ boazg ]
+  * switched from glade to GtkBuilder'
+
+  [ Ohad Lutzky ]
+  * Remove more traces of glade
+  * ttime_win.bat should be CRLF-terminated
+  * Use batch files to set Hebrew environment
+  * Fix UDonkey link
+  * Debian packaging fixes
+
+ -- Ohad Lutzky <ohad@lutzky.net>  Fri, 19 Feb 2010 18:41:27 +0200
+
+ttime (0.9.1) unstable; urgency=low
+
+  * bugfix: Fix for REPY parsing
+  * bugfix: Fix PDF Export for Windows
+  * bugfix: minimal_running: Fix for events in same building, different rooms
+  * Margins for PDF files
+
+ -- Ohad Lutzky <ohad@lutzky.net>  Sun, 14 Sep 2008 23:37:56 +0300
+
+ttime (0.9) unstable; urgency=low
+
+  * bugfix: Crash when clicking day title in schedule
+  * bugfix: Crash on "Display Exam Schedule" when no exams
+  * PDF Export
+  * Configurable details for schedule
+  * [de-]Select all for Group Constraints
+  * Rating system
+
+ -- Ohad Lutzky <ohad@lutzky.net>  Tue, 09 Sep 2008 12:28:49 +0300
+
+ttime (0.8.5) unstable; urgency=low
+
+  * bugfix: File->Auto Update stopped working
+  * Date list for exam schedule
+  * Document the graphical course selection procedure
+  * More elegant course info display
+
+ -- Ohad Lutzky <ohad@lutzky.net>  Wed, 30 Jul 2008 18:02:07 +0300
+
+ttime (0.8.4) unstable; urgency=low
+
+  * Exam date collision detection
+  * Exam schedule
+
+ -- Ohad Lutzky <ohad@lutzky.net>  Wed, 23 Jul 2008 19:33:00 +0300
+
+ttime (0.8.3) unstable; urgency=low
+
+  * Automatic resizing in tcal - Friday now displayed properly
+  * Version now displayed in 'About' dialog
+  * Support for nicknames (short course names)
+  * Various cleanups and tweaks
+
+ -- Ohad Lutzky <ohad@lutzky.net>  Mon, 21 Jul 2008 12:09:30 +0300
+
+ttime (0.8.2) unstable; urgency=low
+
+  * Fix "About" dialog to close when hitting close
+  * Added options to save and load settings
+  * Small graphical tweaks
+  * Fixed some windows localization problems
+
+ -- Ohad Lutzky <ohad@lutzky.net>  Tue, 15 Jul 2008 00:17:05 +0300
+
+ttime (0.8.1) unstable; urgency=low
+
+  * Sports group numbers were reversed
+
+ -- Ohad Lutzky <ohad@lutzky.net>  Sun, 13 Jul 2008 10:27:53 +0300
+
+ttime (0.8) unstable; urgency=low
+
+  * Tagged v0.8
+
+ -- Ohad Lutzky <ohad@lutzky.net>  Sun, 13 Jul 2008 09:31:45 +0300
+
+ttime (0.2ubuntu1) hardy; urgency=low
+
+  * git-70ad3d: Look for constraints in appropriate places under the LOAD_PATH
+
+ -- Ohad Lutzky <ohad@lutzky.net>  Thu, 10 Jul 2008 23:52:53 +0300
+
+ttime (0.2) unstable; urgency=low
+
+  * Repackaged
+
+ -- Ohad Lutzky <ohad@lutzky.net>  Thu, 10 Jul 2008 21:07:12 +0300
+
+ttime (0.1-1) unstable; urgency=low
+
+  * Initial release
+
+ -- Boaz Goldstein <boaz@gezer.org.il>  Sat, 13 Jan 2007 17:16:53 +0200
+
