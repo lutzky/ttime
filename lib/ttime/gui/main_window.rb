@@ -719,7 +719,6 @@ module TTime
       end
 
       def export_ical
-        require 'rubygems'
         require 'ri_cal'
         require 'tzinfo'
         unless scheduler_ready?
