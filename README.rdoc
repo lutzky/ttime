@@ -79,7 +79,7 @@ To build your own packaging for Microsoft Windows:
    that `ruby-win\bin\ruby` leads to the interpreter)
 3. Install the following gems:
 
-  ruby-win\bin\gem install gtk2 gettext rsvg2 zip
+  ruby-win\bin\gem install gtk2 gettext rsvg2 zip libxml-ruby tzinfo
 
 == UDonkey's XML format (http://udonkey.com)
 
