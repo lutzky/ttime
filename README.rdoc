@@ -70,6 +70,17 @@ creating a file in your home directory,
   Another Very Long course name which couldn't possible fit in schedule
   Anothercourse
 
+== Microsoft Windows
+
+To build your own packaging for Microsoft Windows:
+
+1. Download Ruby 1.9 (from http://ruby-lang.org)
+2. Copy the installation to the ttime directory (so
+   that `ruby-win\bin\ruby` leads to the interpreter)
+3. Install the following gems:
+
+  ruby-win\bin\gem install gtk2 gettext rsvg2 zip
+
 == UDonkey's XML format (http://udonkey.com)
 
 We intend to be compatible with the UDonkey's XML format.  At this point, you
