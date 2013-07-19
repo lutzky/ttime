@@ -54,7 +54,7 @@ module TTime
           report _("Loading technion data")
 		  begin
         @data = File.open(MARSHAL_File) { |mf| Marshal.load(mf.read) }
-      rescue ArgumentError
+      rescue
         log.warn "Failed to open marshal file, reconverting REPY"
         download_repy unless File::exists?(REPY_File)
         @data = convert_repy
