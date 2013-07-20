@@ -1,6 +1,23 @@
 #!/usr/bin/make -f
+#
+# Uncomment to ignore all test failures (but the tests will run anyway)
+#export DH_RUBY_IGNORE_TESTS=all
+#
+# Uncomment to ignore some test failures (but the tests will run anyway).
+# Valid values:
+#export DH_RUBY_IGNORE_TESTS=ruby1.8 ruby1.9.1 require-rubygems
+#
+# If you need to specify the .gemspec (eg there is more than one)
+#export DH_RUBY_GEMSPEC=gem.gemspec
 
-include /usr/share/cdbs/1/rules/debhelper.mk
-include /usr/share/ruby-pkg-tools/1/class/ruby-setup-rb.mk
+override_dh_auto_configure:
+	ln -sf /usr/lib/ruby/vendor_ruby/setup.rb
+	rake set_deb_version
+	dh_auto_configure
 
-# Add here any variable or target overrides you need.
+override_dh_clean:
+	dh_clean
+	rake set_git_version
+
+%:
+	dh $@ --buildsystem=rubysetuprb --with ruby

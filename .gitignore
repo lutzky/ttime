@@ -2,7 +2,7 @@
 data
 debian/files
 debian/*.log
-debian-setup.rb
+setup.rb
 debian/*.substvars
 debian/ttime
 ditz

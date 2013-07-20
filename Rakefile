@@ -1,10 +1,3 @@
-begin
-  require 'rdoc/task'
-rescue LoadError
-  warn "Could not load rdoc task... trying to continue anyway"
-  Rake::RDocTask = nil
-end
-
 require 'fileutils'
 require 'tempfile'
 require 'rake/testtask'
@@ -24,52 +17,24 @@ end
   end
 end
 
-Rake::RDocTask.new("doc") do |rdoc|
-  rdoc.rdoc_dir = "doc"
-  rdoc.title = "TTime -- A Technion Timetable utility"
-  rdoc.main = "README.rdoc"
-  rdoc.rdoc_files.include('README.rdoc')
-  rdoc.rdoc_files.include('lib/**/*.rb')
-end unless Rake::RDocTask.nil?
-
-desc "Update version number"
-task :update_version do
-  if `git status | grep -vE '^(#|nothing to commit)'` != ''
-    $stderr.puts "fatal: Working copy unclean"
-    system("git status")
-    raise "fatal: Working copy unclean"
-  end
-  new_version = ENV['TTIME_VERSION'].dup
-  raise "Usage: #{ARGV[0]} TTIME_VERSION=[version]" unless new_version
-  new_version.sub!(/^v/,'')
-  write_version_file(new_version)
-  system "git add #{VERSION_FILE} && " \
-         "git commit -m 'Update version number to #{new_version}' && " \
-         "git tag v#{new_version}"
-end
-
 Rake::TestTask.new do |t|
   t.libs << "test"
   t.test_files = FileList['test/test*.rb']
   t.verbose = true
 end
 
-desc "Generate ditz html pages"
-task :ditz_html do
-  `ditz html ditz`
-end
-
 # Base path for SSH uploads (in scp syntax)
 WebsiteSSHBasePath = "lutzky.net:public_html/ttime/"
 
-desc "Upload documentation and ditz pages"
-task :upload_html => [ :doc, :ditz_html ] do
-  `rsync -r ditz doc #{WebsiteSSHBasePath}`
+desc "Write version number according to Debian changelog"
+task :set_deb_version do
+  version=`dpkg-parsechangelog | awk '/^Version:/ {print $2}'`.rstrip
+  write_version_file version
 end
 
-desc "Find all FIXME comments"
-task :fixme do
-  puts `grep -r FIXME * | grep -v '.git'`
+desc "Write 'git' version number"
+task :set_git_version do
+  write_version_file '[git]'
 end
 
 desc "Create mo-files for L10n"
@@ -95,13 +60,4 @@ task :updatepo do
                          Dir.glob("data/ttime/*.ui") +
                          [ "bin/ttime" ],
                          "ttime 0.x.x")
-end
-
-desc "Zip up relevant windows package files (without Ruby)"
-task :winbuild => [ :makemo ] do
-  with_version do
-    FileUtils::copy_file "debian/changelog", "./changelog"
-    `zip -r ttime_win.zip ttime_win.bat bin data lib README.rdoc`
-    File::unlink "changelog"
-  end
 end
