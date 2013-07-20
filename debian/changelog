@@ -1,3 +1,13 @@
+ttime (0.9.5) raring; urgency=low
+
+  * Ruby1.9 support (ruby1.8 works, but deprecated)
+  * Improved encoding support for Ruby1.9
+  * repy: Explicit format for date parsing
+  * Fix treatment of weird courses with tack-on labs
+  * Various other fixes
+
+ -- Ohad Lutzky <ohad@lutzky.net>  Fri, 19 Jul 2013 19:40:56 +0300
+
 ttime (0.9.4-2) precise; urgency=low
 
   * Update dependencies for Natty
