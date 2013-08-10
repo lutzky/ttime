@@ -1,161 +1,257 @@
-<html>
+<html lang="en">
   <head>
     <title>TTime - Technion TimeTable Utility</title>
-    <style>
-	    .screenshot {
-		    margin-left: 3em;
-	    }
-	    pre {
-		    border: 1px solid black;
-		    background: #eee;
-		    margin: 2em;
-		    padding: 1em;
-	    }
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <style type="text/css">
+      body {
+        padding: 0;
+      }
+
+      .container {
+        padding: 10px;
+      }
+
+
+      footer {
+        margin-top: 50px;
+        background: #eee;
+        border-top: 1px solid #999;
+        color: #666;
+        text-align: center;
+        padding: 20px;
+      }
+
+      #screenshotscarousel div.carousel-inner div.item {
+        background: black;
+        width: 100%;
+        height: 673px;
+      }
+
+      #screenshotscarousel div.carousel-inner div.item img {
+        margin: auto;
+      }
     </style>
+
   </head>
 
   <body>
-    <h1>
-      <img alt="TTime - Technion Timetable Utility" src="ttime_logo.png" height="73" width="236" />
-    </h1>
+    <div class="container">
+      <div class="hero-unit">
+        <h1>
+          <img alt="TTime Logo" src="ttime_logo.png" height="73" width="76" />
+          TTime <small>Technion Timetable utility</small>
+        </h1>
 
-    <p>TTime is (breath) a rewrite of a fork of a replacement of an updated
-    version of software intended to help Technion students organize their
-    timetables. (That was UDonkey-mono, UDonkey.Net, Marprog-Windows,
-    Marprog-DOS). It automatically fetches its data from the Technion, and then
-    generates automated schedules for the user according to his selections. We
-    intend to make this program easy-to-use and extensible.</p>
+        <p>TTime allows you to easily create a Technion timetable. It
+        automatically fetches the latest available course data, and generates
+        possible schedules based on your preferences.</p>
 
-    <p>While this is technically a rewrite, a lot of concepts and code were
-    borrowed from UDonkey, so thanks!</p>
+        <p>
+        <a href="https://github.com/lutzky/ttime/releases"
+          class="btn btn-primary btn-large"><i class="icon-download-alt icon-white"></i> Download</a>
+        <a href="https://launchpad.net/~lutzky/+archive/ttime"
+          class="btn btn-large"><i class="icon-refresh"></i> Ubuntu PPA</a>
+        <a href="https://github.com/lutzky/ttime/releases/tag/windows/0.9.1"
+          class="btn btn-large">Download 0.9.1 for Windows</a>
+        </p>
+      </div>
 
-    <p><a href="#vs_udonkey">More about TTime vs. UDonkey</a></p>
+      <div style="margin-top: 1em" class="row">
+        <a name="screenshots"></a>
+        <div id="screenshotscarousel" class="carousel slide">
+          <ol class="carousel-indicators">
+            <li data-target="#screenshotscarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#screenshotscarousel" data-slide-to="1"></li>
+            <li data-target="#screenshotscarousel" data-slide-to="2"></li>
+            <li data-target="#screenshotscarousel" data-slide-to="3"></li>
+            <li data-target="#screenshotscarousel" data-slide-to="4"></li>
+            <li data-target="#screenshotscarousel" data-slide-to="5"></li>
+          </ol>
+          <div class="carousel-inner">
+            <div class="item active">
+              <img src="secreenshot-main.png" width="817" height="673" />
+              <div class="carousel-caption">
+                <h4>Course selection</h4>
+                <p>The main view, displaying the course list (filtered by a search) and the
+                currently selected courses.  Note that the search was performed by the
+                course's nickname, not its full name.</p>
+              </div>
+            </div>
+            <div class="item">
+              <img src="screenshot-exam-sched.png" width="277" height="310" />
+              <div class="carousel-caption">
+                <h4>Exam schedule</h4>
+                <p>The exam schedule, generated from the selected courses.</p>
+              </div>
+            </div>
+            <div class="item">
+              <img src="screenshot-group-selection.png" width="817" height="673" />
+              <div class="carousel-caption">
+                <h4>Group selection</h4>
+                <p>The Constraints tab allows you to show only schedules
+                matching the selected contraints. All constraints are optional,
+                including the "<i>No clashes</i>" constraint (so schedules with
+                clashes can be found).</p>
+              </div> 
+            </div>
+            <div class="item">
+              <img src="screenshot-sched.png" width="817" height="673" />
+              <div class="carousel-caption">
+                <h4>Schedule view</h4>
+              </div>
+            </div>
+            <div class="item">
+              <img src="screenshot-multisched.png" width="817" height="673" />
+              <div class="carousel-caption">
+                <h4>Multi-schedule</h4>
+                <p>Showing alternatives for the "Intro to CS" tutorial.</p>
+              </div>
+            </div>
+            <div class="item">
+              <img src="screenshot-sorting-prefs.png" width="817" height="673" />
 
-    <h2>Download</h2>
+              <div class="carousel-caption">
+                <h4>Ratings</h4>
+                <p>Schedule rating priorities allows you to decide which schedules will
+                be written first.</p>
+              </div>
+            </div>
+          </div>
+          <a class="carousel-control left" href="#screenshotscarousel" data-slide="prev">&lsaquo;</a>
+          <a class="carousel-control right" href="#screenshotscarousel" data-slide="next">&rsaquo;</a>
+        </div>
 
-    <p>There are three options for downloading TTime:</p>
+      </div>
 
-    <ul>
-	    <li><a href="http://github.com/lutzky/ttime/zipball/windows/0.9.1">Windows Binary</a>
-	    (includes Ruby and additional libraries)</li>
-	    <li><a href="http://github.com/downloads/lutzky/ttime/ttime_0.9.4-2_all.deb">ttime_0.9.4-2_all.deb</a> - Ubuntu/Debian package (<a href="http://github.com/lutzky/ttime/blob/debian/debian/changelog">changelog</a>)</li>
-	    <li><a href="http://github.com/lutzky/ttime/zipball/master">Git Snapshot</a> (even less stable!)</li>
-    </ul>
+      <div class="row">
+        <div class="span4">
+          <h2>History</h2>
 
-    Having problems? Want to suggest a feature? Head on over to <a
-	    href="http://groups.google.com/group/ttime">our mailing list</a>
-    (technically a google group).
+          <p>TTime is (breath) a rewrite of a fork of a replacement of an updated
+          version of software intended to help Technion students organize their
+          timetables. (That was UDonkey-mono, UDonkey.Net, Marprog-Windows,
+          Marprog-DOS). It automatically fetches its data from the Technion, and then
+          generates automated schedules for the user according to his selections. We
+          intend to make this program easy-to-use and extensible.</p>
 
-    <h2>Developers</h2>
+          <p>While this is technically a rewrite, a lot of concepts and code were
+          borrowed from UDonkey, so thanks!</p>
 
-    Want a crack at the source code? Interested in developing new Constraint or
-    Rating plugins? Check out
-    <a href="http://github.com/lutzky/ttime">the Git repository</a> for the
-    source code. To get hacking quickly,
-    <a href="http://git-scm.org">install git</a>
-    and clone the repository:
+          <p><a class="btn" href="#vs_udonkey">TTime vs. UDonkey &raquo;</a></p>
+        </div>
 
-    <pre>
-    git clone git://github.com/lutzky/ttime.git</pre>
+        <div class="span4">
+          <h2>Downloads</h2>
 
-    <h2>Screenshots</h2>
+          <p><b>Ubuntu</b> users can install directly from the <a
+            href="https://launchpad.net/~lutzky/+archive/ttime">TTime PPA</a>
+          (see "Adding this PPA to your system"). This provides automatic
+          updates when new versions are released. Alternatively, <tt>deb</tt>
+          packages are available through the <a
+            href="https://github.com/lutzky/ttime/releases">releases
+            page</a>. These packages are only tested with Ubuntu, but may be
+          suitable for other Debian-based distributions.</p>
 
-    <p>The following screenshots are from the Hebrew version.</p>
+          <p><b>Windows</b> users who want a simple installation will not
+          always get the latest version, as the packaging takes more time. If
+          you want to help, contact the author through Github.</p>
 
-    <p>The main view, displaying the course list (filtered by a search) and the
-    currently selected courses.  Note that the search was performed by the
-    course's nickname, not its full name.</p>
+          <p>For the latest version, you can directly downlad the source at our
+          <a href="https://github.com/lutzky/ttime">github</a> page. The
+          <tt>README</tt> file has instructions for installing on generic Linux
+          systems and Windows.</p>
+        </div>
 
-    <img class="screenshot" src="secreenshot-main.png" width="817" height="673" alt="screenshot" />
+        <div class="span4">
+          <h2>Developers</h2>
 
-    <p>The exam schedule, generated from the selected courses.</p>
+          Want a crack at the source code? Interested in developing new Constraint or
+          Rating plugins? Check us out at Github.
 
-    <img class="screenshot" src="screenshot-exam-sched.png" width="277" height="310" alt="Exam Schedule screenshot" />
+          <p><a href="https://github.com/lutzky/ttime" class="btn">TTime Github
+            &raquo;</a></p>
+        </div>
+      </div>
 
-    <p>The Constraints tab allows you to show only schedules matching the
-    selected contraints. All constraints are optional, including the "<i>No
-	    clashes</i>" constraint (so schedules with clashes can be
-    found).</p>
+      <div class="row">
+        <h1><a name="vs_udonkey"></a>More about TTime vs. UDonkey</h1>
 
-    <img class="screenshot" src="screenshot-group-selection.png" width="817" height="673" alt="screenshot" />
+        <p>In the beginning, there was MarProg, an ancient program for
+        working with REPY files, for which the lore (and source code) have
+        been lost in the mists of time... This program was available for DOS
+        and WIN32 (essentially, Windows 95).</p>
 
-    <p>The standard schedule view.</p>
+        <p>Then there was UDonkey, written by Yehuda Arkin, Alon Jacobi,
+        Yaniv Raziel and Yaniv Gardi, as a project for the Technion EE
+        faculty, under the supervision of Nissim Natanov and Dr. Ilana
+        David. This program was written in C#, but has only been tested
+        under Windows (e.g., not on Linux). The source code for UDonkey was
+        made available.</p>
 
-    <img class="screenshot" src="screenshot-sched.png" width="817" height="673" alt="screenshot" />
+        <p>A group of students - namely, Haggai Eran, Boaz Goldstein and
+        myself (Ohad Lutzky), started hacking at UDonkey to get it to work
+        under Linux (using Mono), but eventually decided to rewrite it in
+        Ruby. This was a hobbyist project (i.e., no academic points were
+        granted).</p>
 
-    <p>The multi-schedule feature, showing alternatives for the "Intro to CS"
-    tutorial.</p>
+        <p>Since we get asked about this a lot, here is a summary of the
+        differences between UDonkey (as described on September 18th, 2009)
+        and TTime 0.9.1.</p>
 
-    <img class="screenshot" src="screenshot-multisched.png" width="817" height="673" alt="screenshot" />
+        <p>Here are some things UDonkey does better than TTime:</p>
+        <ul>
+          <li>Better Windows compatibility - written in C#, which is a
+          first-class citizen on modern Windows operating
+          systems.</li>
+          <li>Full XML support - the REPY file gets converted into an
+          XML file first, which UDonkey operates directly on. The
+          support for this in TTime is experimental, and considered
+          second-class (at least until the Technion starts offering
+          compatible XML files officially).</li>
+          <li>Export schedule to HTML for easy printing using a
+          browser. (TTime exports to PDF for printing).</li>
+          <li>Export course information to HTML.</li>
+          <li>Allows users to define their own events.</li>
+          <li>Allows the inclusion of any set of days in the schedule,
+          including Friday and Saturday.</li>
+          <li>Automatically joins parallel lectures and tutorials held
+          in the same day at the same time.</a>
+      </ul>
 
-    <p>Schedule rating priorities allows you to decide which schedules will
-    be written first.</p>
+      <p>Here are some things TTime does better than UDonkey:</p>
 
-    <img class="screenshot" src="screenshot-sorting-prefs.png" width="817" height="673" alt="screenshot" />
+      <ul>
+        <li>Better Linux support, with very easy installation on
+        Debian and Ubuntu systems (dependencies are managed
+        automatically).</li>
+        <li>Much, <i>much</i> faster parsing of REPY files.</li>
+        <li>Simpler, friendlier user interface, written according to
+        the Human Interface Guidelines. Also, supports window
+        resizing.</li>
+        <li>Very flexible constraint and sorting system, right up to
+        optimizing the schedule for minimal running between
+        buildings (when there is no break).</li>
+        <li>Manual-Dynamic style schedule building, as suggested by
+        Tom Meiri - all options are displayed side-by-side, and the
+        user manually makes his choice. This has been compared to
+        planning your schedule using Excel or slides, but without
+        errors copying from the UG site.</li>
+        <li>UI available in English and Hebrew.</li>
+      </ul>
+    </div>
 
-    <h2><a name="vs_udonkey" />More about TTime vs. UDonkey</h2>
+    </div>
+    <a href="https://github.com/lutzky/ttime"><img style="z-index: 2000; position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
 
-	    <p>In the beginning, there was MarProg, an ancient program for
-	    working with REPY files, for which the lore (and source code) have
-	    been lost in the mists of time... This program was available for DOS
-	    and WIN32 (essentially, Windows 95).</p>
+    <footer class="footer">
+      <p>Designed by Ohad Lutzky with plenty of <a href="http://getbootstrap.com">Bootstrap</a>.</p>
+      <p><a href="http://glyphicons.com">Glyphicons Free</a> licensed under <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</p>
+    </footer>
 
-	    <p>Then there was UDonkey, written by Yehuda Arkin, Alon Jacobi,
-	    Yaniv Raziel and Yaniv Gardi, as a project for the Technion EE
-	    faculty, under the supervision of Nissim Natanov and Dr. Ilana
-	    David. This program was written in C#, but has only been tested
-	    under Windows (e.g., not on Linux). The source code for UDonkey was
-	    made available.</p>
-
-	    <p>A group of students - namely, Haggai Eran, Boaz Goldstein and
-	    myself (Ohad Lutzky), started hacking at UDonkey to get it to work
-	    under Linux (using Mono), but eventually decided to rewrite it in
-	    Ruby. This was a hobbyist project (i.e., no academic points were
-	    granted).</p>
-
-	    <p>Since we get asked about this a lot, here is a summary of the
-	    differences between UDonkey (as described on September 18th, 2009)
-	    and TTime 0.9.1.</p>
-
-	    <p>Here are some things UDonkey does better than TTime:</p>
-	    <ul>
-		    <li>Better Windows compatibility - written in C#, which is a
-		    first-class citizen on modern Windows operating
-		    systems.</li>
-		    <li>Full XML support - the REPY file gets converted into an
-		    XML file first, which UDonkey operates directly on. The
-		    support for this in TTime is experimental, and considered
-		    second-class (at least until the Technion starts offering
-		    compatible XML files officially).</li>
-		    <li>Export schedule to HTML for easy printing using a
-		    browser. (TTime exports to PDF for printing).</li>
-		    <li>Export course information to HTML.</li>
-		    <li>Allows users to define their own events.</li>
-		    <li>Allows the inclusion of any set of days in the schedule,
-		    including Friday and Saturday.</li>
-		    <li>Automatically joins parallel lectures and tutorials held
-		    in the same day at the same time.</a>
-	    </ul>
-
-	    <p>Here are some things TTime does better than UDonkey:</p>
-
-	    <ul>
-		    <li>Better Linux support, with very easy installation on
-		    Debian and Ubuntu systems (dependencies are managed
-		    automatically).</li>
-		    <li>Much, <i>much</i> faster parsing of REPY files.</li>
-		    <li>Simpler, friendlier user interface, written according to
-		    the Human Interface Guidelines. Also, supports window
-		    resizing.</li>
-		    <li>Very flexible constraint and sorting system, right up to
-		    optimizing the schedule for minimal running between
-		    buildings (when there is no break).</li>
-		    <li>Manual-Dynamic style schedule building, as suggested by
-		    Tom Meiri - all options are displayed side-by-side, and the
-		    user manually makes his choice. This has been compared to
-		    planning your schedule using Excel or slides, but without
-		    errors copying from the UG site.</li>
-		    <li>UI available in English and Hebrew.</li>
-	    </ul>
+    <script src="jquery-1.10.2.min.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
   </body>
 </html>
+
+<!-- vim: set et sw=2 ts=2 sts=2: -->
