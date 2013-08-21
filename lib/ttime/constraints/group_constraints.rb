@@ -199,7 +199,9 @@ module TTime
               [ _("Select none"), lambda { select_none } ],
             ].each do |label, block|
               mi = Gtk::MenuItem.new label
-              mi.signal_connect("activate", &block)
+              mi.signal_connect("activate"){
+                block.call()
+              }
               menu.append mi
             end
             menu.show_all
