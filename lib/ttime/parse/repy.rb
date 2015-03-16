@@ -186,6 +186,9 @@ module TTime
 
       def parse_course_header header
         arr = Expr[:course_head].match header
+        unless arr
+          raise "Invalid course header: #{header}"
+        end
         begin
           number = arr[1].reverse
           name = arr[2].strip.squeeze(" ")
