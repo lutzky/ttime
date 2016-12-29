@@ -46,4 +46,5 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency "zip",         [">= 2.0"]
   s.add_runtime_dependency "libxml-ruby", [">= 2.3"]
   s.add_runtime_dependency "tzinfo",      [">= 0.3"]
+  s.add_runtime_dependency "test-unit"
 end
