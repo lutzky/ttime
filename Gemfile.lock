@@ -40,6 +40,7 @@ GEM
       glib2 (= 3.1.0)
     pkg-config (1.1.7)
     power_assert (0.4.1)
+    rake (10.3.2)
     rsvg2 (3.1.0)
       cairo (>= 1.12.8)
       gdk_pixbuf2 (= 3.1.0)
@@ -55,4 +56,5 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  rake
   ttime!
