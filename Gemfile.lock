@@ -1,0 +1,54 @@
+PATH
+  remote: .
+  specs:
+    ttime (0.9.5)
+      gettext (>= 2.2)
+      gtk2 (>= 1.1)
+      libxml-ruby (>= 2.3)
+      rsvg2 (>= 1.1)
+      tzinfo (>= 0.3)
+      zip (>= 2.0)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    atk (3.1.0)
+      glib2 (= 3.1.0)
+    cairo (1.15.3)
+      pkg-config (>= 1.1.5)
+    gdk_pixbuf2 (3.1.0)
+      gio2 (= 3.1.0)
+    gettext (3.2.2)
+      locale (>= 2.0.5)
+      text (>= 1.3.0)
+    gio2 (3.1.0)
+      glib2 (= 3.1.0)
+      gobject-introspection (= 3.1.0)
+    glib2 (3.1.0)
+      pkg-config
+    gobject-introspection (3.1.0)
+      glib2 (= 3.1.0)
+    gtk2 (3.1.0)
+      atk (= 3.1.0)
+      gdk_pixbuf2 (= 3.1.0)
+      pango (= 3.1.0)
+    libxml-ruby (2.9.0)
+    locale (2.1.2)
+    pango (3.1.0)
+      cairo (>= 1.14.0)
+      glib2 (= 3.1.0)
+    pkg-config (1.1.7)
+    rsvg2 (3.1.0)
+      cairo (>= 1.12.8)
+      gdk_pixbuf2 (= 3.1.0)
+    text (1.3.1)
+    thread_safe (0.3.5)
+    tzinfo (1.2.2)
+      thread_safe (~> 0.1)
+    zip (2.0.2)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  ttime!
