@@ -1,5 +1,8 @@
 # encoding: utf-8
 
+require 'coveralls'
+Coveralls.wear!
+
 require 'ttime/parse/repy'
 require 'test/unit'
 require 'ttime/encoding'
