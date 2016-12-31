@@ -2,6 +2,8 @@ require 'fileutils'
 require 'tempfile'
 require 'rake/testtask'
 
+task :default => [:test]
+
 VERSION_FILE = "lib/ttime/version.rb"
 
 def write_version_file(version)
