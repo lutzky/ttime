@@ -1,4 +1,6 @@
+.bundle
 .config-ttime
+coverage/
 data
 debian/files
 debian/*.log
@@ -9,3 +11,4 @@ ditz
 doc
 InstalledFiles
 ruby-win
+vendor/
