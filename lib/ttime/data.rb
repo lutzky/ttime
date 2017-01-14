@@ -149,7 +149,6 @@ module TTime
               open(REPY_File, "w") do |dest_file|
                   dest_file.write zis.read
               end
-              return
           end
       end
     end
