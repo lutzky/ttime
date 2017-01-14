@@ -104,7 +104,8 @@ module TTime
 
     REPY_Zip_filename = "REPFILE.zip"
     REPY_Zip = DATA_DIR + REPY_Zip_filename
-    REPY_File = DATA_DIR + "REPY"
+    REPY_File_Basename = "REPY"
+    REPY_File = DATA_DIR + REPY_File_Basename
     REPY_URI = "http://ug.technion.ac.il/rep/REPFILE.zip"
     YAML_File = DATA_DIR + "technion.yml"
     MARSHAL_File = DATA_DIR + "technion.mrshl"
@@ -137,10 +138,18 @@ module TTime
           require 'zip/zip'
 
           Zip::ZipInputStream.open(tf.path) do |zis|
-              entry = zis.get_next_entry
+              while entry = zis.get_next_entry and \
+			    entry.name != REPY_File_Basename
+		puts "Looking at file #{entry.name}"
+	      end
+	      if entry.nil?
+	        raise "Could not find file #{REPY_File_Basename.inspect} " \
+			"in #{REPY_URI}"
+              end
               open(REPY_File, "w") do |dest_file|
                   dest_file.write zis.read
               end
+              return
           end
       end
     end
